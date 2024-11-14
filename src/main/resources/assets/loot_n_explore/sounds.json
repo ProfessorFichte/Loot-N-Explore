@@ -1,0 +1,32 @@
+{
+  "entity.glaze.hurt": {
+    "sounds": [
+      "loot_n_explore:mob/glaze/hit1",
+      "loot_n_explore:mob/glaze/hit2",
+      "loot_n_explore:mob/glaze/hit3"
+    ]
+  },
+  "entity.glaze.ambient": {
+    "sounds": [
+      "loot_n_explore:mob/glaze/breathe1",
+      "loot_n_explore:mob/glaze/breathe2",
+      "loot_n_explore:mob/glaze/breathe3",
+      "loot_n_explore:mob/glaze/breathe4"
+    ]
+  },
+  "entity.glaze.death": {
+    "sounds": [
+      "loot_n_explore:mob/glaze/death"
+    ]
+  },
+  "entity.glaze.freeze": {
+    "sounds": [
+      "loot_n_explore:mob/glaze/freeze"
+    ]
+  },
+  "villager.innkeeper": {
+    "sounds": [
+      "loot_n_explore:villager/innkeeper"
+    ]
+  }
+}

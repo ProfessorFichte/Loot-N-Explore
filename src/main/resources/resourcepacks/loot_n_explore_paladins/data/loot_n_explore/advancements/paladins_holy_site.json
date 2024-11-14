@@ -1,0 +1,45 @@
+{
+  "parent": "loot_n_explore:paladins_shrine",
+  "criteria": {
+    "paladins_holy_site": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "loot_n_explore:paladins_small_church"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "hidden": false,
+    "show_toast": true,
+    "frame": "challenge",
+    "icon": {
+      "item": "paladins:holy_wand"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.paladins_holy_site.title"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.paladins_holy_site.description"
+    }
+  },
+  "requirements": [
+    [
+      "paladins_holy_site"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": false
+}

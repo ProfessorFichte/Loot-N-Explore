@@ -1,0 +1,6 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "loot_n_explore:item/bow_pulling/ender_dragon_bow_pulling_2"
+  }
+}

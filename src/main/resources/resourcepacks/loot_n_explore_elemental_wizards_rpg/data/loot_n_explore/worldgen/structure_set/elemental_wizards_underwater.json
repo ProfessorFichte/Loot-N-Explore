@@ -1,0 +1,22 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:elemental_wizards_water_tower",
+      "weight": 3
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:shipwrecks",
+        "minecraft:ocean_ruins",
+        "minecraft:ocean_monuments"
+      ],
+      "chunk_count": 20
+    },
+    "type": "minecraft:random_spread",
+    "spacing": 40,
+    "separation": 15,
+    "salt": 61843523
+  }
+}

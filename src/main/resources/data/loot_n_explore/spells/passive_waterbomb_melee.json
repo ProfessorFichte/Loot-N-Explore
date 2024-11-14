@@ -1,0 +1,94 @@
+{
+  "range": 2.5,
+  "school": "WATER",
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 0
+  },
+  "release": {
+    "target": {
+      "type": "AREA",
+      "area": {
+        "distance_dropoff": "NONE",
+        "angle_degrees": 360.0
+      }
+    },
+    "sound": {
+      "id": "block.bubble_column.whirlpool_ambient"
+    },
+    "particles": [
+      {
+        "particle_id": "more_rpg_classes:big_splash",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 5.0,
+        "min_speed": 0.05,
+        "max_speed": 0.1
+      },
+      {
+        "particle_id": "more_rpg_classes:water_splash",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 2.0,
+        "min_speed": 0.2,
+        "max_speed": 0.5
+      }
+    ]
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.5
+        }
+      },
+
+      "sound": {
+        "id": "more_rpg_classes:water_magic_impact1",
+        "volume": 0.4
+      },
+      "particles": [
+        {
+          "particle_id": "more_rpg_classes:big_splash",
+          "shape": "PILLAR",
+          "origin": "FEET",
+          "count": 20,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:splash",
+          "shape": "CIRCLE",
+          "origin": "FEET",
+          "count": 15.0,
+          "min_speed": 0.05,
+          "max_speed": 0.2
+        },
+        {
+          "particle_id": "more_rpg_classes:splash",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 25.0,
+          "min_speed": 1.0,
+          "max_speed": 1.2
+        },
+        {
+          "particle_id": "more_rpg_classes:water_circle",
+          "shape": "CIRCLE",
+          "origin": "FEET",
+          "count": 1.0,
+          "min_speed": 0.2,
+          "max_speed": 1.0
+        }
+      ]
+    }
+  ],
+  "cost": {
+    "durability": 1,
+    "cooldown_duration": 7,
+    "cooldown_haste_affected": "false"
+  }
+}

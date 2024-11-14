@@ -1,0 +1,6 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "loot_n_explore:item/bow_pulling/elder_guardian_bow_pulling_1"
+  }
+}

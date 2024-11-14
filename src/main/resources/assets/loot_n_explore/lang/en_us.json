@@ -1,0 +1,98 @@
+{
+  "itemGroup.loot_n_explore.loot.general": "RPG Loot",
+  "itemGroup.loot_n_explore.food.general": "Innkeeper Items",
+
+  "item.loot_n_explore.ender_dragon_sword": "Dragon slayer",
+  "item.loot_n_explore.ender_dragon_bow": "End-Crystal Bow",
+  "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
+  "spell.loot_n_explore.passive_dragonclaw.name": "Passive: Dragonclaw",
+  "spell.loot_n_explore.passive_dragonclaw.description": "Slashing attack that deals single target arcane-spell damage.",
+
+
+  "item.loot_n_explore.elder_guardian_sword": "Leviathan",
+  "item.loot_n_explore.elder_guardian_bow": "Nemo´s Fury",
+  "item.loot_n_explore.elder_guardian_axe": "Nautilus",
+  "item.loot_n_explore.elder_guardian_double_axe": "Tidal Cleaver",
+  "item.loot_n_explore.elder_guardian_glaive": "Sea Serpent's Fang",
+  "item.loot_n_explore.elder_guardian_dagger": "Siren's Sting",
+  "item.loot_n_explore.elder_guardian_sickle": "Abyssal Reaper",
+  "item.loot_n_explore.elder_guardian_spear": "Leviathan's Pike",
+  "item.loot_n_explore.elder_guardian_claymore": "Sea King's Blade",
+  "spell.loot_n_explore.passive_waterbomb_melee.name": "Passive: Waterbomb",
+  "spell.loot_n_explore.passive_waterbomb_melee.description": "Dealing water-spell damage around the target.",
+  "lore.loot_n_explore.elder_guardian_weapon": "Formed over the ages deep within the watery sands of an Abyssal Cove.",
+
+  "item.loot_n_explore.wither_sword": "Withered Sword",
+  "item.loot_n_explore.wither_bow": "Withered Bow",
+  "item.loot_n_explore.wither_axe": "Withered Axe",
+
+  "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
+  "item.loot_n_explore.orange_juice": "Orange Juice",
+  "item.loot_n_explore.watermelon_drink": "Watermelon Drink",
+  "item.loot_n_explore.fruit_icewater": "Fruit Icewater",
+  "item.loot_n_explore.hot_chocolate": "Hot Chocolate",
+  "item.loot_n_explore.apple_juice": "Apple Juice",
+  "item.loot_n_explore.chorus_extract": "Chorus Extract",
+  "item.loot_n_explore.hot_chilli": "Hot Chilli",
+  "item.loot_n_explore.sweet_chilli": "Sweet Chilli",
+  "item.loot_n_explore.green_chilli": "Green Chilli",
+  "item.loot_n_explore.blue_berry_punch": "Aether Blueberry Punch",
+  "item.loot_n_explore.holy_water": "Holy Water",
+  "item.loot_n_explore.potato_soup": "Potato Soup",
+
+  "item.loot_n_explore.waldmeister": "Waldmeister",
+  "item.loot_n_explore.malt_extract": "Malt Extract",
+  "item.loot_n_explore.beet_rootbeer": "Beet Rootbeer",
+  "item.loot_n_explore.enchanted_ale": "Enchanted Ale",
+
+  "item.loot_n_explore.wizards_elixir": "Wizards Elixir",
+  "item.loot_n_explore.espresso": "Strong Espresso",
+  "item.loot_n_explore.vital_drink": "Vital Drink",
+  "item.loot_n_explore.forrest_spirit": "Forrest Spirit",
+
+
+  "smithing_template.loot_n_explore.ender_dragon.applies_to": "Bow, Diamond Equipment",
+  "smithing_template.loot_n_explore.ender_dragon.ingredients": "?Test",
+  "smithing_template.loot_n_explore.ender_dragon.title": "Ender Dragon Upgrade",
+  "smithing_template.loot_n_explore.ender_dragon.base_slot_description": "Put a Bow or Diamond Weapons here.",
+  "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "?Test",
+
+  "smithing_template.loot_n_explore.elder_guardian.applies_to": "Bow, Diamond Equipment",
+  "smithing_template.loot_n_explore.elder_guardian.ingredients": "?Test",
+  "smithing_template.loot_n_explore.elder_guardian.title": "Elder Guardian Upgrade",
+  "smithing_template.loot_n_explore.elder_guardian.base_slot_description": "Put a Bow or Diamond Weapons here.",
+  "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "?Test",
+
+  "smithing_template.loot_n_explore.wither.applies_to": "Bow, Diamond Equipment",
+  "smithing_template.loot_n_explore.wither.ingredients": "?Test",
+  "smithing_template.loot_n_explore.wither.title": "Wither Upgrade",
+  "smithing_template.loot_n_explore.wither.base_slot_description": "Put a Bow or Diamond Weapons here.",
+  "smithing_template.loot_n_explore.wither.additions_slot_description": "?Test",
+
+
+  "filled_map.loot_n_explore.archers_outposts": "Hidden Ranger Outpost Map",
+  "filled_map.loot_n_explore.archers_camps": "Hidden Ranger Camp Map",
+  "filled_map.loot_n_explore.paladins_churches": "Holy Building",
+
+  "filled_map.loot_n_explore.monster_quest": "Please help us and eliminate the threats nearby!",
+
+  "effect.loot_n_explore.innkeepers_proviant": "Innkeepers Proviant",
+  "entity.minecraft.villager.innkeeper": "Innkeeper",
+
+  "advancements.loot_n_explore.archers_treasure.title": "Find a hidden Ranger Treasure",
+  "advancements.loot_n_explore.archers_treasure.description": "Buried in the Forest",
+  "advancements.loot_n_explore.archers_outpost.title": "Secured area",
+  "advancements.loot_n_explore.archers_outpost.description": "Locate a Ranger Outpost in deep in the forest",
+  "advancements.loot_n_explore.archers_camps.title": "Shadows in the woods",
+  "advancements.loot_n_explore.archers_camps.description": "Locate a secret ranger camp",
+
+  "advancements.loot_n_explore.paladins_join.title": "Paladin Recruit",
+  "advancements.loot_n_explore.paladins_join.description": "Join the paladin recruits at a paladin recruitment!",
+  "advancements.loot_n_explore.paladins_shrine.title": "Holy Order!",
+  "advancements.loot_n_explore.paladins_shrine.description": "Find a holy order shrine",
+  "advancements.loot_n_explore.paladins_holy_site.title": "",
+  "advancements.loot_n_explore.paladins_holy_site.description": "",
+
+
+  "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!"
+}

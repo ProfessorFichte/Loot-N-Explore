@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "loot_n_explore:item/ender_dragon_sword"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:plains_inn",
+      "weight": 5
+    },
+    {
+      "structure": "loot_n_explore:desert_inn",
+      "weight": 5
+    },
+    {
+      "structure": "loot_n_explore:badlands_inn",
+      "weight": 5
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:villages"
+      ],
+      "chunk_count": 15
+    },
+    "type": "minecraft:random_spread",
+    "separation": 20,
+    "spacing": 32,
+    "salt": 1243492142
+  }
+}

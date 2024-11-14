@@ -1,0 +1,20 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:wizards_fire_tower",
+      "weight": 3
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:nether_complexes"
+      ],
+      "chunk_count": 20
+    },
+    "type": "minecraft:random_spread",
+    "spacing": 50,
+    "separation": 30,
+    "salt": 1597775087
+  }
+}

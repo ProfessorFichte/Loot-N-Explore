@@ -1,0 +1,6 @@
+{
+  "parent": "rogues:item/base/double_axe_20",
+  "textures": {
+    "layer0": "loot_n_explore:item/ender_dragon_double_axe"
+  }
+}

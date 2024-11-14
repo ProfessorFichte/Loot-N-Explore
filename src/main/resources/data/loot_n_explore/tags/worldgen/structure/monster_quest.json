@@ -1,0 +1,28 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:cave_spider_room",
+    "loot_n_explore:dry_monster_rooms",
+    "loot_n_explore:cold_monster_rooms",
+
+    "minecraft:pillager_outpost",
+
+
+    {
+      "id": "betterdungeons:skeleton_dungeon",
+      "required": false
+    },
+    {
+      "id": "betterdungeons:small_dungeon",
+      "required": false
+    },
+    {
+      "id": "betterdungeons:spider_dungeon",
+      "required": false
+    },
+    {
+      "id": "betterdungeons:zombie_dungeon",
+      "required": false
+    }
+  ]
+}

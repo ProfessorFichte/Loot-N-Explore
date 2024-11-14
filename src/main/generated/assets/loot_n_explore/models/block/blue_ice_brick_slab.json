@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "loot_n_explore:block/blue_ice_bricks",
+    "side": "loot_n_explore:block/blue_ice_bricks",
+    "top": "loot_n_explore:block/blue_ice_bricks"
+  }
+}

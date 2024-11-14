@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:treasures/archers_treasure_1",
+    "loot_n_explore:treasures/archers_treasure_2",
+    "loot_n_explore:treasures/archers_treasure_3",
+    "loot_n_explore:treasures/archers_treasure_4",
+    "loot_n_explore:treasures/archers_treasure_5"
+  ]
+}

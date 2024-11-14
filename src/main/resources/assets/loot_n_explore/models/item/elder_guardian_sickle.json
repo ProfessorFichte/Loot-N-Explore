@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "loot_n_explore:item/elder_guardian_sickle"
+  }
+}

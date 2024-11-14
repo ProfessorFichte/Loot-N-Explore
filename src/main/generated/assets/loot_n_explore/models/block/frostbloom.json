@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "loot_n_explore:block/frostbloom"
+  }
+}

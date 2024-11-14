@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:written_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{generation: 3, pages: ['{\"extra\":[{\"bold\":true,\"underlined\":true,\"text\":\"Arcane Relations to the End\"},{\"text\":\"\\\\nHidden within the arcane depths of the End-Dimension lies the secret Tome of Altherion, a compendium of knowledge that transcends the boundaries of reality. Within its pages, arcane secrets from the End , offering profound insights into the  \"}],\"text\":\"\"}', '{\"text\":\"manipulation of magical energies. To unlock the full potential of arcane magic, the wizard must embark on a journey venturing into the End-Dimension, must navigate its enigmatic landscapes and confront the myriad challenges that lie in wait.\"}'], title: \"Arcane Relations to the End\", author: \"Arcane Adept\", resolved: 1b}"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:written_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_nbt",
+              "tag": "{generation: 3, pages: ['{\"extra\":[{\"bold\":true,\"underlined\":true,\"text\":\"Secrets of Arcane Magic\"},{\"text\":\"\\\\nArcane magic is unlocked through the use of amethyst items and ender pearls. Amethyst, with its unique vibrational energy, acts as a natural amplifier for magical power, while ender pearls, imbued with the essence of the End-Dimension, \"}],\"text\":\"\"}', '{\"text\":\"enable spatial manipulation. When combined, these components create a powerful synergy, allowing spellcasters to craft arcane runes and magic equipment and cast arcane spells.\"}'], title: \"Secrets of Arcane Magic\", author: \"Arcane Adept\", resolved: 1b}"
+            }
+          ]
+        }
+
+      ]
+    }
+  ]
+}

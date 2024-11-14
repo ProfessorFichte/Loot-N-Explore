@@ -1,0 +1,16 @@
+{
+  "name": "loot_n_explore:dungeons/small_cold/start_room",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:dungeons/small_cold_dungeon/start_room",
+        "processors": "loot_n_explore:deepslate_bricks",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+
+  ]
+}

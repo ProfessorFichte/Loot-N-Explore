@@ -1,0 +1,129 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "loot_n_explore:spell_books/wizards/beginner_frost",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:wand_frost",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:staff_frost",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:staff_wizard",
+          "weight": 2
+        }
+      ]
+    },
+
+
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "runes:frost_stone",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 5,
+                "max": 20
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "minecraft:lapis_lazuli",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 8
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 2,
+          "name": "minecraft:coal",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 8
+              },
+              "add": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:frost_robe_head",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:frost_robe_chest",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:frost_robe_legs",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:frost_robe_feet",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:wizard_robe_head",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:wizard_robe_chest",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:wizard_robe_legs",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "wizards:wizard_robe_feet",
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

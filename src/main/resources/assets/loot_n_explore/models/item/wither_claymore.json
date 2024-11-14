@@ -1,0 +1,6 @@
+{
+  "parent": "paladins:item/model_claymore",
+  "textures": {
+    "layer0": "loot_n_explore:item/wither_claymore"
+  }
+}

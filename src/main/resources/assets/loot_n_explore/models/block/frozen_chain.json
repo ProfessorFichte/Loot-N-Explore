@@ -1,0 +1,7 @@
+{
+  "parent": "block/chain",
+  "textures": {
+    "all": "loot_n_explore:block/frozen_chain",
+    "particle": "loot_n_explore:block/frozen_chain"
+  }
+}

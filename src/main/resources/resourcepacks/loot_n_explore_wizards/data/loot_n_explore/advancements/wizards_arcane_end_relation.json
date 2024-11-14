@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:dirt"
+    },
+    "title": {
+      "translate": ""
+    },
+    "description": {
+      "translate": ""
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "rpg_classes:classes",
+  "criteria": {
+    "arcane_end_lore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:written_book"
+            ],
+            "nbt": "{generation: 3, pages: ['{\"extra\":[{\"bold\":true,\"underlined\":true,\"text\":\"Arcane Relations to the End\"},{\"text\":\"\\\\nHidden within the arcane depths of the End-Dimension lies the secret Tome of Altherion, a compendium of knowledge that transcends the boundaries of reality. Within its pages, arcane secrets from the End , offering profound insights into the  \"}],\"text\":\"\"}', '{\"text\":\"manipulation of magical energies. To unlock the full potential of arcane magic, the wizard must embark on a journey venturing into the End-Dimension, must navigate its enigmatic landscapes and confront the myriad challenges that lie in wait.\"}'], title: \"Arcane Relations to the End\", author: \"Arcane Adept\", resolved: 1b}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "arcane_end_lore"
+    ]
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:cave_spider_room",
+      "weight": 5
+    },
+    {
+      "structure": "loot_n_explore:dry_monster_rooms",
+      "weight": 5
+    },
+    {
+      "structure": "loot_n_explore:cold_monster_rooms",
+      "weight": 5
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:ancient_cities",
+        "minecraft:mineshafts"
+      ],
+      "chunk_count": 5
+    },
+    "type": "minecraft:random_spread",
+    "separation": 8,
+    "spacing": 18,
+    "salt": 2097975087
+  }
+}

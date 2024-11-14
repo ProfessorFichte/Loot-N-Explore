@@ -1,0 +1,43 @@
+{
+  "name": "loot_n_explore:dungeons/small_cold/spawner",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:dungeons/small_cold_dungeon/spawner_1",
+        "processors": "loot_n_explore:deepslate_bricks",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:dungeons/small_cold_dungeon/spawner_2",
+        "processors": "loot_n_explore:deepslate_bricks",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:dungeons/small_cold_dungeon/spawner_3",
+        "processors": "loot_n_explore:deepslate_bricks",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_dead",
+        "processors": "loot_n_explore:deepslate_bricks",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+
+  ]
+}

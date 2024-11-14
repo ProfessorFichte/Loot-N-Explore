@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:prismarine_shard"
+  },
+  "base": {
+    "item": "minecraft:diamond_sword"
+  },
+  "result": {
+    "item": "loot_n_explore:elder_guardian_sword"
+  },
+  "template": {
+    "item": "loot_n_explore:guardian_upgrade_smithing_template"
+  }
+}

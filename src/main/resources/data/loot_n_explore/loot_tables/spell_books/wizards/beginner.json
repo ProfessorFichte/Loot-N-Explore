@@ -1,0 +1,98 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+
+{
+  "rolls": 1,
+  "entries": [
+    {
+      "type": "item",
+      "name": "wizards:arcane_spell_book",
+      "weight": 2,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:arcane\",spell_ids:[\"wizards:arcane_missile\"],spell_container:\"MAGIC\"}}",
+          "conditions": [
+            {
+              "condition": "random_chance",
+              "chance": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "wizards:frost_spell_book",
+      "weight": 2,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:frost\",spell_ids:[\"wizards:frostbolt\"],spell_container:\"MAGIC\"}}",
+          "conditions": [
+            {
+              "condition": "random_chance",
+              "chance": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "wizards:fire_spell_book",
+      "weight": 2,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:fire\",spell_ids:[\"wizards:fireball\"],spell_container:\"MAGIC\"}}",
+          "conditions": [
+            {
+              "condition": "random_chance",
+              "chance": 0.4
+            }
+          ]
+        }
+      ]
+    },
+
+
+    {
+      "type": "item",
+      "name": "wizards:arcane_spell_book",
+      "weight": 1,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:arcane\",spell_ids:[\"wizards:arcane_missile\",\"wizards:arcane_blast\"],spell_container:\"MAGIC\"}}"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "wizards:frost_spell_book",
+      "weight": 1,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:frost\",spell_ids:[\"wizards:frostbolt\",\"wizards:frost_nova\"],spell_container:\"MAGIC\"}}"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "wizards:fire_spell_book",
+      "weight": 1,
+      "functions": [
+        {
+          "function": "set_nbt",
+          "tag": "{spell_container:{pool:\"wizards:fire\",spell_ids:[\"wizards:fireball\",\"wizards:fire_breath\"],spell_container:\"MAGIC\"}}"
+        }
+      ]
+    }
+
+    ]
+    }
+  ]
+}

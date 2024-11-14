@@ -1,0 +1,25 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:glacial_tomb",
+      "weight": 5
+    },
+    {
+      "structure": "loot_n_explore:glaze_tower",
+      "weight": 5
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:ancient_cities",
+        "minecraft:mineshafts"
+      ],
+      "chunk_count": 15
+    },
+    "type": "minecraft:random_spread",
+    "separation": 18,
+    "spacing": 32,
+    "salt": 1487852527
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "loot_n_explore:block/blue_ice_bricks"
+  }
+}

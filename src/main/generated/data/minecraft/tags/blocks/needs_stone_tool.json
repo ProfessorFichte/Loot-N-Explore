@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:soulfrost_lantern",
+    "loot_n_explore:frozen_chain",
+    "loot_n_explore:blue_ice_bricks",
+    "loot_n_explore:blue_ice_brick_slab",
+    "loot_n_explore:blue_ice_brick_stairs",
+    "loot_n_explore:cracked_blue_ice_bricks"
+  ]
+}

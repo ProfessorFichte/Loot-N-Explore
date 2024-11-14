@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "loot_n_explore:block/soulfrost_lantern"
+  }
+}
