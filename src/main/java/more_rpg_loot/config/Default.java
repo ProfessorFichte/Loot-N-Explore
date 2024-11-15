@@ -7,11 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Default {
-    public final static ItemConfig itemConfig;
     public static final StructurePoolConfig villages;
 
     static{
-        itemConfig = new ItemConfig();
         villages = new StructurePoolConfig();
 
         var weight = 50;

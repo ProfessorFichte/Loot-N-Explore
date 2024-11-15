@@ -1,6 +1,6 @@
 package more_rpg_loot.datagen;
 
-import more_rpg_loot.item.Items;
+import more_rpg_loot.item.CommonItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
@@ -30,8 +30,8 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModBlocks.FROZEN_CHAIN.item(), Models.GENERATED);
-        itemModelGenerator.register(Items.GLAZE_ROD, Models.HANDHELD);
-        itemModelGenerator.register(Items.FROSTBALL, Models.GENERATED);
+        itemModelGenerator.register(CommonItems.GLAZE_ROD, Models.HANDHELD);
+        itemModelGenerator.register(CommonItems.FROSTBALL, Models.GENERATED);
     }
 
 

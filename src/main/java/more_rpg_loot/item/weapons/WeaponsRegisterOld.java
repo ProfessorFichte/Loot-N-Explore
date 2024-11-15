@@ -1,34 +1,7 @@
 package more_rpg_loot.item.weapons;
 
-import more_rpg_loot.RPGLoot;
-import more_rpg_loot.item.Group;
-import more_rpg_loot.item.weapons.custom.DragonMeeleeWeapon;
-import more_rpg_loot.item.weapons.custom.ElderGuardianMeeleWeapon;
-import more_rpg_loot.item.weapons.custom.ElderGuardianRangedWeapon;
-import more_rpg_loot.item.weapons.custom.WitherMeleeWeapon;
-import net.fabric_extras.ranged_weapon.api.CustomBow;
-import net.fabric_extras.ranged_weapon.api.CustomRangedWeapon;
-import net.fabric_extras.ranged_weapon.api.RangedConfig;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.spell_engine.api.item.ItemConfig;
-import net.spell_engine.api.item.weapon.Weapon;
-import net.spell_power.api.SpellSchools;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.function.Supplier;
-
-public class WeaponsRegister {
-    public static final ArrayList<RangedEntry> rangedEntries = new ArrayList<>();
+public class WeaponsRegisterOld {
+   /* public static final ArrayList<RangedEntry> rangedEntries = new ArrayList<>();
     public static final ArrayList<Weapon.Entry> meleeEntries = new ArrayList<>();
     public record RangedEntry(Identifier id, Item item, RangedConfig defaults) { }
     ///ATTACKSPEED_VALUES
@@ -352,5 +325,5 @@ public class WeaponsRegister {
                 content.add(entry.item);
             }
         });
-    }
+    }*/
 }

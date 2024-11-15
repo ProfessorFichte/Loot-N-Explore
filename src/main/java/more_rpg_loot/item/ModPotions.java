@@ -1,4 +1,4 @@
-package more_rpg_loot.item.items;
+package more_rpg_loot.item;
 
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.mixin.BrewingRecipeRegistryMixin;
@@ -25,7 +25,7 @@ public class ModPotions {
     }
 
     public static void registerPotionsRecipes(){
-        BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, more_rpg_loot.item.Items.GLAZE_ROD, ModPotions.FROST_RESISTANCE_POTION);
+        BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, CommonItems.GLAZE_ROD, ModPotions.FROST_RESISTANCE_POTION);
         BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(ModPotions.FROST_RESISTANCE_POTION, Items.REDSTONE, ModPotions.LONG_FROST_RESISTANCE_POTION);
     }
 }

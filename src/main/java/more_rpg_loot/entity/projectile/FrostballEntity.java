@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.projectile;
 
 import more_rpg_loot.entity.ModEntities;
+import more_rpg_loot.item.CommonItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
@@ -34,7 +35,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
 
     @Override
     protected Item getDefaultItem() {
-        return more_rpg_loot.item.Items.FROSTBALL;
+        return CommonItems.FROSTBALL;
     }
 
     protected void onEntityHit(EntityHitResult entityHitResult) {

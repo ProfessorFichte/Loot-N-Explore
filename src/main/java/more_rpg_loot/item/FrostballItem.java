@@ -1,4 +1,4 @@
-package more_rpg_loot.item.items;
+package more_rpg_loot.item;
 
 import more_rpg_loot.entity.projectile.FrostballEntity;
 import net.minecraft.entity.player.PlayerEntity;

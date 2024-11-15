@@ -2,16 +2,15 @@
 	"schemaVersion": 1,
 	"id": "loot_n_explore",
 	"version": "${version}",
-	"name": "RPG-Loot",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Loot n´ Explore",
+	"description": "Explore new structures and fight new dangerous foes!",
 	"authors": [
-		"Me!"
+		"Fichte"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/loot_n_explore/icon.png",
 	"environment": "*",
 	"entrypoints": {

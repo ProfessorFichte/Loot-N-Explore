@@ -1,4 +1,4 @@
-package more_rpg_loot.compat;
+package more_rpg_loot.compat.items;
 
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;

@@ -1,4 +1,4 @@
-package more_rpg_loot.compat;
+package more_rpg_loot.compat.items;
 
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
@@ -16,6 +16,7 @@ import net.spell_power.api.SpellSchools;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class SpellPowerItems {
+    // TO DO: LIGHTNING AND SOUL SPELL POWER BOOSTING ITEMS
     //T1
     public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellPowerMechanics.HASTE.boostEffect, null,null,0);

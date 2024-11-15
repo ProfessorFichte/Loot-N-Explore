@@ -3,8 +3,10 @@ package more_rpg_loot.worldgen.villages;
 import com.google.common.collect.ImmutableSet;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
-import more_rpg_loot.compat.MRPGCItems;
-import more_rpg_loot.compat.SpellPowerItems;
+import more_rpg_loot.compat.items.MRPGCItems;
+import more_rpg_loot.compat.items.RangedWeaponAPIItems;
+import more_rpg_loot.compat.items.SpellPowerItems;
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.worldgen.structures.StructureTags;
 import net.fabric_extras.structure_pool.api.StructurePoolAPI;
@@ -64,23 +66,15 @@ public class Villages {
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_1_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.SWEET_BERRY_PUNCH, 1),
-                                level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
-                        /*factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_1_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.ORANGE_JUICE, 1),
-                                level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));*/
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_1_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.HOT_CHOCOLATE, 1),
+                                new ItemStack(CommonItems.SWEET_BERRY_PUNCH, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_1_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.APPLE_JUICE, 1),
+                                new ItemStack(CommonItems.HOT_CHOCOLATE, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_1_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.POTATO_SOUP, 1),
+                                new ItemStack(CommonItems.POTATO_SOUP, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
 
                     });
@@ -121,53 +115,13 @@ public class Villages {
             float level_4_innkeeper_priceMultiplier = 0.15F;
             TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                     factories -> {
-                        /*factories.add((entity, random) -> new TradeOffer(
+                        factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.FRUIT_ICEWATER, 1),
+                                new ItemStack(CommonItems.MALT_EXTRACT, 1),
                                 level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.HOLY_WATER, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.CHORUS_EXTRACT, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.HOT_CHILLI, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.SWEET_CHILLI, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.ENCHANTED_ALE, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.BLUE_BERRY_PUNCH, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.WATERMELON_DRINK, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.GREEN_CHILLI, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));*/
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.WALDMEISTER, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.MALT_EXTRACT, 1),
-                                level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.BEET_ROOTBEER, 1),
+                                new ItemStack(CommonItems.BEET_ROOTBEER, 1),
                                 level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                     });
 
@@ -180,19 +134,11 @@ public class Villages {
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_5_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.VITAL_DRINK, 1),
+                                new ItemStack(CommonItems.VITAL_DRINK, 1),
                                 level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
-                        factories.add((entity, random) -> new TradeOffer(
-                        new ItemStack(Items.EMERALD, level_5_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.FORREST_SPIRIT, 1),
-                                level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
-                        //factories.add((entity, random) -> new TradeOffer(
-                        //        new ItemStack(Items.EMERALD, level_5_innkeeper_price),
-                        //        new ItemStack(more_rpg_loot.item.Items.WIZARDS_ELIXIR, 1),
-                        //        level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
                                 new ItemStack(Items.EMERALD, level_5_innkeeper_price),
-                                new ItemStack(more_rpg_loot.item.Items.ESPRESSO, 1),
+                                new ItemStack(CommonItems.ESPRESSO, 1),
                                 level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                     });
             //MORE RPG CLASSES MOD SPECIFIC TRADES
@@ -212,6 +158,31 @@ public class Villages {
                                     new ItemStack(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(MRPGCItems.GREEN_CHILLI, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
+                        });
+            }
+            //RANGED WEAPON API SPECIFIC TRADES
+            if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")) {
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                    new ItemStack(RangedWeaponAPIItems.APPLE_JUICE, 1),
+                                    level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+
+                        });
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new ItemStack(RangedWeaponAPIItems.WALDMEISTER, 1),
+                                    level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
+                        });
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                    new ItemStack(RangedWeaponAPIItems.FORREST_SPIRIT, 1),
+                                    level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         });
             }
             //SPELL POWER MOD SPECIFIC TRADES
