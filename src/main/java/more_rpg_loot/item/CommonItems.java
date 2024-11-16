@@ -10,6 +10,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
@@ -32,6 +33,9 @@ public class CommonItems {
     public static Item FROSTBALL =  new FrostballItem(new FabricItemSettings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new FabricItemSettings());
 
+    public static Item ELDER_GUARDIAN_EYE =  new FrostballItem(new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item ENDER_DRAGON_SCALES =  new Item(new FabricItemSettings().rarity(Rarity.EPIC));
+
     public static void registerCommonItems(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"hot_chocolate"),HOT_CHOCOLATE);
@@ -43,6 +47,9 @@ public class CommonItems {
 
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"frostball"),FROSTBALL);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"glaze_rod"),GLAZE_ROD);
+
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"elder_guardian_eye"),ELDER_GUARDIAN_EYE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"ender_dragon_scales"),ENDER_DRAGON_SCALES);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             content.add(SWEET_BERRY_PUNCH);
@@ -59,6 +66,8 @@ public class CommonItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
             content.add(GLAZE_ROD);
+            content.add(ELDER_GUARDIAN_EYE);
+            content.add(ENDER_DRAGON_SCALES);
         });
     }
 }

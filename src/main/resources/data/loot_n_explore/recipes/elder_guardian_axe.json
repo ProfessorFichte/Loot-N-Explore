@@ -4,10 +4,10 @@
     "item": "minecraft:prismarine_shard"
   },
   "base": {
-    "item": "minecraft:netherite_sword"
+    "item": "minecraft:netherite_axe"
   },
   "result": {
-    "item": "loot_n_explore:elder_guardian_sword"
+    "item": "loot_n_explore:elder_guardian_axe"
   },
   "template": {
     "item": "loot_n_explore:guardian_upgrade_smithing_template"

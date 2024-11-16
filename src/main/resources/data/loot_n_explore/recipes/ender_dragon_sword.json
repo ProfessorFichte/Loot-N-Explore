@@ -7,9 +7,9 @@
     "item": "minecraft:netherite_sword"
   },
   "result": {
-    "item": "loot_n_explore:elder_guardian_sword"
+    "item": "loot_n_explore:ender_dragon_sword"
   },
   "template": {
-    "item": "loot_n_explore:guardian_upgrade_smithing_template"
+    "item": "loot_n_explore:dragon_upgrade_smithing_template"
   }
 }

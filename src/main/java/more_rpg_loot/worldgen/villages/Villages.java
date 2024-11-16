@@ -58,7 +58,7 @@ public class Villages {
             var innkeeper = registerProfession(
                     INNKEEPER, RegistryKey.of(Registries.POINT_OF_INTEREST_TYPE.getKey(), new Identifier(MOD_ID, INNKEEPER)));
 
-            int level_1_innkeeper_price = 4;
+            int level_1_innkeeper_price = 3;
             int level_1_innkeeper_maxUses = 5;
             int level_1_innkeeper_experience = 3;
             float level_1_innkeeper_priceMultiplier = 0.01F;
@@ -109,7 +109,7 @@ public class Villages {
             });
 
 
-            int level_4_innkeeper_price = 13;
+            int level_4_innkeeper_price = 10;
             int level_4_innkeeper_maxUses = 6;
             int level_4_innkeeper_experience = 12;
             float level_4_innkeeper_priceMultiplier = 0.15F;
@@ -126,7 +126,7 @@ public class Villages {
                     });
 
 
-            int level_5_innkeeper_price = 32;
+            int level_5_innkeeper_price = 25;
             int level_5_innkeeper_maxUses = 2;
             int level_5_innkeeper_experience = 15;
             float level_5_innkeeper_priceMultiplier = 0.15F;

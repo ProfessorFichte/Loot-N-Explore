@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:nether_star"
+  },
+  "base": {
+    "item": "minecraft:netherite_axe"
+  },
+  "result": {
+    "item": "loot_n_explore:wither_axe"
+  },
+  "template": {
+    "item": "loot_n_explore:wither_upgrade_smithing_template"
+  }
+}

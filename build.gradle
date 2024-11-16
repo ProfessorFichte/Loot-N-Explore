@@ -66,27 +66,20 @@ dependencies {
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {exclude(group: "net.fabricmc.fabric-api")}
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.4")))
 
-
-
-
-
 	//DEPENDENCIES
 	modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}")
 	implementation include("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}")
 
-
+	//OPTIONAL
+	modImplementation "com.github.thedeathlycow:thermoo:${project.thermoo_version}"
+	modImplementation("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}")
 	modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim_version}")
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
 	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}")
-	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}")
 	modImplementation("maven.modrinth:more-rpg-classes:${project.more_rpg_classes_version}")
 	modImplementation("mod.azure.azurelibarmor:azurelibarmor-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
 
-	//OPTIONAL
-	modImplementation "com.github.thedeathlycow:thermoo:${project.thermoo_version}"
-	modImplementation("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}")
-	modImplementation("maven.modrinth:jewelry:${project.jewelry_version}")
 }
 
 processResources {

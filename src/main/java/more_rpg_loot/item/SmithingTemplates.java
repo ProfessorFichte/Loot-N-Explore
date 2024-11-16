@@ -1,6 +1,7 @@
 package more_rpg_loot.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.SmithingTemplateItem;
@@ -22,44 +23,69 @@ public class SmithingTemplates {
             identifiers -> {
                 identifiers.add(new Identifier("item/empty_slot_axe"));
                 identifiers.add(new Identifier("item/empty_slot_sword"));
-                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_bow"));
+                if(!FabricLoader.getInstance().isModLoaded("archers")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_bow"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_crossbow"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_spear"));
+                }
+                if(!FabricLoader.getInstance().isModLoaded("paladins")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_hammer"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_holy"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_mace"));
+                }
+                if(!FabricLoader.getInstance().isModLoaded("rogues")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_dagger"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_sickle"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_glaive"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_double_axe"));
+                }
+                if(!FabricLoader.getInstance().isModLoaded("wizards")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_wand"));
+                }
+                if(!FabricLoader.getInstance().isModLoaded("forcemaster")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_knuckle"));
+                }
+                if(!FabricLoader.getInstance().isModLoaded("berserker_axe")){
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_berserker_axe"));
+                }
+
             });
     public static final List<Identifier> INGREDIENT_ITEMS_DRAGON= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(new Identifier("item/empty_slot_amethyst_shard"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_ender_dragon_scales"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_WITHER= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(new Identifier("textures/item/empty_slot_amethyst_shard"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_nether_star"));
             });
-    public static final List<Identifier> INGREDIENT_ITEMS_GUARDIAN= Util.make(new ArrayList<>(),
+    public static final List<Identifier> INGREDIENT_ITEMS_GUARDIAN = Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(new Identifier(MOD_ID,"textures/item/empty_slot/empty_slot_prismarine_shard"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_elder_guardian_eye"));
             });
 
     public static Item ENDER_DRAGON_UPGRADE = new SmithingTemplateItem(
-            Text.translatable("smithing_template.loot_n_explore.ender_dragon.applies_to").formatted(Formatting.BLUE),
+            Text.translatable("smithing_template.loot_n_explore.applies_to").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.ender_dragon.ingredients").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.ender_dragon.title").formatted(Formatting.GRAY),
-            Text.translatable("smithing_template.loot_n_explore.ender_dragon.base_slot_description"),
+            Text.translatable("smithing_template.loot_n_explore.base_slot_description"),
             Text.translatable("smithing_template.loot_n_explore.ender_dragon.additions_slot_description"),
             BASE_ITEMS,
             INGREDIENT_ITEMS_DRAGON
     );
     public static Item ELDER_GUARDIAN_UPGRADE = new SmithingTemplateItem(
-            Text.translatable("smithing_template.loot_n_explore.elder_guardian.applies_to").formatted(Formatting.BLUE),
+            Text.translatable("smithing_template.loot_n_explore.applies_to").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.elder_guardian.ingredients").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.elder_guardian.title").formatted(Formatting.GRAY),
-            Text.translatable("smithing_template.loot_n_explore.elder_guardian.base_slot_description"),
+            Text.translatable("smithing_template.loot_n_explore.base_slot_description"),
             Text.translatable("smithing_template.loot_n_explore.elder_guardian.additions_slot_description"),
             BASE_ITEMS,
-            List.of(new Identifier(MOD_ID,"item/template/empty_slot_prismarine_shard"))
+            INGREDIENT_ITEMS_GUARDIAN
     );
     public static Item WITHER_UPGRADE = new SmithingTemplateItem(
-            Text.translatable("smithing_template.loot_n_explore.wither.applies_to").formatted(Formatting.BLUE),
+            Text.translatable("smithing_template.loot_n_explore.applies_to").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.wither.ingredients").formatted(Formatting.BLUE),
             Text.translatable("smithing_template.loot_n_explore.wither.title").formatted(Formatting.GRAY),
-            Text.translatable("smithing_template.loot_n_explore.wither.base_slot_description"),
+            Text.translatable("smithing_template.loot_n_explore.base_slot_description"),
             Text.translatable("smithing_template.loot_n_explore.wither.additions_slot_description"),
             BASE_ITEMS,
             INGREDIENT_ITEMS_WITHER

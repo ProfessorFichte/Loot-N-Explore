@@ -1,30 +1,29 @@
 {
-  "itemGroup.loot_n_explore.loot.general": "RPG Loot",
-  "itemGroup.loot_n_explore.food.general": "Innkeeper Items",
+  "itemGroup.loot_n_explore.loot.general": "LNE Items",
+  "itemGroup.loot_n_explore.food.general": "Innkeeper Drinks",
+  "itemGroup.loot_n_explore.blocks.general": "LNE Blocks",
 
   "item.loot_n_explore.ender_dragon_sword": "Dragon slayer",
-  "item.loot_n_explore.ender_dragon_bow": "End-Crystal Bow",
   "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
-  "spell.loot_n_explore.passive_dragonclaw.name": "Passive: Dragonclaw",
+  "spell.loot_n_explore.passive_dragonclaw.name": "Passive Spell: Dragonclaw",
   "spell.loot_n_explore.passive_dragonclaw.description": "Slashing attack that deals single target arcane-spell damage.",
-
+  "lore.loot_n_explore.ender_dragon_weapon": "This weapon pulses with the essence of the end, holding the power to rend dimensions",
+  "passive.loot_n_explore.ender_dragon_weapon": "Deals 10% Magic Damage of the targets Max Health.",
 
   "item.loot_n_explore.elder_guardian_sword": "Leviathan",
-  "item.loot_n_explore.elder_guardian_bow": "Nemo´s Fury",
   "item.loot_n_explore.elder_guardian_axe": "Nautilus",
-  "item.loot_n_explore.elder_guardian_double_axe": "Tidal Cleaver",
-  "item.loot_n_explore.elder_guardian_glaive": "Sea Serpent's Fang",
-  "item.loot_n_explore.elder_guardian_dagger": "Siren's Sting",
-  "item.loot_n_explore.elder_guardian_sickle": "Abyssal Reaper",
-  "item.loot_n_explore.elder_guardian_spear": "Leviathan's Pike",
-  "item.loot_n_explore.elder_guardian_claymore": "Sea King's Blade",
-  "spell.loot_n_explore.passive_waterbomb_melee.name": "Passive: Waterbomb",
+  "spell.loot_n_explore.passive_waterbomb_melee.name": "Passive Spell: Waterbomb",
   "spell.loot_n_explore.passive_waterbomb_melee.description": "Dealing water-spell damage around the target.",
   "lore.loot_n_explore.elder_guardian_weapon": "Formed over the ages deep within the watery sands of an Abyssal Cove.",
+  "passive.loot_n_explore.elder_guardian_weapon": "Deals 25% Magic Damage of the Attack Damage if the attacker is in the water.",
 
   "item.loot_n_explore.wither_sword": "Withered Sword",
   "item.loot_n_explore.wither_bow": "Withered Bow",
   "item.loot_n_explore.wither_axe": "Withered Axe",
+  "spell.loot_n_explore.passive_wither_melee.name": "Passive Spell: ",
+  "spell.loot_n_explore.passive_wither_melee.description": "",
+  "lore.loot_n_explore.wither_weapon": "",
+  "passive.loot_n_explore.wither_weapon": "",
 
   "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "item.loot_n_explore.orange_juice": "Orange Juice",
@@ -50,34 +49,30 @@
   "item.loot_n_explore.vital_drink": "Vital Drink",
   "item.loot_n_explore.forrest_spirit": "Forrest Spirit",
 
+  "smithing_template.loot_n_explore.applies_to": "Netherite Weapons.",
+  "smithing_template.loot_n_explore.base_slot_description": "Put a Netherite Weapon here.",
 
-  "smithing_template.loot_n_explore.ender_dragon.applies_to": "Bow, Diamond Equipment",
   "smithing_template.loot_n_explore.ender_dragon.ingredients": "?Test",
   "smithing_template.loot_n_explore.ender_dragon.title": "Ender Dragon Upgrade",
-  "smithing_template.loot_n_explore.ender_dragon.base_slot_description": "Put a Bow or Diamond Weapons here.",
   "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "?Test",
 
-  "smithing_template.loot_n_explore.elder_guardian.applies_to": "Bow, Diamond Equipment",
   "smithing_template.loot_n_explore.elder_guardian.ingredients": "?Test",
   "smithing_template.loot_n_explore.elder_guardian.title": "Elder Guardian Upgrade",
-  "smithing_template.loot_n_explore.elder_guardian.base_slot_description": "Put a Bow or Diamond Weapons here.",
   "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "?Test",
 
-  "smithing_template.loot_n_explore.wither.applies_to": "Bow, Diamond Equipment",
-  "smithing_template.loot_n_explore.wither.ingredients": "?Test",
+  "smithing_template.loot_n_explore.wither.ingredients": "Nether Star",
   "smithing_template.loot_n_explore.wither.title": "Wither Upgrade",
-  "smithing_template.loot_n_explore.wither.base_slot_description": "Put a Bow or Diamond Weapons here.",
-  "smithing_template.loot_n_explore.wither.additions_slot_description": "?Test",
+  "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Nether Star",
 
+  "filled_map.loot_n_explore.monster_quest": "Please help us eliminate the threats nearby!",
 
-  "filled_map.loot_n_explore.archers_outposts": "Hidden Ranger Outpost Map",
-  "filled_map.loot_n_explore.archers_camps": "Hidden Ranger Camp Map",
-  "filled_map.loot_n_explore.paladins_churches": "Holy Building",
-
-  "filled_map.loot_n_explore.monster_quest": "Please help us and eliminate the threats nearby!",
-
-  "effect.loot_n_explore.innkeepers_proviant": "Innkeepers Proviant",
+  "effect.loot_n_explore.innkeepers_proviant": "Inn´s Proviant",
   "entity.minecraft.villager.innkeeper": "Innkeeper",
+
+  "entity.loot_n_explore.glaze": "Glaze",
+  "entity.loot_n_explore.frost_haunt": "Frosthaunt",
+
+  "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 
   "advancements.loot_n_explore.archers_treasure.title": "Find a hidden Ranger Treasure",
   "advancements.loot_n_explore.archers_treasure.description": "Buried in the Forest",
@@ -93,6 +88,17 @@
   "advancements.loot_n_explore.paladins_holy_site.title": "",
   "advancements.loot_n_explore.paladins_holy_site.description": "",
 
+  "filled_map.loot_n_explore.archers_outposts": "Hidden Ranger Outpost Map",
+  "filled_map.loot_n_explore.archers_camps": "Hidden Ranger Camp Map",
+  "filled_map.loot_n_explore.paladins_churches": "Holy Building",
 
-  "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!"
+  "item.loot_n_explore.ender_dragon_bow": "End-Crystal Bow",
+
+  "item.loot_n_explore.elder_guardian_bow": "Nemo´s Fury",
+  "item.loot_n_explore.elder_guardian_double_axe": "Tidal Cleaver",
+  "item.loot_n_explore.elder_guardian_glaive": "Sea Serpent's Fang",
+  "item.loot_n_explore.elder_guardian_dagger": "Siren's Sting",
+  "item.loot_n_explore.elder_guardian_sickle": "Abyssal Reaper",
+  "item.loot_n_explore.elder_guardian_spear": "Leviathan's Pike",
+  "item.loot_n_explore.elder_guardian_claymore": "Sea King's Blade"
 }

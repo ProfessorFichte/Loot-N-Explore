@@ -1,0 +1,45 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:beet_rootbeer",
+    "loot_n_explore:hot_chocolate",
+    "loot_n_explore:malt_extract",
+    "loot_n_explore:sweet_berry_punch",
+    {
+      "id": "loot_n_explore:blue_berry_punch",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:watermelon_drink",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:apple_juice",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:waldmeister",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:orange_juice",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:fruit_icewater",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:chorus_extract",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:holy_water",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:enchanted_ale",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "loot_n_explore:green_chilli",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:sweet_chilli",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:hot_chilli",
+      "required": false
+    }
+  ]
+}

@@ -36,30 +36,22 @@ public class ModBlocks {
                     .instrument(Instrument.BASS)
                     .strength(2.5F)
                     .sounds(BlockSoundGroup.WOOD)
-                    .nonOpaque()
-    ));
+                    .nonOpaque()));
     public static final Entry BLUE_ICE_BRICKS = entry("blue_ice_bricks", new Block(
-            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)
-    ));
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry CRACKED_BLUE_ICE_BRICKS = entry("cracked_blue_ice_bricks", new Block(
-            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)
-    ));
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_SLAB = entry("blue_ice_brick_slab", new SlabBlock(
-            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)
-    ));
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_WALL = entry("blue_ice_brick_wall", new WallBlock(
-            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)
-    ));
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_STAIRS = entry("blue_ice_brick_stairs", new StairsBlock(
-            ModBlocks.BLUE_ICE_BRICKS.block.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BLUE_ICE)
-    ));
+            ModBlocks.BLUE_ICE_BRICKS.block.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
 
     public static final Entry FROZEN_CHAIN = entry("frozen_chain", new ChainBlock(
-            FabricBlockSettings.copyOf(Blocks.CHAIN).nonOpaque()
-    ));
+            FabricBlockSettings.copyOf(Blocks.CHAIN).nonOpaque()));
     public static final Entry SOULFROST_LANTERN = entry("soulfrost_lantern", new LanternBlock(
-            FabricBlockSettings.copyOf(Blocks.SOUL_LANTERN).nonOpaque()
-    ));
+            FabricBlockSettings.copyOf(Blocks.SOUL_LANTERN).nonOpaque()));
 
     public static final Entry FROST_BLOOM = entry("frostbloom",
             new FlowerBlock(Effects.FROST_RESISTANCE, 5,

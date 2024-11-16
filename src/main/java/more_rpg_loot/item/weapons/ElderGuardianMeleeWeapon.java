@@ -6,10 +6,11 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -25,8 +26,8 @@ import java.util.function.Predicate;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static net.spell_engine.internals.SpellRegistry.getSpell;
 
-public class ElderGuardianMeeleWeapon extends SwordItem {
-    public ElderGuardianMeeleWeapon(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+public class ElderGuardianMeleeWeapon extends SwordItem {
+    public ElderGuardianMeleeWeapon(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
     }
 
@@ -48,6 +49,11 @@ public class ElderGuardianMeeleWeapon extends SwordItem {
                     SpellCast.Action.RELEASE,
                     1);
         }
+        if(attacker instanceof PlayerEntity player && attacker.isInsideWaterOrBubbleColumn()){
+            double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+            target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * 0.25F));
+            player.addEnchantedHitParticles(target);
+        }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });
@@ -58,6 +64,7 @@ public class ElderGuardianMeeleWeapon extends SwordItem {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         tooltip.add(Text.translatable("lore.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("passive.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.name").formatted(Formatting.AQUA));
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.description").formatted(Formatting.AQUA));

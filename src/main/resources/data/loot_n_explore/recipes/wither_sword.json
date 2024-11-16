@@ -1,15 +1,15 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "minecraft:prismarine_shard"
+    "item": "minecraft:nether_star"
   },
   "base": {
     "item": "minecraft:netherite_sword"
   },
   "result": {
-    "item": "loot_n_explore:elder_guardian_sword"
+    "item": "loot_n_explore:wither_sword"
   },
   "template": {
-    "item": "loot_n_explore:guardian_upgrade_smithing_template"
+    "item": "loot_n_explore:wither_upgrade_smithing_template"
   }
 }
