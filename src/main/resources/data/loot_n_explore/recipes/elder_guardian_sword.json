@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "minecraft:prismarine_shard"
+    "item": "loot_n_explore:elder_guardian_eye"
   },
   "base": {
     "item": "minecraft:netherite_sword"

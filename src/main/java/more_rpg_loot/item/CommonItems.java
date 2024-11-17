@@ -33,8 +33,8 @@ public class CommonItems {
     public static Item FROSTBALL =  new FrostballItem(new FabricItemSettings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new FabricItemSettings());
 
-    public static Item ELDER_GUARDIAN_EYE =  new FrostballItem(new FabricItemSettings().rarity(Rarity.EPIC));
-    public static Item ENDER_DRAGON_SCALES =  new Item(new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item ELDER_GUARDIAN_EYE =  new FrostballItem(new FabricItemSettings().rarity(Rarity.UNCOMMON));
+    public static Item ENDER_DRAGON_SCALES =  new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON));
 
     public static void registerCommonItems(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);

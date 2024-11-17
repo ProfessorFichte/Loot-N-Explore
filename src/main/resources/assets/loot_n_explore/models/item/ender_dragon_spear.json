@@ -1,6 +1,0 @@
-{
-  "parent": "archers:item/base/spear_28",
-  "textures": {
-    "layer0": "loot_n_explore:item/ender_dragon_spear"
-  }
-}

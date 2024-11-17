@@ -15,9 +15,6 @@
         "angle_degrees": 360.0
       }
     },
-    "sound": {
-      "id": "block.bubble_column.whirlpool_ambient"
-    },
     "particles": [
       {
         "particle_id": "more_rpg_classes:big_splash",

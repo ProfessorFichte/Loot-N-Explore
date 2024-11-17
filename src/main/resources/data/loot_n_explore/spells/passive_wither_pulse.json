@@ -1,0 +1,58 @@
+{
+  "range": 5.0,
+  "school": "SOUL",
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 0
+  },
+  "release": {
+    "target": {
+      "type": "AREA",
+      "area": {
+        "distance_dropoff": "NONE",
+        "angle_degrees": 90.0
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "smoke",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 15.0,
+        "min_speed": 0.05,
+        "max_speed": 0.5
+      }
+    ]
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "wither",
+          "amplifier": 1,
+          "duration": 5,
+          "apply_mode": "SET",
+          "show_particles": false
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "smoke",
+          "shape": "SPHERE",
+          "origin": "FEET",
+          "count": 25.0,
+          "min_speed": 0.05,
+          "max_speed": 0.75
+        }
+      ]
+    }
+  ],
+  "cost": {
+    "durability": 1,
+    "cooldown_duration": 7,
+    "cooldown_haste_affected": "false"
+  }
+}

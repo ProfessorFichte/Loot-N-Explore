@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class ModSpawnEggs {
-    public static final Item FROSTHAUNT_SPAWN_EGG = new SpawnEggItem(ModEntities.FROST_HAUNT, 3232308, 5651507, new Item.Settings());
+    public static final Item FROSTHAUNT_SPAWN_EGG = new SpawnEggItem(ModEntities.FROST_HAUNT, 12508647, 7907010, new Item.Settings());
     public static final Item GLAZE_SPAWN_EGG = new SpawnEggItem(ModEntities.GLAZE, 5954523, 13038065, new Item.Settings());
 
     public static void register(){

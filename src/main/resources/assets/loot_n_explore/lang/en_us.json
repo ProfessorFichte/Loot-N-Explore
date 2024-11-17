@@ -3,6 +3,26 @@
   "itemGroup.loot_n_explore.food.general": "Innkeeper Drinks",
   "itemGroup.loot_n_explore.blocks.general": "LNE Blocks",
 
+  "block.loot_n_explore.innkeeper_shelf": "Innkeeper Shelf",
+  "block.loot_n_explore.blue_ice_bricks": "Blue Ice Bricks",
+  "block.loot_n_explore.cracked_blue_ice_bricks": "Cracked Blue Ice Bricks",
+  "block.loot_n_explore.blue_ice_brick_slab": "Blue Ice Brick Slab",
+  "block.loot_n_explore.blue_ice_brick_wall": "Blue Ice Brick Wall",
+  "block.loot_n_explore.blue_ice_brick_stairs": "Blue Ice Brick Stairs",
+  "block.loot_n_explore.frozen_chain": "Frozen Chain",
+  "block.loot_n_explore.soulfrost_lantern": "Soulfrost Lantern",
+  "block.loot_n_explore.frostbloom": "Frostbloom",
+
+  "item.minecraft.potion.effect.frost_resistance_potion": "Potion of Frost Resistance",
+  "item.minecraft.potion.effect.long_frost_resistance_potion": "Potion of Frost Resistance",
+  "item.minecraft.splash_potion.effect.frost_resistance_potion": "Splash Potion of Frost Resistance",
+  "item.minecraft.splash_potion.effect.long_frost_resistance_potion": "Splash Potion of Frost Resistance",
+  "item.minecraft.lingering_potion.effect.frost_resistance_potion": "Lingering Potion of Frost Resistance",
+  "item.minecraft.lingering_potion.effect.long_frost_resistance_potion": "Lingering Potion of Frost Resistance",
+  "item.minecraft.tipped_arrow.effect.frost_resistance_potion": "Arrow of Frost Resistance",
+  "item.minecraft.tipped_arrow.effect.long_frost_resistance_potion": "Arrow of Frost Resistance",
+
+
   "item.loot_n_explore.ender_dragon_sword": "Dragon slayer",
   "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
   "spell.loot_n_explore.passive_dragonclaw.name": "Passive Spell: Dragonclaw",
@@ -20,10 +40,10 @@
   "item.loot_n_explore.wither_sword": "Withered Sword",
   "item.loot_n_explore.wither_bow": "Withered Bow",
   "item.loot_n_explore.wither_axe": "Withered Axe",
-  "spell.loot_n_explore.passive_wither_melee.name": "Passive Spell: ",
-  "spell.loot_n_explore.passive_wither_melee.description": "",
-  "lore.loot_n_explore.wither_weapon": "",
-  "passive.loot_n_explore.wither_weapon": "",
+  "spell.loot_n_explore.passive_wither_pulse.name": "Passive Spell: Wither Pulse",
+  "spell.loot_n_explore.passive_wither_pulse.description": "Inflicting targets in a 90 degree radius with the Wither Effect.",
+  "lore.loot_n_explore.wither_weapon": "Crafted from shattered Wither remains, imbued with the eternal curse of the Nether.",
+  "passive.loot_n_explore.wither_weapon": "Deals 15% magic damage, if the target has negative status effects.",
 
   "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "item.loot_n_explore.orange_juice": "Orange Juice",
@@ -52,13 +72,15 @@
   "smithing_template.loot_n_explore.applies_to": "Netherite Weapons.",
   "smithing_template.loot_n_explore.base_slot_description": "Put a Netherite Weapon here.",
 
-  "smithing_template.loot_n_explore.ender_dragon.ingredients": "?Test",
+  "item.loot_n_explore.ender_dragon_scales": "Ender Dragon Scales",
+  "smithing_template.loot_n_explore.ender_dragon.ingredients": "Ender Dragon Scales",
   "smithing_template.loot_n_explore.ender_dragon.title": "Ender Dragon Upgrade",
-  "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "?Test",
+  "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "Add Ender Dragon Scales",
 
-  "smithing_template.loot_n_explore.elder_guardian.ingredients": "?Test",
+  "item.loot_n_explore.elder_guardian_eye": "Elder Guardian Eye",
+  "smithing_template.loot_n_explore.elder_guardian.ingredients": "Elder Guardian Eye",
   "smithing_template.loot_n_explore.elder_guardian.title": "Elder Guardian Upgrade",
-  "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "?Test",
+  "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "Add Elder Guardian Eye",
 
   "smithing_template.loot_n_explore.wither.ingredients": "Nether Star",
   "smithing_template.loot_n_explore.wither.title": "Wither Upgrade",
@@ -70,7 +92,9 @@
   "entity.minecraft.villager.innkeeper": "Innkeeper",
 
   "entity.loot_n_explore.glaze": "Glaze",
+  "item.loot_n_explore.glaze_egg": "Glaze Spawn Egg",
   "entity.loot_n_explore.frost_haunt": "Frosthaunt",
+  "item.loot_n_explore.frost_haunt_egg": "Frosthaunt Spawn Egg",
 
   "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 

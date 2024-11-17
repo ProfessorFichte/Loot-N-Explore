@@ -1,6 +1,0 @@
-{
-  "parent": "rogues:item/base/glaive_30",
-  "textures": {
-    "layer0": "loot_n_explore:item/ender_dragon_glaive"
-  }
-}

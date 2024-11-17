@@ -11,9 +11,6 @@
     "target": {
       "type": "CURSOR"
     },
-    "sound": {
-      "id": "spell_engine:generic_arcane_release"
-    },
     "particles": [
       {
         "particle_id": "spell_engine:arcane_spell",
@@ -32,11 +29,6 @@
         "damage": {
           "spell_power_coefficient": 1.0
         }
-      },
-
-      "sound": {
-        "id": "entity.ender_dragon.growl",
-        "volume": 1.0
       },
       "particles": [
         {

@@ -132,7 +132,7 @@ public class GlazeEntity extends HostileEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 60);
+                entity.setFrozenTicks(entity.getFrozenTicks() + 50);
             }
             return true;
         } else {

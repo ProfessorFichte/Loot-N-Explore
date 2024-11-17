@@ -10,6 +10,8 @@ import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemsRegistry;
 import more_rpg_loot.config.Default;
 import more_rpg_loot.sounds.ModSounds;
+import more_rpg_loot.util.ChestLootInjection;
+import more_rpg_loot.util.EntityLootInjection;
 import more_rpg_loot.worldgen.gen.ModWorldGen;
 import more_rpg_loot.worldgen.villages.Villages;
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
@@ -24,12 +26,6 @@ public class RPGLoot implements ModInitializer {
 	public static final String MOD_ID = "loot_n_explore";
     public static final Logger LOGGER = LoggerFactory.getLogger("loot_n_explore");
 
-	/*public static ConfigManager<ItemConfig> itemConfig = new ConfigManager<ItemConfig>
-			("items_v1", Default.itemConfig)
-			.builder()
-			.setDirectory(MOD_ID)
-			.sanitize(true)
-			.build();*/
 	public static ConfigManager<StructurePoolConfig> villageConfig = new ConfigManager<>
 			("villages", Default.villages)
 			.builder()
@@ -51,6 +47,8 @@ public class RPGLoot implements ModInitializer {
 		ModSounds.register();
 		ModWorldGen.generateModWorldGen();
 		CompatRegistry.registerModCompat();
+		EntityLootInjection.modifyLootEntityTables();
+		ChestLootInjection.modifyChestLootTables();
 
 
 		/*

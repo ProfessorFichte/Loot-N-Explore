@@ -45,7 +45,6 @@ public class DragonMeeleeWeapon extends SwordItem {
         if(attacker instanceof PlayerEntity player){
             double target_max_health = target.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
             target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (target_max_health * 0.10F));
-            player.addEnchantedHitParticles(target);
         }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);

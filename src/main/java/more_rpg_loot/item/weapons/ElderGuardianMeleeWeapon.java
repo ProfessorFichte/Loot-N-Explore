@@ -33,7 +33,9 @@ public class ElderGuardianMeleeWeapon extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player && FabricLoader.getInstance().isModLoaded("spell_engine")){
+        if (attacker instanceof PlayerEntity player
+                && FabricLoader.getInstance().isModLoaded("spell_engine") && FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+
             float range = getSpell(new Identifier(MOD_ID, "passive_waterbomb_melee")).range;
             Predicate<Entity> selectionPredicate = (target2) -> {
                 return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player, target2)
@@ -52,7 +54,6 @@ public class ElderGuardianMeleeWeapon extends SwordItem {
         if(attacker instanceof PlayerEntity player && attacker.isInsideWaterOrBubbleColumn()){
             double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * 0.25F));
-            player.addEnchantedHitParticles(target);
         }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
@@ -65,7 +66,7 @@ public class ElderGuardianMeleeWeapon extends SwordItem {
         super.appendTooltip(stack, world, tooltip, context);
         tooltip.add(Text.translatable("lore.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
         tooltip.add(Text.translatable("passive.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
+        if(FabricLoader.getInstance().isModLoaded("spell_engine")&& FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.name").formatted(Formatting.AQUA));
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.description").formatted(Formatting.AQUA));
         }

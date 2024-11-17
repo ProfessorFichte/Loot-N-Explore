@@ -1,14 +1,6 @@
 {
   "structures": [
     {
-      "structure": "loot_n_explore:cave_spider_room",
-      "weight": 5
-    },
-    {
-      "structure": "loot_n_explore:dry_monster_rooms",
-      "weight": 5
-    },
-    {
       "structure": "loot_n_explore:cold_monster_rooms",
       "weight": 5
     }

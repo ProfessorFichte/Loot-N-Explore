@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "minecraft:prismarine_shard"
+    "item": "loot_n_explore:ender_dragon_scales"
   },
   "base": {
     "item": "minecraft:netherite_sword"

@@ -1,6 +1,0 @@
-{
-  "parent": "rogues:item/base/double_axe_20",
-  "textures": {
-    "layer0": "loot_n_explore:item/elder_guardian_double_axe"
-  }
-}
