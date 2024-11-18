@@ -22,8 +22,6 @@ public class FrosthauntEntity extends SkeletonEntity {
         this.experiencePoints += 1;
     }
 
-
-
     public static DefaultAttributeContainer.Builder createFrosthauntSkeletonAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)

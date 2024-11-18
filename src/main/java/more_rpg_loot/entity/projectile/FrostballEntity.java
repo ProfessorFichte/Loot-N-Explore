@@ -1,12 +1,11 @@
 package more_rpg_loot.entity.projectile;
 
+import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
@@ -21,7 +20,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_power.api.SpellSchools;
 
 public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntity {
@@ -44,7 +42,8 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
         if (!this.getWorld().isClient) {
-            float d = 6.0F;
+            this.playSound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+            float d = 2.0F;
             Entity entity = entityHitResult.getEntity();
             Entity entity2 = this.getOwner();
 
@@ -52,22 +51,17 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 if(entity2 != null){
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
-                        if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-                            livingEntity.addStatusEffect(new StatusEffectInstance(MRPGCEffects.FROSTED,
-                                    200, 1, false, false, true));
+                        livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING,
+                                200, 1, false, false, true));
+                        if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
+                            double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attribute) * 0.25F;
+                            livingEntity.damage(livingEntity.getDamageSources().freeze(), (float) (d + frostPower));
                         }else{
-                            livingEntity.setFrozenTicks(entity.getFrozenTicks() + 60);
+                            livingEntity.damage(livingEntity.getDamageSources().freeze(),d);
                         }
-
                     }
                 }
-                //DAMAGE
-                if(entity2 instanceof PlayerEntity playerEntity){
-                    double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attribute) * 0.25F;
-                    livingEntity.damage(livingEntity.getDamageSources().freeze(), (float) (d + frostPower));
-                }else{
-                    livingEntity.damage(livingEntity.getDamageSources().freeze(),d);
-                }
+
             }
             this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
                     this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5),
@@ -106,7 +100,8 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getWorld().isClient) {
-            this.getWorld().sendEntityStatus(this, (byte)3);
+            HelperMethods.spawnCloudEntity(this,2.0F,5,4.0F,
+                    Effects.FREEZING,5,0);
             this.discard();
         }
     }

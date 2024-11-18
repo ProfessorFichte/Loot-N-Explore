@@ -1,8 +1,10 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
+import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -10,19 +12,24 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.more_rpg_classes.effect.MRPGCEffects;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 public class GlazeEntity extends HostileEntity {
@@ -142,8 +149,6 @@ public class GlazeEntity extends HostileEntity {
 
     private static class GlazeSpecialAttacksGoal extends Goal {
         private final GlazeEntity glaze;
-        private int frostballsFired;
-        private int frostballCooldown;
         private int frostballsHailFired;
         private int frostballHailCooldown;
         private int frostStormCooldown;
@@ -161,7 +166,6 @@ public class GlazeEntity extends HostileEntity {
         }
 
         public void start() {
-            this.frostballsFired = 0;
             this.frostballsHailFired = 0;
             this.frostStormFired = 0;
         }
@@ -175,12 +179,10 @@ public class GlazeEntity extends HostileEntity {
         }
 
         public void tick() {
-            --this.frostballCooldown;
             --this.frostballHailCooldown;
             --this.frostStormCooldown;
             double followRangeSquare = this.getFollowRange()*this.getFollowRange();
-            double frostballShootRange = 400;
-            double frostStormRange = 16;
+            double frostStormRange = 40;
             LivingEntity livingEntity = this.glaze.getTarget();
             if (livingEntity != null) {
                 boolean bl = this.glaze.getVisibilityCache().canSee(livingEntity);
@@ -195,37 +197,15 @@ public class GlazeEntity extends HostileEntity {
                     if (!bl) {
                         return;
                     }
-                    if (this.frostballCooldown <= 0) {
-                        this.frostballCooldown = 20;
-                        this.frostStormCooldown = 80;
-                        this.frostballHailCooldown = 20;
-                        this.glaze.tryAttack(livingEntity);
-                    }
-
+                    this.glaze.tryAttack(livingEntity);
                     this.glaze.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-                } else if (d < frostballShootRange && bl) {
-                    //FROSTBALL SHOOT
-                    if (this.frostballCooldown <= 0) {
-                        ++this.frostballsFired;
-                        if (this.frostballsFired == 1) {
-                            this.frostballCooldown = 60;
-                        } else if (this.frostballsFired <= 4) {
-                            this.frostballCooldown = 6;
-                        } else {
-                            this.frostballCooldown = 100;
-                            this.frostballsFired = 0;
-                        }
-                        if (this.frostballsFired > 1) {
-                            if (!this.glaze.isSilent()) {
-                                this.glaze.getWorld().syncWorldEvent((PlayerEntity)null, 1018, this.glaze.getBlockPos(), 0);
-                            }
+                }
 
-                            for(int i = 0; i < 1; ++i) {
-                                Random rand = new Random();
+                /*
+                                 Random rand = new Random();
                                 float random = rand.nextFloat() * (0.025F - 0.0F) + 0.0F;
                                 BlockPos blockPos = this.glaze.getBlockPos()
                                         .add(-2 + this.glaze.random.nextInt(5), 2, -2 + this.glaze.random.nextInt(5));
-
                                 FrostballEntity frostballEntity2 = new  FrostballEntity(livingEntity.getWorld(), livingEntity);
                                 frostballEntity2.setOwner(this.glaze);
                                 frostballEntity2.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
@@ -234,20 +214,16 @@ public class GlazeEntity extends HostileEntity {
                                         this.glaze.getPitch() + this.glaze.random.nextFloat(),
                                         this.glaze.getHeadYaw() + this.glaze.random.nextFloat(),
                                         0.0f, 2.5f+random, 0.5f+random
-                                );
                                 this.glaze.getWorld().spawnEntity(frostballEntity2);
-                            }
-                        }
-                    }
+                                */
 
-                    this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
-                } else if(d < followRangeSquare && d > frostballShootRange && bl){
+                else if(d < followRangeSquare & d> frostStormRange  && bl){
                     //FROSTBALL HAIL
                     if (this.frostballHailCooldown <= 0) {
                         ++this.frostballsHailFired;
                         if (this.frostballsHailFired == 1) {
                             this.frostballHailCooldown = 60;
-                        } else if (this.frostballsHailFired <= 6) {
+                        } else if (this.frostballsHailFired <= 3) {
                             this.frostballHailCooldown = 6;
                         } else {
                             this.frostballHailCooldown = 100;
@@ -255,10 +231,6 @@ public class GlazeEntity extends HostileEntity {
                         }
 
                         if (this.frostballsHailFired > 1) {
-                            if (!this.glaze.isSilent()) {
-                                this.glaze.getWorld().syncWorldEvent((PlayerEntity)null, 1018, this.glaze.getBlockPos(), 0);
-                            }
-
                             for(int i = 0; i < 1; ++i) {
                                 Random rand = new Random();
                                 float random = rand.nextFloat() * (0.025F - 0.0F) + 0.0F;
@@ -276,9 +248,19 @@ public class GlazeEntity extends HostileEntity {
 
                     this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
                 }
-                /*else if(d < frostStormRange && bl){
+                else if(d< frostStormRange && bl){
                     //FROSTSTORM
-                }*/
+                    if (this.frostStormCooldown <= 0) {
+                        ++this.frostStormFired;
+                        if (this.frostStormFired == 1) {
+                            this.frostStormCooldown = 600;
+                        }
+                        if (!glaze.getWorld().isClient) {
+                            HelperMethods.spawnCloudEntity(glaze, 4.0F, 10, 5.0F,
+                                    Effects.FREEZING, 10, 0);
+                        }
+                    }
+                }
                 else if (this.targetNotVisibleTicks < 5) {
                     this.glaze.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
                 }

@@ -91,6 +91,7 @@ public class SmithingTemplates {
             BASE_ITEMS,
             INGREDIENT_ITEMS_WITHER
     );
+
     public static void registerSmithingUpgrades(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"dragon_upgrade_smithing_template"),ENDER_DRAGON_UPGRADE);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"guardian_upgrade_smithing_template"),ELDER_GUARDIAN_UPGRADE);

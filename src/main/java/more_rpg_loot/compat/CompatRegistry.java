@@ -1,7 +1,6 @@
 package more_rpg_loot.compat;
 
 import more_rpg_loot.compat.items.MRPGCItems;
-import more_rpg_loot.compat.items.MRPGCPotions;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
 import more_rpg_loot.compat.rpg_series.RPGSeriesLootInjectionLNE;
@@ -15,8 +14,6 @@ public class CompatRegistry {
         }
         if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
             MRPGCItems.registerMRPGCItems();
-            MRPGCPotions.registerPotions();
-            MRPGCPotions.registerPotionsRecipes();
         }
         if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")){
             RangedWeaponAPIItems.registerRangedWeaponAPIItems();

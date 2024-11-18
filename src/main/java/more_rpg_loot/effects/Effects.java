@@ -14,6 +14,8 @@ public class Effects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final StatusEffect FROST_RESISTANCE = registerStatusEffect("frost_resistance",
             new FrostResistanceEffect(StatusEffectCategory.BENEFICIAL, 0x99ccff));
+    public static final StatusEffect FREEZING = registerStatusEffect("freezing",
+            new FreezingEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
 
     private static StatusEffect registerStatusEffect(String name, StatusEffect statusEffect) {
         return Registry.register(Registries.STATUS_EFFECT, new Identifier(MOD_ID, name), statusEffect);
