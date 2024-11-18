@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -96,9 +97,9 @@ public class SmithingTemplates {
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"wither_upgrade_smithing_template"),WITHER_UPGRADE);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
-            content.add(SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
-            content.add(SmithingTemplates.ENDER_DRAGON_UPGRADE);
-            content.add(SmithingTemplates.WITHER_UPGRADE);
+            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
+            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,ENDER_DRAGON_UPGRADE);
+            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,WITHER_UPGRADE);
         });
     }
 }

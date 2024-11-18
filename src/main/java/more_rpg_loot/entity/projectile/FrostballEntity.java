@@ -2,10 +2,12 @@ package more_rpg_loot.entity.projectile;
 
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
@@ -19,6 +21,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
+import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_power.api.SpellSchools;
 
 public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntity {
@@ -49,7 +52,13 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 if(entity2 != null){
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
-                        entity.setFrozenTicks(entity.getFrozenTicks() + 60);
+                        if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+                            livingEntity.addStatusEffect(new StatusEffectInstance(MRPGCEffects.FROSTED,
+                                    200, 1, false, false, true));
+                        }else{
+                            livingEntity.setFrozenTicks(entity.getFrozenTicks() + 60);
+                        }
+
                     }
                 }
                 //DAMAGE
@@ -60,6 +69,9 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                     livingEntity.damage(livingEntity.getDamageSources().freeze(),d);
                 }
             }
+            this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
+                    this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5),
+                    0, 0, 0);
         }
     }
 
@@ -74,7 +86,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
             ParticleEffect particleEffect = this.getParticleParameters();
 
             for(int i = 0; i < 8; ++i) {
-                this.getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+                this.getWorld().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0, 0.2, 0);
             }
         }
 

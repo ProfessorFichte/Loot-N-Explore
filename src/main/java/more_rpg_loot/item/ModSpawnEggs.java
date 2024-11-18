@@ -22,6 +22,7 @@ public class ModSpawnEggs {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register((content) -> {
             content.add(FROSTHAUNT_SPAWN_EGG);
             content.add(GLAZE_SPAWN_EGG);
+            content.add(GLAZE_SPAWN_EGG);
         });
     }
 }

@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -62,12 +63,12 @@ public class CommonItems {
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((content) -> {
-            content.add(FROSTBALL);
+            content.addAfter(Items.SNOWBALL,FROSTBALL);
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
-            content.add(GLAZE_ROD);
-            content.add(ELDER_GUARDIAN_EYE);
-            content.add(ENDER_DRAGON_SCALES);
+            content.addAfter(Items.BLAZE_ROD,GLAZE_ROD);
+            content.addAfter(Items.NETHER_STAR,ELDER_GUARDIAN_EYE);
+            content.addAfter(Items.NETHER_STAR,ENDER_DRAGON_SCALES);
         });
     }
 }

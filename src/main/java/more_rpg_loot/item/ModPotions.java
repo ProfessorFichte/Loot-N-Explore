@@ -1,5 +1,6 @@
 package more_rpg_loot.item;
 
+import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.mixin.BrewingRecipeRegistryMixin;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -25,7 +26,7 @@ public class ModPotions {
     }
 
     public static void registerPotionsRecipes(){
-        BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, CommonItems.GLAZE_ROD, ModPotions.FROST_RESISTANCE_POTION);
+        BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, ModBlocks.FROST_BLOOM.item(), ModPotions.FROST_RESISTANCE_POTION);
         BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(ModPotions.FROST_RESISTANCE_POTION, Items.REDSTONE, ModPotions.LONG_FROST_RESISTANCE_POTION);
     }
 }
