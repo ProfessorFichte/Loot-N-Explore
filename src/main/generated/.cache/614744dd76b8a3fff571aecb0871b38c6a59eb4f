@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-16T13:34:51.4599328	Loot n´ Explore/Model Definitions
+// 1.20.1	2024-11-18T22:05:50.2468978	Loot n´ Explore/Model Definitions
 fed1da98e5888a15f40e779bc94a18e5908ce52d assets\loot_n_explore\models\item\glaze_rod.json
 229b012a439a457e17d2978481a6c6f18679cc8b assets\loot_n_explore\models\item\frozen_chain.json
 e7b9292c4f013f2f596a6dff915fea3fb19b1ac8 assets\loot_n_explore\models\block\blue_ice_brick_slab.json
@@ -9,8 +9,8 @@ f4c4f77aecb5f3fb7437bbf9ed3606ef248aa590 assets\loot_n_explore\models\block\blue
 acea54079570c8261f6c8205d661357c8f0c3426 assets\loot_n_explore\blockstates\potted_frostbloom.json
 770e2dd609e8dcfea843eeaf99f9bc55a5df00d9 assets\loot_n_explore\models\block\cracked_blue_ice_bricks.json
 acb47e8aa28aaf0ccae7dfe4ef88cf798216fdcd assets\loot_n_explore\models\item\blue_ice_bricks.json
-0e62f9f7a205badc42cabac184f2864d70828f03 assets\loot_n_explore\models\block\blue_ice_brick_stairs.json
 b4cdbd116a1a676d4fd3ccb85e4a8edc2f87220f assets\loot_n_explore\models\item\blue_ice_brick_wall.json
+0e62f9f7a205badc42cabac184f2864d70828f03 assets\loot_n_explore\models\block\blue_ice_brick_stairs.json
 fe67ee8862c3e92f29ecd9783239d8c69d4a9252 assets\loot_n_explore\models\block\blue_ice_brick_wall_inventory.json
 c165f02c424d88b6a6c23dabbd7f5f4d0750f151 assets\loot_n_explore\models\item\frostbloom.json
 8913d8475b37f74e17197382638eedc3a0b42680 assets\loot_n_explore\blockstates\blue_ice_brick_stairs.json
@@ -25,6 +25,7 @@ a1ce35f037d695d5f30d088052963b957de18789 assets\loot_n_explore\models\block\pott
 5b1bf07f34216f2984727fecc508c14d49e3ab27 assets\loot_n_explore\models\block\blue_ice_brick_stairs_outer.json
 d335d3bc654f0d19422bfcfdd31bab3692065e4c assets\loot_n_explore\models\block\frostbloom.json
 6d1f129e9903534d383476e024353ffca83e6c4e assets\loot_n_explore\blockstates\blue_ice_brick_wall.json
+5dea56ce0e042c790f70fa37bbe760c08921beaf assets\loot_n_explore\models\item\glacial_axe.json
 a0d083712f05ab6a296508deb9009f724fa4406c assets\loot_n_explore\blockstates\cracked_blue_ice_bricks.json
 360d0a55713335acc46d5624300d6c56cea65b53 assets\loot_n_explore\blockstates\blue_ice_bricks.json
 5933dcc14f8588ec28571429c98843f5eca0d1dc assets\loot_n_explore\models\item\ender_dragon_scales.json

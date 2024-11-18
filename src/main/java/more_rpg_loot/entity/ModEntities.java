@@ -1,6 +1,7 @@
 package more_rpg_loot.entity;
 
 import more_rpg_loot.RPGLoot;
+import more_rpg_loot.entity.mob.FrostMonarchEntity;
 import more_rpg_loot.entity.mob.FrosthauntEntity;
 import more_rpg_loot.entity.mob.GlazeEntity;
 import more_rpg_loot.entity.projectile.FrostballEntity;
@@ -17,6 +18,13 @@ public class ModEntities {
     public static final EntityType<FrosthauntEntity> FROST_HAUNT = FabricEntityTypeBuilder.create(
                     SpawnGroup.MONSTER,
                     FrosthauntEntity::new
+            )
+            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
+            .trackRangeChunks(8)
+            .build();
+    public static final EntityType<FrostMonarchEntity> FROST_MONARCH = FabricEntityTypeBuilder.create(
+                    SpawnGroup.MONSTER,
+                    FrostMonarchEntity::new
             )
             .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
             .trackRangeChunks(8)
@@ -38,9 +46,11 @@ public class ModEntities {
 
     public static void register(){
         register("frost_haunt", FROST_HAUNT);
+        register("frost_monarch", FROST_MONARCH);
         register("glaze", GLAZE);
         register("frostball", FROSTBALL);
         FabricDefaultAttributeRegistry.register(FROST_HAUNT, FrosthauntEntity.createFrosthauntSkeletonAttributes());
+        FabricDefaultAttributeRegistry.register(FROST_MONARCH, FrostMonarchEntity.createFrostmonarchAttributes());
         FabricDefaultAttributeRegistry.register(GLAZE, GlazeEntity.createGlazeAttributes());
     }
 

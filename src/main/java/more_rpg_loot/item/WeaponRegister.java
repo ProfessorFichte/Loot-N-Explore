@@ -23,6 +23,7 @@ public class WeaponRegister {
     public static Item ENDER_DRAGON_AXE = new DragonMeeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
     public static Item WITHER_SWORD = new WitherMeleeWeapon(ToolMaterials.NETHERITE,4,swordVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
     public static Item WITHER_AXE = new WitherMeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item GLACIAL_AXE = new WitherMeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
 
     public static void registerWeapons(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"elder_guardian_sword"),ELDER_GUARDIAN_SWORD);
@@ -31,6 +32,7 @@ public class WeaponRegister {
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"ender_dragon_axe"),ENDER_DRAGON_AXE);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"wither_sword"),WITHER_SWORD);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"wither_axe"),WITHER_AXE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"glacial_axe"),GLACIAL_AXE);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register((content) -> {
             content.add(ELDER_GUARDIAN_SWORD);
@@ -39,6 +41,7 @@ public class WeaponRegister {
             content.add(ENDER_DRAGON_AXE);
             content.add(WITHER_SWORD);
             content.add(WITHER_AXE);
+            content.add(GLACIAL_AXE);
         });
     }
 }

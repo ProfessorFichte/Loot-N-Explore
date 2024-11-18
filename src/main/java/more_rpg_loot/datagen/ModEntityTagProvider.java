@@ -17,18 +17,25 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
-                .add(ModEntities.FROST_HAUNT);
+                .add(ModEntities.FROST_HAUNT)
+                .add(ModEntities.FROST_MONARCH)
+        ;
 
         getOrCreateTagBuilder(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS)
                 .add(ModEntities.GLAZE)
-                .add(ModEntities.FROST_HAUNT);
+                .add(ModEntities.FROST_HAUNT)
+                .add(ModEntities.FROST_MONARCH)
+        ;
 
         getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
                 .add(ModEntities.GLAZE)
-                .add(ModEntities.FROST_HAUNT);
+                .add(ModEntities.FROST_HAUNT)
+                .add(ModEntities.FROST_MONARCH)
+        ;
 
         getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-                .add(ModEntities.GLAZE);
+                .add(ModEntities.GLAZE)
+        ;
 
     }
 }

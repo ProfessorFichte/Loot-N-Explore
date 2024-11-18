@@ -1,6 +1,7 @@
 package more_rpg_loot.datagen;
 
 import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.item.WeaponRegister;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
@@ -34,6 +35,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(CommonItems.FROSTBALL, Models.GENERATED);
         itemModelGenerator.register(CommonItems.ENDER_DRAGON_SCALES, Models.GENERATED);
         itemModelGenerator.register(CommonItems.ELDER_GUARDIAN_EYE, Models.GENERATED);
+        itemModelGenerator.register(WeaponRegister.GLACIAL_AXE, Models.HANDHELD);
     }
 
 

@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 public class ModMobRenderers {
     public static void register(){
         EntityRendererRegistry.register(ModEntities.FROST_HAUNT, FrosthauntEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.FROST_MONARCH, FrostmonarchEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.GLAZE, GlazeEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.FROSTBALL, FlyingItemEntityRenderer::new);
     }
