@@ -1,5 +1,7 @@
 package more_rpg_loot.client.entity.renderers;
 
+import more_rpg_loot.client.entity.renderers.feature.FrostmonarchEyesFeatureRenderer;
+import more_rpg_loot.client.entity.renderers.feature.FrostmonarchOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.SkeletonEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
@@ -14,6 +16,8 @@ public class FrostmonarchEntityRenderer extends SkeletonEntityRenderer {
 
     public FrostmonarchEntityRenderer(EntityRendererFactory.Context context) {
         super(context, EntityModelLayers.SKELETON, EntityModelLayers.STRAY_INNER_ARMOR, EntityModelLayers.STRAY_OUTER_ARMOR);
+        this.addFeature(new FrostmonarchEyesFeatureRenderer<>(this));
+        this.addFeature(new FrostmonarchOverlayFeatureRenderer<>(this, context.getModelLoader()));
     }
 
     public Identifier getTexture(AbstractSkeletonEntity abstractSkeletonEntity) {

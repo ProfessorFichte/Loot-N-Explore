@@ -1,6 +1,8 @@
 package more_rpg_loot.client.entity.renderers;
 
 
+import more_rpg_loot.client.entity.renderers.feature.FrosthauntEyesFeatureRenderer;
+import more_rpg_loot.client.entity.renderers.feature.FrosthauntOverlayFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -18,6 +20,8 @@ public class FrosthauntEntityRenderer extends SkeletonEntityRenderer {
 
     public FrosthauntEntityRenderer(EntityRendererFactory.Context context) {
         super(context, EntityModelLayers.SKELETON, EntityModelLayers.STRAY_INNER_ARMOR, EntityModelLayers.STRAY_OUTER_ARMOR);
+        this.addFeature(new FrosthauntEyesFeatureRenderer<>(this));
+        this.addFeature(new FrosthauntOverlayFeatureRenderer<>(this, context.getModelLoader()));
     }
 
     public Identifier getTexture(AbstractSkeletonEntity abstractSkeletonEntity) {
