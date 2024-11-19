@@ -100,7 +100,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getWorld().isClient) {
-            HelperMethods.spawnCloudEntity(this,2.0F,5,4.0F,
+            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,1.0F,5,2.0F,
                     Effects.FREEZING,5,0);
             this.discard();
         }

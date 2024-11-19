@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
@@ -132,7 +133,7 @@ public class GlazeEntity extends HostileEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 50);
+                entity.setFrozenTicks(entity.getFrozenTicks() + 25);
             }
             return true;
         } else {
@@ -249,8 +250,8 @@ public class GlazeEntity extends HostileEntity {
                             this.frostStormCooldown = 600;
                         }
                         if (!glaze.getWorld().isClient) {
-                            HelperMethods.spawnCloudEntity(glaze, 4.0F, 10, 5.0F,
-                                    Effects.FREEZING, 10, 0);
+                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, 4.0F, 10, 5.0F,
+                                    Effects.FREEZING, 10, 1);
                         }
                     }
                 }

@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.item.WeaponRegister;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
@@ -11,6 +12,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -74,7 +76,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public void tickMovement() {
         if (this.getWorld().isClient) {
             for(int i = 0; i < 2; ++i) {
-                this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
+                this.getWorld().addParticle(Particles.FREEZING_SNOWFLAKE,
                         this.getParticleX(1.5), this.getRandomBodyY(), this.getParticleZ(1.5),
                         -0.1, -0.1, -0.1);
             }
@@ -123,7 +125,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 40);
+                entity.setFrozenTicks(entity.getFrozenTicks() + 25);
             }
             return true;
         } else {
@@ -131,8 +133,16 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
     }
     public boolean damage(DamageSource source, float amount) {
-        if(source.isIn(DamageTypeTags.IS_FIRE)){
+        if(source.isIn(DamageTypeTags.IS_FIRE) && !this.isInLava()){
             return false;
+        }
+        if (!this.getWorld().isClient) {
+            if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
+                Entity attacker = source.getSource();
+                if (attacker instanceof LivingEntity livingEntity) {
+                    livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + 25);
+                }
+            }
         }
         return super.damage(source, amount);
     }

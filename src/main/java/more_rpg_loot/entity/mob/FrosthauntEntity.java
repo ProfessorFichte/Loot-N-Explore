@@ -53,7 +53,7 @@ public class FrosthauntEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                    entity.setFrozenTicks(entity.getFrozenTicks() + 40);
+                    entity.setFrozenTicks(entity.getFrozenTicks() + 25);
             }
             return true;
         } else {

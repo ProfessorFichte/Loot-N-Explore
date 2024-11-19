@@ -14,6 +14,7 @@
   "block.loot_n_explore.frostbloom": "Frostbloom",
 
   "effect.loot_n_explore.frost_resistance": "Frost Resistance",
+  "effect.loot_n_explore.frost_resistance.description": "Removes all Frozen Ticks as long as this effect is active.",
   "item.minecraft.potion.effect.frost_resistance_potion": "Potion of Frost Resistance",
   "item.minecraft.potion.effect.long_frost_resistance_potion": "Potion of Frost Resistance",
   "item.minecraft.splash_potion.effect.frost_resistance_potion": "Splash Potion of Frost Resistance",
@@ -24,6 +25,7 @@
   "item.minecraft.tipped_arrow.effect.long_frost_resistance_potion": "Arrow of Frost Resistance",
 
   "effect.loot_n_explore.freezing": "Freezing",
+  "effect.loot_n_explore.freezing.description": "Adds Frozenticks every tick.",
   "item.minecraft.potion.effect.frosted_potion": "Potion of Freezing",
   "item.minecraft.potion.effect.long_frosted_potion": "Potion of Freezing",
   "item.minecraft.splash_potion.effect.frosted_potion": "Splash Potion of Freezing",
@@ -99,6 +101,7 @@
   "filled_map.loot_n_explore.monster_quest": "Please help us eliminate the threats nearby!",
 
   "effect.loot_n_explore.innkeepers_proviant": "Inn´s Proviant",
+  "effect.loot_n_explore.innkeepers_proviant.description": "You can drink up to 3 Innkeeper drinks, than your effects will be cleared and you get Nausea.",
   "entity.minecraft.villager.innkeeper": "Innkeeper",
 
   "entity.loot_n_explore.glaze": "Glaze",
