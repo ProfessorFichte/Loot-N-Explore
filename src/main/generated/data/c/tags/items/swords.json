@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:elder_guardian_sword",
+    "loot_n_explore:ender_dragon_sword",
+    "loot_n_explore:wither_sword"
+  ]
+}

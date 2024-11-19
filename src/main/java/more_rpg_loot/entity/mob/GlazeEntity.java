@@ -250,6 +250,7 @@ public class GlazeEntity extends HostileEntity {
                             this.frostStormCooldown = 600;
                         }
                         if (!glaze.getWorld().isClient) {
+                            ++this.frostStormFired;
                             HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, 4.0F, 10, 5.0F,
                                     Effects.FREEZING, 10, 1);
                         }

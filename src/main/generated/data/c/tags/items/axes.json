@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:elder_guardian_axe",
+    "loot_n_explore:ender_dragon_axe",
+    "loot_n_explore:wither_axe",
+    "loot_n_explore:glacial_axe"
+  ]
+}

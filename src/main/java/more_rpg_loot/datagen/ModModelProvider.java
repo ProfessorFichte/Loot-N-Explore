@@ -35,6 +35,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(CommonItems.FROSTBALL, Models.GENERATED);
         itemModelGenerator.register(CommonItems.ENDER_DRAGON_SCALES, Models.GENERATED);
         itemModelGenerator.register(CommonItems.ELDER_GUARDIAN_EYE, Models.GENERATED);
+        itemModelGenerator.register(CommonItems.FROZEN_SOUL, Models.GENERATED);
         itemModelGenerator.register(WeaponRegister.GLACIAL_AXE, Models.HANDHELD);
     }
 

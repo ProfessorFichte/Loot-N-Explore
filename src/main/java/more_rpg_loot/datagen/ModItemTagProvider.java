@@ -1,6 +1,6 @@
 package more_rpg_loot.datagen;
 
-import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.item.WeaponRegister;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
@@ -17,6 +17,17 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "axes")))
+                .add(WeaponRegister.ELDER_GUARDIAN_AXE)
+                .add(WeaponRegister.ENDER_DRAGON_AXE)
+                .add(WeaponRegister.WITHER_AXE)
+                .add(WeaponRegister.GLACIAL_AXE)
+        ;
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "swords")))
+                .add(WeaponRegister.ELDER_GUARDIAN_SWORD)
+                .add(WeaponRegister.ENDER_DRAGON_SWORD)
+                .add(WeaponRegister.WITHER_SWORD)
+        ;
         /*
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dehydration", "hydrating_drinks")))
                 .add(CommonItems.BEET_ROOTBEER)

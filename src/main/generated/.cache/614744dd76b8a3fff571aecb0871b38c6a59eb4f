@@ -1,4 +1,4 @@
-// 1.20.1	2024-11-18T22:05:50.2468978	Loot n´ Explore/Model Definitions
+// 1.20.1	2024-11-19T17:40:16.1945201	Loot n´ Explore/Model Definitions
 fed1da98e5888a15f40e779bc94a18e5908ce52d assets\loot_n_explore\models\item\glaze_rod.json
 229b012a439a457e17d2978481a6c6f18679cc8b assets\loot_n_explore\models\item\frozen_chain.json
 e7b9292c4f013f2f596a6dff915fea3fb19b1ac8 assets\loot_n_explore\models\block\blue_ice_brick_slab.json
@@ -15,6 +15,7 @@ fe67ee8862c3e92f29ecd9783239d8c69d4a9252 assets\loot_n_explore\models\block\blue
 c165f02c424d88b6a6c23dabbd7f5f4d0750f151 assets\loot_n_explore\models\item\frostbloom.json
 8913d8475b37f74e17197382638eedc3a0b42680 assets\loot_n_explore\blockstates\blue_ice_brick_stairs.json
 c6eeb736ace37981645982916a2e49baaa9e72d2 assets\loot_n_explore\models\item\elder_guardian_eye.json
+d7f4f12bc7e5fea3144f8c623b57f82856925d42 assets\loot_n_explore\models\item\frozen_soul.json
 94e6e8df27815d7cc6639a1de3e1d01788d0c540 assets\loot_n_explore\models\block\blue_ice_brick_wall_post.json
 429ce2d15680852a5239249cbe368c9dd3586659 assets\loot_n_explore\models\block\soulfrost_lantern.json
 30312eb0cfa61e901af86ec766f954c04a39511d assets\loot_n_explore\blockstates\frostbloom.json

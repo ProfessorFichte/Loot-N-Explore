@@ -2,6 +2,7 @@ package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.WeaponRegister;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
@@ -11,6 +12,7 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.HostileEntity;
@@ -18,8 +20,8 @@ import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -35,13 +37,13 @@ public class FrostMonarchEntity extends SkeletonEntity {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.bossBar = (ServerBossBar)(new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS)).setDarkenSky(true);
-        this.experiencePoints += 10;
+        this.experiencePoints += 50;
     }
 
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)
-                .add(EntityAttributes.GENERIC_ARMOR, 8.0)
+                .add(EntityAttributes.GENERIC_ARMOR, 6.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2505)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
@@ -94,6 +96,10 @@ public class FrostMonarchEntity extends SkeletonEntity {
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         allowDrops = false;
         super.dropEquipment(source, lootingMultiplier, allowDrops);
+        ItemEntity itemEntity = this.dropItem(CommonItems.FROZEN_SOUL);
+        if (itemEntity != null) {
+            itemEntity.setCovetedItem();
+        }
     }
 
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
@@ -125,7 +131,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 25);
+                entity.setFrozenTicks(entity.getFrozenTicks() + 40);
             }
             return true;
         } else {

@@ -1,5 +1,6 @@
-// 1.20.1	2024-11-18T22:05:50.2478987	Loot n´ Explore/Tags for minecraft:entity_type
-e84080fb77384dcd06d33630b8caf3c9e8dc669d data\minecraft\tags\entity_types\skeletons.json
+// 1.20.1	2024-11-19T17:40:16.1955213	Loot n´ Explore/Tags for minecraft:entity_type
+3401a8497e4d781c18b1a7f3c23ce40a4562db9e data\minecraft\tags\entity_types\skeletons.json
 d444dd4adf613b9f6aa72ca415b8cf3650d41e36 data\minecraft\tags\entity_types\fall_damage_immune.json
-ca43452ee8fc86f9cb540b9d4ba82d605d9c934a data\minecraft\tags\entity_types\freeze_immune_entity_types.json
-ca43452ee8fc86f9cb540b9d4ba82d605d9c934a data\minecraft\tags\entity_types\powder_snow_walkable_mobs.json
+6918f0dd08498c1c791c50977235a89df4836c50 data\minecraft\tags\entity_types\freeze_immune_entity_types.json
+f1d1173b419e4adeaa4ef98d351b0acd7bff7dd3 data\c\tags\entity_types\bosses.json
+6918f0dd08498c1c791c50977235a89df4836c50 data\minecraft\tags\entity_types\powder_snow_walkable_mobs.json

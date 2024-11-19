@@ -36,6 +36,7 @@ public class CommonItems {
 
     public static Item ELDER_GUARDIAN_EYE =  new FrostballItem(new FabricItemSettings().rarity(Rarity.UNCOMMON));
     public static Item ENDER_DRAGON_SCALES =  new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON));
+    public static Item FROZEN_SOUL =  new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON));
 
     public static void registerCommonItems(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);
@@ -51,6 +52,7 @@ public class CommonItems {
 
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"elder_guardian_eye"),ELDER_GUARDIAN_EYE);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"ender_dragon_scales"),ENDER_DRAGON_SCALES);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"frozen_soul"),FROZEN_SOUL);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             content.add(SWEET_BERRY_PUNCH);
@@ -69,6 +71,7 @@ public class CommonItems {
             content.addAfter(Items.BLAZE_ROD,GLAZE_ROD);
             content.addAfter(Items.NETHER_STAR,ELDER_GUARDIAN_EYE);
             content.addAfter(Items.NETHER_STAR,ENDER_DRAGON_SCALES);
+            content.addAfter(Items.NETHER_STAR,FROZEN_SOUL);
         });
     }
 }
