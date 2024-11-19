@@ -3,6 +3,7 @@ package more_rpg_loot.entity.mob;
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
@@ -19,6 +20,9 @@ import org.jetbrains.annotations.Nullable;
 public class FrosthauntEntity extends SkeletonEntity {
     public FrosthauntEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
+        this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 8.0F);
         this.experiencePoints += 1;
     }
 

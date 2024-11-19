@@ -1,16 +1,16 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.effects.Effects;
-import more_rpg_loot.entity.projectile.FrostballEntity;
 import more_rpg_loot.item.WeaponRegister;
-import more_rpg_loot.sounds.ModSounds;
-import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -18,32 +18,50 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class FrostMonarchEntity extends SkeletonEntity {
+    private final ServerBossBar bossBar;
+
     public FrostMonarchEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
+        this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
+        this.bossBar = (ServerBossBar)(new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS)).setDarkenSky(true);
         this.experiencePoints += 10;
     }
 
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)
+                .add(EntityAttributes.GENERIC_ARMOR, 8.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2505)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 200)
-                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2f);
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
+    }
+
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        if (this.hasCustomName()) {
+            this.bossBar.setName(this.getDisplayName());
+        }
+
+    }
+
+    public void setCustomName(@Nullable Text name) {
+        super.setCustomName(name);
+        this.bossBar.setName(this.getDisplayName());
     }
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(2, new AvoidSunlightGoal(this));
-        this.goalSelector.add(3, new EscapeSunlightGoal(this, 2.5));
+        //this.goalSelector.add(2, new AvoidSunlightGoal(this));
+        //this.goalSelector.add(3, new EscapeSunlightGoal(this, 1.5));
         //this.goalSelector.add(4, new FrostMonarchEntity.MonarchSpecialAttacksGoal(this));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
@@ -52,7 +70,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal(this, IronGolemEntity.class, true));
     }
-
 
     public void tickMovement() {
         if (this.getWorld().isClient) {
@@ -65,8 +82,30 @@ public class FrostMonarchEntity extends SkeletonEntity {
         super.tickMovement();
     }
 
+    protected void mobTick() {
+        if(this.isOnFire() && !this.isInLava()){
+            this.extinguish();
+        }
+        this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+    }
+
+    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+        allowDrops = false;
+        super.dropEquipment(source, lootingMultiplier, allowDrops);
+    }
+
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
         this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponRegister.GLACIAL_AXE));
+    }
+
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        this.bossBar.addPlayer(player);
+    }
+
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        this.bossBar.removePlayer(player);
     }
 
     @Nullable
@@ -91,6 +130,13 @@ public class FrostMonarchEntity extends SkeletonEntity {
             return false;
         }
     }
+    public boolean damage(DamageSource source, float amount) {
+        if(source.isIn(DamageTypeTags.IS_FIRE)){
+            return false;
+        }
+        return super.damage(source, amount);
+    }
+
 
     private static class MonarchSpecialAttacksGoal extends Goal {
         private final FrostMonarchEntity monarch;

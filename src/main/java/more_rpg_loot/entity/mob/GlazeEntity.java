@@ -108,7 +108,6 @@ public class GlazeEntity extends HostileEntity {
 
         super.tickMovement();
     }
-
     public boolean hurtByWater() {
         return false;
     }
