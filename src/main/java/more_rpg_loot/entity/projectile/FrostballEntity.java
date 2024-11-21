@@ -22,6 +22,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.spell_power.api.SpellSchools;
 
+import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+
 public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntity {
     public FrostballEntity(EntityType<? extends FrostballEntity> entityType, World world) {
         super(entityType, world);
@@ -51,8 +53,8 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 if(entity2 != null){
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
-                        livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING,
-                                200, 1, false, false, true));
+                        applyStatusEffect(livingEntity,0,10,Effects.FREEZING,0,
+                                false,true,false,0);
                         if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
                             double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attribute) * 0.25F;
                             livingEntity.damage(livingEntity.getDamageSources().freeze(), (float) (d + frostPower));
@@ -100,7 +102,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getWorld().isClient) {
-            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,1.0F,5,2.0F,
+            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,1.0F,2,2.0F,
                     Effects.FREEZING,5,0);
             this.discard();
         }

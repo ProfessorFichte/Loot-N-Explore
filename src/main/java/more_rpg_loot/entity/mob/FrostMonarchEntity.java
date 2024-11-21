@@ -2,6 +2,9 @@ package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.effects.Effects;
+import more_rpg_loot.entity.ModEntities;
+import more_rpg_loot.entity.projectile.FrostballEntity;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.WeaponRegister;
 import net.fabricmc.loader.api.FabricLoader;
@@ -22,11 +25,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.Random;
+
+import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
 
 public class FrostMonarchEntity extends SkeletonEntity {
     private final ServerBossBar bossBar;
@@ -41,7 +48,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)
-                .add(EntityAttributes.GENERIC_ARMOR, 6.0)
+                .add(EntityAttributes.GENERIC_ARMOR, 8.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2505)
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
@@ -62,9 +69,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     @Override
     protected void initGoals() {
-        //this.goalSelector.add(2, new AvoidSunlightGoal(this));
-        //this.goalSelector.add(3, new EscapeSunlightGoal(this, 1.5));
-        //this.goalSelector.add(4, new FrostMonarchEntity.MonarchSpecialAttacksGoal(this));
+        this.goalSelector.add(5, new FrostMonarchEntity.MonarchSpecialAttacksGoal(this));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
@@ -129,7 +134,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 40);
+                applyStatusEffect(entity,0,7, Effects.FREEZING,1,
+                        true,true,true,1);
             }
             return true;
         } else {
@@ -144,7 +150,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
             if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + 25);
+                    applyStatusEffect(livingEntity,0,7, Effects.FREEZING,1,
+                            true,true,true,1);
                 }
             }
         }
@@ -154,11 +161,12 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     private static class MonarchSpecialAttacksGoal extends Goal {
         private final FrostMonarchEntity monarch;
-        private int frostballsHailFired;
-        private int frostballHailCooldown;
-        private int frostStormCooldown;
-        private int frostStormFired;
+        private int callServants;
+        private int callServantsCooldown;
         private int targetNotVisibleTicks;
+
+
+
 
         public MonarchSpecialAttacksGoal(FrostMonarchEntity monarch) {
             this.monarch = monarch;
@@ -171,8 +179,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
 
         public void start() {
-            this.frostballsHailFired = 0;
-            this.frostStormFired = 0;
+            this.callServants = 5;
+            this.callServantsCooldown = 0;
         }
 
         public void stop() {
@@ -184,30 +192,39 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
 
         public void tick() {
-            --this.frostballHailCooldown;
-            --this.frostStormCooldown;
-            double followRangeSquare = this.getFollowRange()*this.getFollowRange();
-            double frostStormRange = 40;
             LivingEntity livingEntity = this.monarch.getTarget();
+            --this.callServantsCooldown;
+
             if (livingEntity != null) {
-                boolean bl = this.monarch.getVisibilityCache().canSee(livingEntity);
-                if (bl) {
-                    this.targetNotVisibleTicks = 0;
-                } else {
-                    ++this.targetNotVisibleTicks;
+                float actualHealth = this.monarch.getHealth();
+                float maxHealth = this.monarch.getMaxHealth();
+                ServerWorld serverWorld = (ServerWorld) this.monarch.getWorld();
+                Random rand = new Random();
+                float randomPlacement = rand.nextFloat() * (-5.0F - 5.0F) + 5.0F;
+                if(callServants!= 0){
+                    if(actualHealth/maxHealth <= 0.75F && actualHealth/maxHealth > 0.75F && this.callServants >=4 && callServantsCooldown <= 0) {
+                        FrosthauntEntity servantEntity = ModEntities.FROST_HAUNT.create(serverWorld);
+                        servantEntity.setPosition(this.monarch.getX() + randomPlacement, this.monarch.getY(), this.monarch.getZ() + randomPlacement);
+                        this.monarch.getWorld().spawnEntity(servantEntity);
+                        --this.callServants;
+                        this.callServantsCooldown = 800;
+                    }else if(actualHealth/maxHealth <= 0.5F && actualHealth/maxHealth > 0.25F && this.callServants >= 3 && callServantsCooldown <= 0){
+                        FrosthauntEntity servantEntity = ModEntities.FROST_HAUNT.create(serverWorld);
+                        servantEntity.setPosition(this.monarch.getX() + randomPlacement, this.monarch.getY(), this.monarch.getZ() + randomPlacement);
+                        this.monarch.getWorld().spawnEntity(servantEntity);
+                        --this.callServants;
+                        this.callServantsCooldown = 600;
+                    }
+                    else if(actualHealth/maxHealth <= 0.25F && this.callServants >= 1 && callServantsCooldown <= 0){
+                        FrosthauntEntity servantEntity = ModEntities.FROST_HAUNT.create(serverWorld);
+                        servantEntity.setPosition(this.monarch.getX() + randomPlacement, this.monarch.getY(), this.monarch.getZ() + randomPlacement);
+                        this.monarch.getWorld().spawnEntity(servantEntity);
+                        --this.callServants;
+                        this.callServantsCooldown = 400;
+                    }
                 }
-                double d = this.monarch.squaredDistanceTo(livingEntity);
-
-                if (this.targetNotVisibleTicks < 5) {
-                    this.monarch.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
-                }
-
                 super.tick();
             }
-        }
-
-        private double getFollowRange() {
-            return this.monarch.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
         }
     }
 

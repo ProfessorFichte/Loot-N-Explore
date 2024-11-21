@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 import static net.spell_engine.internals.SpellRegistry.getSpell;
 
 public class ElderGuardianMeleeWeapon extends SwordItem {
@@ -33,25 +34,10 @@ public class ElderGuardianMeleeWeapon extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player
-                && FabricLoader.getInstance().isModLoaded("spell_engine") && FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-
-            float range = getSpell(new Identifier(MOD_ID, "passive_waterbomb_melee")).range;
-            Predicate<Entity> selectionPredicate = (target2) -> {
-                return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player, target2)
-                );
-            };
-            List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().expand(range), selectionPredicate);
-
-            SpellHelper.performSpell(
-                    player.getWorld(),
-                    player,
-                    new Identifier(MOD_ID,"passive_waterbomb_melee"),
-                    list,
-                    SpellCast.Action.RELEASE,
-                    1);
+        if (attacker instanceof PlayerEntity player && FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+            executeSpellSpellEngine(player,target,MOD_ID,"passive_waterbomb_melee", SpellCast.Action.RELEASE,true);
         }
-        if(attacker instanceof PlayerEntity player && attacker.isInsideWaterOrBubbleColumn()){
+        if(attacker.isInsideWaterOrBubbleColumn()){
             double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * 0.25F));
         }

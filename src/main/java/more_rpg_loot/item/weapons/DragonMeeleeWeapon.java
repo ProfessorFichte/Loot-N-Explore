@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
+
 public class DragonMeeleeWeapon extends SwordItem {
     public DragonMeeleeWeapon(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
@@ -30,22 +32,13 @@ public class DragonMeeleeWeapon extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player && FabricLoader.getInstance().isModLoaded("spell_engine")){
-            List<Entity> list       = new ArrayList<Entity>();
-            list.add(target);
+        if (attacker instanceof PlayerEntity player){
+            executeSpellSpellEngine(player,target,MOD_ID,"passive_dragonclaw", SpellCast.Action.RELEASE,false);
+        }
 
-            SpellHelper.performSpell(
-                    player.getWorld(),
-                    player,
-                    new Identifier(MOD_ID,"passive_dragonclaw"),
-                    list,
-                    SpellCast.Action.RELEASE,
-                    1);
-        }
-        if(attacker instanceof PlayerEntity player){
-            double target_max_health = target.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
-            target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (target_max_health * 0.10F));
-        }
+        double target_max_health = target.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
+        target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (target_max_health * 0.10F));
+
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });

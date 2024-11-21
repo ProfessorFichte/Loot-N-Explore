@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.effects.Effects;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -15,6 +16,8 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
 
 
 public class FrosthauntEntity extends SkeletonEntity {
@@ -53,7 +56,8 @@ public class FrosthauntEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                    entity.setFrozenTicks(entity.getFrozenTicks() + 25);
+                applyStatusEffect(entity,0,5, Effects.FREEZING,0,
+                        false,true,false,0);
             }
             return true;
         } else {

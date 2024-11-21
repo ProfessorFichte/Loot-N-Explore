@@ -27,6 +27,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.Random;
 
+import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+
 public class GlazeEntity extends HostileEntity {
     private float eyeOffset = 0.5F;
     private int eyeOffsetCooldown;
@@ -133,7 +135,8 @@ public class GlazeEntity extends HostileEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                entity.setFrozenTicks(entity.getFrozenTicks() + 25);
+                applyStatusEffect(entity,0,5,Effects.FREEZING,0,
+                        false,true,false,0);
             }
             return true;
         } else {
@@ -187,7 +190,7 @@ public class GlazeEntity extends HostileEntity {
                 }
 
                 double d = this.glaze.squaredDistanceTo(livingEntity);
-                if (d < 8.0) {
+                if (d < 4.0) {
                     if (!bl) {
                         return;
                     }
@@ -252,7 +255,7 @@ public class GlazeEntity extends HostileEntity {
                         if (!glaze.getWorld().isClient) {
                             ++this.frostStormFired;
                             HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, 4.0F, 10, 5.0F,
-                                    Effects.FREEZING, 10, 1);
+                                    Effects.FREEZING, 3, 1);
                         }
                     }
                 }

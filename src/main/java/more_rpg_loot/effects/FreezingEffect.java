@@ -12,13 +12,13 @@ public class FreezingEffect extends StatusEffect {
         super(category, color);
     }
     public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
-        livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + (5* (amplifier+1)));
+        livingEntity.setFrozenTicks(livingEntity.getFrozenTicks() + (3* (amplifier+1)));
         super.applyUpdateEffect(livingEntity, amplifier);
     }
     @Override
     public void onApplied(LivingEntity livingEntity, AttributeContainer attributes, int amplifier) {
         EntityType<?> type = livingEntity.getType();
-        if(type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
+        if(type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES) || livingEntity.hasStatusEffect(Effects.FROST_RESISTANCE)) {
             livingEntity.removeStatusEffect(Effects.FREEZING);
         }
     }
