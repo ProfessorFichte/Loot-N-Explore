@@ -2,9 +2,11 @@ package more_rpg_loot.item;
 
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
+import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.FoodComponents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -18,7 +20,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class CommonItems {
     public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             StatusEffects.HASTE,null,null,0);
-    public static Item POTATO_SOUP = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
+    public static Item POTATO_SOUP = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16).food(ModFoodComponents.INN_BOWL),
             StatusEffects.STRENGTH,null,null,0);
     public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             StatusEffects.RESISTANCE,null,null,0);
@@ -37,6 +39,7 @@ public class CommonItems {
     public static Item ELDER_GUARDIAN_EYE =  new FrostballItem(new FabricItemSettings().rarity(Rarity.UNCOMMON));
     public static Item ENDER_DRAGON_SCALES =  new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON));
     public static Item FROZEN_SOUL =  new Item(new FabricItemSettings().rarity(Rarity.UNCOMMON));
+
 
     public static void registerCommonItems(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);

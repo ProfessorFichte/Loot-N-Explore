@@ -3,6 +3,7 @@ package more_rpg_loot.compat.items;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
+import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -20,7 +21,7 @@ public class MRPGCItems {
             MoreSpellSchools.WATER.boostEffect, SpellPowerMechanics.HASTE.boostEffect,null,1);
     public static Item BLUE_BERRY_PUNCH = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             MoreSpellSchools.AIR.boostEffect, SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,null,1);
-    public static Item GREEN_CHILLI = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
+    public static Item GREEN_CHILLI = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16).food(ModFoodComponents.INN_BOWL),
             MoreSpellSchools.EARTH.boostEffect,SpellPowerMechanics.CRITICAL_CHANCE.boostEffect,null,1);
 
     public static void registerMRPGCItems() {

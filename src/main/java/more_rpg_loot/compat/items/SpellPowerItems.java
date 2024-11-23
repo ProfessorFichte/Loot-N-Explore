@@ -3,6 +3,7 @@ package more_rpg_loot.compat.items;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
+import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.effect.StatusEffects;
@@ -21,13 +22,13 @@ public class SpellPowerItems {
     public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellPowerMechanics.HASTE.boostEffect, null,null,0);
     //T2
-    public static Item SWEET_CHILLI= new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
+    public static Item SWEET_CHILLI= new InnkeeperBowlItem(new FabricItemSettings().maxCount(16).food(ModFoodComponents.INN_BOWL),
             StatusEffects.STRENGTH, SpellSchools.HEALING.boostEffect,null,1);
     public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellSchools.FROST.boostEffect,SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,null,1);
     public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellSchools.ARCANE.boostEffect,SpellPowerMechanics.HASTE.boostEffect,null,1);
-    public static Item HOT_CHILLI = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
+    public static Item HOT_CHILLI = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16).food(ModFoodComponents.INN_BOWL),
             SpellSchools.FIRE.boostEffect,SpellPowerMechanics.CRITICAL_CHANCE.boostEffect,null,1);
     public static Item HOLY_WATER = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
             SpellSchools.HEALING.boostEffect,SpellPowerMechanics.HASTE.boostEffect,null,1);

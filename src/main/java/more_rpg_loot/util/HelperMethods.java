@@ -118,6 +118,16 @@ public class HelperMethods {
         }
     }
 
+    public static void stackFreezeStacks(LivingEntity livingEntity,int amount){
+        int actualFrozenTicks = livingEntity.getFrozenTicks();
+        if(actualFrozenTicks != 140){
+            livingEntity.setFrozenTicks(actualFrozenTicks + amount);
+        }else{
+            livingEntity.setFrozenTicks(140);
+        }
+
+    }
+
 
 
 }

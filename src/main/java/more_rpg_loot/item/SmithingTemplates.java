@@ -63,6 +63,10 @@ public class SmithingTemplates {
             identifiers -> {
                 identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_elder_guardian_eye"));
             });
+    public static final List<Identifier> INGREDIENT_ITEMS_FROSTMONARCH= Util.make(new ArrayList<>(),
+            identifiers -> {
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_elder_frozen_soul"));
+            });
 
     public static Item ENDER_DRAGON_UPGRADE = new SmithingTemplateItem(
             Text.translatable("smithing_template.loot_n_explore.applies_to").formatted(Formatting.BLUE),
@@ -91,16 +95,27 @@ public class SmithingTemplates {
             BASE_ITEMS,
             INGREDIENT_ITEMS_WITHER
     );
+    public static Item FROSTMONARCH_UPGRADE = new SmithingTemplateItem(
+            Text.translatable("smithing_template.loot_n_explore.applies_to").formatted(Formatting.BLUE),
+            Text.translatable("smithing_template.loot_n_explore.frostmonarch.ingredients").formatted(Formatting.BLUE),
+            Text.translatable("smithing_template.loot_n_explore.frostmonarch.title").formatted(Formatting.GRAY),
+            Text.translatable("smithing_template.loot_n_explore.base_slot_description"),
+            Text.translatable("smithing_template.loot_n_explore.frostmonarch.additions_slot_description"),
+            BASE_ITEMS,
+            INGREDIENT_ITEMS_FROSTMONARCH
+    );
 
     public static void registerSmithingUpgrades(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"dragon_upgrade_smithing_template"),ENDER_DRAGON_UPGRADE);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"guardian_upgrade_smithing_template"),ELDER_GUARDIAN_UPGRADE);
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"wither_upgrade_smithing_template"),WITHER_UPGRADE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"frostmonarch_upgrade_smithing_template"),FROSTMONARCH_UPGRADE);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,ENDER_DRAGON_UPGRADE);
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,WITHER_UPGRADE);
+            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,FROSTMONARCH_UPGRADE);
         });
     }
 }

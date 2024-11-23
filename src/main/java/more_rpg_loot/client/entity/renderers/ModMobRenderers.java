@@ -11,6 +11,7 @@ public class ModMobRenderers {
     public static void register(){
         EntityRendererRegistry.register(ModEntities.FROST_HAUNT, FrosthauntEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.FROST_MONARCH, FrostmonarchEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.MONARCH_SERVANT, FrostMonarchServantEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.GLAZE, GlazeEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.FROSTBALL, FlyingItemEntityRenderer::new);
     }

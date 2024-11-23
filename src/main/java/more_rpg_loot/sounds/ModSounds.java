@@ -18,6 +18,8 @@ public class ModSounds {
     public static SoundEvent ENTITY_GLAZE_FREEZE_EVENT = SoundEvent.of(ENTITY_GLAZE_FREEZE_ID);
     public static final Identifier VILLAGER_INNKEEPER_ID = new Identifier(MOD_ID, "villager.innkeeper");
     public static SoundEvent VILLAGER_INNKEEPER_EVENT = SoundEvent.of(VILLAGER_INNKEEPER_ID);
+    public static final Identifier FROSTMONARCH_SCREECH_ID = new Identifier(MOD_ID, "frostmonarch.screech");
+    public static SoundEvent FROSTMONARCH_SCREECH_EVENT = SoundEvent.of(FROSTMONARCH_SCREECH_ID);
 
     public static void register() {
         Registry.register(Registries.SOUND_EVENT, ENTITY_GLAZE_AMBIENT_ID, ENTITY_GLAZE_AMBIENT_EVENT);
@@ -25,6 +27,6 @@ public class ModSounds {
         Registry.register(Registries.SOUND_EVENT, ENTITY_GLAZE_DEATH_ID, ENTITY_GLAZE_DEATH_EVENT);
         Registry.register(Registries.SOUND_EVENT, ENTITY_GLAZE_FREEZE_ID, ENTITY_GLAZE_FREEZE_EVENT);
         Registry.register(Registries.SOUND_EVENT, VILLAGER_INNKEEPER_ID, VILLAGER_INNKEEPER_EVENT);
-
+        Registry.register(Registries.SOUND_EVENT, FROSTMONARCH_SCREECH_ID, FROSTMONARCH_SCREECH_EVENT);
     }
 }

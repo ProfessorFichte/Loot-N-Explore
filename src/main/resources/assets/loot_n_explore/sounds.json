@@ -28,5 +28,10 @@
     "sounds": [
       "loot_n_explore:villager/innkeeper"
     ]
+  },
+  "frostmonarch.screech": {
+    "sounds": [
+      "loot_n_explore:mob/frostmonarch/screech"
+    ]
   }
 }

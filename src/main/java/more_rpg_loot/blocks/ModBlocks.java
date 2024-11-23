@@ -48,13 +48,13 @@ public class ModBlocks {
     public static final Entry BLUE_ICE_BRICK_STAIRS = entry("blue_ice_brick_stairs", new StairsBlock(
             ModBlocks.BLUE_ICE_BRICKS.block.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
 
-    public static final Entry FROZEN_CHAIN = entry("frozen_chain", new ChainBlock(
+    public static final Entry FROZEN_CHAIN = entry("frozen_chain", new FrozenChainBlock(
             FabricBlockSettings.copyOf(Blocks.CHAIN).nonOpaque()));
     public static final Entry SOULFROST_LANTERN = entry("soulfrost_lantern", new LanternBlock(
             FabricBlockSettings.copyOf(Blocks.SOUL_LANTERN).nonOpaque()));
 
     public static final Entry FROST_BLOOM = entry("frostbloom",
-            new FlowerBlock(Effects.FROST_RESISTANCE, 5,
+            new FrostbloomBlock(Effects.FROST_RESISTANCE, 5,
                     FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
     public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM.block, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));

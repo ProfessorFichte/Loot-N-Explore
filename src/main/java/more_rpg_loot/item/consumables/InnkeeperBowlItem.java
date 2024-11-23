@@ -52,6 +52,9 @@ public class InnkeeperBowlItem extends Item {
         if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
             stack.decrement(1);
         }
+        if (stack.isFood()) {
+            super.finishUsing(stack, world, user);
+        }
         if (!world.isClient) {
             if(quality == 0){
                 effectAmplifier = amplifier_0; effectDuration =effectDuration_0;
@@ -145,6 +148,7 @@ public class InnkeeperBowlItem extends Item {
             }
         }
 
+        //return this.isFood() ? user.eatFood(world, stack) : stack;
         return stack.isEmpty() ? new ItemStack(Items.BOWL) : stack;
     }
 
