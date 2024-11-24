@@ -47,6 +47,16 @@ public class ModBlocks {
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_STAIRS = entry("blue_ice_brick_stairs", new StairsBlock(
             ModBlocks.BLUE_ICE_BRICKS.block.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
+    public static final Entry FROZEN_SOULS = entry("frozen_soul_block", new Block(
+            FabricBlockSettings.create()
+                    .mapColor(MapColor.PALE_PURPLE)
+                    .instrument(Instrument.BASS)
+                    .strength(-1.0F,3600000.0F)
+                    .sounds(BlockSoundGroup.GLASS)
+                    .luminance(5)
+                    .nonOpaque()));
+    public static final Entry MONARCHS_CROWN = entry("monarchs_crown", new MonarchsCrownBlock(
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
 
     public static final Entry FROZEN_CHAIN = entry("frozen_chain", new FrozenChainBlock(
             FabricBlockSettings.copyOf(Blocks.CHAIN).nonOpaque()));

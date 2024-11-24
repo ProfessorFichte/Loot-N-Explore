@@ -19,20 +19,25 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .add(ModBlocks.SOULFROST_LANTERN.block())
                 .add(ModBlocks.FROZEN_CHAIN.block())
                 .add(ModBlocks.BLUE_ICE_BRICKS.block())
+                .add(ModBlocks.MONARCHS_CROWN.block())
                 .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
                 .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
-                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block());
+                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
+        ;
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(ModBlocks.SOULFROST_LANTERN.block())
                 .add(ModBlocks.FROZEN_CHAIN.block())
                 .add(ModBlocks.BLUE_ICE_BRICKS.block())
+                .add(ModBlocks.MONARCHS_CROWN.block())
                 .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
                 .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
-                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block());
+                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
+        ;
 
         getOrCreateTagBuilder(BlockTags.WALLS)
-                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block());
+                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block())
+        ;
     }
 
 }

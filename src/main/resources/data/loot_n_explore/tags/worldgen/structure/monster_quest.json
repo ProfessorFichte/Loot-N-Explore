@@ -20,6 +20,63 @@
     {
       "id": "betterdungeons:zombie_dungeon",
       "required": false
+    },
+    {
+      "id": "frostiful:chillager:outpost",
+      "required": false
+    },
+    {
+      "id": "illagerinvasion:firecaller_hut",
+      "required": false
+    },
+    {
+      "id": "illagerinvasion:sorcerer_hut",
+      "required": false
+    },
+    {
+      "id": "illagerinvasion:illusioner_tower",
+      "required": false
+    },
+
+    {
+      "id": "repurposed_structures:outpost_badlands",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_birch",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_desert",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_giant_tree_taiga",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_icy",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_jungle",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_oak",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_savanna",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_snowy",
+      "required": false
+    },
+    {
+      "id": "repurposed_structures:outpost_taiga",
+      "required":false
     }
   ]
 }

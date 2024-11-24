@@ -241,11 +241,11 @@ public class FrostMonarchEntity extends SkeletonEntity {
                     if (this.screechCoolDown <= 0) {
                         this.screechCoolDown = 300;
                         if (!monarch.getWorld().isClient ) {
-                            List<Entity> entities = monarch.getWorld().getOtherEntities(monarch, monarch.getBoundingBox().expand(32.0));
+                            List<Entity> entities = monarch.getWorld().getOtherEntities(monarch, monarch.getBoundingBox().expand(getFollowRange()));
                             for (Entity entity : entities) {
                                 if (entity instanceof LivingEntity livingEntity2 && !(entity instanceof MobEntity)) {
                                     this.monarch.setVelocity(Vec3d.ZERO);
-                                    livingEntity2.damage(this.monarch.getWorld().getDamageSources().indirectMagic(this.monarch, this.monarch), 6.0F);
+                                    livingEntity2.damage(this.monarch.getWorld().getDamageSources().indirectMagic(this.monarch, this.monarch), (float) getAttackDamage());
                                     double d = this.monarch.getX() - entity.getX();
                                     double e;
                                     for(e = this.monarch.getZ() - livingEntity2.getZ(); d * d + e * e < 1.0E-4; e = (Math.random() - Math.random()) * 0.01) {
@@ -305,6 +305,9 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
         private double getFollowRange() {
             return this.monarch.getAttributeValue(EntityAttributes.GENERIC_FOLLOW_RANGE);
+        }
+        private double getAttackDamage() {
+            return this.monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
         }
     }
 

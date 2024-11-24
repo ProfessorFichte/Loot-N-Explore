@@ -1,10 +1,12 @@
-// 1.20.1	2024-11-19T17:40:16.1935194	Loot n´ Explore/Block Loot Tables
+// 1.20.1	2024-11-24T20:23:19.1775636	Loot n´ Explore/Block Loot Tables
 db2cc496f7c892a9d9e5df6c8f4f38162866f3b7 data\loot_n_explore\loot_tables\blocks\blue_ice_brick_stairs.json
 1c28a1bd7c6360362d6561afdf7db5a8f9629d00 data\loot_n_explore\loot_tables\blocks\potted_frostbloom.json
 63f5668c5396f24aef1e6b749c862edf0e0bf54a data\loot_n_explore\loot_tables\blocks\blue_ice_bricks.json
 e2dc67b9a3644333ab5e3122ca99aef426a03327 data\loot_n_explore\loot_tables\blocks\blue_ice_brick_slab.json
 704d563ab94833fb3b3c94a43ac3893aa8d47e07 data\loot_n_explore\loot_tables\blocks\soulfrost_lantern.json
 5833b83a29f8adc7038b722765ebb26dbdb2f09f data\loot_n_explore\loot_tables\blocks\frostbloom.json
+d1327c80f3b86ac9ae6dbfdfe43fc794120e83cf data\loot_n_explore\loot_tables\blocks\monarchs_crown.json
 9d908d32291f4b76f817c4767000bb6bf54a1b78 data\loot_n_explore\loot_tables\blocks\frozen_chain.json
 dc7d39b00aba7e46e796714c98f699e4773a1a43 data\loot_n_explore\loot_tables\blocks\blue_ice_brick_wall.json
+e74c7142d9b3f36ef6fc35e4420abdc44d787446 data\loot_n_explore\loot_tables\blocks\frozen_soul_block.json
 9955ce41f4ef8bfd4192c6630c567ea969a06d9c data\loot_n_explore\loot_tables\blocks\cracked_blue_ice_bricks.json

@@ -18,6 +18,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.BLUE_ICE_BRICK_STAIRS.block());
         addDrop(ModBlocks.FROZEN_CHAIN.block());
         addDrop(ModBlocks.SOULFROST_LANTERN.block());
+        addDrop(ModBlocks.FROZEN_SOULS.block());
+        addDrop(ModBlocks.MONARCHS_CROWN.block());
         addDrop(ModBlocks.FROST_BLOOM.block());
         addPottedPlantDrops(ModBlocks.POTTED_FROST_BLOOM);
     }

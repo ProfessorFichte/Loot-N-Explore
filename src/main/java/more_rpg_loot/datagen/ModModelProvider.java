@@ -23,6 +23,7 @@ public class ModModelProvider extends FabricModelProvider {
         blueIceBrickPool.slab(ModBlocks.BLUE_ICE_BRICK_SLAB.block());
 
         blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block());
+        blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.FROZEN_SOULS.block());
         blockStateModelGenerator.registerLantern(ModBlocks.SOULFROST_LANTERN.block());
 
         blockStateModelGenerator.registerFlowerPotPlant(ModBlocks.FROST_BLOOM.block(), ModBlocks.POTTED_FROST_BLOOM, BlockStateModelGenerator.TintType.NOT_TINTED);
