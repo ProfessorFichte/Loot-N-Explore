@@ -14,7 +14,7 @@ public class FreezingEffect extends StatusEffect {
         super(category, color);
     }
     public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
-        stackFreezeStacks(livingEntity,2 + amplifier);
+        stackFreezeStacks(livingEntity,3 * (amplifier + 1));
         super.applyUpdateEffect(livingEntity, amplifier);
     }
     @Override

@@ -1,0 +1,86 @@
+{
+  "school": "FROST",
+  "range": 5.0,
+  "learn": {
+    "tier": 3
+  },
+  "cast": {
+    "duration": 0
+  },
+  "release": {
+    "target": {
+      "type": "METEOR",
+      "meteor": {
+        "launch_height": 4,
+        "launch_radius": 2,
+        "launch_properties": {
+          "velocity": 0.5,
+          "extra_launch_count": 3,
+          "extra_launch_delay": 2
+        },
+        "projectile": {
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "snowflake",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 3.0,
+                "min_speed": 0.0,
+                "max_speed": 0.1
+              }
+            ],
+            "model": {
+              "model_id": "loot_n_explore:projectile/small_avalanche"
+            }
+          }
+        }
+      }
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 1.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:frost_hit",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 3.0,
+          "min_speed": 0.25,
+          "max_speed": 1.5
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_frost_impact"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 2,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    },
+    "particles": [
+      {
+        "particle_id": "snowflake",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 10.0,
+        "min_speed": 0.5,
+        "max_speed": 2.0
+      }
+    ]
+  },
+  "cost": {
+    "durability": 1,
+    "cooldown_duration": 5,
+    "cooldown_haste_affected": "false"
+  }
+}

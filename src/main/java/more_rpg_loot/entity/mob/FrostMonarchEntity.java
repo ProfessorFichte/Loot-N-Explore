@@ -128,7 +128,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     }
 
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponRegister.GLACIAL_AXE));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponRegister.GLACIAL_SWORD));
     }
 
     public void onStartedTrackingBy(ServerPlayerEntity player) {

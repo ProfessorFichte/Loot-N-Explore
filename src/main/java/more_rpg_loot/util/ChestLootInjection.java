@@ -17,6 +17,8 @@ public class ChestLootInjection {
             new Identifier("minecraft", "chests/nether_bridge");
     private static final Identifier END_CITY_TREASURE =
             new Identifier("minecraft", "chests/end_city_treasure");
+    private static final Identifier GLACIAL_TOMB =
+            new Identifier("loot_n_explore", "chests/dungeons/glacial_tomb/common");
 
 
     private static final float smithing_template_drop_chance = 0.2f;
@@ -44,6 +46,14 @@ public class ChestLootInjection {
                         .rolls(ConstantLootNumberProvider.create(1))
                         .conditionally(RandomChanceLootCondition.builder(smithing_template_drop_chance))
                         .with(ItemEntry.builder(SmithingTemplates.ENDER_DRAGON_UPGRADE))
+                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
+                tableBuilder.pool(poolBuilder.build());
+            }
+            if(GLACIAL_TOMB.equals(id)){
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .conditionally(RandomChanceLootCondition.builder(smithing_template_drop_chance))
+                        .with(ItemEntry.builder(SmithingTemplates.FROSTMONARCH_UPGRADE))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                 tableBuilder.pool(poolBuilder.build());
             }

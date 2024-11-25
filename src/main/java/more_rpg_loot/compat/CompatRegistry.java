@@ -3,7 +3,7 @@ package more_rpg_loot.compat;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
-import more_rpg_loot.compat.rpg_series.RPGSeriesLootInjectionLNE;
+import more_rpg_loot.compat.spell_engine.RPGSeriesLootInjectionLNE;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class CompatRegistry {

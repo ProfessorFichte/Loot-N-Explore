@@ -2,15 +2,19 @@ package more_rpg_loot.blocks;
 
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.entity.mob.FrostMonarchEntity;
+import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.item.WeaponRegister;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
@@ -115,6 +119,7 @@ public class MonarchsCrownBlock extends Block{
                         BlockPos blockPos = result.translate(1, 2, 0).getBlockPos();
                         frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, (double)blockPos.getY() + 1.55, (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
                         frostMonarchEntity.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
+                        frostMonarchEntity.equipStack(EquipmentSlot.MAINHAND, WeaponRegister.GLACIAL_SWORD.getDefaultStack());
                         Iterator var8 = world.getNonSpectatingEntities(ServerPlayerEntity.class, frostMonarchEntity.getBoundingBox().expand(50.0)).iterator();
 
                         while(var8.hasNext()) {

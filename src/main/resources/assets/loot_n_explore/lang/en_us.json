@@ -41,7 +41,7 @@
   "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
   "spell.loot_n_explore.passive_dragonclaw.name": "Passive Spell: Dragonclaw",
   "spell.loot_n_explore.passive_dragonclaw.description": "Slashing attack that deals single target arcane-spell damage.",
-  "lore.loot_n_explore.ender_dragon_weapon": "This weapon pulses with the essence of the end, holding the power to rend dimensions",
+  "lore.loot_n_explore.ender_dragon_weapon": "This weapon pulses with the essence of the end, holding the power to rend dimensions.",
   "passive.loot_n_explore.ender_dragon_weapon": "Deals 10% Magic Damage of the targets Max Health.",
 
   "item.loot_n_explore.elder_guardian_sword": "Leviathan",
@@ -52,12 +52,18 @@
   "passive.loot_n_explore.elder_guardian_weapon": "Deals 25% Magic Damage of the Attack Damage if the attacker is in the water.",
 
   "item.loot_n_explore.wither_sword": "Withered Sword",
-  "item.loot_n_explore.wither_bow": "Withered Bow",
   "item.loot_n_explore.wither_axe": "Withered Axe",
   "spell.loot_n_explore.passive_wither_pulse.name": "Passive Spell: Wither Pulse",
   "spell.loot_n_explore.passive_wither_pulse.description": "Inflicting targets in a 90 degree radius with the Wither Effect.",
   "lore.loot_n_explore.wither_weapon": "Crafted from shattered Wither remains, imbued with the eternal curse of the Nether.",
   "passive.loot_n_explore.wither_weapon": "Deals 15% magic damage, if the target has negative status effects.",
+
+  "item.loot_n_explore.glacial_sword": "Glacial Sword",
+  "item.loot_n_explore.glacial_axe": "Glacial Axe",
+  "spell.loot_n_explore.passive_small_avalanche.name": "Passive Spell: Avalanche",
+  "spell.loot_n_explore.passive_small_avalanche.description": "Spawns a small avalanche above the target dealing frost-spell damage.",
+  "lore.loot_n_explore.glacial_weapon": "Forged from a frozen soul, it carries a chilling wrath of eternal winter.",
+  "passive.loot_n_explore.glacial_weapon": "Inflicts the Freezing effect to the target and adding up duration each hit.",
 
   "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "item.loot_n_explore.orange_juice": "Orange Juice",
@@ -99,6 +105,11 @@
   "smithing_template.loot_n_explore.wither.ingredients": "Nether Star",
   "smithing_template.loot_n_explore.wither.title": "Wither Upgrade",
   "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Nether Star",
+
+  "item.loot_n_explore.frozen_soul": "Frozen Soul",
+  "smithing_template.loot_n_explore.frostmonarch.ingredients": "Frozen Soul",
+  "smithing_template.loot_n_explore.frostmonarch.title": "Frost Monarch Upgrade",
+  "smithing_template.loot_n_explore.frostmonarch.additions_slot_description": "Add Frozen Soul",
 
   "filled_map.loot_n_explore.monster_quest": "Please help us eliminate the threats nearby!",
 

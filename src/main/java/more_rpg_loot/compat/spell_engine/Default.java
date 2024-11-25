@@ -1,4 +1,4 @@
-package more_rpg_loot.compat.rpg_series;
+package more_rpg_loot.compat.spell_engine;
 
 import net.spell_engine.api.loot.LootConfigV2;
 

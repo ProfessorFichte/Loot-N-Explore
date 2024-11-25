@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:frozen_soul"
+  },
+  "base": {
+    "item": "minecraft:netherite_sword"
+  },
+  "result": {
+    "item": "loot_n_explore:glacial_sword"
+  },
+  "template": {
+    "item": "loot_n_explore:frostmonarch_upgrade_smithing_template"
+  }
+}

@@ -1,4 +1,4 @@
-package more_rpg_loot.compat.rpg_series;
+package more_rpg_loot.compat.spell_engine;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;

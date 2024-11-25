@@ -9,8 +9,15 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.Identifier;
+import net.spell_engine.api.render.CustomModels;
+
+import java.util.List;
+
+import static more_rpg_loot.RPGLoot.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class RPGLootClient implements ClientModInitializer {
@@ -25,6 +32,12 @@ public class RPGLootClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROST_BLOOM.block(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_FROST_BLOOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MONARCHS_CROWN.block(), RenderLayer.getCutout());
+
+        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
+            CustomModels.registerModelIds(List.of(
+                    new Identifier(MOD_ID, "projectile/small_avalanche")
+            ));
+        }
     }
 
 }

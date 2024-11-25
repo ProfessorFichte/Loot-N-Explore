@@ -1,0 +1,22 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:frostmonarch_temple",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "other_set": [
+        "minecraft:ancient_cities",
+        "minecraft:mineshafts",
+        "loot_n_explore:dungeons"
+      ],
+      "chunk_count": 8
+    },
+    "type": "minecraft:random_spread",
+    "separation": 24,
+    "spacing": 42,
+    "salt": 589234006
+  }
+}

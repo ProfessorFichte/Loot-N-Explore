@@ -24,29 +24,29 @@ public class SmithingTemplates {
             identifiers -> {
                 identifiers.add(new Identifier("item/empty_slot_axe"));
                 identifiers.add(new Identifier("item/empty_slot_sword"));
-                if(!FabricLoader.getInstance().isModLoaded("archers")){
+                if(FabricLoader.getInstance().isModLoaded("archers")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_bow"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_crossbow"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_spear"));
                 }
-                if(!FabricLoader.getInstance().isModLoaded("paladins")){
+                if(FabricLoader.getInstance().isModLoaded("paladins")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_hammer"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_holy"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_mace"));
                 }
-                if(!FabricLoader.getInstance().isModLoaded("rogues")){
+                if(FabricLoader.getInstance().isModLoaded("rogues")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_dagger"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_sickle"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_glaive"));
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_double_axe"));
                 }
-                if(!FabricLoader.getInstance().isModLoaded("wizards")){
+                if(FabricLoader.getInstance().isModLoaded("wizards")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_wand"));
                 }
-                if(!FabricLoader.getInstance().isModLoaded("forcemaster")){
+                if(FabricLoader.getInstance().isModLoaded("forcemaster")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_knuckle"));
                 }
-                if(!FabricLoader.getInstance().isModLoaded("berserker_axe")){
+                if(FabricLoader.getInstance().isModLoaded("berserker_axe")){
                     identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_berserker_axe"));
                 }
 
@@ -65,7 +65,7 @@ public class SmithingTemplates {
             });
     public static final List<Identifier> INGREDIENT_ITEMS_FROSTMONARCH= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_elder_frozen_soul"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_frozen_soul"));
             });
 
     public static Item ENDER_DRAGON_UPGRADE = new SmithingTemplateItem(
