@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "loot_n_explore:glaze_rod"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.glaze.title"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.glaze.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:find_inn",
+  "criteria": {
+    "glaze": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "loot_n_explore:glaze",
+          "location": {
+            "structure": "loot_n_explore:glaze_tower"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "glaze"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

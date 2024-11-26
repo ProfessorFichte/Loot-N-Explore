@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "loot_n_explore:frozen_soul"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frost_monarch.title"
+    },
+    "description":{
+      "translate":"advancements.loot_n_explore.frost_monarch.description"
+    },
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:glacial_tomb",
+  "criteria": {
+    "frost_monarch": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "loot_n_explore:frost_monarch"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "frost_monarch"
+    ]
+  ],
+  "sends_telemetry_event": false
+}
