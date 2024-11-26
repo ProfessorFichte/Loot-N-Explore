@@ -44,5 +44,12 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
                 .add(ModEntities.FROST_MONARCH)
         ;
 
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("frostiful", "benefits_from_cold")))
+                .add(ModEntities.FROST_MONARCH)
+                .add(ModEntities.FROST_HAUNT)
+                .add(ModEntities.GLAZE)
+        ;
+
+
     }
 }

@@ -27,6 +27,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(WeaponRegister.ELDER_GUARDIAN_SWORD)
                 .add(WeaponRegister.ENDER_DRAGON_SWORD)
                 .add(WeaponRegister.WITHER_SWORD)
+                .add(WeaponRegister.GLACIAL_SWORD)
         ;
         /*
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("dehydration", "hydrating_drinks")))

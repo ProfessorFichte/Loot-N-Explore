@@ -25,6 +25,17 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
         ;
 
+        getOrCreateTagBuilder(BlockTags.ICE)
+                .add(ModBlocks.BLUE_ICE_BRICKS.block())
+                .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
+                .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
+                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
+        ;
+
+        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+                .add(ModBlocks.INNKEEPER_SHELF.block())
+        ;
+
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(ModBlocks.SOULFROST_LANTERN.block())
                 .add(ModBlocks.FROZEN_CHAIN.block())
