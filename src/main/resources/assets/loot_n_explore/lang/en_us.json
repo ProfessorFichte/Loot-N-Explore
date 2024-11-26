@@ -127,6 +127,17 @@
 
   "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 
+  "advancements.loot_n_explore.root.title": "Loot & Explore!",
+  "advancements.loot_n_explore.root.description": "Start your journey and explore the world!",
+  "advancements.loot_n_explore.find_inn.title": "Take a rest",
+  "advancements.loot_n_explore.find_inn.description": "Drink or eat something from the innkeeper, but don't drink too much.",
+  "advancements.loot_n_explore.glacial_tomb.title": "Cold depths",
+  "advancements.loot_n_explore.glacial_tomb.description": "Find and explore the glacial tomb",
+  "advancements.loot_n_explore.frost_monarch.title": "Winter is coming",
+  "advancements.loot_n_explore.frost_monarch.description": "Kill the Frost Monarch",
+  "advancements.loot_n_explore.glaze.title": "The freezing Glaze!",
+  "advancements.loot_n_explore.glaze.description": "Kill the Glaze in the Glaze Tower, beware it will hail frost balls.",
+
   "advancements.loot_n_explore.archers_treasure.title": "Find a hidden Ranger Treasure",
   "advancements.loot_n_explore.archers_treasure.description": "Buried in the Forest",
   "advancements.loot_n_explore.archers_outpost.title": "Secured area",
