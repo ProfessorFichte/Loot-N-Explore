@@ -1,5 +1,6 @@
 package more_rpg_loot.compat.items;
 
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
@@ -8,6 +9,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -50,14 +52,14 @@ public class SpellPowerItems {
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"enchanted_ale"),ENCHANTED_ALE);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
-            content.add(ORANGE_JUICE);
-            content.add(FRUIT_ICEWATER);
-            content.add(HOLY_WATER);
-            content.add(CHORUS_EXTRACT);
-            content.add(HOT_CHILLI);
-            content.add(SWEET_CHILLI);
-            content.add(ENCHANTED_ALE);
-            content.add(WIZARDS_ELIXIR);
+            content.addAfter(CommonItems.SWEET_BERRY_PUNCH,ORANGE_JUICE);
+            content.addAfter(CommonItems.MALT_EXTRACT,FRUIT_ICEWATER);
+            content.addAfter(CommonItems.MALT_EXTRACT,HOLY_WATER);
+            content.addAfter(CommonItems.MALT_EXTRACT,CHORUS_EXTRACT);
+            content.addAfter(CommonItems.MALT_EXTRACT,HOT_CHILLI);
+            content.addAfter(CommonItems.MALT_EXTRACT,SWEET_CHILLI);
+            content.addAfter(CommonItems.MALT_EXTRACT,ENCHANTED_ALE);
+            content.addAfter(CommonItems.ESPRESSO,WIZARDS_ELIXIR);
         });
     }
 }

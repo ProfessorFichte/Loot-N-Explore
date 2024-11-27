@@ -1,5 +1,6 @@
 package more_rpg_loot.compat.items;
 
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import net.fabric_extras.ranged_weapon.api.StatusEffects_RangedWeapon;
@@ -29,9 +30,9 @@ public class RangedWeaponAPIItems {
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"forrest_spirit"),FORREST_SPIRIT);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
-            content.add(APPLE_JUICE);
-            content.add(WALDMEISTER);
-            content.add(FORREST_SPIRIT);
+            content.addAfter(CommonItems.SWEET_BERRY_PUNCH,APPLE_JUICE);
+            content.addAfter(CommonItems.MALT_EXTRACT,WALDMEISTER);
+            content.addAfter(CommonItems.ESPRESSO,FORREST_SPIRIT);
         });
     }
 }

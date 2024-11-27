@@ -1,5 +1,6 @@
 package more_rpg_loot.compat.items;
 
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
@@ -30,9 +31,9 @@ public class MRPGCItems {
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"watermelon_drink"),WATERMELON_DRINK);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
-            content.add(GREEN_CHILLI);
-            content.add(BLUE_BERRY_PUNCH);
-            content.add(WATERMELON_DRINK);
+            content.addAfter(CommonItems.MALT_EXTRACT,GREEN_CHILLI);
+            content.addAfter(CommonItems.MALT_EXTRACT,BLUE_BERRY_PUNCH);
+            content.addAfter(CommonItems.MALT_EXTRACT,WATERMELON_DRINK);
         });
 
     }
