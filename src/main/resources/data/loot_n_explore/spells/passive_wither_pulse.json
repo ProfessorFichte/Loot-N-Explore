@@ -29,6 +29,24 @@
   "impact": [
     {
       "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "soul",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 3.0,
+          "min_speed": 0.25,
+          "max_speed": 1.5
+        }
+      ]
+    },
+    {
+      "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "wither",
