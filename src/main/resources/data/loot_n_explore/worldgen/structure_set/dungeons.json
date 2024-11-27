@@ -13,7 +13,8 @@
     "exclusion_zone": {
       "other_set": [
         "minecraft:ancient_cities",
-        "minecraft:mineshafts"
+        "minecraft:mineshafts",
+        "minecraft:villages"
       ],
       "chunk_count": 15
     },

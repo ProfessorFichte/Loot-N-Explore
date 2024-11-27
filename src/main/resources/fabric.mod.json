@@ -2,13 +2,13 @@
 	"schemaVersion": 1,
 	"id": "loot_n_explore",
 	"version": "${version}",
-	"name": "Loot n´ Explore",
-	"description": "Explore new structures and fight new dangerous foes!",
+	"name": "Loot & Explore",
+	"description": "Explore and loot new structures and fight new dangerous foes!",
 	"authors": [
 		"Fichte"
 	],
 	"contact": {
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
 	},
 	"license": "MIT",
 	"icon": "assets/loot_n_explore/icon.png",
@@ -35,7 +35,7 @@
 		"structure_pool_api": "*"
 	},
 	"suggests": {
-		"spell_engine": ">=${spell_engine_version}",
+		"spell_engine": ">=0.15.0",
 		"spell_power": "*",
 		"more_rpg_classes": ">=2.0.0"
 	},
