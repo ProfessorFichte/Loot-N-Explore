@@ -1,6 +1,6 @@
 {
   "itemGroup.loot_n_explore.loot.general": "LNE Items",
-  "itemGroup.loot_n_explore.food.general": "Innkeeper Drinks",
+  "itemGroup.loot_n_explore.food.general": "LNE Drinks",
   "itemGroup.loot_n_explore.blocks.general": "LNE Blocks",
 
   "block.loot_n_explore.innkeeper_shelf": "Innkeeper Shelf",
