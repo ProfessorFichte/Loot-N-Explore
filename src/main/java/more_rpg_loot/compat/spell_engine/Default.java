@@ -27,6 +27,7 @@ public class Default {
         lootConfig = new LootConfigV2();
         var injectors = lootConfig.injectors;
 
+        //CHESTS
         List.of("loot_n_explore:chests/inns/desert",
                 "loot_n_explore:chests/inns/plains",
                 "loot_n_explore:chests/vilages/plains/small_inn",
@@ -49,6 +50,14 @@ public class Default {
                         .add(X2)
                         .add(A1)
                 ));
+
+        //ENTITIES
+        injectors.put("loot_n_explore:entities/frost_monarch", new LootConfigV2.Pool()
+                .rolls(2)
+                .add(W3, true)
+                .add(A3, true)
+                .add(X3)
+        );
     }
 }
 
