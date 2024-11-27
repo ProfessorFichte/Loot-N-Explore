@@ -9,8 +9,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.effect.MRPGCEffects;
-
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static net.minecraft.registry.Registries.POTION;
 

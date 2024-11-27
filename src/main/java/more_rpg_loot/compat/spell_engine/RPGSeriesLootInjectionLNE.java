@@ -12,7 +12,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class RPGSeriesLootInjectionLNE {
     public static ConfigManager<LootConfigV2> lootConfig = new ConfigManager<>
-            ("loot_v0", Default.lootConfig)
+            ("loot", Default.lootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)

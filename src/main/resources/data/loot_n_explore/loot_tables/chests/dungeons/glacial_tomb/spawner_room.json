@@ -16,7 +16,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:name_tag",
-          "weight": 30
+          "weight": 15
         },
         {
           "type": "minecraft:item",
@@ -30,12 +30,30 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_pickaxe",
-          "weight": 5
+          "name": "minecraft:potion",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "loot_n_explore:frost_resistance_potion"
+            }
+          ]
         },
         {
-          "type": "minecraft:empty",
-          "weight": 5
+          "type": "minecraft:item",
+          "name": "minecraft:splash_potion",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "loot_n_explore:frosted_potion"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "loot_n_explore:monarchs_crown",
+          "weight": 3
         }
       ],
       "rolls": 1.0
@@ -72,7 +90,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:gold_ingot",
+          "name": "loot_n_explore:frozen_chain",
           "weight": 5
         },
         {
@@ -88,7 +106,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:lapis_lazuli",
+          "name": "minecraft:bone_meal",
           "weight": 5
         },
         {
@@ -105,7 +123,7 @@
             }
           ],
           "name": "minecraft:diamond",
-          "weight": 2
+          "weight": 5
         },
         {
           "type": "minecraft:item",
@@ -114,13 +132,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 3.0
+                "max": 3.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:coal",
+          "name": "minecraft:blue_ice",
           "weight": 10
         },
         {
@@ -136,8 +154,13 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:bread",
+          "name": "minecraft:bone",
           "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "loot_n_explore:frostbloom",
+          "weight": 4
         }
       ],
       "rolls": {
