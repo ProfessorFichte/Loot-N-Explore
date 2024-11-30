@@ -32,7 +32,7 @@ public class SpellPowerItems {
             SpellSchools.ARCANE.boostEffect,SpellPowerMechanics.HASTE.boostEffect,null,1);
     public static Item HOT_CHILLI = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16).food(ModFoodComponents.INN_BOWL),
             SpellSchools.FIRE.boostEffect,SpellPowerMechanics.CRITICAL_CHANCE.boostEffect,null,1);
-    public static Item HOLY_WATER = new InnkeeperBowlItem(new FabricItemSettings().maxCount(16),
+    public static Item HOLY_WATER = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellSchools.HEALING.boostEffect,SpellPowerMechanics.HASTE.boostEffect,null,1);
     public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new FabricItemSettings().maxCount(16),
             SpellPowerMechanics.CRITICAL_CHANCE.boostEffect,SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,null,1);

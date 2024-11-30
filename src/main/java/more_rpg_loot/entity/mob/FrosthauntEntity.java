@@ -17,7 +17,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 
 public class FrosthauntEntity extends SkeletonEntity {
@@ -56,8 +56,7 @@ public class FrosthauntEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                applyStatusEffect(entity,0,5, Effects.FREEZING,0,
-                        false,true,false,0);
+                stackFreezeStacks(entity,20);
             }
             return true;
         } else {

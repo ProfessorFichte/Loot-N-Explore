@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Random;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 public class FrostMonarchEntity extends SkeletonEntity {
     private final ServerBossBar bossBar;
@@ -156,8 +157,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                applyStatusEffect(entity,0,7, Effects.FREEZING,1,
-                        true,true,true,1);
+                stackFreezeStacks(entity,30);
             }
             return true;
         } else {
@@ -177,7 +177,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
             if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    applyStatusEffect(livingEntity,0,7, Effects.FREEZING,1,
+                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING,1,
                             true,true,true,1);
                 }
             }

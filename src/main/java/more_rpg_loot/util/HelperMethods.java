@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static more_rpg_loot.RPGLoot.MOD_ID;
 import static net.spell_engine.internals.SpellRegistry.getSpell;
 
 public class HelperMethods {
@@ -36,7 +35,8 @@ public class HelperMethods {
             if (owner instanceof LivingEntity) {
                 entity = owner;
             } else if (owner instanceof ProjectileEntity projectile) {
-                projectile.getOwner();
+                owner = projectile.getOwner();
+                areaEffectCloudEntity.setOwner((LivingEntity) owner);
             }
             if (entity instanceof LivingEntity) {
                 areaEffectCloudEntity.setOwner((LivingEntity) entity);
@@ -45,8 +45,10 @@ public class HelperMethods {
             areaEffectCloudEntity.setRadius(radiusCloud);
             areaEffectCloudEntity.setDuration(durationSecondsCloud * 20);
             areaEffectCloudEntity.setRadiusGrowth((radiusGrowthCloud - areaEffectCloudEntity.getRadius()) / (float) areaEffectCloudEntity.getDuration());
-            areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffect,
-                    durationSecondsStatusEffect * 20, amplifierStatusEffect, false, false, true));
+            if(areaEffectCloudEntity != owner){
+                areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffect,
+                        durationSecondsStatusEffect * 20, amplifierStatusEffect, false, false, true));
+            }
             if (!list.isEmpty()) {
                 Iterator var5 = list.iterator();
                 while (var5.hasNext()) {

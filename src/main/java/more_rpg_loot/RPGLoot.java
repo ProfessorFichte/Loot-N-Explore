@@ -3,6 +3,7 @@ package more_rpg_loot;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.compat.CompatRegistry;
+import more_rpg_loot.config.TweaksConfig;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.ModSpawnEggs;
@@ -32,10 +33,17 @@ public class RPGLoot implements ModInitializer {
 			.setDirectory(MOD_ID)
 			.sanitize(true)
 			.build();
+	public static ConfigManager<TweaksConfig> tweaksConfig = new ConfigManager<TweaksConfig>
+			("tweaks", new TweaksConfig())
+			.builder()
+			.setDirectory(MOD_ID)
+			.sanitize(true)
+			.build();
 
 	@Override
 	public void onInitialize() {
 		villageConfig.refresh();
+		tweaksConfig.refresh();
 		ModBlocks.register();
 		ItemsRegistry.registerModItems();
 		ModEntities.register();
@@ -49,7 +57,6 @@ public class RPGLoot implements ModInitializer {
 		CompatRegistry.registerModCompat();
 		EntityLootInjection.modifyLootEntityTables();
 		ChestLootInjection.modifyChestLootTables();
-
 
 		/*
 		if(FabricLoader.getInstance().isModLoaded("archers")) {

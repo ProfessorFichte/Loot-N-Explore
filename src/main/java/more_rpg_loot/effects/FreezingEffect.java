@@ -14,7 +14,7 @@ public class FreezingEffect extends StatusEffect {
         super(category, color);
     }
     public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
-        stackFreezeStacks(livingEntity,3 * (amplifier + 1));
+        stackFreezeStacks(livingEntity,2);
         super.applyUpdateEffect(livingEntity, amplifier);
     }
     @Override
@@ -22,6 +22,8 @@ public class FreezingEffect extends StatusEffect {
         EntityType<?> type = livingEntity.getType();
         if(type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
             livingEntity.removeStatusEffect(Effects.FREEZING);
+        } else{
+            stackFreezeStacks(livingEntity,20*(amplifier+1));
         }
     }
 

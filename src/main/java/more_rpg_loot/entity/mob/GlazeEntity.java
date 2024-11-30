@@ -28,6 +28,7 @@ import java.util.EnumSet;
 import java.util.Random;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 public class GlazeEntity extends HostileEntity {
     private float eyeOffset = 0.5F;
@@ -135,8 +136,7 @@ public class GlazeEntity extends HostileEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                applyStatusEffect(entity,0,5,Effects.FREEZING,0,
-                        false,true,false,0);
+                stackFreezeStacks(entity,20);
             }
             return true;
         } else {

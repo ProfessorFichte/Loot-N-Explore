@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.spell_power.api.SpellSchools;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntity {
     public FrostballEntity(EntityType<? extends FrostballEntity> entityType, World world) {
@@ -52,6 +53,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 if(entity2 != null){
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
+                        stackFreezeStacks(livingEntity,20);
                         applyStatusEffect(livingEntity,0,10,Effects.FREEZING,0,
                                 false,true,false,0);
                         if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
