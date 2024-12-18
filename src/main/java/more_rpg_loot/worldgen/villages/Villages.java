@@ -8,6 +8,7 @@ import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.sounds.ModSounds;
+import more_rpg_loot.worldgen.structures.LNESellMapFactory;
 import more_rpg_loot.worldgen.structures.StructureTags;
 import net.fabric_extras.structure_pool.api.StructurePoolAPI;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -21,7 +22,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.minecraft.village.TradeOffer;
@@ -99,7 +99,7 @@ public class Villages {
             int level_3_innkeeper_maxUses = 1;
             int level_3_innkeeper_experience = 12;
             TradeOfferHelper.registerVillagerOffers(innkeeper, 3, factories -> {
-                factories.add(((entity, random) -> new TradeOffers.SellMapFactory(
+                factories.add(((entity, random) -> new LNESellMapFactory(
                         level_3_innkeeper_price, StructureTags.SMALL_MONSTER_QUEST,
                         "filled_map.loot_n_explore.monster_quest",
                         MapIcon.Type.TARGET_X,

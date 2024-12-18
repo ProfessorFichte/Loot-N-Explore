@@ -3,17 +3,13 @@ package more_rpg_loot.item.consumables;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import more_rpg_loot.effects.Effects;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -21,6 +17,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+import static more_rpg_loot.RPGLoot.tweaksConfig;
 
 public class InnkeeperDrinkItem extends Item {
     private final StatusEffect boost_effect_0;
@@ -37,17 +35,20 @@ public class InnkeeperDrinkItem extends Item {
     }
     int effectDuration = 0;
     int effectAmplifier = 0;
+    int resistanceMaxAmp = 0;
 
-    int effectDuration_0 = 6000;
-    int effectDuration_1 = 6000;
-    int effectDuration_2 = 6000;
+    int effectDuration_0 = tweaksConfig.value.innkeepers_drink_quality_0_duration_seconds * 20;
+    int effectDuration_1 = tweaksConfig.value.innkeepers_drink_quality_1_duration_seconds * 20;
+    int effectDuration_2 = tweaksConfig.value.innkeepers_drink_quality_2_duration_seconds * 20;
     int amplifier_0 = 0;
     int amplifier_1 = 0;
     int amplifier_2 = 0;
+    int maxAmplifierStack = tweaksConfig.value.boosting_drinks_max_effect_stack_amplifier -1;
     int durationNauseaProviantCap = 600;
-    int amplifierProviantCap = 2;
+    int amplifierProviantCap = tweaksConfig.value.innkeepers_drink_max_cap -1;
 
 
+    @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
@@ -55,15 +56,21 @@ public class InnkeeperDrinkItem extends Item {
         }
         if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
             stack.decrement(1);
+                if (stack.isEmpty()) {
+                    return new ItemStack(Items.GLASS_BOTTLE);
+                }
+                if (user instanceof PlayerEntity playerEntity) {
+                    playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
+                }
         }
         if (!world.isClient) {
             if(quality == 0){
-                effectAmplifier = amplifier_0; effectDuration =effectDuration_0;
+                effectAmplifier = amplifier_0; effectDuration =effectDuration_0;resistanceMaxAmp =0;
             } else if(quality == 1) {
-                effectAmplifier = amplifier_1; effectDuration =effectDuration_1;
+                effectAmplifier = amplifier_1; effectDuration =effectDuration_1;resistanceMaxAmp =1;
             }
              else if(quality == 2) {
-            effectAmplifier = amplifier_2; effectDuration =effectDuration_2;
+            effectAmplifier = amplifier_2; effectDuration =effectDuration_2;resistanceMaxAmp =2;
             }else{
                 effectAmplifier = amplifier_0; effectDuration =effectDuration_0;
             }
@@ -78,8 +85,17 @@ public class InnkeeperDrinkItem extends Item {
                             effectDuration,effectAmplifier,false,false,true));
                 }else{
                     int currentEffectAmplifier = user.getStatusEffect(boost_effect_0).getAmplifier();
-                    user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                            effectDuration,currentEffectAmplifier + 1,false,false,true));
+                    if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_0 != StatusEffects.RESISTANCE){
+                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                effectDuration,currentEffectAmplifier,false,false,true));
+                    }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_0 == StatusEffects.RESISTANCE){
+                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                effectDuration,currentEffectAmplifier,false,false,true));
+                    }
+                    else{
+                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                effectDuration,currentEffectAmplifier + 1,false,false,true));
+                    }
                 }
                 //BOOST_EFFECT_1
                 if(boost_effect_1 != null){
@@ -88,8 +104,17 @@ public class InnkeeperDrinkItem extends Item {
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
                         int currentEffectAmplifier = user.getStatusEffect(boost_effect_1).getAmplifier();
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
-                                effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_1 != StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_1 == StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }
+                        else{
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                    effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        }
                     }
                 }
                 //BOOST_EFFECT_2
@@ -99,8 +124,17 @@ public class InnkeeperDrinkItem extends Item {
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
                         int currentEffectAmplifier = user.getStatusEffect(boost_effect_2).getAmplifier();
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
-                                effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_2 != StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_2 == StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }
+                        else{
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                    effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        }
                     }
                 }
             }
@@ -120,8 +154,17 @@ public class InnkeeperDrinkItem extends Item {
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
                         int currentEffectAmplifier = user.getStatusEffect(boost_effect_0).getAmplifier();
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                                effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_0 != StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_0 == StatusEffects.RESISTANCE){
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                    effectDuration,currentEffectAmplifier,false,false,true));
+                        }
+                        else{
+                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                                    effectDuration,currentEffectAmplifier + 1,false,false,true));
+                        }
                     }
                     //BOOST_EFFECT_1
                     if(boost_effect_1 != null){
@@ -130,8 +173,17 @@ public class InnkeeperDrinkItem extends Item {
                                     effectDuration,effectAmplifier,false,false,true));
                         }else{
                             int currentEffectAmplifier = user.getStatusEffect(boost_effect_1).getAmplifier();
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
-                                    effectDuration,currentEffectAmplifier + 1,false,false,true));
+                            if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_1 != StatusEffects.RESISTANCE){
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                        effectDuration,currentEffectAmplifier,false,false,true));
+                            }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_1 == StatusEffects.RESISTANCE){
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                        effectDuration,currentEffectAmplifier,false,false,true));
+                            }
+                            else{
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                        effectDuration,currentEffectAmplifier + 1,false,false,true));
+                            }
                         }
                     }
                     //BOOST_EFFECT_2
@@ -141,15 +193,23 @@ public class InnkeeperDrinkItem extends Item {
                                     effectDuration, effectAmplifier, false, false, true));
                         } else {
                             int currentEffectAmplifier = user.getStatusEffect(boost_effect_2).getAmplifier();
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
-                                    effectDuration, currentEffectAmplifier + 1, false, false, true));
+                            if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_2 != StatusEffects.RESISTANCE){
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                        effectDuration,currentEffectAmplifier,false,false,true));
+                            }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_2 == StatusEffects.RESISTANCE){
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                        effectDuration,currentEffectAmplifier,false,false,true));
+                            }
+                            else{
+                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                        effectDuration,currentEffectAmplifier + 1,false,false,true));
+                            }
                         }
                     }
                 }
             }
         }
-
-        return stack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : stack;
+        return stack;
     }
 
     public int getMaxUseTime(ItemStack stack) {

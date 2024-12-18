@@ -116,7 +116,18 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:compass"
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:paper"
         }
       ]
     }

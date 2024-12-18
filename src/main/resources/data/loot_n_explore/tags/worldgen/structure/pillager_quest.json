@@ -1,25 +1,8 @@
 {
   "replace": false,
   "values": [
-    "loot_n_explore:cold_monster_rooms",
     "minecraft:pillager_outpost",
 
-    {
-      "id": "betterdungeons:skeleton_dungeon",
-      "required": false
-    },
-    {
-      "id": "betterdungeons:small_dungeon",
-      "required": false
-    },
-    {
-      "id": "betterdungeons:spider_dungeon",
-      "required": false
-    },
-    {
-      "id": "betterdungeons:zombie_dungeon",
-      "required": false
-    },
     {
       "id": "frostiful:chillager_outpost",
       "required": false

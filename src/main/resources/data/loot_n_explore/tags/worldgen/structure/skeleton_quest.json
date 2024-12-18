@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "loot_n_explore:cold_monster_rooms",
+    {
+      "id": "betterdungeons:skeleton_dungeon",
+      "required": false
+    }
+  ]
+}

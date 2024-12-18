@@ -1,8 +1,12 @@
-0.1.0 - 1.20.1
+0.1.1 - 1.20.1
 - fixed Holy Water being eaten
 - added tweaks config for better customization
 - changed frozen ticks from the monsters
 - changed Frozen StatusEffect frozen tick application
+- added a max cap for the resistance effect, (Sweet berry Punch amplifier I , Beet Root Beer amplifier II  & Vital Drink = amplifier III )
+- you can now change the maximum innkeeper drinks & bowls you can take in and how high you can stack the effects
+- the innkeeper quest map trade now requires paper instead of a compass
+- buffed diamond spawn rates in glacial tomb loot chests
 
 0.1.0
 - First Beta Release of the Loot & Explore Mod!
