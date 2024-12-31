@@ -23,7 +23,11 @@ public class FreezingEffect extends StatusEffect {
         if(type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
             livingEntity.removeStatusEffect(Effects.FREEZING);
         } else{
-            stackFreezeStacks(livingEntity,20*(amplifier+1));
+            if(livingEntity.hasStatusEffect(Effects.FREEZING)){
+                stackFreezeStacks(livingEntity,10);
+            }else{
+                stackFreezeStacks(livingEntity,20*(amplifier+1));
+            }
         }
     }
 

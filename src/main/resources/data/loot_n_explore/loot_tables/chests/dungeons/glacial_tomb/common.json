@@ -65,7 +65,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:bones",
+          "name": "minecraft:bone",
           "weight": 15
         },
         {

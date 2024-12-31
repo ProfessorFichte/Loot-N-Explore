@@ -1,9 +1,11 @@
 package more_rpg_loot.client;
 
 import more_rpg_loot.blocks.ModBlocks;
+import more_rpg_loot.client.effect.FreezingParticles;
 import more_rpg_loot.client.entity.renderers.ModMobRenderers;
 import more_rpg_loot.client.particle.DragonClawParticle;
 import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.effects.Effects;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,6 +15,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
+import net.spell_engine.api.effect.CustomParticleStatusEffect;
 import net.spell_engine.api.render.CustomModels;
 
 import java.util.List;
@@ -37,6 +40,7 @@ public class RPGLootClient implements ClientModInitializer {
             CustomModels.registerModelIds(List.of(
                     new Identifier(MOD_ID, "projectile/small_avalanche")
             ));
+            CustomParticleStatusEffect.register(Effects.FREEZING, new FreezingParticles(1));
         }
     }
 

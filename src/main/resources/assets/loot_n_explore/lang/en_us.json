@@ -78,16 +78,19 @@
   "item.loot_n_explore.blue_berry_punch": "Aether Blueberry Punch",
   "item.loot_n_explore.holy_water": "Holy Water",
   "item.loot_n_explore.potato_soup": "Potato Soup",
+  "item.loot_n_explore.beauclair_white": "Beauclair White",
 
   "item.loot_n_explore.waldmeister": "Waldmeister",
   "item.loot_n_explore.malt_extract": "Malt Extract",
   "item.loot_n_explore.beet_rootbeer": "Beet Rootbeer",
   "item.loot_n_explore.enchanted_ale": "Enchanted Ale",
+  "item.loot_n_explore.rivian_kriek": "Rivian Kriek",
 
   "item.loot_n_explore.wizards_elixir": "Wizards Elixir",
   "item.loot_n_explore.espresso": "Strong Espresso",
   "item.loot_n_explore.vital_drink": "Vital Drink",
   "item.loot_n_explore.forrest_spirit": "Forrest Spirit",
+  "item.loot_n_explore.butcher_of_blaviken": "Butcher of Blaviken",
 
   "smithing_template.loot_n_explore.applies_to": "Netherite Weapons.",
   "smithing_template.loot_n_explore.base_slot_description": "Put a Netherite Weapon here.",

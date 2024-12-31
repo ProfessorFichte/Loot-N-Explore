@@ -40,6 +40,14 @@
     {
       "id": "loot_n_explore:enchanted_ale",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:beauclair_white",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:rivian_kriek",
+      "required": false
     }
   ]
 }

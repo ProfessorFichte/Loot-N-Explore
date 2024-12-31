@@ -1,3 +1,11 @@
+0.1.2 - 1.20.1
+- fixed a error where the glaze spawned multiple frozen clouds
+- adding particles for the freezing effect
+- fixed an error with a loot-table
+- fixed an error with a HelperMethod
+- updated the textures of the "beer"-items
+- added optional Witcher RPG Class Innkeeper Food (Beauclair White, Rivian Kriek, Butcher of Blaviken)
+
 0.1.1 - 1.20.1
 - fixed Holy Water being eaten
 - added tweaks config for better customization

@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.Random;
 
-import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
 import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 public class GlazeEntity extends HostileEntity {
@@ -149,7 +148,6 @@ public class GlazeEntity extends HostileEntity {
         private int frostballsHailFired;
         private int frostballHailCooldown;
         private int frostStormCooldown;
-        private int frostStormFired;
         private int targetNotVisibleTicks;
 
         public GlazeSpecialAttacksGoal(GlazeEntity glaze) {
@@ -164,7 +162,6 @@ public class GlazeEntity extends HostileEntity {
 
         public void start() {
             this.frostballsHailFired = 0;
-            this.frostStormFired = 0;
         }
 
         public void stop() {
@@ -248,14 +245,10 @@ public class GlazeEntity extends HostileEntity {
                 else if(d< frostStormRange && bl){
                     //FROSTSTORM
                     if (this.frostStormCooldown <= 0) {
-                        ++this.frostStormFired;
-                        if (this.frostStormFired == 1) {
-                            this.frostStormCooldown = 600;
-                        }
                         if (!glaze.getWorld().isClient) {
-                            ++this.frostStormFired;
-                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, 4.0F, 10, 5.0F,
+                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, 4.0F, 5, 5.0F,
                                     Effects.FREEZING, 3, 1);
+                            this.frostStormCooldown = 600;
                         }
                     }
                 }

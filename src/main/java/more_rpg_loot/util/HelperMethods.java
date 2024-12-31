@@ -100,7 +100,7 @@ public class HelperMethods {
                 if(increaseDuration){
                     currentDuration = currentDuration + (increaseEffectDurationSeconds*20);
                 }
-                if(currentAmplifier>=maxStackAmplifier){
+                if(currentAmplifier < maxStackAmplifier){
                     target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, effectAmplifier+1, false, false, showIcon));
                 }else{
                     target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));

@@ -3,6 +3,7 @@ package more_rpg_loot.compat;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
+import more_rpg_loot.compat.items.WitcherItems;
 import more_rpg_loot.compat.spell_engine.RPGSeriesLootInjectionLNE;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -20,6 +21,9 @@ public class CompatRegistry {
         }
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             RPGSeriesLootInjectionLNE.initialize();
+        }
+        if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
+            WitcherItems.registerWitcherItems();
         }
     }
 }
