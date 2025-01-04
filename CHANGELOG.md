@@ -1,3 +1,9 @@
+0.1.3 - 1.20.1
+- Fixed a missing texture issue with the small avalanche model
+- Updated HelperMethods
+- The Special Axes can now also be used as Tools
+- Added the special axes to the minecraft axe tag
+
 0.1.2 - 1.20.1
 - fixed a error where the glaze spawned multiple frozen clouds
 - adding particles for the freezing effect

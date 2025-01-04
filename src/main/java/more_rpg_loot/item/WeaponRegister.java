@@ -1,11 +1,9 @@
 package more_rpg_loot.item;
 
-import more_rpg_loot.item.weapons.DragonMeeleeWeapon;
-import more_rpg_loot.item.weapons.ElderGuardianMeleeWeapon;
-import more_rpg_loot.item.weapons.GlacialMeleeWeapon;
-import more_rpg_loot.item.weapons.WitherMeleeWeapon;
+import more_rpg_loot.item.weapons.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
@@ -19,13 +17,13 @@ public class WeaponRegister {
     private static final float swordVanillaAttackSpeed = -2.4F;
     private static final float axeVanillaAttackSpeed = -3.0F;
     public static Item ELDER_GUARDIAN_SWORD = new ElderGuardianMeleeWeapon(ToolMaterials.NETHERITE,4,swordVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
-    public static Item ELDER_GUARDIAN_AXE = new ElderGuardianMeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item ELDER_GUARDIAN_AXE = new ElderGuardianAxe(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
     public static Item ENDER_DRAGON_SWORD = new DragonMeeleeWeapon(ToolMaterials.NETHERITE,4,swordVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
-    public static Item ENDER_DRAGON_AXE = new DragonMeeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item ENDER_DRAGON_AXE = new DragonAxe(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
     public static Item WITHER_SWORD = new WitherMeleeWeapon(ToolMaterials.NETHERITE,4,swordVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
-    public static Item WITHER_AXE = new WitherMeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item WITHER_AXE = new WitherAxe(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
     public static Item GLACIAL_SWORD = new GlacialMeleeWeapon(ToolMaterials.NETHERITE,4,swordVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
-    public static Item GLACIAL_AXE = new GlacialMeleeWeapon(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
+    public static Item GLACIAL_AXE = new GlacialAxe(ToolMaterials.NETHERITE,5,axeVanillaAttackSpeed, new FabricItemSettings().rarity(Rarity.EPIC));
 
     public static void registerWeapons(){
         Registry.register(Registries.ITEM,new Identifier(MOD_ID,"elder_guardian_sword"),ELDER_GUARDIAN_SWORD);

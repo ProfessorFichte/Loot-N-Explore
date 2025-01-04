@@ -130,6 +130,22 @@ public class HelperMethods {
 
     }
 
+    public static boolean clearNegativeEffects(LivingEntity entity, boolean removeOne) {
+        List<StatusEffectInstance> list = entity.getStatusEffects().stream().toList();
+        if (list.isEmpty())
+            return false;
+        for (StatusEffectInstance statusEffectInstance : list) {
+            StatusEffect statusEffect = statusEffectInstance.getEffectType();
+            if (!statusEffect.isBeneficial()) {
+                entity.removeStatusEffect(statusEffect);
+            }
+            if(removeOne){
+                return true;
+            }
+        }
+        return true;
+    }
+
 
 
 }
