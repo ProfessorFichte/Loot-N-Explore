@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.item.ConfigurableAttributes;
 import net.spell_engine.internals.casting.SpellCast;
-import net.spell_power.api.SpellSchools;
 
 import java.util.List;
 import java.util.UUID;

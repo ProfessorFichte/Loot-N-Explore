@@ -1,7 +1,5 @@
 package more_rpg_loot.util;
 
-import more_rpg_loot.effects.Effects;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
@@ -15,7 +13,6 @@ import net.minecraft.util.Identifier;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.casting.SpellCast;
 import net.spell_engine.utils.TargetHelper;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -93,30 +90,24 @@ public class HelperMethods {
     public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,StatusEffect statusEffect,
                                          int maxStackAmplifier, boolean canStackAmplifier, boolean showIcon, boolean increaseDuration,
                                          int increaseEffectDurationSeconds){
-        if(canStackAmplifier){
-            if(target.hasStatusEffect(statusEffect)){
-                int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
-                int currentDuration = target.getStatusEffect(statusEffect).getDuration();
-                if(increaseDuration){
-                    currentDuration = currentDuration + (increaseEffectDurationSeconds*20);
-                }
-                if(currentAmplifier < maxStackAmplifier){
-                    target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, effectAmplifier+1, false, false, showIcon));
-                }else{
-                    target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
-                }
+
+        if(target.hasStatusEffect(statusEffect)){
+            int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
+            int currentDuration = target.getStatusEffect(statusEffect).getDuration();
+            int increaseAmp = 0;
+            if(increaseDuration){
+                currentDuration = currentDuration + (increaseEffectDurationSeconds*20);
+            }
+            if(canStackAmplifier){
+                increaseAmp = increaseAmp + 1;
+            }
+            if(currentAmplifier<maxStackAmplifier){
+                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, currentAmplifier + increaseAmp, false, false, showIcon));
             }else{
-                target.addStatusEffect(new StatusEffectInstance(statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
+                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
             }
         }else{
-            if(!target.hasStatusEffect(statusEffect)){
-                target.addStatusEffect(new StatusEffectInstance(statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
-            }else{
-                int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
-                int currentDuration = target.getStatusEffect(statusEffect).getDuration();
-                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, currentAmplifier, false, false, showIcon));
-            }
-
+            target.addStatusEffect(new StatusEffectInstance(statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
         }
     }
 
