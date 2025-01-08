@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.RPGLoot.tweaksConfig;
 import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 
 public class WitherMeleeWeapon extends SwordItem implements ConfigurableAttributes {
@@ -61,18 +62,22 @@ public class WitherMeleeWeapon extends SwordItem implements ConfigurableAttribut
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity player){
-                executeSpellSpellEngine(player,target,MOD_ID,"passive_wither_pulse", SpellCast.Action.RELEASE,true);
+            executeSpellSpellEngine(player,target,MOD_ID,"passive_wither_pulse", SpellCast.Action.RELEASE,true);
         }
+        int amount_negative = 0;
         List<StatusEffectInstance> list = target.getStatusEffects().stream().toList();
-            if (!list.isEmpty()){
-                for (StatusEffectInstance statusEffectInstance : list) {
-                    StatusEffect statusEffect = statusEffectInstance.getEffectType();
-                    if (!statusEffect.isBeneficial()) {
-                        double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-                        target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * 0.15F));
-                    }
+        if (!list.isEmpty()){
+            for (StatusEffectInstance statusEffectInstance : list) {
+                StatusEffect statusEffect = statusEffectInstance.getEffectType();
+                if (!statusEffect.isBeneficial()) {
+                    amount_negative++;
                 }
             }
+
+            float negative = tweaksConfig.value.wither_melee_damage_per_negative_effect;
+            double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+            target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * (amount_negative * negative)));
+        }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });

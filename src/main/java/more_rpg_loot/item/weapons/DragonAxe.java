@@ -10,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
@@ -26,10 +25,12 @@ import java.util.List;
 import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.RPGLoot.tweaksConfig;
 import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 
 public class DragonAxe extends AxeItem implements ConfigurableAttributes {
     private final float attackDamage;
+    private static final float PASSIVE = tweaksConfig.value.ender_dragon_melee_regeneration_passive;
 
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
     public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
@@ -63,10 +64,14 @@ public class DragonAxe extends AxeItem implements ConfigurableAttributes {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity player){
             executeSpellSpellEngine(player,target,MOD_ID,"passive_dragonclaw", SpellCast.Action.RELEASE,false);
-        }
 
-        double target_max_health = target.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
-        target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (target_max_health * 0.10F));
+            float player_max_health = (float) player.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
+            float player_actual_health = player.getHealth() / player_max_health;
+
+            if(player_actual_health < PASSIVE ){
+                player.heal(player_max_health * 0.1F);
+            }
+        }
 
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
@@ -84,4 +89,5 @@ public class DragonAxe extends AxeItem implements ConfigurableAttributes {
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_dragonclaw.description").formatted(Formatting.DARK_PURPLE));
         }
     }
+
 }

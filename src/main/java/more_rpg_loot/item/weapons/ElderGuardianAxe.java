@@ -26,9 +26,12 @@ import java.util.List;
 import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.RPGLoot.tweaksConfig;
 import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 
 public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes {
+    private static final float PASSIVE_DAMAGE = tweaksConfig.value.elder_guardian_melee_swimming_damage;
+
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
     public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
         this.attributes = attributes;
@@ -61,9 +64,9 @@ public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes 
         if (attacker instanceof PlayerEntity player && FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
             executeSpellSpellEngine(player,target,MOD_ID,"passive_waterbomb_melee", SpellCast.Action.RELEASE,true);
         }
-        if(attacker.isInsideWaterOrBubbleColumn()){
+        if(attacker.isSwimming()){
             double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-            target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), (float) (gen_atk * 0.25F));
+            target.damage(new DamageSource(target.getDamageSources().generic().getTypeRegistryEntry()), (float) (gen_atk * PASSIVE_DAMAGE));
         }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);

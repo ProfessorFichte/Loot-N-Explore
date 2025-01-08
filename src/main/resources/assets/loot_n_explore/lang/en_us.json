@@ -42,21 +42,21 @@
   "spell.loot_n_explore.passive_dragonclaw.name": "Passive Spell: Dragonclaw",
   "spell.loot_n_explore.passive_dragonclaw.description": "Slashing attack that deals single target arcane-spell damage.",
   "lore.loot_n_explore.ender_dragon_weapon": "This weapon pulses with the essence of the end, holding the power to rend dimensions.",
-  "passive.loot_n_explore.ender_dragon_weapon": "Deals 10% Magic Damage of the targets Max Health.",
+  "passive.loot_n_explore.ender_dragon_weapon": "If the attacker is below 25% health, every hit heals 10% of the attackers max health.",
 
   "item.loot_n_explore.elder_guardian_sword": "Leviathan",
   "item.loot_n_explore.elder_guardian_axe": "Nautilus",
   "spell.loot_n_explore.passive_waterbomb_melee.name": "Passive Spell: Waterbomb",
   "spell.loot_n_explore.passive_waterbomb_melee.description": "Dealing water-spell damage around the target.",
   "lore.loot_n_explore.elder_guardian_weapon": "Formed over the ages deep within the watery sands of an Abyssal Cove.",
-  "passive.loot_n_explore.elder_guardian_weapon": "Deals 25% Magic Damage of the Attack Damage if the attacker is in the water.",
+  "passive.loot_n_explore.elder_guardian_weapon": "Deals 25% Additional Damage if the attacker is swimming.",
 
   "item.loot_n_explore.wither_sword": "Withered Sword",
   "item.loot_n_explore.wither_axe": "Withered Axe",
   "spell.loot_n_explore.passive_wither_pulse.name": "Passive Spell: Wither Pulse",
   "spell.loot_n_explore.passive_wither_pulse.description": "Inflicting targets in a 90 degree radius with the Wither Effect.",
   "lore.loot_n_explore.wither_weapon": "Crafted from shattered Wither remains, imbued with the eternal curse of the Nether.",
-  "passive.loot_n_explore.wither_weapon": "Deals 15% magic damage, if the target has negative status effects.",
+  "passive.loot_n_explore.wither_weapon": "Deals 10% additional magic damage per negative effect on the target.",
 
   "item.loot_n_explore.glacial_sword": "Glacial Sword",
   "item.loot_n_explore.glacial_axe": "Glacial Axe",
@@ -157,10 +157,5 @@
 
   "filled_map.loot_n_explore.archers_outposts": "Hidden Ranger Outpost Map",
   "filled_map.loot_n_explore.archers_camps": "Hidden Ranger Camp Map",
-  "filled_map.loot_n_explore.paladins_churches": "Holy Building",
-
-  "item.loot_n_explore.elder_guardian_double_axe": "Tidal Cleaver",
-  "item.loot_n_explore.elder_guardian_glaive": "Sea Serpent's Fang",
-  "item.loot_n_explore.elder_guardian_dagger": "Siren's Sting",
-  "item.loot_n_explore.elder_guardian_sickle": "Abyssal Reaper"
+  "filled_map.loot_n_explore.paladins_churches": "Holy Building"
 }

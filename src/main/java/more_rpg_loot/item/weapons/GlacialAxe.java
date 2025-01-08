@@ -62,9 +62,10 @@ public class GlacialAxe extends AxeItem implements ConfigurableAttributes {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity player){
             executeSpellSpellEngine(player,target,MOD_ID,"passive_small_avalanche", SpellCast.Action.RELEASE,false);
+
+            applyStatusEffect(target,0,4, Effects.FREEZING,0,
+                    true,true,true,1);
         }
-        applyStatusEffect(target,0,4, Effects.FREEZING,0,
-                true,true,true,1);
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });
