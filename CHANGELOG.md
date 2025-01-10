@@ -1,3 +1,7 @@
+### 0.1.5 - 1.20.1
+- add Witcher Drinks to Innkeeper Trading Pool
+- updated the textures of the "beer"-items
+
 ### 0.1.4 - 1.20.1
 - fixed an issue with the Beauclair White Item missing Texture
 - Changed the Passive from Elder Guardian Melee Weapons from in Water to Swimming

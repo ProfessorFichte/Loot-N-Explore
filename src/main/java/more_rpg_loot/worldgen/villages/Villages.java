@@ -6,6 +6,7 @@ import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
+import more_rpg_loot.compat.items.WitcherItems;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.worldgen.structures.LNESellMapFactory;
@@ -231,6 +232,31 @@ public class Villages {
                                     level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         }
                         );
+            }
+            //WITCHER SPECIFIC TRADES
+            if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                    new ItemStack(WitcherItems.BEAUCLAIR_WHITE, 1),
+                                    level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+
+                        });
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new ItemStack(WitcherItems.RIVIAN_KRIEK, 1),
+                                    level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
+                        });
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
+                        factories -> {
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                    new ItemStack(WitcherItems.BUTCHER_OF_BLAVIKEN, 1),
+                                    level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
+                        });
             }
         }
     }
