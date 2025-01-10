@@ -19,8 +19,8 @@
       "chunk_count": 15
     },
     "type": "minecraft:random_spread",
-    "separation": 18,
-    "spacing": 32,
+    "separation": 10,
+    "spacing": 25,
     "salt": 1487852527
   }
 }

@@ -4,6 +4,7 @@
 - Changed the Passive from Wither Melee Weapons, now each negative status effect on the target results in more 10% magic damage
 - Changed the Passive from Ender Dragon Melee Weapons, if the player is below 15% health, you heal 10% of your max health with each hit
 - added tweak config options for the passives
+- tweak some structures
 
 ### 0.1.3 - 1.20.1
 - Fixed a missing texture issue with the small avalanche model
