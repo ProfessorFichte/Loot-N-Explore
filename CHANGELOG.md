@@ -1,6 +1,8 @@
 ### 0.1.5 - 1.20.1
 - add Witcher Drinks to Innkeeper Trading Pool
 - updated the textures of the "beer"-items
+- tweaked some trades
+- made the damage from the frostball magic instead of freeze
 
 ### 0.1.4 - 1.20.1
 - fixed an issue with the Beauclair White Item missing Texture

@@ -58,9 +58,9 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                                 false,true,false,0);
                         if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
                             double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attribute) * 0.25F;
-                            livingEntity.damage(livingEntity.getDamageSources().freeze(), (float) (d + frostPower));
+                            livingEntity.damage(livingEntity.getDamageSources().magic(), (float) (d + frostPower));
                         }else{
-                            livingEntity.damage(livingEntity.getDamageSources().freeze(),d);
+                            livingEntity.damage(livingEntity.getDamageSources().magic(),d);
                         }
                     }
                 }

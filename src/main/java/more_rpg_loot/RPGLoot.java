@@ -14,7 +14,8 @@ import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.util.ChestLootInjection;
 import more_rpg_loot.util.EntityLootInjection;
 import more_rpg_loot.worldgen.gen.ModWorldGen;
-import more_rpg_loot.worldgen.villages.Villages;
+import more_rpg_loot.worldgen.villages.LNEVillagerTrades;
+import net.fabric_extras.structure_pool.api.StructurePoolAPI;
 import net.fabric_extras.structure_pool.api.StructurePoolConfig;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -44,13 +45,14 @@ public class RPGLoot implements ModInitializer {
 	public void onInitialize() {
 		villageConfig.refresh();
 		tweaksConfig.refresh();
+		StructurePoolAPI.injectAll(RPGLoot.villageConfig.value);
 		ModBlocks.register();
 		ItemsRegistry.registerModItems();
 		ModEntities.register();
 		ModSpawnEggs.register();
 		Group.registerItemGroups();
 		Particles.register();
-		Villages.register();
+		LNEVillagerTrades.register();
 		Effects.register();
 		ModSounds.register();
 		ModWorldGen.generateModWorldGen();
@@ -58,31 +60,6 @@ public class RPGLoot implements ModInitializer {
 		EntityLootInjection.modifyLootEntityTables();
 		ChestLootInjection.modifyChestLootTables();
 
-		/*
-		if(FabricLoader.getInstance().isModLoaded("archers")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_archers"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}
-		if(FabricLoader.getInstance().isModLoaded("wizards")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_wizards"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}
-		if(FabricLoader.getInstance().isModLoaded("paladins")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_paladins"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}
-		if(FabricLoader.getInstance().isModLoaded("elemental_wizards_rpg")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_elemental_wizards_rpg"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}
-		if(!FabricLoader.getInstance().isModLoaded("forcemaster_rpg")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_forcemaster_rpg"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}
-		if(FabricLoader.getInstance().isModLoaded("jewelry")) {
-			ResourceManagerHelper.registerBuiltinResourcePack(new Identifier("loot_n_explore_jewelry"),
-					FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(), ResourcePackActivationType.ALWAYS_ENABLED);
-		}*/
 
 	}
 	public static Identifier id(String path) {
