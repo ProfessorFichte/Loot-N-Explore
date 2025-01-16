@@ -23,26 +23,26 @@ public class LNEVillagerTrades {
 
             int level_1_innkeeper_price = 3;
             int level_1_innkeeper_maxUses = 12;
-            int level_1_innkeeper_experience = 7;
+            int level_1_innkeeper_experience = 10;
             float level_1_innkeeper_priceMultiplier = 0.1F;
 
-            int level_2_innkeeper_price = 3;
+            int level_2_innkeeper_price = 20;
             int level_2_innkeeper_maxUses = 5;
-            int level_2_innkeeper_experience = 3;
+            int level_2_innkeeper_experience = 15;
             float level_2_innkeeper_priceMultiplier = 0.01F;
 
             int level_3_innkeeper_price = 0;
             int level_3_innkeeper_maxUses = 1;
-            int level_3_innkeeper_experience = 12;
+            int level_3_innkeeper_experience = 20;
 
-            int level_4_innkeeper_price = 10;
+            int level_4_innkeeper_price = 30;
             int level_4_innkeeper_maxUses = 6;
-            int level_4_innkeeper_experience = 12;
+            int level_4_innkeeper_experience = 20;
             float level_4_innkeeper_priceMultiplier = 0.15F;
 
-            int level_5_innkeeper_price = 25;
+            int level_5_innkeeper_price = 40;
             int level_5_innkeeper_maxUses = 2;
-            int level_5_innkeeper_experience = 15;
+            int level_5_innkeeper_experience = 30;
             float level_5_innkeeper_priceMultiplier = 0.15F;
 
             TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
@@ -139,12 +139,12 @@ public class LNEVillagerTrades {
 
             //RANGED WEAPON API SPECIFIC TRADES
             if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")) {
-                TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(RangedWeaponAPIItems.APPLE_JUICE, 1),
-                                    level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+                                    level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
                         });
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
@@ -165,12 +165,12 @@ public class LNEVillagerTrades {
 
             //SPELL POWER MOD SPECIFIC TRADES
             if(FabricLoader.getInstance().isModLoaded("spell_power")) {
-                TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(SpellPowerItems.ORANGE_JUICE, 1),
-                                    level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+                                    level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
                         });
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
@@ -213,12 +213,12 @@ public class LNEVillagerTrades {
 
             //WITCHER SPECIFIC TRADES
             if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
-                TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+                TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(WitcherItems.BEAUCLAIR_WHITE, 1),
-                                    level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+                                    level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
                         });
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,

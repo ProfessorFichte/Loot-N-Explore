@@ -3,6 +3,8 @@
 - updated the textures of the "beer"-items
 - tweaked some trades
 - made the damage from the frostball magic instead of freeze
+- hid the passive weapon descriptions behind pressing the Shift button, so the description is not that long
+- made the special weapons fireproof
 
 ### 0.1.4 - 1.20.1
 - fixed an issue with the Beauclair White Item missing Texture

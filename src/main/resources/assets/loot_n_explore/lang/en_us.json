@@ -37,6 +37,8 @@
   "item.minecraft.tipped_arrow.effect.frosted_potion": "Arrow of Freezing",
   "item.minecraft.tipped_arrow.effect.long_frosted_potion": "Arrow of Freezing",
 
+  "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
+
   "item.loot_n_explore.ender_dragon_sword": "Dragon Slayer",
   "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
   "spell.loot_n_explore.passive_dragonclaw.name": "Passive Spell: Dragonclaw",
@@ -127,8 +129,6 @@
   "entity.loot_n_explore.frost_monarch": "Frost Monarch",
   "item.loot_n_explore.frost_monarch_egg": "Frost Monarch Spawn Egg",
   "entity.loot_n_explore.monarchs_servant": "Frost Monarch",
-
-  "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 
   "advancements.loot_n_explore.root.title": "Loot & Explore!",
   "advancements.loot_n_explore.root.description": "Start your journey and explore the world!",

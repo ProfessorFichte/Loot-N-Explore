@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import more_rpg_loot.RPGLoot;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -88,11 +89,18 @@ public class WitherAxe extends AxeItem implements ConfigurableAttributes {
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         tooltip.add(Text.translatable("lore.loot_n_explore.wither_weapon").formatted(Formatting.GOLD));
+
+        if(Screen.hasShiftDown()) {
         tooltip.add(Text.translatable("passive.loot_n_explore.wither_weapon").formatted(Formatting.GOLD));
-        super.appendTooltip(stack, world, tooltip, context);
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_wither_pulse.name").formatted(Formatting.BLUE));
             tooltip.add(Text.translatable("spell.loot_n_explore.passive_wither_pulse.description").formatted(Formatting.BLUE));
         }
+
+        }else{
+            tooltip.add(Text.translatable("tooltip.loot_n_explore.shift_down"));
+        }
+
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }
