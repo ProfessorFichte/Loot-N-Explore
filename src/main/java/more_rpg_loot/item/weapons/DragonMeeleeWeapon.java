@@ -3,6 +3,8 @@ package more_rpg_loot.item.weapons;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import more_rpg_loot.api.WeaponPassives;
+import more_rpg_loot.api.WeaponTooltips;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
@@ -27,11 +29,9 @@ import java.util.List;
 import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
-import static more_rpg_loot.RPGLoot.tweaksConfig;
 import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 
 public class DragonMeeleeWeapon extends SwordItem implements ConfigurableAttributes {
-    private static final float PASSIVE = tweaksConfig.value.ender_dragon_melee_regeneration_passive;
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
     public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
         this.attributes = attributes;
@@ -45,9 +45,9 @@ public class DragonMeeleeWeapon extends SwordItem implements ConfigurableAttribu
     }
     private final float attackDamage;
 
-    public DragonMeeleeWeapon(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
-        this.attackDamage = (float) attackDamage + toolMaterial.getAttackDamage();
+    public DragonMeeleeWeapon(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings) {
+        super(toolMaterial, (int) attackDamage, attackSpeed, settings);
+        this.attackDamage = attackDamage + (float) toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID,
                 "Weapon modifier", (double) this.attackDamage, EntityAttributeModifier.Operation.ADDITION));
@@ -62,16 +62,7 @@ public class DragonMeeleeWeapon extends SwordItem implements ConfigurableAttribu
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player){
-            executeSpellSpellEngine(player,target,MOD_ID,"passive_dragonclaw", SpellCast.Action.RELEASE,false);
-
-            float player_max_health = (float) player.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
-            float player_actual_health = player.getHealth() / player_max_health;
-
-            if(player_actual_health < PASSIVE ){
-                player.heal(player_max_health * 0.1F);
-            }
-        }
+        WeaponPassives.EnderDragonMelee(stack,target,attacker);
 
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
@@ -81,18 +72,7 @@ public class DragonMeeleeWeapon extends SwordItem implements ConfigurableAttribu
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("lore.loot_n_explore.ender_dragon_weapon").formatted(Formatting.GOLD));
-
-        if(Screen.hasShiftDown()) {
-        tooltip.add(Text.translatable("passive.loot_n_explore.ender_dragon_weapon").formatted(Formatting.GOLD));
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_dragonclaw.name").formatted(Formatting.DARK_PURPLE));
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_dragonclaw.description").formatted(Formatting.DARK_PURPLE));
-        }
-
-        }else{
-            tooltip.add(Text.translatable("tooltip.loot_n_explore.shift_down"));
-        }
+        WeaponTooltips.EnderDragonMelee(stack,world,tooltip,context);
 
         super.appendTooltip(stack, world, tooltip, context);
     }

@@ -3,35 +3,27 @@ package more_rpg_loot.item.weapons;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import more_rpg_loot.api.WeaponPassives;
+import more_rpg_loot.api.WeaponTooltips;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.item.ConfigurableAttributes;
-import net.spell_engine.internals.casting.SpellCast;
 
 import java.util.List;
 import java.util.UUID;
 
-import static more_rpg_loot.RPGLoot.MOD_ID;
-import static more_rpg_loot.RPGLoot.tweaksConfig;
-import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
-
 public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes {
-    private static final float PASSIVE_DAMAGE = tweaksConfig.value.elder_guardian_melee_swimming_damage;
 
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
     public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
@@ -45,7 +37,7 @@ public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes 
         }
     }
     private final float attackDamage;
-    public ElderGuardianAxe(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+    public ElderGuardianAxe(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
         this.attackDamage = (float) attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
@@ -62,13 +54,8 @@ public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes 
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player && FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-            executeSpellSpellEngine(player,target,MOD_ID,"passive_waterbomb_melee", SpellCast.Action.RELEASE,true);
-        }
-        if(attacker.isSwimming()){
-            double gen_atk = attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
-            target.damage(new DamageSource(target.getDamageSources().generic().getTypeRegistryEntry()), (float) (gen_atk * PASSIVE_DAMAGE));
-        }
+        WeaponPassives.ElderGuardianMelee(stack,target,attacker);
+
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });
@@ -77,18 +64,8 @@ public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes 
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("lore.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
+        WeaponTooltips.ElderGuardianMelee(stack,world,tooltip,context);
 
-        if(Screen.hasShiftDown()) {
-        tooltip.add(Text.translatable("passive.loot_n_explore.elder_guardian_weapon").formatted(Formatting.GOLD));
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")&& FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.name").formatted(Formatting.AQUA));
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_waterbomb_melee.description").formatted(Formatting.AQUA));
-        }
-
-        }else{
-            tooltip.add(Text.translatable("tooltip.loot_n_explore.shift_down"));
-        }
         super.appendTooltip(stack, world, tooltip, context);
     }
 }

@@ -3,32 +3,25 @@ package more_rpg_loot.item.weapons;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
-import more_rpg_loot.effects.Effects;
+import more_rpg_loot.api.WeaponPassives;
+import more_rpg_loot.api.WeaponTooltips;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.spell_engine.api.item.ConfigurableAttributes;
-import net.spell_engine.internals.casting.SpellCast;
 import net.spell_power.api.SpellSchools;
 
 import java.util.List;
 import java.util.UUID;
-
-import static more_rpg_loot.RPGLoot.MOD_ID;
-import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
-import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
 
 public class GlacialMeleeWeapon extends SwordItem implements ConfigurableAttributes {
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
@@ -44,8 +37,8 @@ public class GlacialMeleeWeapon extends SwordItem implements ConfigurableAttribu
     }
     private final float attackDamage;
 
-    public GlacialMeleeWeapon(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+    public GlacialMeleeWeapon(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings) {
+        super(toolMaterial, (int) attackDamage, attackSpeed, settings);
         this.attackDamage = (float) attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
         builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID,
@@ -61,12 +54,8 @@ public class GlacialMeleeWeapon extends SwordItem implements ConfigurableAttribu
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player){
-            executeSpellSpellEngine(player,target,MOD_ID,"passive_small_avalanche", SpellCast.Action.RELEASE,false);
+        WeaponPassives.GlacialMelee(stack,target,attacker);
 
-            applyStatusEffect(target,0,4, Effects.FREEZING,0,
-                    true,true,true,1);
-        }
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
         });
@@ -75,18 +64,7 @@ public class GlacialMeleeWeapon extends SwordItem implements ConfigurableAttribu
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("lore.loot_n_explore.glacial_weapon").formatted(Formatting.GOLD));
-
-        if(Screen.hasShiftDown()) {
-        tooltip.add(Text.translatable("passive.loot_n_explore.glacial_weapon").formatted(Formatting.GOLD));
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_small_avalanche.name").formatted(Formatting.WHITE));
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_small_avalanche.description").formatted(Formatting.WHITE));
-        }
-
-        }else{
-            tooltip.add(Text.translatable("tooltip.loot_n_explore.shift_down"));
-        }
+        WeaponTooltips.GlacialMelee(stack,world,tooltip,context);
 
         super.appendTooltip(stack, world, tooltip, context);
     }

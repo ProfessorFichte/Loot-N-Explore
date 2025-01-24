@@ -1,3 +1,6 @@
+### 0.1.6 - 1.20.1
+- created special Weapon Passive & Tooltip Methods to fix crashes with the Add-Ons
+
 ### 0.1.5 - 1.20.1
 - add Witcher Drinks to Innkeeper Trading Pool
 - updated the textures of the "beer"-items

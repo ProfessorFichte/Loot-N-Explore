@@ -3,35 +3,28 @@ package more_rpg_loot.item.weapons;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import more_rpg_loot.api.WeaponPassives;
+import more_rpg_loot.api.WeaponTooltips;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.spell_engine.api.item.ConfigurableAttributes;
-import net.spell_engine.internals.casting.SpellCast;
 import net.spell_power.api.SpellSchools;
 
 import java.util.List;
 import java.util.UUID;
 
-import static more_rpg_loot.RPGLoot.MOD_ID;
-import static more_rpg_loot.RPGLoot.tweaksConfig;
-import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
-
 public class DragonAxe extends AxeItem implements ConfigurableAttributes {
     private final float attackDamage;
-    private static final float PASSIVE = tweaksConfig.value.ender_dragon_melee_regeneration_passive;
 
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
     public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
@@ -46,7 +39,7 @@ public class DragonAxe extends AxeItem implements ConfigurableAttributes {
     }
 
 
-    public DragonAxe(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+    public DragonAxe(ToolMaterial toolMaterial, float attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
         this.attackDamage = (float) attackDamage + toolMaterial.getAttackDamage();
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
@@ -63,16 +56,7 @@ public class DragonAxe extends AxeItem implements ConfigurableAttributes {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof PlayerEntity player){
-            executeSpellSpellEngine(player,target,MOD_ID,"passive_dragonclaw", SpellCast.Action.RELEASE,false);
-
-            float player_max_health = (float) player.getAttributeValue(EntityAttributes.GENERIC_MAX_HEALTH);
-            float player_actual_health = player.getHealth() / player_max_health;
-
-            if(player_actual_health < PASSIVE ){
-                player.heal(player_max_health * 0.1F);
-            }
-        }
+        WeaponPassives.EnderDragonMelee(stack,target,attacker);
 
         stack.damage(1, attacker, (e)->{
             e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND);
@@ -82,19 +66,7 @@ public class DragonAxe extends AxeItem implements ConfigurableAttributes {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("lore.loot_n_explore.ender_dragon_weapon").formatted(Formatting.GOLD));
-
-        if(Screen.hasShiftDown()) {
-        tooltip.add(Text.translatable("passive.loot_n_explore.ender_dragon_weapon").formatted(Formatting.GOLD));
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_dragonclaw.name").formatted(Formatting.DARK_PURPLE));
-            tooltip.add(Text.translatable("spell.loot_n_explore.passive_dragonclaw.description").formatted(Formatting.DARK_PURPLE));
-        }
-
-        }else{
-            tooltip.add(Text.translatable("tooltip.loot_n_explore.shift_down"));
-        }
-
+        WeaponTooltips.EnderDragonMelee(stack,world,tooltip,context);
         super.appendTooltip(stack, world, tooltip, context);
     }
 
