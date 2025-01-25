@@ -6,6 +6,7 @@ import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
@@ -103,7 +104,13 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if (!this.getWorld().isClient) {
-            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,1.0F,2,2.0F,
+            Entity target = this;
+            if(hitResult.getType() == HitResult.Type.ENTITY){
+                EntityHitResult result = (EntityHitResult) hitResult;
+                target = result.getEntity();
+                target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), 4.0F);
+            }
+            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,target,1,1.0F,2,2.0F,
                     Effects.FREEZING,5,0);
             this.discard();
         }

@@ -23,24 +23,21 @@ import static net.spell_engine.internals.SpellRegistry.getSpell;
 public class HelperMethods {
 
     public static void spawnCloudEntity(
-            ParticleEffect particleType, Entity owner, float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
+            ParticleEffect particleType, Entity owner, Entity target, int waitTime,float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
             , StatusEffect statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
-        if (!owner.getWorld().isClient) {
-            List<LivingEntity> list = owner.getWorld().getNonSpectatingEntities(LivingEntity.class, owner.getBoundingBox().expand(4.0, 2.0, 4.0));
-            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(owner.getWorld(), owner.getX(), owner.getY(), owner.getZ());
-            Entity entity = null;
+        if (!target.getWorld().isClient) {
+            List<LivingEntity> list = target.getWorld().getNonSpectatingEntities(LivingEntity.class, target.getBoundingBox().expand(4.0, 2.0, 4.0));
+            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(target.getWorld(), target.getX(), target.getY(), target.getZ());
             if (owner instanceof LivingEntity) {
-                entity = owner;
-            } else if (owner instanceof ProjectileEntity projectile) {
-                owner = projectile.getOwner();
                 areaEffectCloudEntity.setOwner((LivingEntity) owner);
-            }
-            if (entity instanceof LivingEntity) {
-                areaEffectCloudEntity.setOwner((LivingEntity) entity);
+            } else if (owner instanceof ProjectileEntity projectile) {
+                Entity projectileOwner = projectile.getOwner();
+                areaEffectCloudEntity.setOwner((LivingEntity) projectileOwner);
             }
             areaEffectCloudEntity.setParticleType(particleType);
             areaEffectCloudEntity.setRadius(radiusCloud);
             areaEffectCloudEntity.setDuration(durationSecondsCloud * 20);
+            areaEffectCloudEntity.setWaitTime(waitTime);
             areaEffectCloudEntity.setRadiusGrowth((radiusGrowthCloud - areaEffectCloudEntity.getRadius()) / (float) areaEffectCloudEntity.getDuration());
             if(areaEffectCloudEntity != owner){
                 areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffect,
