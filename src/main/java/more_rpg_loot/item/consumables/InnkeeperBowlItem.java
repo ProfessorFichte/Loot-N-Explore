@@ -282,7 +282,8 @@ public class InnkeeperBowlItem extends Item {
         String effect_0 = boost_effect_0.getTranslationKey();
 
 
-        tooltip.add(Text.of(effectDuration + " minutes Status effect duration for:"));
+        String x = Text.translatable("tooltip.loot_n_explore.special_drink_info").getString();
+        tooltip.add(Text.of(effectDuration + x));
             tooltip.add(Text.translatable(effect_0).formatted(formatting));
             if(boost_effect_1 != null ){
                 String effect_1 = boost_effect_1.getTranslationKey();

@@ -67,6 +67,7 @@
   "lore.loot_n_explore.glacial_weapon": "Forged from a frozen soul, it carries a chilling wrath of eternal winter.",
   "passive.loot_n_explore.glacial_weapon": "Inflicts the Freezing effect to the target and adding up duration each hit.",
 
+  "tooltip.loot_n_explore.special_drink_info": " minutes Status effect duration for:",
   "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "item.loot_n_explore.orange_juice": "Orange Juice",
   "item.loot_n_explore.watermelon_drink": "Watermelon Drink",

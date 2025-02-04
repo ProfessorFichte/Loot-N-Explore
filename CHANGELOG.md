@@ -1,3 +1,6 @@
+### 0.1.8 - 1.20.1
+- add translation option for the special drink info
+
 ### 0.1.7 - 1.20.1
 - fix spawnCloudEntity HelperMethod
 - Frostball now Deal Magic Damage on impact
