@@ -1,6 +1,6 @@
 ### 0.1.8 - 1.20.1
 - add translation option for the special drink info
-- fix crash without Spell Engine
+- fix crash without Spell Engine - Github: Crash on launch with required dependencies #1
 - increase Entity Renderer scale for Frostmonarch & Frosthaunt
 
 ### 0.1.7 - 1.20.1
