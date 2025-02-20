@@ -17,17 +17,13 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
-import net.spell_engine.api.item.ConfigurableAttributes;
 import net.spell_power.api.SpellSchools;
 
 import java.util.List;
 import java.util.UUID;
 
-public class WitherMeleeWeapon extends SwordItem implements ConfigurableAttributes {
+public class WitherMeleeWeapon extends SwordItem  {
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
-    public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
-        this.attributes = attributes;
-    }
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
         if (this.attributes == null) {
             return super.getAttributeModifiers(slot);

@@ -6,36 +6,24 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.N
 import more_rpg_loot.api.WeaponPassives;
 import more_rpg_loot.api.WeaponTooltips;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import net.spell_engine.api.item.ConfigurableAttributes;
-import net.spell_engine.internals.casting.SpellCast;
 import net.spell_power.api.SpellSchools;
 
 import java.util.List;
 import java.util.UUID;
 
-import static more_rpg_loot.RPGLoot.MOD_ID;
-import static more_rpg_loot.util.HelperMethods.executeSpellSpellEngine;
-
-public class DragonMeeleeWeapon extends SwordItem implements ConfigurableAttributes {
+public class DragonMeeleeWeapon extends SwordItem {
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
-    public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
-        this.attributes = attributes;
-    }
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
         if (this.attributes == null) {
             return super.getAttributeModifiers(slot);

@@ -18,17 +18,13 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.spell_engine.api.item.ConfigurableAttributes;
 
 import java.util.List;
 import java.util.UUID;
 
-public class ElderGuardianAxe extends AxeItem implements ConfigurableAttributes {
+public class ElderGuardianAxe extends AxeItem{
 
     private Multimap<EntityAttribute, EntityAttributeModifier> attributes;
-    public void setAttributes(Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
-        this.attributes = attributes;
-    }
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
         if (this.attributes == null) {
             return super.getAttributeModifiers(slot);
