@@ -1,3 +1,6 @@
+### 0.1.9 - 1.20.1
+- fix Glaze Rod Translation
+
 ### 0.1.8 - 1.20.1
 - add translation option for the special drink info
 - fix crash without Spell Engine - Github: Crash on launch with required dependencies #1
