@@ -1,6 +1,8 @@
 package more_rpg_loot.worldgen.villages;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.entity.ai.brain.Schedule;
+import org.jetbrains.annotations.Nullable;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
@@ -20,6 +22,8 @@ public class LNEVillagerProfessions {
     public static final RegistryKey<PointOfInterestType> INNKEEPER_POI_KEY = registerKey("innkeeper");
     public static final PointOfInterestType INNKEEPER_POI = registerPoi("innkeeper", ModBlocks.INNKEEPER_SHELF.block());
     public static final VillagerProfession INNKEEPER = registerProfession("innkeeper", INNKEEPER_POI_KEY, ModSounds.VILLAGER_INNKEEPER_EVENT);
+
+
 
     private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type, SoundEvent sound) {
         return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(MOD_ID, name),

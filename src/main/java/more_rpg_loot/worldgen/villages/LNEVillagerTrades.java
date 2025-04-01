@@ -1,5 +1,6 @@
 package more_rpg_loot.worldgen.villages;
 
+import more_rpg_loot.RPGLoot;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
@@ -9,16 +10,27 @@ import more_rpg_loot.worldgen.structures.LNESellMapFactory;
 import more_rpg_loot.worldgen.structures.StructureTags;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.ai.brain.Activity;
+import net.minecraft.entity.ai.brain.Schedule;
+import net.minecraft.entity.ai.brain.ScheduleBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapIcon;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.village.TradeOffer;
 
 
 public class LNEVillagerTrades {
+    public static final String ALWAYS_WORK = "always_work";
+    public static final Schedule ALWAYS_WORK_SCHEDULE = new Schedule();
 
         public static void register() {
+            var scheduleBuilder = new ScheduleBuilder(ALWAYS_WORK_SCHEDULE).withActivity(50, Activity.WORK).withActivity(23950, Activity.REST).build();
+            Registry.register(Registries.SCHEDULE, Identifier.of(RPGLoot.MOD_ID, ALWAYS_WORK), ALWAYS_WORK_SCHEDULE);
+
             VillagerProfession innkeeper = LNEVillagerProfessions.INNKEEPER;
 
             int level_1_innkeeper_price = 3;
