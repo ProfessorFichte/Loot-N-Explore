@@ -1,3 +1,6 @@
+### 0.1.10 - 1.20.1
+- texture improvements
+
 ### 0.1.9 - 1.20.1
 - fix Glaze Rod Translation
 
