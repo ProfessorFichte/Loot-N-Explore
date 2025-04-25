@@ -9,7 +9,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
 
 public class FrosthauntEyesFeatureRenderer<T extends MobEntity & RangedAttackMob, M extends EntityModel<T>> extends EyesFeatureRenderer<T, M> {
-    private static final RenderLayer SKIN = RenderLayer.getEyes(new Identifier("loot_n_explore:textures/entity/mobs/frosthaunt_eyes.png"));
+    private static final RenderLayer SKIN = RenderLayer.getEyes(Identifier.of("loot_n_explore:textures/entity/mobs/frosthaunt_eyes.png"));
 
     public FrosthauntEyesFeatureRenderer(FeatureRendererContext<T, M> featureRendererContext) {
         super(featureRendererContext);

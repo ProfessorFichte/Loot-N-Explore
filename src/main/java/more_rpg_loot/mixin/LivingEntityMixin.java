@@ -16,7 +16,7 @@ public class LivingEntityMixin {
     LivingEntity livingEntity = (LivingEntity) (Object) (this);
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
     public void frostResistanceDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (livingEntity.hasStatusEffect(Effects.FROST_RESISTANCE) && source.isIn(DamageTypeTags.IS_FREEZING)) {
+        if (livingEntity.hasStatusEffect(Effects.FROST_RESISTANCE.registryEntry) && source.isIn(DamageTypeTags.IS_FREEZING)) {
             cir.setReturnValue(true);
             cir.cancel();
         }

@@ -9,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.casting.SpellCast;
@@ -17,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
-
-import static net.spell_engine.internals.SpellRegistry.getSpell;
 
 public class HelperMethods {
 
@@ -40,7 +39,7 @@ public class HelperMethods {
             areaEffectCloudEntity.setWaitTime(waitTime);
             areaEffectCloudEntity.setRadiusGrowth((radiusGrowthCloud - areaEffectCloudEntity.getRadius()) / (float) areaEffectCloudEntity.getDuration());
             if(areaEffectCloudEntity != owner){
-                areaEffectCloudEntity.addEffect(new StatusEffectInstance(statusEffect,
+                areaEffectCloudEntity.addEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect,
                         durationSecondsStatusEffect * 20, amplifierStatusEffect, false, false, true));
             }
             if (!list.isEmpty()) {
@@ -59,38 +58,14 @@ public class HelperMethods {
     }
 
 
-        public static void executeSpellSpellEngine(PlayerEntity player,LivingEntity target,String modId, String pathSpell,
-                                                   SpellCast.Action spellCastAction, boolean aoe){
-            if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
-                List<Entity> list = new ArrayList<Entity>();
-                if (!aoe) {
-                    list.add(target);
-                } else {
-                    float range = getSpell(new Identifier(modId, pathSpell)).range;
-                    Predicate<Entity> selectionPredicate = (target2) -> {
-                        return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player, target2)
-                        );
-                    };
-                    list = player.getWorld().getOtherEntities(player, player.getBoundingBox().expand(range), selectionPredicate);
-                }
-                SpellHelper.performSpell(
-                        player.getWorld(),
-                        player,
-                        new Identifier(modId, pathSpell),
-                        list,
-                        spellCastAction,
-                        1);
-            }
-
-        }
 
     public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,StatusEffect statusEffect,
                                          int maxStackAmplifier, boolean canStackAmplifier, boolean showIcon, boolean increaseDuration,
                                          int increaseEffectDurationSeconds){
 
-        if(target.hasStatusEffect(statusEffect)){
-            int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
-            int currentDuration = target.getStatusEffect(statusEffect).getDuration();
+        if(target.hasStatusEffect((RegistryEntry<StatusEffect>) statusEffect)){
+            int currentAmplifier = target.getStatusEffect((RegistryEntry<StatusEffect>) statusEffect).getAmplifier();
+            int currentDuration = target.getStatusEffect((RegistryEntry<StatusEffect>) statusEffect).getDuration();
             int increaseAmp = 0;
             if(increaseDuration){
                 currentDuration = currentDuration + (increaseEffectDurationSeconds*20);
@@ -99,12 +74,12 @@ public class HelperMethods {
                 increaseAmp = increaseAmp + 1;
             }
             if(currentAmplifier<maxStackAmplifier){
-                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, currentAmplifier + increaseAmp, false, false, showIcon));
+                target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, currentDuration, currentAmplifier + increaseAmp, false, false, showIcon));
             }else{
-                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
+                target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
             }
         }else{
-            target.addStatusEffect(new StatusEffectInstance(statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
+            target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
         }
     }
 
@@ -123,9 +98,9 @@ public class HelperMethods {
         if (list.isEmpty())
             return false;
         for (StatusEffectInstance statusEffectInstance : list) {
-            StatusEffect statusEffect = statusEffectInstance.getEffectType();
+            StatusEffect statusEffect = (StatusEffect) statusEffectInstance.getEffectType();
             if (!statusEffect.isBeneficial()) {
-                entity.removeStatusEffect(statusEffect);
+                entity.removeStatusEffect((RegistryEntry<StatusEffect>) statusEffect);
             }
             if(removeOne){
                 return true;

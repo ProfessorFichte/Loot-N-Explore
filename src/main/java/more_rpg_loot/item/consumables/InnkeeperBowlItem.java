@@ -3,13 +3,14 @@ package more_rpg_loot.item.consumables;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import more_rpg_loot.effects.Effects;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -21,12 +22,12 @@ import java.util.List;
 import static more_rpg_loot.RPGLoot.tweaksConfig;
 
 public class InnkeeperBowlItem extends Item {
-    private final StatusEffect boost_effect_0;
-    private final StatusEffect boost_effect_1;
-    private final StatusEffect boost_effect_2;
+    private final RegistryEntry<StatusEffect> boost_effect_0;
+    private final RegistryEntry<StatusEffect> boost_effect_1;
+    private final RegistryEntry<StatusEffect> boost_effect_2;
     private final int quality;
 
-    public InnkeeperBowlItem(Settings settings, StatusEffect boostEffect0, StatusEffect boostEffect1, StatusEffect boostEffect2, int quality) {
+    public InnkeeperBowlItem(Settings settings, RegistryEntry<StatusEffect>  boostEffect0, RegistryEntry<StatusEffect>  boostEffect1, RegistryEntry<StatusEffect>  boostEffect2, int quality) {
         super(settings);
         boost_effect_0 = boostEffect0;
         boost_effect_1 = boostEffect1;
@@ -53,15 +54,14 @@ public class InnkeeperBowlItem extends Item {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-        if (stack.isFood()) {
-            super.finishUsing(stack, world, user);
-            if (stack.isEmpty()) {
-                return new ItemStack(Items.BOWL);
-            }
-            if (user instanceof PlayerEntity playerEntity) {
-                playerEntity.getInventory().insertStack(new ItemStack(Items.BOWL));
-            }
+        super.finishUsing(stack, world, user);
+        if (stack.isEmpty()) {
+            return new ItemStack(Items.BOWL);
         }
+        if (user instanceof PlayerEntity playerEntity) {
+            playerEntity.getInventory().insertStack(new ItemStack(Items.BOWL));
+        }
+
         if (!world.isClient) {
             if(quality == 0){
                 effectAmplifier = amplifier_0; effectDuration =effectDuration_0;resistanceMaxAmp =0;
@@ -75,8 +75,8 @@ public class InnkeeperBowlItem extends Item {
             }
 
 
-            if(!user.hasStatusEffect(Effects.INNKEEPERS_PROVIANT)){
-                user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT,
+            if(!user.hasStatusEffect(Effects.INNKEEPERS_PROVIANT.registryEntry)){
+                user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT.registryEntry,
                         effectDuration,0,false,false,true));
                 //BOOST_EFFECT_0
                 if(boost_effect_0 != null){
@@ -140,14 +140,14 @@ public class InnkeeperBowlItem extends Item {
                 }
             }
             else{
-                int amplifierHydrated = user.getStatusEffect(Effects.INNKEEPERS_PROVIANT).getAmplifier();
+                int amplifierHydrated = user.getStatusEffect(Effects.INNKEEPERS_PROVIANT.registryEntry).getAmplifier();
                 //HYDRATION_CHECK_CAP
                 if(amplifierHydrated >= amplifierProviantCap){
                     user.clearStatusEffects();
                     user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA,
                             durationNauseaProviantCap,effectAmplifier,false,false,true));
                 }else{
-                    user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT,
+                    user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT.registryEntry,
                             effectDuration,amplifierHydrated + 1,false,false,true));
                     //BOOST_EFFECT_0
                     if(!user.hasStatusEffect(boost_effect_0)){
@@ -226,8 +226,7 @@ public class InnkeeperBowlItem extends Item {
         return ItemUsage.consumeHeldItem(world, user, hand);
     }
 
-    @Override
-    public Rarity getRarity(ItemStack stack) {
+    public Rarity rarity(Rarity rarity) {
         if(quality == 0){
             return Rarity.UNCOMMON;
         } else if(quality == 1) {
@@ -255,8 +254,8 @@ public class InnkeeperBowlItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
         Formatting formatting = null;
         if(quality == 0){
             formatting = Formatting.BLUE;
@@ -279,18 +278,18 @@ public class InnkeeperBowlItem extends Item {
             effectAmplifier = amplifier_0; effectDuration =effectDuration_0;
         }
         effectDuration = (effectDuration/20)/60;
-        String effect_0 = boost_effect_0.getTranslationKey();
+        String effect_0 = boost_effect_0.toString();
 
 
         String x = Text.translatable("tooltip.loot_n_explore.special_drink_info").getString();
         tooltip.add(Text.of(effectDuration + x));
             tooltip.add(Text.translatable(effect_0).formatted(formatting));
             if(boost_effect_1 != null ){
-                String effect_1 = boost_effect_1.getTranslationKey();
+                String effect_1 = boost_effect_1.toString();
                 tooltip.add(Text.translatable(effect_1).formatted(formatting));
             }
             if(boost_effect_2 != null ){
-                String effect_2 = boost_effect_2.getTranslationKey();
+                String effect_2 = boost_effect_2.toString();
                 tooltip.add(Text.translatable(effect_2).formatted(formatting));
             }
 

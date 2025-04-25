@@ -3,10 +3,7 @@ package more_rpg_loot.item;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -17,16 +14,16 @@ import net.minecraft.util.Identifier;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class Group {
-    public static Identifier ID = new Identifier(MOD_ID, "loot.generic");
-    public static RegistryKey<ItemGroup> RPG_LOOT_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),new Identifier(MOD_ID,"loot.generic"));
+    public static Identifier ID = Identifier.of(MOD_ID, "loot.generic");
+    public static RegistryKey<ItemGroup> RPG_LOOT_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"loot.generic"));
     public static ItemGroup RPG_LOOT;
 
-    public static Identifier FOOD_ID = new Identifier(MOD_ID, "food.generic");
-    public static RegistryKey<ItemGroup> RPG_FOOD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),new Identifier(MOD_ID,"food.generic"));
+    public static Identifier FOOD_ID = Identifier.of(MOD_ID, "food.generic");
+    public static RegistryKey<ItemGroup> RPG_FOOD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"food.generic"));
     public static ItemGroup RPG_FOOD;
 
-    public static Identifier BLOCK_ID = new Identifier(MOD_ID, "blocks.generic");
-    public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),new Identifier(MOD_ID,"blocks.generic"));
+    public static Identifier BLOCK_ID = Identifier.of(MOD_ID, "blocks.generic");
+    public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"blocks.generic"));
     public static ItemGroup RPG_BLOCKS;
 
     private static void registerLootItemGroup() {

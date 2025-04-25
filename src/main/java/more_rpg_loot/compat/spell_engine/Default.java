@@ -1,11 +1,12 @@
 package more_rpg_loot.compat.spell_engine;
 
-import net.spell_engine.api.loot.LootConfigV2;
+import net.spell_engine.rpg_series.loot.LootConfig;
 
 import java.util.List;
 
 public class Default {
-    public final static LootConfigV2 lootConfig;
+
+    public final static LootConfig itemLootConfig;
 
     static {
         var WG = "#rpg_series:golden_weapons";
@@ -24,8 +25,8 @@ public class Default {
         var X3 = "#rpg_series:tier_3_accessories";
         var X4 = "#rpg_series:tier_4_accessories";
 
-        lootConfig = new LootConfigV2();
-        var injectors = lootConfig.injectors;
+        itemLootConfig = new LootConfig();
+        var items = itemLootConfig.injectors;
 
         //CHESTS
         List.of("loot_n_explore:chests/inns/desert",
@@ -35,7 +36,7 @@ public class Default {
                 "loot_n_explore:chests/vilages/savanna/small_inn",
                 "loot_n_explore:chests/vilages/snowy/small_inn",
                 "loot_n_explore:chests/vilages/taiga/small_inn"
-                ).forEach(id -> injectors.put(id, new LootConfigV2.Pool()
+                ).forEach(id -> items.put(id,  new LootConfig.Pool()
                         .rolls(0.5)
                         .add(W0)
                         .add(X0)
@@ -44,7 +45,7 @@ public class Default {
         List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
                 "loot_n_explore:chests/glaze_tower",
                 "loot_n_explore:chests/dungeons/glacial_tomb/spawner_room"
-                ).forEach(id -> injectors.put(id, new LootConfigV2.Pool()
+                ).forEach(id -> items.put(id,  new LootConfig.Pool()
                         .rolls(0.5)
                         .add(W1)
                         .add(X2)
@@ -52,7 +53,7 @@ public class Default {
                 ));
 
         //ENTITIES
-        injectors.put("loot_n_explore:entities/frost_monarch", new LootConfigV2.Pool()
+        items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()
                 .rolls(2)
                 .add(W3, true)
                 .add(A3, true)

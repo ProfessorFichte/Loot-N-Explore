@@ -2,12 +2,12 @@ package more_rpg_loot.blocks;
 
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.item.Group;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -20,7 +20,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class ModBlocks {
     public record Entry(String name, Block block, BlockItem item) {
         public Entry(String name, Block block) {
-            this(name, block, new BlockItem(block, new FabricItemSettings()));
+            this(name, block, new BlockItem(block, new Item.Settings()));
         }
     }
     public static final ArrayList<Entry> all = new ArrayList<>();
@@ -33,7 +33,7 @@ public class ModBlocks {
     public static final Entry INNKEEPER_SHELF = entry("innkeeper_shelf", new InnkeeperShelfBlock(
             FabricBlockSettings.create()
                     .mapColor(MapColor.OAK_TAN)
-                    .instrument(Instrument.BASS)
+                    .instrument(NoteBlockInstrument.BASS)
                     .strength(2.5F)
                     .sounds(BlockSoundGroup.WOOD)
                     .nonOpaque()));
@@ -50,7 +50,7 @@ public class ModBlocks {
     public static final Entry FROZEN_SOULS = entry("frozen_soul_block", new Block(
             FabricBlockSettings.create()
                     .mapColor(MapColor.PALE_PURPLE)
-                    .instrument(Instrument.BASS)
+                    .instrument(NoteBlockInstrument.BASS)
                     .strength(-1.0F,3600000.0F)
                     .sounds(BlockSoundGroup.GLASS)
                     .luminance(5)
@@ -66,13 +66,13 @@ public class ModBlocks {
     public static final Entry FROST_BLOOM = entry("frostbloom",
             new FrostbloomBlock(Effects.FROST_RESISTANCE, 5,
                     FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
-    public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "potted_frostbloom"),
+    public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM.block, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
 
     public static void register(){
         for (var entry : all) {
-            Registry.register(Registries.BLOCK, new Identifier(MOD_ID, entry.name), entry.block);
-            Registry.register(Registries.ITEM, new Identifier(MOD_ID, entry.name), entry.item());
+            Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
+            Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
         }
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_BLOCK_KEY).register((content) -> {
             for (var entry : all) {

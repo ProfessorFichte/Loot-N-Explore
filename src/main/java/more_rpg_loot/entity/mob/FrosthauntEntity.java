@@ -1,7 +1,6 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.effects.Effects;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -43,7 +42,7 @@ public class FrosthauntEntity extends SkeletonEntity {
 
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);

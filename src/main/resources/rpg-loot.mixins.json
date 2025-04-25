@@ -3,7 +3,6 @@
   "package": "more_rpg_loot.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BrewingRecipeRegistryMixin",
     "LivingEntityMixin",
     "VillagerMixin"
   ],

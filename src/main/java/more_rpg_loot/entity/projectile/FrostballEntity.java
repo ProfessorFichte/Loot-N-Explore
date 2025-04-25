@@ -8,6 +8,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.FireballEntity;
+import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -55,10 +57,10 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                         stackFreezeStacks(livingEntity,20);
-                        applyStatusEffect(livingEntity,0,10,Effects.FREEZING,0,
+                        applyStatusEffect(livingEntity,0,10,Effects.FREEZING.effect,0,
                                 false,true,false,0);
                         if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
-                            double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attribute) * 0.25F;
+                            double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attributeEntry) * 0.25F;
                             livingEntity.damage(livingEntity.getDamageSources().magic(), (float) (d + frostPower));
                         }else{
                             livingEntity.damage(livingEntity.getDamageSources().magic(),d);
@@ -75,8 +77,8 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
 
 
     private ParticleEffect getParticleParameters() {
-        ItemStack itemStack = this.getItem();
-        return (ParticleEffect)(itemStack.isEmpty() ? ParticleTypes.SNOWFLAKE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
+        ItemStack itemStack = this.getStack();
+        return (ParticleEffect)(!itemStack.isEmpty() && !itemStack.isOf(this.getDefaultItem()) ? new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack) : ParticleTypes.ITEM_SNOWBALL);
     }
 
     public void handleStatus(byte status) {
@@ -111,7 +113,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), 4.0F);
             }
             HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,target,1,1.0F,2,2.0F,
-                    Effects.FREEZING,5,0);
+                    Effects.FREEZING.effect,5,0);
             this.discard();
         }
     }

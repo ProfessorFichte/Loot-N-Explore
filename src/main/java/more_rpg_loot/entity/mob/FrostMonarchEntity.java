@@ -177,7 +177,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
             if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING,1,
+                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.effect,1,
                             true,true,true,1);
                 }
             }
@@ -253,7 +253,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
                                     }
                                     livingEntity2.takeKnockback(1.5F, d, e);
                                     if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-                                        livingEntity2.addStatusEffect(new StatusEffectInstance(MRPGCEffects.STUNNED,80, 0));
+                                        livingEntity2.addStatusEffect(new StatusEffectInstance(MRPGCEffects.STUNNED.registryEntry,80, 0));
                                     }else{
                                         livingEntity2.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,80, 1));
                                         livingEntity2.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS,80, 1));

@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 
 public class FrostbloomBlock extends FlowerBlock {
     public FrostbloomBlock(StatusEffect effect, int i, Settings settings) {
-        super(effect, 8, settings);
+        super((RegistryEntry<StatusEffect>) effect, 8, settings);
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
@@ -45,7 +46,7 @@ public class FrostbloomBlock extends FlowerBlock {
             if (entity instanceof LivingEntity livingEntity) {
                 EntityType<?> type = entity.getType();
                 if (!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
-                    livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING, 40));
+                    livingEntity.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) Effects.FREEZING, 40));
                 }
             }
 

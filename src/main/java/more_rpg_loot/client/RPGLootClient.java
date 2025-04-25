@@ -35,7 +35,7 @@ public class RPGLootClient implements ClientModInitializer {
 
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             CustomModels.registerModelIds(List.of(
-                    new Identifier(MOD_ID, "projectile/small_avalanche")
+                    Identifier.of(MOD_ID, "projectile/small_avalanche")
             ));
         }
     }

@@ -10,9 +10,10 @@ public class FrostResistanceEffect extends StatusEffect {
         super(category, color);
     }
     @Override
-    public void applyUpdateEffect(LivingEntity livingEntity, int pAmplifier) {
+    public boolean applyUpdateEffect(LivingEntity livingEntity, int pAmplifier) {
         livingEntity.setFrozenTicks(0);
         super.applyUpdateEffect(livingEntity, pAmplifier);
+        return false;
     }
 
     @Override
