@@ -15,10 +15,11 @@ import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.map.MapIcon;
+import net.minecraft.item.map.MapDecorationTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.village.TradeOffer;
 
@@ -60,15 +61,15 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.GLASS_BOTTLE, level_1_innkeeper_price),
+                                new TradedItem(Items.GLASS_BOTTLE, level_1_innkeeper_price),
                                 new ItemStack(Items.EMERALD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.BOWL, level_1_innkeeper_price),
+                                new TradedItem(Items.BOWL, level_1_innkeeper_price),
                                 new ItemStack(Items.EMERALD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_1_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_1_innkeeper_price),
                                 new ItemStack(Items.BREAD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                     });
@@ -76,15 +77,15 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                 new ItemStack(CommonItems.SWEET_BERRY_PUNCH, 1),
                                 level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                 new ItemStack(CommonItems.HOT_CHOCOLATE, 1),
                                 level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                 new ItemStack(CommonItems.POTATO_SOUP, 1),
                                 level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
@@ -95,7 +96,7 @@ public class LNEVillagerTrades {
                 factories.add(((entity, random) -> new LNESellMapFactory(
                         level_3_innkeeper_price, StructureTags.SMALL_MONSTER_QUEST,
                         "filled_map.loot_n_explore.monster_quest",
-                        MapIcon.Type.TARGET_X,
+                        MapDecorationTypes.TARGET_X,
                         level_3_innkeeper_maxUses,
                         level_3_innkeeper_experience).create(entity, random)
                 ));
@@ -106,11 +107,11 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                 new ItemStack(CommonItems.MALT_EXTRACT, 1),
                                 level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                 new ItemStack(CommonItems.BEET_ROOTBEER, 1),
                                 level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                     });
@@ -120,11 +121,11 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_5_innkeeper_price),
                                 new ItemStack(CommonItems.VITAL_DRINK, 1),
                                 level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                new TradedItem(Items.EMERALD, level_5_innkeeper_price),
                                 new ItemStack(CommonItems.ESPRESSO, 1),
                                 level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                     });
@@ -135,15 +136,15 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(MRPGCItems.WATERMELON_DRINK, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(MRPGCItems.BLUE_BERRY_PUNCH, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(MRPGCItems.GREEN_CHILLI, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         });
@@ -154,7 +155,7 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(RangedWeaponAPIItems.APPLE_JUICE, 1),
                                     level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
@@ -162,14 +163,14 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(RangedWeaponAPIItems.WALDMEISTER, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         });
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_5_innkeeper_price),
                                     new ItemStack(RangedWeaponAPIItems.FORREST_SPIRIT, 1),
                                     level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         });
@@ -180,7 +181,7 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(SpellPowerItems.ORANGE_JUICE, 1),
                                     level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
@@ -188,27 +189,27 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.FRUIT_ICEWATER, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.HOLY_WATER, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.CHORUS_EXTRACT, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.HOT_CHILLI, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.SWEET_CHILLI, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(SpellPowerItems.ENCHANTED_ALE, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         }
@@ -216,7 +217,7 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_5_innkeeper_price),
                                     new ItemStack(SpellPowerItems.WIZARDS_ELIXIR, 1),
                                     level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         }
@@ -228,7 +229,7 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 2,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_2_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_2_innkeeper_price),
                                     new ItemStack(WitcherItems.BEAUCLAIR_WHITE, 1),
                                     level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier));
 
@@ -236,14 +237,14 @@ public class LNEVillagerTrades {
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_4_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(WitcherItems.RIVIAN_KRIEK, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         });
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 5,
                         factories -> {
                             factories.add((entity, random) -> new TradeOffer(
-                                    new ItemStack(Items.EMERALD, level_5_innkeeper_price),
+                                    new TradedItem(Items.EMERALD, level_5_innkeeper_price),
                                     new ItemStack(WitcherItems.BUTCHER_OF_BLAVIKEN, 1),
                                     level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier));
                         });

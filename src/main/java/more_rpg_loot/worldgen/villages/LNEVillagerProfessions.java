@@ -1,8 +1,6 @@
 package more_rpg_loot.worldgen.villages;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.entity.ai.brain.Schedule;
-import org.jetbrains.annotations.Nullable;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;

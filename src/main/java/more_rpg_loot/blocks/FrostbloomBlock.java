@@ -1,7 +1,10 @@
 package more_rpg_loot.blocks;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import more_rpg_loot.effects.Effects;
 import net.minecraft.block.*;
+import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -19,8 +22,20 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class FrostbloomBlock extends FlowerBlock {
-    public FrostbloomBlock(StatusEffect effect, int i, Settings settings) {
-        super((RegistryEntry<StatusEffect>) effect, 8, settings);
+    public static final MapCodec<FrostbloomBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+        return instance.group(STEW_EFFECT_CODEC.forGetter(FlowerBlock::getStewEffects), createSettingsCodec()).apply(instance, FrostbloomBlock::new);
+    });
+
+    public MapCodec<FrostbloomBlock> getCodec() {
+        return CODEC;
+    }
+
+    public FrostbloomBlock(RegistryEntry<StatusEffect> registryEntry, float f, AbstractBlock.Settings settings) {
+        this(createStewEffectList(registryEntry, f), settings);
+    }
+
+    public FrostbloomBlock(SuspiciousStewEffectsComponent suspiciousStewEffectsComponent, AbstractBlock.Settings settings) {
+        super(suspiciousStewEffectsComponent, settings);
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {

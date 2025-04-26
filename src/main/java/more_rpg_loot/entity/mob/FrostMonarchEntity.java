@@ -119,9 +119,9 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
     }
 
-    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
-        allowDrops = false;
-        super.dropEquipment(source, lootingMultiplier, allowDrops);
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
+        super.dropEquipment(world, source, causedByPlayer);
+        Entity entity = source.getAttacker();
         ItemEntity itemEntity = this.dropItem(CommonItems.FROZEN_SOUL);
         if (itemEntity != null) {
             itemEntity.setCovetedItem();
@@ -144,7 +144,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);

@@ -1,6 +1,7 @@
 package more_rpg_loot.compat.spell_engine;
 
 import net.spell_engine.rpg_series.loot.LootConfig;
+import net.spell_engine.rpg_series.tags.RPGSeriesItemTags;
 
 import java.util.List;
 
@@ -8,25 +9,48 @@ public class Default {
 
     public final static LootConfig itemLootConfig;
 
+    private static String armors(int tier) {
+        return "#" + RPGSeriesItemTags.LootTiers.id(tier, RPGSeriesItemTags.LootCategory.ARMORS).toString();
+    }
+
+    private static String weapons(int tier) {
+        return "#" + RPGSeriesItemTags.LootTiers.id(tier, RPGSeriesItemTags.LootCategory.WEAPONS).toString();
+    }
+
+    private static String relics(int tier) {
+        return "#" + RPGSeriesItemTags.LootTiers.id(tier, RPGSeriesItemTags.LootCategory.RELICS).toString();
+    }
+
+    private static String accessories(int tier) {
+        return "#" + RPGSeriesItemTags.LootTiers.id(tier, RPGSeriesItemTags.LootCategory.ACCESSORIES).toString();
+    }
+
     static {
-        var WG = "#rpg_series:golden_weapons";
-        var W0 = "#rpg_series:tier_0_weapons";
-        var W1 = "#rpg_series:tier_1_weapons";
-        var W2 = "#rpg_series:tier_2_weapons";
-        var W3 = "#rpg_series:tier_3_weapons";
-        var W4 = "#rpg_series:tier_4_weapons";
-        var W5 = "#rpg_series:tier_5_weapons";
-        var A1 = "#rpg_series:tier_1_armors";
-        var A2 = "#rpg_series:tier_2_armors";
-        var A3 = "#rpg_series:tier_3_armors";
-        var X0 = "#rpg_series:tier_0_accessories";
-        var X1 = "#rpg_series:tier_1_accessories";
-        var X2 = "#rpg_series:tier_2_accessories";
-        var X3 = "#rpg_series:tier_3_accessories";
-        var X4 = "#rpg_series:tier_4_accessories";
+        var W0 = weapons(0);
+        var W1 = weapons(1);
+        var W2 = weapons(2);
+        var W3 = weapons(3);
+        var W4 = weapons(4);
+        var W5 = weapons(5);
+
+        var A1 = armors(1);
+        var A2 = armors(2);
+        var A3 = armors(3);
+
+        var X0 = accessories(0);
+        var X1 = accessories(1);
+        var X2 = accessories(2);
+        var X3 = accessories(3);
+        var X4 = accessories(4);
+
+        var R1 = relics(1);
+        var R2 = relics(2);
+        var R3 = relics(3);
+        var R4 = relics(4);
 
         itemLootConfig = new LootConfig();
         var items = itemLootConfig.injectors;
+        var items_regex = itemLootConfig.regex_injectors;
 
         //CHESTS
         List.of("loot_n_explore:chests/inns/desert",
@@ -41,6 +65,7 @@ public class Default {
                         .add(W0)
                         .add(X0)
                         .add(A1)
+                        .add(R1)
                 ));
         List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
                 "loot_n_explore:chests/glaze_tower",
@@ -50,6 +75,7 @@ public class Default {
                         .add(W1)
                         .add(X2)
                         .add(A1)
+                        .add(R2)
                 ));
 
         //ENTITIES
@@ -58,6 +84,8 @@ public class Default {
                 .add(W3, true)
                 .add(A3, true)
                 .add(X3)
+                .add(R3)
+                .add(W5)
         );
     }
 }

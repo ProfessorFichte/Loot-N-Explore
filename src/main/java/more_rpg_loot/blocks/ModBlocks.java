@@ -64,7 +64,7 @@ public class ModBlocks {
             FabricBlockSettings.copyOf(Blocks.SOUL_LANTERN).nonOpaque()));
 
     public static final Entry FROST_BLOOM = entry("frostbloom",
-            new FrostbloomBlock(Effects.FROST_RESISTANCE, 5,
+            new FrostbloomBlock(Effects.FROST_RESISTANCE.registryEntry, 5,
                     FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
     public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM.block, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
