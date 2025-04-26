@@ -22,12 +22,12 @@ import java.util.List;
 import static more_rpg_loot.RPGLoot.tweaksConfig;
 
 public class InnkeeperBowlItem extends Item {
-    private final RegistryEntry<StatusEffect> boost_effect_0;
-    private final RegistryEntry<StatusEffect> boost_effect_1;
-    private final RegistryEntry<StatusEffect> boost_effect_2;
+    private final StatusEffect boost_effect_0;
+    private final StatusEffect boost_effect_1;
+    private final StatusEffect boost_effect_2;
     private final int quality;
 
-    public InnkeeperBowlItem(Settings settings, RegistryEntry<StatusEffect>  boostEffect0, RegistryEntry<StatusEffect>  boostEffect1, RegistryEntry<StatusEffect>  boostEffect2, int quality) {
+    public InnkeeperBowlItem(Settings settings, StatusEffect boostEffect0, StatusEffect boostEffect1, StatusEffect boostEffect2, int quality) {
         super(settings);
         boost_effect_0 = boostEffect0;
         boost_effect_1 = boostEffect1;
@@ -79,61 +79,59 @@ public class InnkeeperBowlItem extends Item {
                 user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT.registryEntry,
                         effectDuration,0,false,false,true));
                 //BOOST_EFFECT_0
-                if(boost_effect_0 != null){
-                    if(!user.hasStatusEffect(boost_effect_0)){
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                                effectDuration,effectAmplifier,false,false,true));
-                    }else{
-                        int currentEffectAmplifier = user.getStatusEffect(boost_effect_0).getAmplifier();
-                        if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_0 != StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                                    effectDuration,currentEffectAmplifier,false,false,true));
-                        }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_0 == StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                                    effectDuration,currentEffectAmplifier,false,false,true));
-                        }
-                        else{
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                                    effectDuration,currentEffectAmplifier + 1,false,false,true));
-                        }
+                if(!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_0)){
+                    user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
+                            effectDuration,effectAmplifier,false,false,true));
+                }else{
+                    int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_0).getAmplifier();
+                    if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_0 != StatusEffects.RESISTANCE){
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
+                                effectDuration,currentEffectAmplifier,false,false,true));
+                    }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_0 == StatusEffects.RESISTANCE){
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
+                                effectDuration,currentEffectAmplifier,false,false,true));
+                    }
+                    else{
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
+                                effectDuration,currentEffectAmplifier + 1,false,false,true));
                     }
                 }
                 //BOOST_EFFECT_1
                 if(boost_effect_1 != null){
-                    if(!user.hasStatusEffect(boost_effect_1)){
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                    if(!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_1)){
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
-                        int currentEffectAmplifier = user.getStatusEffect(boost_effect_1).getAmplifier();
+                        int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_1).getAmplifier();
                         if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_1 != StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_1 == StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }
                         else{
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                     effectDuration,currentEffectAmplifier + 1,false,false,true));
                         }
                     }
                 }
                 //BOOST_EFFECT_2
                 if(boost_effect_2 != null){
-                    if(!user.hasStatusEffect(boost_effect_2)){
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                    if(!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_2)){
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
-                        int currentEffectAmplifier = user.getStatusEffect(boost_effect_2).getAmplifier();
+                        int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_2).getAmplifier();
                         if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_2 != StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_2 == StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }
                         else{
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                     effectDuration,currentEffectAmplifier + 1,false,false,true));
                         }
                     }
@@ -150,59 +148,59 @@ public class InnkeeperBowlItem extends Item {
                     user.addStatusEffect(new StatusEffectInstance(Effects.INNKEEPERS_PROVIANT.registryEntry,
                             effectDuration,amplifierHydrated + 1,false,false,true));
                     //BOOST_EFFECT_0
-                    if(!user.hasStatusEffect(boost_effect_0)){
-                        user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                    if(!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_0)){
+                        user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
                                 effectDuration,effectAmplifier,false,false,true));
                     }else{
-                        int currentEffectAmplifier = user.getStatusEffect(boost_effect_0).getAmplifier();
+                        int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_0).getAmplifier();
                         if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_0 != StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_0 == StatusEffects.RESISTANCE){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
                                     effectDuration,currentEffectAmplifier,false,false,true));
                         }
                         else{
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_0,
                                     effectDuration,currentEffectAmplifier + 1,false,false,true));
                         }
                     }
                     //BOOST_EFFECT_1
                     if(boost_effect_1 != null){
-                        if(!user.hasStatusEffect(boost_effect_1)){
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                        if(!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_1)){
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                     effectDuration,effectAmplifier,false,false,true));
                         }else{
-                            int currentEffectAmplifier = user.getStatusEffect(boost_effect_1).getAmplifier();
+                            int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_1).getAmplifier();
                             if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_1 != StatusEffects.RESISTANCE){
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                         effectDuration,currentEffectAmplifier,false,false,true));
                             }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_1 == StatusEffects.RESISTANCE){
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                         effectDuration,currentEffectAmplifier,false,false,true));
                             }
                             else{
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_1,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_1,
                                         effectDuration,currentEffectAmplifier + 1,false,false,true));
                             }
                         }
                     }
                     //BOOST_EFFECT_2
                     if(boost_effect_2 != null) {
-                        if (!user.hasStatusEffect(boost_effect_2)) {
-                            user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                        if (!user.hasStatusEffect((RegistryEntry<StatusEffect>) boost_effect_2)) {
+                            user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                     effectDuration, effectAmplifier, false, false, true));
                         } else {
-                            int currentEffectAmplifier = user.getStatusEffect(boost_effect_2).getAmplifier();
+                            int currentEffectAmplifier = user.getStatusEffect((RegistryEntry<StatusEffect>) boost_effect_2).getAmplifier();
                             if(currentEffectAmplifier >= maxAmplifierStack && boost_effect_2 != StatusEffects.RESISTANCE){
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                         effectDuration,currentEffectAmplifier,false,false,true));
                             }else if(currentEffectAmplifier >= resistanceMaxAmp && boost_effect_2 == StatusEffects.RESISTANCE){
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                         effectDuration,currentEffectAmplifier,false,false,true));
                             }
                             else{
-                                user.addStatusEffect(new StatusEffectInstance(boost_effect_2,
+                                user.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) boost_effect_2,
                                         effectDuration,currentEffectAmplifier + 1,false,false,true));
                             }
                         }
@@ -210,7 +208,6 @@ public class InnkeeperBowlItem extends Item {
                 }
             }
         }
-
         return stack;
     }
 

@@ -1,10 +1,10 @@
 package more_rpg_loot.item;
 
+import more_rpg_loot.effects.Effects;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -17,19 +17,19 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class CommonItems {
     public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.HASTE,null,null,0);
+            Effects.HOT_CHOCOLATE.effect, null,null,0);
     public static Item POTATO_SOUP = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            StatusEffects.STRENGTH,null,null,0);
+            Effects.POTATO_SOUP.effect, null,null,0);
     public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.RESISTANCE,null,null,0);
+            Effects.SWEET_BERRY_PUNCH.effect, null,null,0);
     public static Item BEET_ROOTBEER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.STRENGTH, StatusEffects.RESISTANCE,null,1);
+            Effects.BEET_ROOTBEER.effect, null,null,1);
     public static Item MALT_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.STRENGTH, StatusEffects.HASTE,null,1);
+            Effects.MALT_EXTRACT.effect, null,null,1);
     public static Item VITAL_DRINK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.HEALTH_BOOST, StatusEffects.RESISTANCE, StatusEffects.STRENGTH,2);
+            Effects.VITAL_DRINK.effect, null, null,2);
     public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            StatusEffects.HASTE, StatusEffects.SPEED, StatusEffects.STRENGTH,2);
+            Effects.ESPRESSO.effect, null, null,2);
 
     public static Item FROSTBALL =  new FrostballItem(new Item.Settings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new Item.Settings());

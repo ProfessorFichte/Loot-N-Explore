@@ -1,20 +1,16 @@
 package more_rpg_loot.compat.items;
 
+import more_rpg_loot.compat.effects.SpellPowerEffects;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.spell_power.api.SpellPowerMechanics;
-import net.spell_power.api.SpellSchools;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
@@ -22,24 +18,23 @@ public class SpellPowerItems {
     // TO DO: LIGHTNING AND SOUL SPELL POWER BOOSTING ITEMS
     //T1
     public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellPowerMechanics.HASTE.boostEffect, null,null,0);
+            SpellPowerEffects.ORANGE_JUICE.effect, null,null,0);
     //T2
     public static Item SWEET_CHILLI= new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            StatusEffects.STRENGTH, (RegistryEntry<StatusEffect>) SpellSchools.HEALING.ownedBoostEffect,null,1);
+            SpellPowerEffects.SWEET_CHILLI.effect, null,null,1);
     public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellSchools.FROST.ownedBoostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,null,1);
+            SpellPowerEffects.FRUIT_ICEWATER.effect, null,null,1);
     public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellSchools.ARCANE.ownedBoostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.HASTE.boostEffect,null,1);
+            SpellPowerEffects.CHORUS_EXTRACT.effect, null,null,1);
     public static Item HOT_CHILLI = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            (RegistryEntry<StatusEffect>) SpellSchools.FIRE.ownedBoostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_CHANCE.boostEffect,null,1);
+            SpellPowerEffects.HOT_CHILLI.effect, null,null,1);
     public static Item HOLY_WATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellSchools.HEALING.ownedBoostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.HASTE.boostEffect,null,1);
+            SpellPowerEffects.HOLY_WATER.effect, null,  null,1);
     public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_CHANCE.boostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,null,1);
+            SpellPowerEffects.ENCHANTED_ALE.effect, null,null,1);
     //T3
     public static Item WIZARDS_ELIXIR = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_CHANCE.boostEffect, (RegistryEntry<StatusEffect>) SpellPowerMechanics.CRITICAL_DAMAGE.boostEffect,
-            (RegistryEntry<StatusEffect>) SpellPowerMechanics.HASTE.boostEffect,2);
+            SpellPowerEffects.WIZARDS_ELIXIR.effect, null, null,2);
 
     public static void registerSpellPowerItems() {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"orange_juice"),ORANGE_JUICE);

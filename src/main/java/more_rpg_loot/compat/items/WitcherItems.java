@@ -4,6 +4,7 @@ import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -15,11 +16,11 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class WitcherItems {
     public static Item BEAUCLAIR_WHITE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.SIGN_INTENSITY.registryEntry, null,null,0);
+            Effects.SIGN_INTENSITY.effect, null,null,0);
     public static Item RIVIAN_KRIEK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.SIGN_INTENSITY.registryEntry, Effects.ADRENALINE_BURST.registryEntry,null,1);
+            Effects.SIGN_INTENSITY.effect, Effects.ADRENALINE_BURST.effect,null,1);
     public static Item BUTCHER_OF_BLAVIKEN = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.SIGN_INTENSITY.registryEntry, Effects.ADRENALINE_BURST.registryEntry, StatusEffects.HASTE,2);
+            Effects.SIGN_INTENSITY.effect, Effects.ADRENALINE_BURST.effect, (StatusEffect) StatusEffects.HASTE,2);
 
     public static void registerWitcherItems() {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"beauclair_white"),BEAUCLAIR_WHITE);

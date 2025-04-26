@@ -2,6 +2,8 @@ package more_rpg_loot.effects;
 
 import more_rpg_loot.RPGLoot;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
@@ -33,7 +35,7 @@ public class Effects {
         }
 
         public Identifier modifierId() {
-            return Identifier.of(WitcherClassMod.MOD_ID, "effect." + id.getPath());
+            return Identifier.of(MOD_ID, "effect." + id.getPath());
         }
     }
 
@@ -44,9 +46,67 @@ public class Effects {
     public static final Effects.Entry FREEZING =  new Effects.Entry("freezing",
             new FreezingEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
 
+    public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry POTATO_SOUP =  new Effects.Entry("potato_soup",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry SWEET_BERRY_PUNCH =  new Effects.Entry("sweet_berry_punch",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry BEET_ROOTBEER =  new Effects.Entry("beet_rootbeer",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry MALT_EXTRACT =  new Effects.Entry("malt_extract",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry VITAL_DRINK =  new Effects.Entry("vital_drink",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry ESPRESSO =  new Effects.Entry("espresso",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Status Effects for " + MOD_ID);
+        HOT_CHOCOLATE.effect.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
+                        0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        POTATO_SOUP.effect.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_DAMAGE, POTATO_SOUP.modifierId(),
+                0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        SWEET_BERRY_PUNCH.effect.addAttributeModifier(
+                EntityAttributes.GENERIC_ARMOR, SWEET_BERRY_PUNCH.modifierId(),
+                2.0F, EntityAttributeModifier.Operation.ADD_VALUE);
+
+        BEET_ROOTBEER.effect.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_DAMAGE, BEET_ROOTBEER.modifierId(),
+                0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ARMOR, BEET_ROOTBEER.modifierId(),
+                2.0F, EntityAttributeModifier.Operation.ADD_VALUE);
+        MALT_EXTRACT.effect.addAttributeModifier(
+                EntityAttributes.GENERIC_ATTACK_SPEED, MALT_EXTRACT.modifierId(),
+                0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, MALT_EXTRACT.modifierId(),
+                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+        VITAL_DRINK.effect.addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, VITAL_DRINK.modifierId(),
+                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ARMOR, VITAL_DRINK.modifierId(),
+                        2.0F, EntityAttributeModifier.Operation.ADD_VALUE)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_MAX_HEALTH, VITAL_DRINK.modifierId(),
+                        4.0F, EntityAttributeModifier.Operation.ADD_VALUE);
+        ESPRESSO.effect.addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_SPEED, ESPRESSO.modifierId(),
+                        0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, ESPRESSO.modifierId(),
+                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_MOVEMENT_SPEED, ESPRESSO.modifierId(),
+                        0.2F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+
+
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             Synchronized.configure(INNKEEPERS_PROVIANT.effect,true);
             Synchronized.configure(FROST_RESISTANCE.effect,true);

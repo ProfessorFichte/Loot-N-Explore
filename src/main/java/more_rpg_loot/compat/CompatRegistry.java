@@ -1,5 +1,8 @@
 package more_rpg_loot.compat;
 
+import more_rpg_loot.compat.effects.MRPG_LIB_Effects;
+import more_rpg_loot.compat.effects.RWA_Effects;
+import more_rpg_loot.compat.effects.SpellPowerEffects;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
@@ -12,12 +15,15 @@ public class CompatRegistry {
     public static void registerModCompat(){
         if(FabricLoader.getInstance().isModLoaded("spell_power")){
             SpellPowerItems.registerSpellPowerItems();
+            SpellPowerEffects.register();
         }
         if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
             MRPGCItems.registerMRPGCItems();
+            MRPG_LIB_Effects.register();
         }
         if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")){
             RangedWeaponAPIItems.registerRangedWeaponAPIItems();
+            RWA_Effects.register();
         }
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             RPGSeriesLootInjectionLNE.initialize();
