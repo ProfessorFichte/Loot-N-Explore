@@ -15,11 +15,11 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class RangedWeaponAPIItems {
 
     public static Item APPLE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            RWA_Effects.APPLE_JUICE.effect, null,null,0);
+            RWA_Effects.APPLE_JUICE.registryEntry, 0);
     public static Item WALDMEISTER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            RWA_Effects.WALDMEISTER.effect, null,null,1);
+            RWA_Effects.WALDMEISTER.registryEntry, 1);
     public static Item FORREST_SPIRIT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            RWA_Effects.FORREST_SPIRIT.effect, null, null,2);
+            RWA_Effects.FORREST_SPIRIT.registryEntry, 2);
 
     public static void registerRangedWeaponAPIItems(){
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"apple_juice"),APPLE_JUICE);

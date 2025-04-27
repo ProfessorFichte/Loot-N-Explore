@@ -3,6 +3,7 @@ package more_rpg_loot;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.compat.CompatRegistry;
+import more_rpg_loot.config.EffectsConfig;
 import more_rpg_loot.config.TweaksConfig;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
@@ -40,11 +41,19 @@ public class RPGLoot implements ModInitializer {
 			.setDirectory(MOD_ID)
 			.sanitize(true)
 			.build();
+	public static ConfigManager<EffectsConfig> effectsConfig = new ConfigManager<EffectsConfig>
+			("effects", new EffectsConfig())
+			.builder()
+			.setDirectory(MOD_ID)
+			.sanitize(true)
+			.build();
 
 	@Override
 	public void onInitialize() {
 		villageConfig.refresh();
 		tweaksConfig.refresh();
+		effectsConfig.refresh();
+		Effects.register();
 		StructurePoolAPI.injectAll(RPGLoot.villageConfig.value);
 		ModBlocks.register();
 		ItemsRegistry.registerModItems();
@@ -53,13 +62,11 @@ public class RPGLoot implements ModInitializer {
 		Group.registerItemGroups();
 		Particles.register();
 		LNEVillagerTrades.register();
-		Effects.register();
 		ModSounds.register();
 		ModWorldGen.generateModWorldGen();
 		CompatRegistry.registerModCompat();
 		EntityLootInjection.modifyLootEntityTables();
 		ChestLootInjection.modifyChestLootTables();
-
 
 	}
 	public static Identifier id(String path) {

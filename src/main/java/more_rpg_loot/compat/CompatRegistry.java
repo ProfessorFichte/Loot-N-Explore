@@ -13,25 +13,26 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class CompatRegistry {
 
+
     public static void registerModCompat(){
         if(FabricLoader.getInstance().isModLoaded("spell_power")){
-            SpellPowerItems.registerSpellPowerItems();
             SpellPowerEffects.register();
+            SpellPowerItems.registerSpellPowerItems();
         }
         if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
-            MRPGCItems.registerMRPGCItems();
             MRPG_LIB_Effects.register();
+            MRPGCItems.registerMRPGCItems();
         }
         if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")){
-            RangedWeaponAPIItems.registerRangedWeaponAPIItems();
             RWA_Effects.register();
+            RangedWeaponAPIItems.registerRangedWeaponAPIItems();
         }
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
             RPGSeriesLootInjectionLNE.initialize();
         }
         if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
-            WitcherItems.registerWitcherItems();
             Witcher_Effects.register();
+            WitcherItems.registerWitcherItems();
         }
     }
 }

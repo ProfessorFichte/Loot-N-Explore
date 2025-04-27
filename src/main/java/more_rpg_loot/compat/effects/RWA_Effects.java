@@ -11,11 +11,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.witcher_rpg.WitcherClassMod;
 
 import java.util.ArrayList;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
+import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class RWA_Effects {
     private static final ArrayList<Entry> entries = new ArrayList<Entry>();
@@ -25,7 +25,7 @@ public class RWA_Effects {
         public RegistryEntry<StatusEffect> registryEntry;
 
         public Entry(String name, StatusEffect effect) {
-            this.id = Identifier.of(WitcherClassMod.MOD_ID, name);
+            this.id = Identifier.of(MOD_ID, name);
             this.effect = effect;
             entries.add(this);
         }
@@ -52,25 +52,25 @@ public class RWA_Effects {
         RPGLoot.LOGGER.info("Registering Ranged Weapon API Compat Effects for " + MOD_ID);
         APPLE_JUICE.effect.addAttributeModifier(
                         EntityAttributes_RangedWeapon.DAMAGE.entry, APPLE_JUICE.modifierId(),
-                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
         WALDMEISTER.effect.addAttributeModifier(
                 EntityAttributes_RangedWeapon.DAMAGE.entry, WALDMEISTER.modifierId(),
-                0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
-                        0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
         ;
 
         FORREST_SPIRIT.effect.addAttributeModifier(
                 EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
-                0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, FORREST_SPIRIT.modifierId(),
-                        0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED, FORREST_SPIRIT.modifierId(),
-                        0.2F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 ;
 
 

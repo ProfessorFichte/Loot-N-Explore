@@ -17,19 +17,19 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class CommonItems {
     public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.HOT_CHOCOLATE.effect, null,null,0);
+            Effects.HOT_CHOCOLATE.registryEntry, 0);
     public static Item POTATO_SOUP = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            Effects.POTATO_SOUP.effect, null,null,0);
+            Effects.POTATO_SOUP.registryEntry,0);
     public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.SWEET_BERRY_PUNCH.effect, null,null,0);
+            Effects.SWEET_BERRY_PUNCH.registryEntry, 0);
     public static Item BEET_ROOTBEER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.BEET_ROOTBEER.effect, null,null,1);
+            Effects.BEET_ROOTBEER.registryEntry, 1);
     public static Item MALT_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.MALT_EXTRACT.effect, null,null,1);
+            Effects.MALT_EXTRACT.registryEntry, 1);
     public static Item VITAL_DRINK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.VITAL_DRINK.effect, null, null,2);
+            Effects.VITAL_DRINK.registryEntry, 2);
     public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Effects.ESPRESSO.effect, null, null,2);
+            Effects.ESPRESSO.registryEntry, 2);
 
     public static Item FROSTBALL =  new FrostballItem(new Item.Settings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new Item.Settings());

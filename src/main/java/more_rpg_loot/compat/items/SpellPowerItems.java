@@ -18,23 +18,23 @@ public class SpellPowerItems {
     // TO DO: LIGHTNING AND SOUL SPELL POWER BOOSTING ITEMS
     //T1
     public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.ORANGE_JUICE.effect, null,null,0);
+            SpellPowerEffects.ORANGE_JUICE.registryEntry, 0);
     //T2
     public static Item SWEET_CHILLI= new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            SpellPowerEffects.SWEET_CHILLI.effect, null,null,1);
+            SpellPowerEffects.SWEET_CHILLI.registryEntry,1);
     public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.FRUIT_ICEWATER.effect, null,null,1);
+            SpellPowerEffects.FRUIT_ICEWATER.registryEntry, 1);
     public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.CHORUS_EXTRACT.effect, null,null,1);
+            SpellPowerEffects.CHORUS_EXTRACT.registryEntry, 1);
     public static Item HOT_CHILLI = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
-            SpellPowerEffects.HOT_CHILLI.effect, null,null,1);
+            SpellPowerEffects.HOT_CHILLI.registryEntry,1);
     public static Item HOLY_WATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.HOLY_WATER.effect, null,  null,1);
+            SpellPowerEffects.HOLY_WATER.registryEntry, 1);
     public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.ENCHANTED_ALE.effect, null,null,1);
+            SpellPowerEffects.ENCHANTED_ALE.registryEntry,1);
     //T3
     public static Item WIZARDS_ELIXIR = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            SpellPowerEffects.WIZARDS_ELIXIR.effect, null, null,2);
+            SpellPowerEffects.WIZARDS_ELIXIR.registryEntry, 2);
 
     public static void registerSpellPowerItems() {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"orange_juice"),ORANGE_JUICE);

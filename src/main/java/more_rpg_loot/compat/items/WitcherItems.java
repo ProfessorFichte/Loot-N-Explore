@@ -14,11 +14,11 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class WitcherItems {
     public static Item BEAUCLAIR_WHITE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Witcher_Effects.BEAUCLAIR_WHITE.effect, null,null,0);
+            Witcher_Effects.BEAUCLAIR_WHITE.registryEntry, 0);
     public static Item RIVIAN_KRIEK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Witcher_Effects.RIVIAN_KRIEK.effect, null,null,1);
+            Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1);
     public static Item BUTCHER_OF_BLAVIKEN = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
-            Witcher_Effects.BUTCHER_OF_BLAVIKEN.effect, null, null,2);
+            Witcher_Effects.BUTCHER_OF_BLAVIKEN.registryEntry, 2);
 
     public static void registerWitcherItems() {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"beauclair_white"),BEAUCLAIR_WHITE);

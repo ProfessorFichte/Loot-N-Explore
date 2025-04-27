@@ -94,6 +94,7 @@
   "item.loot_n_explore.vital_drink": "Vital Drink",
   "item.loot_n_explore.forrest_spirit": "Forrest Spirit",
   "item.loot_n_explore.butcher_of_blaviken": "Butcher of Blaviken",
+  "item.loot_n_explore.honey_met": "Honey Met",
 
   "effect.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "effect.loot_n_explore.orange_juice": "Orange Juice",
@@ -121,6 +122,7 @@
   "effect.loot_n_explore.vital_drink": "Vital Drink",
   "effect.loot_n_explore.forrest_spirit": "Forrest Spirit",
   "effect.loot_n_explore.butcher_of_blaviken": "Butcher of Blaviken",
+  "effect.loot_n_explore.honey_met": "Honey Met",
 
   "effect.loot_n_explore.sweet_berry_punch.description": "Increases Armor.",
   "effect.loot_n_explore.orange_juice.description": "Increases Spell Haste.",
@@ -148,6 +150,7 @@
   "effect.loot_n_explore.vital_drink.description": "Increases Attack Damage, Armor and Health.",
   "effect.loot_n_explore.forrest_spirit.description": "Increases Ranged Weapon Damage, Ranged Weapon Haste and Movement Speed.",
   "effect.loot_n_explore.butcher_of_blaviken.description": "Increases Sign Intensity, Adrenaline and Attack Speed.",
+  "effect.loot_n_explore.honey_met.description": "Increases Attack Speed, Atttack Damage and Rage.",
 
   "smithing_template.loot_n_explore.applies_to": "Netherite Weapons.",
   "smithing_template.loot_n_explore.base_slot_description": "Put a Netherite Weapon here.",
@@ -173,8 +176,6 @@
 
   "filled_map.loot_n_explore.monster_quest": "Please help us eliminate the threats nearby!",
 
-  "effect.loot_n_explore.innkeepers_proviant": "Inn´s Proviant",
-  "effect.loot_n_explore.innkeepers_proviant.description": "You can drink up to 3 Innkeeper drinks, than your effects will be cleared and you get Nausea.",
   "entity.minecraft.villager.innkeeper": "Innkeeper",
 
   "entity.loot_n_explore.glaze": "Glaze",
