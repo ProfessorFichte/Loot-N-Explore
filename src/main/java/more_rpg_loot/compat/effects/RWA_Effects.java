@@ -66,10 +66,10 @@ public class RWA_Effects {
                 EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
                 0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
+                        EntityAttributes_RangedWeapon.HASTE.entry, FORREST_SPIRIT.modifierId(),
                         0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_MOVEMENT_SPEED, WALDMEISTER.modifierId(),
+                        EntityAttributes.GENERIC_MOVEMENT_SPEED, FORREST_SPIRIT.modifierId(),
                         0.2F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 ;
 

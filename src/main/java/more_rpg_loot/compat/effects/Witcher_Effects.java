@@ -2,7 +2,6 @@ package more_rpg_loot.compat.effects;
 
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.CustomStatusEffect;
-import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -12,6 +11,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.witcher_rpg.WitcherClassMod;
+import net.witcher_rpg.entity.attribute.WitcherAttributes;
 
 import java.util.ArrayList;
 
@@ -45,32 +45,32 @@ public class Witcher_Effects {
     public static final Entry RIVIAN_KRIEK =  new Entry("rivian_kriek",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
-    public static final Entry BUTCHER_OF_BLAVIKEN =  new Entry("forrest_spirit",
+    public static final Entry BUTCHER_OF_BLAVIKEN =  new Entry("butcher_of_blaviken",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Witcher Compat Effects for " + MOD_ID);
-        APPLE_JUICE.effect.addAttributeModifier(
-                EntityAttributes_RangedWeapon.DAMAGE.entry, APPLE_JUICE.modifierId(),
+        BEAUCLAIR_WHITE.effect.addAttributeModifier(
+                WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
                 0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        WALDMEISTER.effect.addAttributeModifier(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry, WALDMEISTER.modifierId(),
+        RIVIAN_KRIEK.effect.addAttributeModifier(
+                        WitcherAttributes.SIGN_INTENSITY, RIVIAN_KRIEK.modifierId(),
                         0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
-                        0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
+                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
         ;
 
-        FORREST_SPIRIT.effect.addAttributeModifier(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
+        BUTCHER_OF_BLAVIKEN.effect.addAttributeModifier(
+                        WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierId(),
                         0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
+                        EntityAttributes.GENERIC_ATTACK_SPEED, BUTCHER_OF_BLAVIKEN.modifierId(),
                         0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_MOVEMENT_SPEED, WALDMEISTER.modifierId(),
-                        0.2F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierId(),
+                        0.1F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
         ;
 
 

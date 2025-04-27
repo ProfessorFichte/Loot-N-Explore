@@ -3,6 +3,7 @@ package more_rpg_loot.compat;
 import more_rpg_loot.compat.effects.MRPG_LIB_Effects;
 import more_rpg_loot.compat.effects.RWA_Effects;
 import more_rpg_loot.compat.effects.SpellPowerEffects;
+import more_rpg_loot.compat.effects.Witcher_Effects;
 import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
@@ -30,6 +31,7 @@ public class CompatRegistry {
         }
         if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
             WitcherItems.registerWitcherItems();
+            Witcher_Effects.register();
         }
     }
 }
