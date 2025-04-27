@@ -11,12 +11,8 @@
   ],
   "placement": {
     "exclusion_zone": {
-      "other_set": [
-        "minecraft:ancient_cities",
-        "minecraft:mineshafts",
-        "minecraft:villages"
-      ],
-      "chunk_count": 15
+      "chunk_count": 10,
+      "other_set": "minecraft:villages"
     },
     "type": "minecraft:random_spread",
     "separation": 10,

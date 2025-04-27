@@ -5,8 +5,6 @@ import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
