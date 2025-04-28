@@ -1,0 +1,135 @@
+{
+  "school": "PHYSICAL_MELEE",
+  "range": 0.0,
+  "tier": 8,
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "chance": 0.3,
+        "equipment_condition": "MAINHAND"
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "deliver": {
+    "type": "METEOR",
+    "meteor": {
+      "launch_height": 4,
+      "launch_radius": 2,
+      "launch_properties": {
+        "velocity": 0.5,
+        "extra_launch_count": 3,
+        "extra_launch_delay": 2
+      },
+      "projectile": {
+        "client_data": {
+          "light_level": 12,
+          "travel_particles": [
+            {
+              "particle_id": "snowflake",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 3.0,
+              "min_speed": 0.0,
+              "max_speed": 0.1
+            }
+          ],
+          "model": {
+            "model_id": "loot_n_explore:projectile/small_avalanche"
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "allow_action": false
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "effect_id": "loot_n_explore:freezing",
+          "duration": 10.0,
+          "amplifier": 2,
+          "show_particles": false
+        }
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_hurts_extra_types"
+            }
+          ],
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.25
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_frost_impact_burst",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 15.0,
+          "min_speed": 0.2,
+          "max_speed": 0.4
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_frost_impact"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 2,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    },
+    "particles": [
+      {
+        "particle_id": "snowflake",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 10.0,
+        "min_speed": 0.5,
+        "max_speed": 2.0
+      }
+    ]
+  },
+  "cost": {
+    "batching": true,
+    "cooldown": {
+      "duration": 8.0,
+      "hosting_item": false
+    }
+  }
+}
