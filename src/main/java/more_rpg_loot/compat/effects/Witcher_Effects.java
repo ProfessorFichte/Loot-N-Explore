@@ -3,7 +3,6 @@ package more_rpg_loot.compat.effects;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.CustomStatusEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.Registries;
@@ -50,28 +49,23 @@ public class Witcher_Effects {
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Witcher Compat Effects for " + MOD_ID);
-        BEAUCLAIR_WHITE.effect.addAttributeModifier(
-                WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
-                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        BEAUCLAIR_WHITE.effect
+                .addAttributeModifier(
+                    WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
+                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        RIVIAN_KRIEK.effect.addAttributeModifier(
-                        WitcherAttributes.SIGN_INTENSITY, RIVIAN_KRIEK.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        RIVIAN_KRIEK.effect
                 .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-        ;
+                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        BUTCHER_OF_BLAVIKEN.effect.addAttributeModifier(
+        BUTCHER_OF_BLAVIKEN.effect
+                .addAttributeModifier(
                         WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierId(),
                         effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_SPEED, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-        ;
+                        effectsConfig.value.drinks_crit_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
 
         for (Entry entry: entries) {

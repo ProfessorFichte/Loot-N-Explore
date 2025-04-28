@@ -26,13 +26,6 @@ public class Group {
     public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"blocks.generic"));
     public static ItemGroup RPG_BLOCKS;
 
-    private static void registerLootItemGroup() {
-        Group.RPG_LOOT = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(WeaponRegister.ELDER_GUARDIAN_SWORD))
-                .displayName(Text.translatable("itemGroup." + MOD_ID + ".loot.general"))
-                .build();
-        Registry.register(Registries.ITEM_GROUP, Group.RPG_LOOT_KEY, Group.RPG_LOOT);
-    }
     private static void registerFoodItemGroup() {
         Group.RPG_FOOD = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ModBlocks.INNKEEPER_SHELF.block()))
@@ -49,7 +42,6 @@ public class Group {
     }
 
     public static void registerItemGroups() {
-        registerLootItemGroup();
         registerFoodItemGroup();
         registerBlockItemGroup();
         RPGLoot.LOGGER.info("Registering Item Groups for " + MOD_ID);;

@@ -9,15 +9,16 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class WitcherItems {
-    public static Item BEAUCLAIR_WHITE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item BEAUCLAIR_WHITE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             Witcher_Effects.BEAUCLAIR_WHITE.registryEntry, 0);
-    public static Item RIVIAN_KRIEK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item RIVIAN_KRIEK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1);
-    public static Item BUTCHER_OF_BLAVIKEN = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item BUTCHER_OF_BLAVIKEN = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Witcher_Effects.BUTCHER_OF_BLAVIKEN.registryEntry, 2);
 
     public static void registerWitcherItems() {

@@ -6,9 +6,7 @@ public class ItemsRegistry {
         ModPotions.registerPotions();
         ModPotions.registerPotionsRecipes();
         SmithingTemplates.registerSmithingUpgrades();
-        WeaponRegister.registerWeapons();
         CommonItems.registerCommonItems();
-
     }
 
 }

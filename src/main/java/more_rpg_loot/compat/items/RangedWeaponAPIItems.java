@@ -9,16 +9,17 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class RangedWeaponAPIItems {
 
-    public static Item APPLE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item APPLE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             RWA_Effects.APPLE_JUICE.registryEntry, 0);
-    public static Item WALDMEISTER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item WALDMEISTER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             RWA_Effects.WALDMEISTER.registryEntry, 1);
-    public static Item FORREST_SPIRIT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item FORREST_SPIRIT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             RWA_Effects.FORREST_SPIRIT.registryEntry, 2);
 
     public static void registerRangedWeaponAPIItems(){

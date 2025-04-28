@@ -54,6 +54,7 @@ public class Effects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry MALT_EXTRACT =  new Effects.Entry("malt_extract",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+
     public static final Effects.Entry VITAL_DRINK =  new Effects.Entry("vital_drink",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry ESPRESSO =  new Effects.Entry("espresso",
@@ -61,44 +62,39 @@ public class Effects {
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Status Effects for " + MOD_ID);
-        HOT_CHOCOLATE.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
-                effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        POTATO_SOUP.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ATTACK_DAMAGE, POTATO_SOUP.modifierId(),
-                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        SWEET_BERRY_PUNCH.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ARMOR, SWEET_BERRY_PUNCH.modifierId(),
-                effectsConfig.value.drinks_armor_t0_boost, EntityAttributeModifier.Operation.ADD_VALUE);
-
-        BEET_ROOTBEER.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ATTACK_DAMAGE, BEET_ROOTBEER.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        HOT_CHOCOLATE.effect
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ARMOR, BEET_ROOTBEER.modifierId(),
+                    EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
+                    effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        POTATO_SOUP.effect
+                .addAttributeModifier(
+                    EntityAttributes.GENERIC_ATTACK_DAMAGE, POTATO_SOUP.modifierId(),
+                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        SWEET_BERRY_PUNCH.effect
+                .addAttributeModifier(
+                    EntityAttributes.GENERIC_ARMOR, SWEET_BERRY_PUNCH.modifierId(),
+                    effectsConfig.value.drinks_armor_t0_boost, EntityAttributeModifier.Operation.ADD_VALUE);
+
+        BEET_ROOTBEER.effect
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ARMOR_TOUGHNESS, BEET_ROOTBEER.modifierId(),
                         effectsConfig.value.drinks_armor_t1_boost, EntityAttributeModifier.Operation.ADD_VALUE);
-        MALT_EXTRACT.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ATTACK_SPEED, MALT_EXTRACT.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        MALT_EXTRACT.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, MALT_EXTRACT.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        VITAL_DRINK.effect.addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, VITAL_DRINK.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        VITAL_DRINK.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ARMOR, VITAL_DRINK.modifierId(),
                         effectsConfig.value.drinks_armor_t2_boost, EntityAttributeModifier.Operation.ADD_VALUE)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MAX_HEALTH, VITAL_DRINK.modifierId(),
                         effectsConfig.value.drinks_health_t2_boost, EntityAttributeModifier.Operation.ADD_VALUE);
-        ESPRESSO.effect.addAttributeModifier(
+        ESPRESSO.effect
+                .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_SPEED, ESPRESSO.modifierId(),
                         effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, ESPRESSO.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED, ESPRESSO.modifierId(),
                         effectsConfig.value.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);

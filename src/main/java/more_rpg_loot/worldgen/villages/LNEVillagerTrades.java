@@ -39,7 +39,7 @@ public class LNEVillagerTrades {
             int level_1_innkeeper_experience = 10;
             float level_1_innkeeper_priceMultiplier = 0.1F;
 
-            int level_2_innkeeper_price = 20;
+            int level_2_innkeeper_price = 12;
             int level_2_innkeeper_maxUses = 5;
             int level_2_innkeeper_experience = 15;
             float level_2_innkeeper_priceMultiplier = 0.01F;
@@ -48,12 +48,12 @@ public class LNEVillagerTrades {
             int level_3_innkeeper_maxUses = 1;
             int level_3_innkeeper_experience = 20;
 
-            int level_4_innkeeper_price = 30;
+            int level_4_innkeeper_price = 22;
             int level_4_innkeeper_maxUses = 6;
             int level_4_innkeeper_experience = 20;
             float level_4_innkeeper_priceMultiplier = 0.15F;
 
-            int level_5_innkeeper_price = 40;
+            int level_5_innkeeper_price = 32;
             int level_5_innkeeper_maxUses = 2;
             int level_5_innkeeper_experience = 30;
             float level_5_innkeeper_priceMultiplier = 0.15F;
@@ -146,6 +146,10 @@ public class LNEVillagerTrades {
                             factories.add((entity, random) -> new TradeOffer(
                                     new TradedItem(Items.EMERALD, level_4_innkeeper_price),
                                     new ItemStack(MRPGCItems.GREEN_CHILLI, 1),
+                                    level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
+                            factories.add((entity, random) -> new TradeOffer(
+                                    new TradedItem(Items.EMERALD, level_4_innkeeper_price),
+                                    new ItemStack(MRPGCItems.HONEY_MET, 1),
                                     level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier));
                         });
             }

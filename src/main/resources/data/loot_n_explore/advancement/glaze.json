@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "loot_n_explore:glaze_rod"
+      "id": "loot_n_explore:glaze_rod"
     },
     "title": {
       "translate": "advancements.loot_n_explore.glaze.title"

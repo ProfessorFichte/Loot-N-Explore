@@ -1,6 +1,5 @@
 ### 1.0.0 - 1.21.1
-# Official 1.21 & 1.21.1 Release!
-
+# Official 1.21.1 Release!
 # CHANGES
 - Added Status Effects for each Boosting Drink & Bowl
 - Changed the boosting Soups & Drinks, you cant stack the effect amplifier anymore
@@ -9,3 +8,4 @@
 - Drinks with a higher quality have a higher status effect duration and are stronger
 - All Attribute Modifiers are configurable via Effects Config file
 - Added Honey Met, T3-Drink giving the Rage Attribute, Attack Damage & Attack Speed for Berserker
+- Rebalance Trading Costs

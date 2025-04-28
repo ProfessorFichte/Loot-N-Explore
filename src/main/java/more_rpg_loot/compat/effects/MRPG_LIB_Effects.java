@@ -47,41 +47,27 @@ public class MRPG_LIB_Effects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Entry GREEN_CHILLI =  new Entry("green_chilli",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-
     public static final Entry HONEY_MET =  new Entry("honey_met",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering More RPG Library Compat Effects for " + MOD_ID);
-        WATERMELON_DRINK.effect.addAttributeModifier(
-                        SpellPowerMechanics.HASTE.attributeEntry, WATERMELON_DRINK.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        WATERMELON_DRINK.effect
                 .addAttributeModifier(
                         MoreSpellSchools.WATER.attributeEntry, WATERMELON_DRINK.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        BLUE_BERRY_PUNCH.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, BLUE_BERRY_PUNCH.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        BLUE_BERRY_PUNCH.effect
                 .addAttributeModifier(
                         MoreSpellSchools.AIR.attributeEntry, BLUE_BERRY_PUNCH.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        GREEN_CHILLI.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, GREEN_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        GREEN_CHILLI.effect
                 .addAttributeModifier(
                         MoreSpellSchools.EARTH.attributeEntry, GREEN_CHILLI.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
-        HONEY_MET.effect.addAttributeModifier(
+        HONEY_MET.effect
+                .addAttributeModifier(
                         MRPGCEntityAttributes.RAGE_MODIFIER, HONEY_MET.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_SPEED, HONEY_MET.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, HONEY_MET.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
+                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
         for (Entry entry: entries) {
             entry.register();

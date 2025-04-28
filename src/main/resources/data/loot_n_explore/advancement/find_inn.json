@@ -26,7 +26,7 @@
     "hidden": false,
     "frame": "task",
     "icon": {
-      "item": "loot_n_explore:malt_extract"
+      "id": "loot_n_explore:malt_extract"
     },
     "title": {
       "translate": "advancements.loot_n_explore.find_inn.title"

@@ -7,7 +7,7 @@
     "item": "minecraft:netherite_axe"
   },
   "result": {
-    "item": "loot_n_explore:glacial_axe"
+    "id": "loot_n_explore:glacial_axe"
   },
   "template": {
     "item": "loot_n_explore:frostmonarch_upgrade_smithing_template"

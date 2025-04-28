@@ -11,29 +11,30 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class SpellPowerItems {
     // TO DO: LIGHTNING AND SOUL SPELL POWER BOOSTING ITEMS
-    //T1
-    public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    //T0
+    public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             SpellPowerEffects.ORANGE_JUICE.registryEntry, 0);
-    //T2
-    public static Item SWEET_CHILLI= new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
+    //T1
+    public static Item SWEET_CHILLI= new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.SWEET_CHILLI.registryEntry,1);
-    public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.FRUIT_ICEWATER.registryEntry, 1);
-    public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.CHORUS_EXTRACT.registryEntry, 1);
-    public static Item HOT_CHILLI = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
+    public static Item HOT_CHILLI = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.HOT_CHILLI.registryEntry,1);
-    public static Item HOLY_WATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item HOLY_WATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.HOLY_WATER.registryEntry, 1);
-    public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             SpellPowerEffects.ENCHANTED_ALE.registryEntry,1);
-    //T3
-    public static Item WIZARDS_ELIXIR = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    //T2
+    public static Item WIZARDS_ELIXIR = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             SpellPowerEffects.WIZARDS_ELIXIR.registryEntry, 2);
 
     public static void registerSpellPowerItems() {

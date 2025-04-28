@@ -50,28 +50,23 @@ public class RWA_Effects {
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Ranged Weapon API Compat Effects for " + MOD_ID);
-        APPLE_JUICE.effect.addAttributeModifier(
+        APPLE_JUICE.effect
+                .addAttributeModifier(
                         EntityAttributes_RangedWeapon.DAMAGE.entry, APPLE_JUICE.modifierId(),
                 effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        WALDMEISTER.effect.addAttributeModifier(
-                EntityAttributes_RangedWeapon.DAMAGE.entry, WALDMEISTER.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        WALDMEISTER.effect
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-        ;
+                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        FORREST_SPIRIT.effect.addAttributeModifier(
+        FORREST_SPIRIT.effect
+                .addAttributeModifier(
                 EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
                         effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        EntityAttributes.GENERIC_MOVEMENT_SPEED, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                ;
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
 
         for (Entry entry: entries) {

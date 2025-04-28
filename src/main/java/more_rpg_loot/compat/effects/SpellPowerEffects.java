@@ -68,51 +68,36 @@ public class SpellPowerEffects {
                 effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
         SWEET_CHILLI.effect.addAttributeModifier(
-                EntityAttributes.GENERIC_ATTACK_DAMAGE, SWEET_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        SpellSchools.HEALING.attributeEntry, SWEET_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        FRUIT_ICEWATER.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, FRUIT_ICEWATER.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, SWEET_CHILLI.modifierId(),
+                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        FRUIT_ICEWATER.effect
                 .addAttributeModifier(
                         SpellSchools.FROST.attributeEntry, FRUIT_ICEWATER.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        CHORUS_EXTRACT.effect.addAttributeModifier(
-                        SpellPowerMechanics.HASTE.attributeEntry, CHORUS_EXTRACT.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        CHORUS_EXTRACT.effect
                 .addAttributeModifier(
                         SpellSchools.ARCANE.attributeEntry, CHORUS_EXTRACT.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        HOT_CHILLI.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, HOT_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        HOT_CHILLI.effect
                 .addAttributeModifier(
                         SpellSchools.FIRE.attributeEntry, HOT_CHILLI.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        HOLY_WATER.effect.addAttributeModifier(
-                        SpellPowerMechanics.HASTE.attributeEntry, HOLY_WATER.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        HOLY_WATER.effect
                 .addAttributeModifier(
                         SpellSchools.HEALING.attributeEntry, HOLY_WATER.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        ENCHANTED_ALE.effect.addAttributeModifier(
+        ENCHANTED_ALE.effect
+                .addAttributeModifier(
                         SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, ENCHANTED_ALE.modifierId(),
-                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, ENCHANTED_ALE.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        WIZARDS_ELIXIR.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, WIZARDS_ELIXIR.modifierId(),
-                        effectsConfig.value.drinks_crit_rate_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
-                .addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, WIZARDS_ELIXIR.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+        WIZARDS_ELIXIR.effect
                 .addAttributeModifier(
                         SpellSchools.GENERIC.attributeEntry, WIZARDS_ELIXIR.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        SpellPowerMechanics.HASTE.attributeEntry, WIZARDS_ELIXIR.modifierId(),
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
         for (SpellPowerEffects.Entry entry: entries) {
             entry.register();

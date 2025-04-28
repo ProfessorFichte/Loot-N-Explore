@@ -8,7 +8,7 @@ import more_rpg_loot.compat.items.MRPGCItems;
 import more_rpg_loot.compat.items.RangedWeaponAPIItems;
 import more_rpg_loot.compat.items.SpellPowerItems;
 import more_rpg_loot.compat.items.WitcherItems;
-import more_rpg_loot.compat.spell_engine.RPGSeriesLootInjectionLNE;
+import more_rpg_loot.compat.spell_engine.SpellEngine_LNE;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class CompatRegistry {
@@ -28,7 +28,7 @@ public class CompatRegistry {
             RangedWeaponAPIItems.registerRangedWeaponAPIItems();
         }
         if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            RPGSeriesLootInjectionLNE.initialize();
+            SpellEngine_LNE.initialize();
         }
         if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
             Witcher_Effects.register();

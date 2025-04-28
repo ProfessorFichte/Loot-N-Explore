@@ -68,6 +68,7 @@ public class RPGLoot implements ModInitializer {
 		EntityLootInjection.modifyLootEntityTables();
 		ChestLootInjection.modifyChestLootTables();
 
+		effectsConfig.save();
 	}
 	public static Identifier id(String path) {
 		return Identifier.of(MOD_ID, path);

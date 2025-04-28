@@ -5,7 +5,6 @@ import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
-import more_rpg_loot.item.WeaponRegister;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
@@ -129,7 +128,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     }
 
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(WeaponRegister.GLACIAL_SWORD));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE.getDefaultStack().getItem()));
     }
 
     public void onStartedTrackingBy(ServerPlayerEntity player) {

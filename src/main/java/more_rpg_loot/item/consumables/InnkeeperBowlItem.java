@@ -62,19 +62,6 @@ public class InnkeeperBowlItem extends Item {
         return ItemUsage.consumeHeldItem(world, user, hand);
     }
 
-    public Rarity rarity(Rarity rarity) {
-        if(quality == 0){
-            return Rarity.UNCOMMON;
-        } else if(quality == 1) {
-            return Rarity.RARE;
-        }
-        else if(quality == 2) {
-            return Rarity.EPIC;
-        }else{
-            return Rarity.COMMON;
-        }
-    }
-
     @Override
     public boolean hasGlint(ItemStack stack) {
         if(quality == 0){
@@ -83,6 +70,9 @@ public class InnkeeperBowlItem extends Item {
             return false;
         }
         else if(quality == 2) {
+            return true;
+        }
+        else if(quality == 3) {
             return true;
         }else{
             return false;
@@ -97,10 +87,12 @@ public class InnkeeperBowlItem extends Item {
             formatting = Formatting.BLUE;
         } else if(quality == 1) {
             formatting = Formatting.DARK_PURPLE;
-        }
-        else if(quality == 2) {
+        } else if(quality == 2) {
             formatting = Formatting.YELLOW;
-        }else{
+        }else if(quality == 3) {
+            formatting = Formatting.DARK_RED;
+        }
+        else{
             formatting = Formatting.WHITE;
         }
 

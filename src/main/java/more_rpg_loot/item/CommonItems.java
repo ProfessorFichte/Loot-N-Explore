@@ -16,19 +16,21 @@ import net.minecraft.util.Rarity;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class CommonItems {
-    public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             Effects.HOT_CHOCOLATE.registryEntry, 0);
-    public static Item POTATO_SOUP = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL),
+    public static Item POTATO_SOUP = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.COMMON),
             Effects.POTATO_SOUP.registryEntry,0);
-    public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             Effects.SWEET_BERRY_PUNCH.registryEntry, 0);
-    public static Item BEET_ROOTBEER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+
+    public static Item BEET_ROOTBEER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             Effects.BEET_ROOTBEER.registryEntry, 1);
-    public static Item MALT_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item MALT_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             Effects.MALT_EXTRACT.registryEntry, 1);
-    public static Item VITAL_DRINK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+
+    public static Item VITAL_DRINK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Effects.VITAL_DRINK.registryEntry, 2);
-    public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16),
+    public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Effects.ESPRESSO.registryEntry, 2);
 
     public static Item FROSTBALL =  new FrostballItem(new Item.Settings().maxCount(16));

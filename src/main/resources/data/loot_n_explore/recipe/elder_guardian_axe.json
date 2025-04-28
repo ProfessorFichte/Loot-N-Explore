@@ -7,7 +7,7 @@
     "item": "minecraft:netherite_axe"
   },
   "result": {
-    "item": "loot_n_explore:elder_guardian_axe"
+    "id": "loot_n_explore:elder_guardian_axe"
   },
   "template": {
     "item": "loot_n_explore:guardian_upgrade_smithing_template"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:map"
+      "id": "minecraft:map"
     },
     "title": {
       "translate": "advancements.loot_n_explore.root.title"
