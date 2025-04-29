@@ -4,6 +4,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
@@ -46,6 +47,11 @@ public class InnkeeperBowlItem extends Item {
         if (!world.isClient) {
             user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
                     effectDuration, 0, false, false, true));
+            if(quality == 3){
+                user.heal(user.getMaxHealth());
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION,
+                        2400, 3, false, false, true));
+            }
         }
         return stack;
     }
@@ -97,7 +103,12 @@ public class InnkeeperBowlItem extends Item {
         }
 
         String y = "effect." + boost_effect_0.getIdAsString() + ".description";
+        String z = "item." + boost_effect_0.getIdAsString() + ".lore";
         y = y.replace(":",".");
+        z = z.replace(":",".");
         tooltip.add(Text.translatable(y).formatted(formatting));
+        if(quality == 3) {
+            tooltip.add(Text.translatable(z).formatted(formatting));
+        }
     }
 }
