@@ -2,22 +2,18 @@
   "parent": "loot_n_explore:root",
   "criteria": {
     "find_inn": {
+      "trigger": "minecraft:location",
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "effects": {
-                "loot_n_explore:innkeepers_proviant": {
-                  "amplifier": 0
-                }
-              }
-            }
+        "player": {
+          "location": {
+            "structures": [
+              "loot_n_explore:desert_inn",
+              "loot_n_explore:plains_inn",
+              "loot_n_explore:badlands_inn"
+            ]
           }
-        ]
-      },
-      "trigger": "minecraft:effects_changed"
+        }
+      }
     }
   },
   "display": {

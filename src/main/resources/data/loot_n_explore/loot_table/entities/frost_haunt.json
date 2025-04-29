@@ -2,63 +2,43 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "minecraft:bone",
+          "weight": 1,
           "functions": [
             {
-              "add": false,
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
-            },
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:looting_enchant"
+                "min": 2,
+                "max": 1
+              }
             }
-          ],
-          "name": "minecraft:snowball"
-        }
-      ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
-      "entries": [
+          ]
+        },
         {
           "type": "minecraft:item",
+          "name": "minecraft:snowball",
           "functions": [
             {
-              "add": false,
+              "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
-              },
-              "function": "minecraft:set_count"
-            },
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "function": "minecraft:looting_enchant"
+                "min": 3,
+                "max": 0
+              }
             }
-          ],
-          "name": "minecraft:bone"
+          ]
         }
       ],
-      "rolls": 1.0
+      "conditions": [
+        {
+          "condition": "minecraft:killed_by_player"
+        }
+      ]
     }
-  ],
-  "random_sequence": "loot_n_explore:entities/frost_haunt"
+  ]
 }

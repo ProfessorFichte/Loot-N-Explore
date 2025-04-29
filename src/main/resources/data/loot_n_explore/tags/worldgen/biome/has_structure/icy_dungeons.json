@@ -1,7 +1,10 @@
 {
   "values": [
-    "#c:icy",
     "minecraft:snowy_plains",
-    "minecraft:snowy_slopes"
+    "minecraft:snowy_slopes",
+    {
+      "id": "#c:icy",
+      "required": false
+    }
   ]
 }

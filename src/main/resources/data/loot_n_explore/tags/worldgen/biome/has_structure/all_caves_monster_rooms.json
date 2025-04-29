@@ -1,5 +1,10 @@
 {
   "values": [
-    "#c:caves"
+    "minecraft:lush_caves",
+    "minecraft:dripstone_caves",
+    {
+      "id": "#c:caves",
+      "required": false
+    }
   ]
 }

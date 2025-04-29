@@ -1,5 +1,9 @@
 {
   "values": [
-    "#c:climate_cold"
+    "minecraft:ice_spikes",
+    {
+      "id": "#c:climate_cold",
+      "required": false
+    }
   ]
 }

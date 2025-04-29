@@ -1,7 +1,6 @@
 {
   "school": "PHYSICAL_MELEE",
-  "range": -0.5,
-  "range_mechanic": "MELEE",
+  "range": 5.0,
   "tier": 8,
   "type": "PASSIVE",
   "passive": {
@@ -81,5 +80,12 @@
         }
       ]
     }
-  ]
+  ],
+  "cost": {
+    "batching": true,
+    "cooldown": {
+      "duration": 5.0,
+      "hosting_item": false
+    }
+  }
 }
