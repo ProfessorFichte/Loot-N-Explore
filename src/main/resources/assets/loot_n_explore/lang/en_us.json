@@ -53,10 +53,9 @@
 
   "item.loot_n_explore.wither_sword": "Withered Sword",
   "item.loot_n_explore.wither_axe": "Withered Axe",
-  "spell.loot_n_explore.passive_wither_pulse.name": "Passive Spell: Wither Pulse",
-  "spell.loot_n_explore.passive_wither_pulse.description": "Inflicting targets in a 90 degree radius with the Wither Effect.",
+  "spell.loot_n_explore.wither_pulse.name": "Wither Pulse",
+  "spell.loot_n_explore.wither_pulse.description": "On melee hit: {trigger_chance} inflicts targets in a 90 degree radius with Wither.",
   "lore.loot_n_explore.wither_weapon": "Crafted from shattered Wither remains, imbued with the eternal curse of the Nether.",
-  "passive.loot_n_explore.wither_weapon": "Deals 10% additional magic damage per negative effect on the target.",
 
   "item.loot_n_explore.glacial_sword": "Glacial Sword",
   "item.loot_n_explore.glacial_axe": "Glacial Axe",
@@ -64,7 +63,6 @@
   "spell.loot_n_explore.avalanche.description": "On melee hit: {trigger_chance} chance to spawn a small avalanche, dealing {damage} damage and inflicting freezing for {effect_duration}.",
   "lore.loot_n_explore.glacial_weapon": "Forged from a frozen soul, it carries a chilling wrath of eternal winter.",
 
-  "tooltip.loot_n_explore.special_drink_info": " minutes Status effect duration for:",
   "item.loot_n_explore.sweet_berry_punch": "Sweet Berry Punch",
   "item.loot_n_explore.orange_juice": "Orange Juice",
   "item.loot_n_explore.watermelon_drink": "Watermelon Drink",
@@ -154,21 +152,21 @@
 
   "item.loot_n_explore.ender_dragon_scales": "Ender Dragon Scales",
   "smithing_template.loot_n_explore.ender_dragon.ingredients": "Ender Dragon Scales",
-  "smithing_template.loot_n_explore.ender_dragon.title": "Ender Dragon Upgrade",
+  "smithing_template.loot_n_explore.ender_dragon.title": "Ender Upgrade",
   "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "Add Ender Dragon Scales",
 
   "item.loot_n_explore.elder_guardian_eye": "Elder Guardian Eye",
   "smithing_template.loot_n_explore.elder_guardian.ingredients": "Elder Guardian Eye",
-  "smithing_template.loot_n_explore.elder_guardian.title": "Elder Guardian Upgrade",
+  "smithing_template.loot_n_explore.elder_guardian.title": "Deep Ocean Upgrade",
   "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "Add Elder Guardian Eye",
 
   "smithing_template.loot_n_explore.wither.ingredients": "Nether Star",
-  "smithing_template.loot_n_explore.wither.title": "Wither Upgrade",
+  "smithing_template.loot_n_explore.wither.title": "Withered Upgrade",
   "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Nether Star",
 
   "item.loot_n_explore.frozen_soul": "Frozen Soul",
   "smithing_template.loot_n_explore.frostmonarch.ingredients": "Frozen Soul",
-  "smithing_template.loot_n_explore.frostmonarch.title": "Frost Monarch Upgrade",
+  "smithing_template.loot_n_explore.frostmonarch.title": "Glacial Upgrade",
   "smithing_template.loot_n_explore.frostmonarch.additions_slot_description": "Add Frozen Soul",
 
   "filled_map.loot_n_explore.monster_quest": "Please help us eliminate the threats nearby!",

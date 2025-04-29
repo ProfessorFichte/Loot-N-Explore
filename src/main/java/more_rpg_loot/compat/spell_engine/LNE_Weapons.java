@@ -60,6 +60,7 @@ public class LNE_Weapons {
     public static Identifier dragonclaw = Identifier.of(MOD_ID, "dragonclaw");
     public static Identifier avalanche = Identifier.of(MOD_ID, "avalanche");
     public static Identifier waterbomb = Identifier.of(MOD_ID, "waterbomb");
+    public static Identifier wither_pulse = Identifier.of(MOD_ID, "wither_pulse");
 
     //SWORDS
     public static final Weapon.Entry ender_dragon_sword = sword("ender_dragon_sword",
@@ -67,7 +68,7 @@ public class LNE_Weapons {
             .spell(dragonclaw);
     public static final Weapon.Entry wither_sword = sword("wither_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
-            .spell(Identifier.of(""));
+            .spell(wither_pulse);
     public static final Weapon.Entry glacial_sword = sword("glacial_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
             .spell(avalanche);
@@ -77,7 +78,7 @@ public class LNE_Weapons {
             .spell(dragonclaw);
     public static final Weapon.Entry wither_axe = axe("wither_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
-            .spell(Identifier.of(""));
+            .spell(wither_pulse);
     public static final Weapon.Entry glacial_axe = axe("glacial_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(avalanche);
