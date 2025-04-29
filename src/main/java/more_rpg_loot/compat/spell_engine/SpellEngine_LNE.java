@@ -34,10 +34,17 @@ public class SpellEngine_LNE {
             .setDirectory(MOD_ID)
             .sanitize(true)
             .build();
+    public static ConfigManager<LNE_RelicsConfig> relicsConfig = new ConfigManager<>
+            ("relics", new LNE_RelicsConfig())
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .build();
 
     public static void initialize() {
         lootEquipmentConfig.refresh();
         itemConfig.refresh();
+        relicsConfig.refresh();
         Group.RPG_LOOT = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ender_dragon_sword.item().asItem()))
                 .displayName(Text.translatable("itemGroup." + MOD_ID + ".loot.general"))
@@ -45,7 +52,9 @@ public class SpellEngine_LNE {
         Registry.register(Registries.ITEM_GROUP, Group.RPG_LOOT_KEY, Group.RPG_LOOT);
 
         LNE_Weapons.register(itemConfig.value.weapons);
+        LNE_Relics.register(relicsConfig.value.entries);
         itemConfig.save();
+        relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             LootHelper.configureV2(registries,
