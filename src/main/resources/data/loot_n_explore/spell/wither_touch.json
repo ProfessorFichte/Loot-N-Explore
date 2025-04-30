@@ -1,0 +1,59 @@
+{
+  "school": "PHYSICAL_MELEE",
+  "range": 0.0,
+  "tier": 7,
+  "type": "PASSIVE",
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "passive": {
+    "triggers": [
+      {
+        "type": "DAMAGE_TAKEN",
+        "chance": 0.25
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "wither",
+          "duration": 10.0,
+          "amplifier": 0,
+          "show_particles": true
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_skull_decelerate",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 25.0,
+          "min_speed": 0.2,
+          "max_speed": 0.25,
+          "color_rgba": 858993663
+        }
+      ],
+      "sound": {
+        "id": "particle.soul_escape"
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 20.0
+    }
+  }
+}

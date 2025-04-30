@@ -2,7 +2,6 @@ package more_rpg_loot.compat.spell_engine;
 
 import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
-import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -16,6 +15,8 @@ import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ConfigUtil;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.api.spell.container.SpellContainer;
+import net.spell_engine.api.spell.container.SpellContainerHelper;
+import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -133,6 +134,8 @@ public class LNE_Relics {
         }
     }
 
+    public static final String COMBAT_ROLL_COUNT = "combat_roll:count";
+
     // ENDER DRAGON THEME
     public static final Entry ENDER_DRAGON_SCALES = add(new Entry(1, "ender_dragon_scales"))
             .config(new LNE_RelicsConfig.Entry()
@@ -148,6 +151,7 @@ public class LNE_Relics {
     public static final Entry CORRUPTED_ENDER_PEARL = add(new Entry(1, "corrupted_ender_pearl"))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
+                            new AttributeModifier(SpellSchools.ARCANE.id, 0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry CHARGED_AMETHYST = add(new Entry(1, "charged_amethyst"))
@@ -169,11 +173,14 @@ public class LNE_Relics {
     public static final Entry LOST_SOUL = add(new Entry(1, "lost_soul"))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
+                            new AttributeModifier(SpellSchools.SOUL.id, 0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry WITHERED_OBSIDIAN_SHARD = add(new Entry(1, "withered_obsidian_shard"))
+            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:wither_touch")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
+                            new AttributeModifier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString(), 1.0F, EntityAttributeModifier.Operation.ADD_VALUE)
                     ))
             );
     // GLACIAL THEME
@@ -185,6 +192,7 @@ public class LNE_Relics {
     public static final Entry ETERNAL_SNOWFLAKE = add(new Entry(1, "eternal_snowflake"))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
+                            new AttributeModifier(SpellSchools.FROST.id, 0.05F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry FROZEN_RIB = add(new Entry(1, "frozen_rib"))
