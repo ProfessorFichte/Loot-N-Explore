@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/frostball"
+    "layer0": "loot_n_explore:item/relics/elder_guardian_eye"
   }
 }

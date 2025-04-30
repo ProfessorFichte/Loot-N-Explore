@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/frozen_chain"
+    "layer0": "loot_n_explore:item/relics/ender_dragon_scales"
   }
 }
