@@ -1,4 +1,20 @@
 {
   "values": [
+    {
+      "id": "loot_n_explore:lost_soul",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:unknown_remains",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wither_spine",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:withered_obsidian_shard",
+      "required": false
+    }
   ]
 }
