@@ -29,7 +29,7 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "wither",
+          "effect_id": "loot_n_explore:freezing",
           "duration": 10.0,
           "amplifier": 0,
           "show_particles": true
@@ -37,13 +37,12 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_skull_decelerate",
+          "particle_id": "loot_n_explore:freezing_snowflake",
           "origin": "CENTER",
           "shape": "SPHERE",
           "count": 25.0,
           "min_speed": 0.2,
-          "max_speed": 0.25,
-          "color_rgba": 858993663
+          "max_speed": 0.25
         }
       ]
     }

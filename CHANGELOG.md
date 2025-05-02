@@ -9,3 +9,5 @@
 - All Attribute Modifiers are configurable via Effects Config file
 - Added Honey Met, T3-Drink giving the Rage Attribute, Attack Damage & Attack Speed for Berserker
 - Rebalance Trading Costs
+- Added More Loot Items, which you'll need to craft the special weapons
+- All Loot Items give Attributes and some give passives or active spells

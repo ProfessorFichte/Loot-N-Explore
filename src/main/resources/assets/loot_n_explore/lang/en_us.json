@@ -168,6 +168,8 @@
   "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Nether Star",
 
   "item.loot_n_explore.frozen_soul": "Frozen Soul",
+  "spell.loot_n_explore.frozen_soul.name": "Monarch's Freezing Storm",
+  "spell.loot_n_explore.frozen_soul.description": "Use: Creates a powerful freezing storm for {cloud_duration} seconds, freezing the targets.",
   "smithing_template.loot_n_explore.frostmonarch.ingredients": "Frozen Soul",
   "smithing_template.loot_n_explore.frostmonarch.title": "Glacial Upgrade",
   "smithing_template.loot_n_explore.frostmonarch.additions_slot_description": "Add Frozen Soul",

@@ -1,0 +1,51 @@
+{
+  "school": "PHYSICAL_MELEE",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "active": {},
+  "release": {
+    "animation": "spell_engine:dual_handed_weapon_charge",
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_frost_spell_decelerate",
+        "origin": "CENTER",
+        "shape": "CIRCLE",
+        "count": 40.0,
+        "min_speed": 0.6,
+        "max_speed": 0.8
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_casting"
+    }
+  },
+  "deliver": {
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:wither",
+          "duration": 1.0,
+          "amplifier": 2
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 90.0
+    }
+  }
+}
