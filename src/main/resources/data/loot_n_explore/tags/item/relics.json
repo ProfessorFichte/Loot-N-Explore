@@ -53,15 +53,15 @@
       "required": false
     },
     {
-      "id": "loot_n_explore:",
+      "id": "loot_n_explore:amphitrite_diadem",
       "required": false
     },
     {
-      "id": "loot_n_explore:",
+      "id": "loot_n_explore:poseidons_amphora",
       "required": false
     },
     {
-      "id": "loot_n_explore:",
+      "id": "loot_n_explore:rainbow_coral",
       "required": false
     }
   ]

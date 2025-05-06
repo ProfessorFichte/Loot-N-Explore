@@ -43,6 +43,8 @@ public class Effects {
             new FrostResistanceEffect(StatusEffectCategory.BENEFICIAL, 0x99ccff));
     public static final Effects.Entry FREEZING =  new Effects.Entry("freezing",
             new FreezingEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
+    public static final Effects.Entry ELDER_GUARDIANS_CURSE =  new Effects.Entry("elder_guardians_curse",
+            new CustomStatusEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
 
     public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
@@ -62,6 +64,10 @@ public class Effects {
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Status Effects for " + MOD_ID);
+        ELDER_GUARDIANS_CURSE.effect
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, ELDER_GUARDIANS_CURSE.modifierId(),
+                        -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         HOT_CHOCOLATE.effect
                 .addAttributeModifier(
                     EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
@@ -104,6 +110,7 @@ public class Effects {
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             Synchronized.configure(FROST_RESISTANCE.effect,true);
             Synchronized.configure(FREEZING.effect,true);
+            Synchronized.configure(ELDER_GUARDIANS_CURSE.effect,true);
         }
 
         for (Entry entry: entries) {

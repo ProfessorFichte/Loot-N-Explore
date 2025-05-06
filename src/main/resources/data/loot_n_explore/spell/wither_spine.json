@@ -1,6 +1,6 @@
 {
   "school": "PHYSICAL_MELEE",
-  "range": 0.0,
+  "range": 48.0,
   "tier": 7,
   "tooltip": {
     "show_header": false,
@@ -12,40 +12,102 @@
       "color": "dark_green"
     }
   },
+
+
   "active": {},
   "release": {
-    "animation": "spell_engine:dual_handed_weapon_charge",
+    "animation": "spell_engine:one_handed_projectile_release",
     "particles": [
       {
-        "particle_id": "spell_engine:magic_frost_spell_decelerate",
+        "particle_id": "smoke",
         "origin": "CENTER",
-        "shape": "CIRCLE",
+        "shape": "SPHERE",
         "count": 40.0,
         "min_speed": 0.6,
         "max_speed": 0.8
       }
-    ],
-    "sound": {
-      "id": "spell_engine:generic_frost_casting"
+    ]
+  },
+
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "launch_properties": {
+        "velocity": 1.2
+      },
+      "projectile": {
+        "divergence": 5,
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "smoke",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 2.0,
+              "min_speed": 0.6,
+              "max_speed": 0.9
+            }
+          ],
+          "model": {
+            "model_id": "loot_n_explore:projectile/wither_skull",
+            "scale": 1.5,
+            "light_emission": "NONE",
+            "render": "FLAT",
+            "rotate_degrees_per_tick": 0.0
+          }
+        }
+      }
     }
   },
-  "deliver": {
-  },
+
   "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.25
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "smoke",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 20.0,
+          "min_speed": 0.6,
+          "max_speed": 0.8
+        }
+      ],
+      "sound": {
+        "id": "entity.generic.explode"
+      }
+    },
     {
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "loot_n_explore:wither",
-          "duration": 1.0,
-          "amplifier": 2
+          "effect_id": "wither",
+          "duration": 5.0,
+          "amplifier_power_multiplier": 0.25,
+          "show_particles": true
         }
-      }
+      },
+      "particles": [
+      ]
     }
   ],
+
+  "area_impact": {
+    "radius": 2.0,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    }
+  },
+
   "cost": {
     "cooldown": {
-      "duration": 90.0
+      "duration": 45.0
     }
   }
 }

@@ -1,5 +1,6 @@
 package more_rpg_loot.util;
 
+import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.item.CommonItems;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
 import net.minecraft.loot.LootPool;
@@ -29,7 +30,7 @@ public class EntityLootInjection {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(1.0F))
-                            .with(ItemEntry.builder(CommonItems.ELDER_GUARDIAN_EYE))
+                            .with(ItemEntry.builder(LNE_Relics.ENDER_DRAGON_SCALES.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
@@ -37,7 +38,7 @@ public class EntityLootInjection {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(1.0F))
-                            .with(ItemEntry.builder(CommonItems.ENDER_DRAGON_SCALES))
+                            .with(ItemEntry.builder(LNE_Relics.ENDER_DRAGON_SCALES.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }

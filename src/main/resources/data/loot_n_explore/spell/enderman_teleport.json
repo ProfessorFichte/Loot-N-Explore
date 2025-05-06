@@ -1,0 +1,67 @@
+{
+  "school": "PHYSICAL_MELEE",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+
+
+  "active": {},
+  "release": {
+    "animation": "spell_engine:one_handed_area_release",
+    "sound": {
+      "id": "minecraft:entity.enderman.teleport"
+    }
+  },
+
+  "impacts": [
+    {
+      "action": {
+        "type": "TELEPORT",
+        "teleport" : {
+          "mode": "FORWARD",
+          "forward": {
+            "distance": 30.0
+          },
+          "depart_particles": [
+            {
+              "particle_id": "minecraft:portal",
+              "shape": "SPHERE",
+              "origin": "CENTER",
+              "count": 20.0,
+              "pre_spawn_travel": 1,
+              "min_speed": 0.3,
+              "max_speed": 0.5
+            }
+          ]
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:portal",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "invert": true,
+          "pre_spawn_travel": 4,
+          "count": 40.0,
+          "min_speed": 0.1,
+          "max_speed": 0.3
+        }
+      ]
+    }
+  ],
+
+  "cost": {
+    "cooldown": {
+      "duration": 120.0
+    }
+  }
+}

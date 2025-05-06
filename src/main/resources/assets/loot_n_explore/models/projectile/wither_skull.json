@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "wither_skull",
-		"particle": "wither_skull"
+		"0": "loot_n_explore:spell_projectile/wither_skull",
+		"particle": "loot_n_explore:spell_projectile/wither_skull"
 	},
 	"elements": [
 		{

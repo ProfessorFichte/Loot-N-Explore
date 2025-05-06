@@ -2,6 +2,7 @@ package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
@@ -121,9 +122,11 @@ public class FrostMonarchEntity extends SkeletonEntity {
     protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
         super.dropEquipment(world, source, causedByPlayer);
         Entity entity = source.getAttacker();
-        ItemEntity itemEntity = this.dropItem(CommonItems.FROZEN_SOUL);
-        if (itemEntity != null) {
-            itemEntity.setCovetedItem();
+        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
+            ItemEntity itemEntity = this.dropItem(LNE_Relics.FROZEN_SOUL.item().get());
+            if (itemEntity != null) {
+                itemEntity.setCovetedItem();
+            }
         }
     }
 
