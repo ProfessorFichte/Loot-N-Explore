@@ -25,7 +25,6 @@ public class LNE_Weapons {
     private static Weapon.Entry entry(String name, Weapon.CustomMaterial material, Weapon.Factory factory, WeaponConfig defaults, Equipment.WeaponType weaponType) {
         var entry = new Weapon.Entry(MOD_ID, name, material, factory, defaults, weaponType);
         entry.castSpell();
-        entry.loot(Equipment.LootProperties.of(5));
         entries.add(entry);
         return entry;
     }
@@ -69,21 +68,21 @@ public class LNE_Weapons {
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(dragonclaw);
     public static final Weapon.Entry wither_sword = sword("wither_sword",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), sword_damage)
             .spell(wither_pulse);
     public static final Weapon.Entry wither_axe = axe("wither_axe",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), axe_damage)
             .spell(wither_pulse);
     public static final Weapon.Entry glacial_sword = sword("glacial_sword",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), sword_damage)
             .spell(avalanche);
     public static final Weapon.Entry glacial_axe = axe("glacial_axe",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), axe_damage)
             .spell(avalanche);
 
     public static void register(Map<String, WeaponConfig> configs) {
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            var repair_elder_guardian = ingredient("loot_n_explore:elder_guardian_eye", FabricLoader.getInstance().isModLoaded("more_rpg_classes"), Items.NETHERITE_INGOT);
+            var repair_elder_guardian = ingredient("minecraft:prismarine_shard", FabricLoader.getInstance().isModLoaded("more_rpg_classes"), Items.NETHERITE_INGOT);
             sword("elder_guardian_sword",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), sword_damage)
                     .spell(waterbomb);

@@ -59,13 +59,13 @@ public class HelperMethods {
 
 
 
-    public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,StatusEffect statusEffect,
+    public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,RegistryEntry<StatusEffect> statusEffect,
                                          int maxStackAmplifier, boolean canStackAmplifier, boolean showIcon, boolean increaseDuration,
                                          int increaseEffectDurationSeconds){
 
-        if(target.hasStatusEffect((RegistryEntry<StatusEffect>) statusEffect)){
-            int currentAmplifier = target.getStatusEffect((RegistryEntry<StatusEffect>) statusEffect).getAmplifier();
-            int currentDuration = target.getStatusEffect((RegistryEntry<StatusEffect>) statusEffect).getDuration();
+        if(target.hasStatusEffect(statusEffect)){
+            int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
+            int currentDuration = target.getStatusEffect(statusEffect).getDuration();
             int increaseAmp = 0;
             if(increaseDuration){
                 currentDuration = currentDuration + (increaseEffectDurationSeconds*20);
@@ -74,12 +74,12 @@ public class HelperMethods {
                 increaseAmp = increaseAmp + 1;
             }
             if(currentAmplifier<maxStackAmplifier){
-                target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, currentDuration, currentAmplifier + increaseAmp, false, false, showIcon));
+                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, currentAmplifier + increaseAmp, false, false, showIcon));
             }else{
-                target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
+                target.addStatusEffect(new StatusEffectInstance(statusEffect, currentDuration, maxStackAmplifier, false, false, showIcon));
             }
         }else{
-            target.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
+            target.addStatusEffect(new StatusEffectInstance(statusEffect, effectDurationSeconds*20, effectAmplifier, false, false, showIcon));
         }
     }
 

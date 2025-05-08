@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "loot_n_explore:frostbloom"
-            ]
+            "items": "loot_n_explore:frostbloom"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:light_blue_dye"
-            ]
+            "items": "minecraft:light_blue_dye"
           }
         ]
       },
@@ -34,15 +30,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_light_blue_dye",
-      "has_frostbloom",
-      "has_the_recipe"
+      "has_frostbloom"
     ]
   ],
   "rewards": {
     "recipes": [
       "minecraft:light_blue_dye"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

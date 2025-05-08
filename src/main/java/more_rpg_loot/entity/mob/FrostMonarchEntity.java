@@ -179,7 +179,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
             if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.effect,1,
+                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.registryEntry,1,
                             true,true,true,1);
                 }
             }
