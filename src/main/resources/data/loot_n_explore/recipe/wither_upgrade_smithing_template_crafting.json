@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "spell_engine"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:soul_sand"
+    },
+    "A": {
+      "item": "loot_n_explore:lost_soul"
+    },
+    "B": {
+      "item": "loot_n_explore:withered_obsidian_shard"
+    },
+    "C": {
+      "item": "loot_n_explore:unknown_remains"
+    }
+  },
+  "pattern": [
+    "#A#",
+    "#B#",
+    "#C#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:wither_upgrade_smithing_template"
+  }
+}

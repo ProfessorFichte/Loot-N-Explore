@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "more_rpg_classes"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:prismarine"
+    },
+    "A": {
+      "item": "loot_n_explore:rainbow_coral"
+    },
+    "B": {
+      "item": "loot_n_explore:poseidons_amphora"
+    },
+    "C": {
+      "item": "loot_n_explore:amphitrite_diadem"
+    }
+  },
+  "pattern": [
+    "#A#",
+    "#B#",
+    "#C#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:guardian_upgrade_smithing_template"
+  }
+}
