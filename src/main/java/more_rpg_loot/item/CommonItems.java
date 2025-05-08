@@ -35,6 +35,8 @@ public class CommonItems {
 
     public static Item FROSTBALL =  new FrostballItem(new Item.Settings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new Item.Settings());
+    public static Item FROZEN_KEY =  new Item(new Item.Settings());
+    public static Item MONARCHS_KEY =  new Item(new Item.Settings());
 
 
     public static void registerCommonItems(){
@@ -48,6 +50,9 @@ public class CommonItems {
 
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"frostball"),FROSTBALL);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"glaze_rod"),GLAZE_ROD);
+
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"frozen_key"),FROZEN_KEY);
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"monarchs_key"),MONARCHS_KEY);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             content.add(SWEET_BERRY_PUNCH);
@@ -64,6 +69,8 @@ public class CommonItems {
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
             content.addAfter(Items.BLAZE_ROD,GLAZE_ROD);
+            content.addAfter(Items.TRIAL_KEY,FROZEN_KEY);
+            content.addAfter(Items.OMINOUS_TRIAL_KEY,MONARCHS_KEY);
         });
     }
 }

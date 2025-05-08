@@ -5,6 +5,7 @@ import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -68,8 +69,12 @@ public class ModBlocks {
                     FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision()));
     public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM.block, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
+    public static final Entry FROZEN_TRIAL_SPAWNER = entry("frozen_trial_spawner", new TrialSpawnerBlock(
+            FabricBlockSettings.copyOf(Blocks.TRIAL_SPAWNER).nonOpaque()));
+
 
     public static void register(){
+        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);
         for (var entry : all) {
             Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
