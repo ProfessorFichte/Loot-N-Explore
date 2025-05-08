@@ -57,7 +57,7 @@ public class SmithingTemplates {
             });
     public static final List<Identifier> INGREDIENT_ITEMS_WITHER= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_nether_star"));
+                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wither_spine"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_GUARDIAN = Util.make(new ArrayList<>(),
             identifiers -> {
