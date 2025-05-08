@@ -28,6 +28,13 @@ public class SpellEngine_LNE {
             .sanitize(true)
             .constrain(LootConfig::constrainValues)
             .build();
+    public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
+            ("loot_scrolls", Default.scrollLootConfig)
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .constrain(LootConfig::constrainValues)
+            .build();
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
             ("equipment", new ConfigFile.Equipment())
             .builder()
@@ -45,23 +52,21 @@ public class SpellEngine_LNE {
         lootEquipmentConfig.refresh();
         itemConfig.refresh();
         relicsConfig.refresh();
+        lootScrollsConfig.refresh();
         Group.RPG_LOOT = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ender_dragon_sword.item().asItem()))
                 .displayName(Text.translatable("itemGroup." + MOD_ID + ".loot.general"))
                 .build();
         Registry.register(Registries.ITEM_GROUP, Group.RPG_LOOT_KEY, Group.RPG_LOOT);
-
-        LNE_Weapons.register(itemConfig.value.weapons);
+        SmithingTemplates.registerSmithingUpgrades();
         LNE_Relics.register(relicsConfig.value.entries);
+        LNE_Weapons.register(itemConfig.value.weapons);
         itemConfig.save();
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            LootHelper.configureV2(registries,
-                    key.getValue(),
-                    tableBuilder,
-                    lootEquipmentConfig.value,
-                    new HashMap<>());
+            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootEquipmentConfig.value, new HashMap<>());
+            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootScrollsConfig.value, new HashMap<>());
         });
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);

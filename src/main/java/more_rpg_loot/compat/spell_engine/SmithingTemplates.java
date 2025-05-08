@@ -1,5 +1,6 @@
-package more_rpg_loot.item;
+package more_rpg_loot.compat.spell_engine;
 
+import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
@@ -112,10 +113,16 @@ public class SmithingTemplates {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"frostmonarch_upgrade_smithing_template"),FROSTMONARCH_UPGRADE);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
-            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,ENDER_DRAGON_UPGRADE);
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,WITHER_UPGRADE);
             content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,FROSTMONARCH_UPGRADE);
+            content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
+        });
+        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register((content) -> {
+            content.add(ENDER_DRAGON_UPGRADE);
+            content.add(WITHER_UPGRADE);
+            content.add(FROSTMONARCH_UPGRADE);
+            content.add(SmithingTemplates.ELDER_GUARDIAN_UPGRADE);
         });
     }
 }

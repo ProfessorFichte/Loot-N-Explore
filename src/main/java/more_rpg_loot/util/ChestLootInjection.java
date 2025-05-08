@@ -1,6 +1,6 @@
 package more_rpg_loot.util;
 
-import more_rpg_loot.item.SmithingTemplates;
+import more_rpg_loot.compat.spell_engine.SmithingTemplates;
 import net.fabricmc.fabric.api.loot.v3.LootTableSource;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;

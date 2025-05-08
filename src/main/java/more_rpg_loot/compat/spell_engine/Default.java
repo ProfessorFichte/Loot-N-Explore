@@ -8,6 +8,7 @@ import java.util.List;
 public class Default {
 
     public final static LootConfig itemLootConfig;
+    public final static LootConfig scrollLootConfig;
 
     private static String armors(int tier) {
         return "#" + RPGSeriesItemTags.LootTiers.id(tier, RPGSeriesItemTags.LootCategory.ARMORS).toString();
@@ -52,6 +53,10 @@ public class Default {
         var items = itemLootConfig.injectors;
         var items_regex = itemLootConfig.regex_injectors;
 
+        scrollLootConfig = new LootConfig();
+        var scrolls = scrollLootConfig.injectors;
+        var scrolls_regex = scrollLootConfig.regex_injectors;
+
         //CHESTS
         List.of("loot_n_explore:chests/inns/desert",
                 "loot_n_explore:chests/inns/plains",
@@ -70,19 +75,21 @@ public class Default {
         List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
                 "loot_n_explore:chests/glaze_tower",
                 "loot_n_explore:chests/dungeons/glacial_tomb/spawner_room"
-                ).forEach(id -> items.put(id,  new LootConfig.Pool()
-                        .rolls(0.5)
-                        .add(W1)
-                        .add(X2)
-                        .add(A1)
-                        .add(R2)
-                ));
+                )                .forEach(id -> {
+            items.put(id, new LootConfig.Pool()
+                    .rolls(0.75)
+                    .add(W2)
+                    .add(X2));
+            scrolls.put(id, new LootConfig.Pool()
+                    .rolls(0.2)
+                    .scroll(2, 3));
+        });
 
         //ENTITIES
         items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()
                 .rolls(2)
-                .add(W3, true)
-                .add(A3, true)
+                .add(W3).enchant().weight(4)
+                .add(A3).enchant().weight(4)
                 .add(X3)
                 .add(R3)
                 .add(W5)

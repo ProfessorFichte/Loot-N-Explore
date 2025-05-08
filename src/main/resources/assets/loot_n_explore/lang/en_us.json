@@ -160,6 +160,7 @@
   "item.loot_n_explore.charged_amethyst": "Charged Amethyst",
   "item.loot_n_explore.ender_dragon_scales": "Ender Dragon Scales",
   "smithing_template.loot_n_explore.ender_dragon.ingredients": "Ender Dragon Scales",
+  "item.loot_n_explore.dragon_upgrade_smithing_template": "Smithing Template",
   "smithing_template.loot_n_explore.ender_dragon.title": "Ender Upgrade",
   "smithing_template.loot_n_explore.ender_dragon.additions_slot_description": "Add Ender Dragon Scales",
 
@@ -170,6 +171,7 @@
   "spell.loot_n_explore.elder_guardian_eye.name": "Elder Guardian's Beam",
   "spell.loot_n_explore.elder_guardian_eye.description": "Use: Cast a Guardian Beam dealing {damage} damage and lowering the attack damage for {effect_duration} seconds.",
   "smithing_template.loot_n_explore.elder_guardian.ingredients": "Elder Guardian Eye",
+  "item.loot_n_explore.guardian_upgrade_smithing_template": "Smithing Template",
   "smithing_template.loot_n_explore.elder_guardian.title": "Deep Ocean Upgrade",
   "smithing_template.loot_n_explore.elder_guardian.additions_slot_description": "Add Elder Guardian Eye",
 
@@ -182,9 +184,10 @@
   "item.loot_n_explore.withered_obsidian_shard": "Withered Obsidian Shard",
   "spell.loot_n_explore.wither_touch.name": "Wither's Touch",
   "spell.loot_n_explore.wither_touch.description": "On Taking damage {trigger_chance} chance, to inflict wither on the attacker for {effect_duration} seconds.",
-  "smithing_template.loot_n_explore.wither.ingredients": "Nether Star",
+  "smithing_template.loot_n_explore.wither.ingredients": "Wither Spine",
+  "item.loot_n_explore.wither_upgrade_smithing_template": "Smithing Template",
   "smithing_template.loot_n_explore.wither.title": "Withered Upgrade",
-  "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Nether Star",
+  "smithing_template.loot_n_explore.wither.additions_slot_description": "Add Wither Spine",
 
 
   "item.loot_n_explore.eternal_snowflake": "Eternal Snowflake",
@@ -196,6 +199,7 @@
   "spell.loot_n_explore.frozen_soul.name": "Monarch's Freezing Storm",
   "spell.loot_n_explore.frozen_soul.description": "Use: Creates a powerful freezing storm for {cloud_duration} seconds, freezing the targets.",
   "smithing_template.loot_n_explore.frostmonarch.ingredients": "Frozen Soul",
+  "item.loot_n_explore.frostmonarch_upgrade_smithing_template": "Smithing Template",
   "smithing_template.loot_n_explore.frostmonarch.title": "Glacial Upgrade",
   "smithing_template.loot_n_explore.frostmonarch.additions_slot_description": "Add Frozen Soul",
 

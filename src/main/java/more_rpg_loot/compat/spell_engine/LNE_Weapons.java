@@ -62,30 +62,24 @@ public class LNE_Weapons {
     public static Identifier waterbomb = Identifier.of(MOD_ID, "waterbomb");
     public static Identifier wither_pulse = Identifier.of(MOD_ID, "wither_pulse");
 
-    //SWORDS
     public static final Weapon.Entry ender_dragon_sword = sword("ender_dragon_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
+            .spell(dragonclaw);
+    public static final Weapon.Entry ender_dragon_axe = axe("ender_dragon_axe",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(dragonclaw);
     public static final Weapon.Entry wither_sword = sword("wither_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
             .spell(wither_pulse);
-    public static final Weapon.Entry glacial_sword = sword("glacial_sword",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
-            .spell(avalanche);
-    //AXE
-    public static final Weapon.Entry ender_dragon_axe = axe("ender_dragon_axe",
-            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
-            .spell(dragonclaw);
     public static final Weapon.Entry wither_axe = axe("wither_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(wither_pulse);
+    public static final Weapon.Entry glacial_sword = sword("glacial_sword",
+            Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
+            .spell(avalanche);
     public static final Weapon.Entry glacial_axe = axe("glacial_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(avalanche);
-
-    static {
-        entries.forEach(entry -> entry.rarity = Rarity.RARE);
-    }
 
     public static void register(Map<String, WeaponConfig> configs) {
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
@@ -97,6 +91,9 @@ public class LNE_Weapons {
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), axe_damage)
                     .spell(waterbomb);
         }
+
+        entries.forEach(entry -> entry.rarity = Rarity.RARE);
+        entries.forEach(entry -> entry.rarity = Rarity.RARE);
         Weapon.register(configs, entries, Group.RPG_LOOT_KEY);
     }
 }
