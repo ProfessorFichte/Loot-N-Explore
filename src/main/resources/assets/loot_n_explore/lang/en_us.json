@@ -14,6 +14,11 @@
   "block.loot_n_explore.frozen_chain": "Frozen Chain",
   "block.loot_n_explore.soulfrost_lantern": "Soulfrost Lantern",
   "block.loot_n_explore.frostbloom": "Frostbloom",
+  "block.loot_n_explore.frozen_trial_spawner": "Frozen Trial Spawner",
+  "block.loot_n_explore.frozen_vault": "Frozen Vault",
+
+  "item.loot_n_explore.frozen_key": "Frozen Key",
+  "item.loot_n_explore.monarchs_key": "Frost Monarch's Key",
 
   "effect.loot_n_explore.frost_resistance": "Frost Resistance",
   "effect.loot_n_explore.frost_resistance.description": "Removes all Frozen Ticks as long as this effect is active.",

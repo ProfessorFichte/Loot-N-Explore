@@ -71,10 +71,13 @@ public class ModBlocks {
             new FlowerPotBlock(FROST_BLOOM.block, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
     public static final Entry FROZEN_TRIAL_SPAWNER = entry("frozen_trial_spawner", new TrialSpawnerBlock(
             FabricBlockSettings.copyOf(Blocks.TRIAL_SPAWNER).nonOpaque()));
+    public static final Entry FROZEN_VAULT = entry("frozen_vault", new VaultBlock(
+            FabricBlockSettings.copyOf(Blocks.VAULT).nonOpaque()));
 
 
     public static void register(){
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);
+        BlockEntityType.VAULT.addSupportedBlock(FROZEN_VAULT.block);
         for (var entry : all) {
             Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
