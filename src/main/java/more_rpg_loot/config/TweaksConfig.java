@@ -1,7 +1,10 @@
 package more_rpg_loot.config;
 
 public class TweaksConfig {
-    public float wither_melee_damage_per_negative_effect = 0.1F;
-    public float elder_guardian_melee_swimming_damage = 0.25F;
-    public float ender_dragon_melee_regeneration_passive = 0.25F;
+    public float boss_relic_dropchance = 1.0F;
+    public float chest_relic_dropchance = 0.4F;
+    public float archaeology_relic_dropchance = 0.7F;
+    public float block_relic_dropchance = 0.025F;
+    public float entity_relic_dropchance = 0.025F;
+    public float trial_spawner_relic_dropchance = 0.5F;
 }

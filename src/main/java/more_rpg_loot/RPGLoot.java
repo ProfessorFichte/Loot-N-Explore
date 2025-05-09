@@ -12,8 +12,6 @@ import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemsRegistry;
 import more_rpg_loot.config.Default;
 import more_rpg_loot.sounds.ModSounds;
-import more_rpg_loot.util.ChestLootInjection;
-import more_rpg_loot.util.EntityLootInjection;
 import more_rpg_loot.worldgen.gen.ModWorldGen;
 import more_rpg_loot.worldgen.villages.LNEVillagerTrades;
 import net.fabric_extras.structure_pool.api.StructurePoolAPI;
@@ -65,8 +63,6 @@ public class RPGLoot implements ModInitializer {
 		ModSounds.register();
 		ModWorldGen.generateModWorldGen();
 		CompatRegistry.registerModCompat();
-		EntityLootInjection.modifyLootEntityTables();
-		ChestLootInjection.modifyChestLootTables();
 
 		effectsConfig.save();
 	}

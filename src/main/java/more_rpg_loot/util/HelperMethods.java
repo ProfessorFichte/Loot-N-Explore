@@ -1,23 +1,15 @@
 package more_rpg_loot.util;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.internals.casting.SpellCast;
-import net.spell_engine.utils.TargetHelper;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class HelperMethods {
 

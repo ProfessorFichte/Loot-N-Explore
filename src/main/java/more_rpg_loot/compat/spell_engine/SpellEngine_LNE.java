@@ -53,6 +53,7 @@ public class SpellEngine_LNE {
         itemConfig.refresh();
         relicsConfig.refresh();
         lootScrollsConfig.refresh();
+        LootInjection.modifyChestLootTables();
         Group.RPG_LOOT = FabricItemGroup.builder()
                 .icon(() -> new ItemStack(ender_dragon_sword.item().asItem()))
                 .displayName(Text.translatable("itemGroup." + MOD_ID + ".loot.general"))
@@ -74,5 +75,6 @@ public class SpellEngine_LNE {
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, serverResourceManager, success) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);
         });
+
     }
 }

@@ -121,13 +121,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
         super.dropEquipment(world, source, causedByPlayer);
-        Entity entity = source.getAttacker();
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            ItemEntity itemEntity = this.dropItem(LNE_Relics.FROZEN_SOUL.item().get());
-            if (itemEntity != null) {
-                itemEntity.setCovetedItem();
-            }
-        }
     }
 
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
