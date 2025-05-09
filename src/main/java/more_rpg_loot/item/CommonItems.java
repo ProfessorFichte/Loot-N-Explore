@@ -1,5 +1,6 @@
 package more_rpg_loot.item;
 
+import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
@@ -71,6 +72,12 @@ public class CommonItems {
             content.addAfter(Items.BLAZE_ROD,GLAZE_ROD);
             content.addAfter(Items.TRIAL_KEY,FROZEN_KEY);
             content.addAfter(Items.OMINOUS_TRIAL_KEY,MONARCHS_KEY);
+        });
+        ItemGroupEvents.modifyEntriesEvent(Group.RPG_BLOCK_KEY).register((content) -> {
+            content.add(FROSTBALL);
+            content.add(GLAZE_ROD);
+            content.addAfter(ModBlocks.FROZEN_VAULT.block(),FROZEN_KEY);
+            content.addAfter(ModBlocks.FROZEN_VAULT.block(),MONARCHS_KEY);
         });
     }
 }
