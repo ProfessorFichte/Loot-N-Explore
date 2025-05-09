@@ -1,7 +1,7 @@
 {
-  "itemGroup.loot_n_explore.loot.general": "LNE Items",
+  "itemGroup.loot_n_explore.loot.general": "LNE Equipment",
   "itemGroup.loot_n_explore.food.general": "LNE Drinks",
-  "itemGroup.loot_n_explore.blocks.general": "LNE Blocks",
+  "itemGroup.loot_n_explore.blocks.general": "LNE Items & Blocks",
 
   "block.loot_n_explore.innkeeper_shelf": "Innkeeper Shelf",
   "block.loot_n_explore.blue_ice_bricks": "Blue Ice Bricks",
@@ -10,7 +10,7 @@
   "block.loot_n_explore.blue_ice_brick_wall": "Blue Ice Brick Wall",
   "block.loot_n_explore.blue_ice_brick_stairs": "Blue Ice Brick Stairs",
   "block.loot_n_explore.frozen_soul_block": "Frozen Souls Block",
-  "block.loot_n_explore.monarchs_crown": "Frozen Monarchs Crown",
+  "block.loot_n_explore.monarchs_crown": "Frost Monarchs Crown",
   "block.loot_n_explore.frozen_chain": "Frozen Chain",
   "block.loot_n_explore.soulfrost_lantern": "Soulfrost Lantern",
   "block.loot_n_explore.frostbloom": "Frostbloom",
