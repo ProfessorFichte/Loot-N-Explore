@@ -4,7 +4,7 @@
       "id": "loot_n_explore:amphitrite_diadem"
     },
     "title": {
-      "translate": "advancements.loot_n_explore.amphitrite_diadem.title"
+      "translate": "item.loot_n_explore.amphitrite_diadem"
     },
     "description": {
       "translate": "advancements.loot_n_explore.amphitrite_diadem.description"
@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "loot_n_explore:root",
+  "parent": "loot_n_explore:find_inn",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",

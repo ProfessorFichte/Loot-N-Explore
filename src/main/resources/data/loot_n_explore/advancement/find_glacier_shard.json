@@ -1,20 +1,20 @@
 {
   "display": {
     "icon": {
-      "id": "loot_n_explore:poseidons_amphora"
+      "id": "loot_n_explore:glacier_shard"
     },
     "title": {
-      "translate": "item.loot_n_explore.poseidons_amphora"
+      "translate": "item.loot_n_explore.glacier_shard"
     },
     "description": {
-      "translate": "advancements.loot_n_explore.find_poseidons_amphora.description"
+      "translate": "advancements.loot_n_explore.glacier_shard.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "loot_n_explore:find_rainbow_coral",
+  "parent": "loot_n_explore:find_eternal_snowflake",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "loot_n_explore:poseidons_amphora"
+              "loot_n_explore:glacier_shard"
             ]
           }
         ]

@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancements.loot_n_explore.elder_guardian_eye.description"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

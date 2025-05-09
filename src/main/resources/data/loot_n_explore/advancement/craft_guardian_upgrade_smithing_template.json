@@ -4,10 +4,10 @@
       "id": "loot_n_explore:guardian_upgrade_smithing_template"
     },
     "title": {
-      "translate": "advancements.loot_n_explore.guardian_smithing_template.title"
+      "translate": "smithing_template.loot_n_explore.elder_guardian.title"
     },
     "description": {
-      "translate": "advancements.loot_n_explore.guardian_smithing_template.description"
+      "translate": "advancements.loot_n_explore.generic_template.description"
     },
     "frame": "task",
     "show_toast": true,

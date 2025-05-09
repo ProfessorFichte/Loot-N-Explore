@@ -1,20 +1,20 @@
 {
   "display": {
     "icon": {
-      "id": "loot_n_explore:poseidons_amphora"
+      "id": "loot_n_explore:dragon_upgrade_smithing_template"
     },
     "title": {
-      "translate": "item.loot_n_explore.poseidons_amphora"
+      "translate": "smithing_template.loot_n_explore.dragon.title"
     },
     "description": {
-      "translate": "advancements.loot_n_explore.find_poseidons_amphora.description"
+      "translate": "advancements.loot_n_explore.generic_template.description"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "loot_n_explore:find_rainbow_coral",
+  "parent": "loot_n_explore:find_corrupted_ender_pearl",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "loot_n_explore:poseidons_amphora"
+              "loot_n_explore:dragon_upgrade_smithing_template"
             ]
           }
         ]
