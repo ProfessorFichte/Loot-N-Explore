@@ -70,6 +70,15 @@
           "color_rgba": 858993663
         }
       ]
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "school": "SOUL",
+        "damage": {
+          "spell_power_coefficient": 0.35
+        }
+      }
     }
   ],
   "cost": {

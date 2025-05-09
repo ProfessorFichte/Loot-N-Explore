@@ -9,10 +9,13 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.more_rpg_classes.custom.MoreSpellSchools;
+import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.WeaponConfig;
 import net.spell_engine.api.item.Equipment;
 import net.spell_engine.api.item.weapon.Weapon;
 import net.spell_engine.api.item.weapon.SpellSwordItem;
+import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -56,6 +59,7 @@ public class LNE_Weapons {
     }
     static float sword_damage = 9.0F;
     static float axe_damage = 10.5F;
+    static float weapon_spell_power = 2.0F;
     public static Identifier dragonclaw = Identifier.of(MOD_ID, "dragonclaw");
     public static Identifier avalanche = Identifier.of(MOD_ID, "avalanche");
     public static Identifier waterbomb = Identifier.of(MOD_ID, "waterbomb");
@@ -63,32 +67,40 @@ public class LNE_Weapons {
 
     public static final Weapon.Entry ender_dragon_sword = sword("ender_dragon_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
-            .spell(dragonclaw);
+            .spell(dragonclaw)
+            .attribute(AttributeModifier.bonus(SpellSchools.ARCANE.id, weapon_spell_power));
     public static final Weapon.Entry ender_dragon_axe = axe("ender_dragon_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
-            .spell(dragonclaw);
+            .spell(dragonclaw)
+            .attribute(AttributeModifier.bonus(SpellSchools.ARCANE.id, weapon_spell_power));
     public static final Weapon.Entry wither_sword = sword("wither_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), sword_damage)
-            .spell(wither_pulse);
+            .spell(wither_pulse)
+            .attribute(AttributeModifier.bonus(SpellSchools.SOUL.id, weapon_spell_power));
     public static final Weapon.Entry wither_axe = axe("wither_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), axe_damage)
-            .spell(wither_pulse);
+            .spell(wither_pulse)
+            .attribute(AttributeModifier.bonus(SpellSchools.SOUL.id, weapon_spell_power));
     public static final Weapon.Entry glacial_sword = sword("glacial_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), sword_damage)
-            .spell(avalanche);
+            .spell(avalanche)
+            .attribute(AttributeModifier.bonus(SpellSchools.FROST.id, weapon_spell_power));
     public static final Weapon.Entry glacial_axe = axe("glacial_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), axe_damage)
-            .spell(avalanche);
+            .spell(avalanche)
+            .attribute(AttributeModifier.bonus(SpellSchools.FROST.id, weapon_spell_power));
 
     public static void register(Map<String, WeaponConfig> configs) {
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
             var repair_elder_guardian = ingredient("minecraft:prismarine_shard", FabricLoader.getInstance().isModLoaded("more_rpg_classes"), Items.NETHERITE_INGOT);
             sword("elder_guardian_sword",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), sword_damage)
-                    .spell(waterbomb);
+                    .spell(waterbomb)
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, weapon_spell_power));
             axe("elder_guardian_axe",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), axe_damage)
-                    .spell(waterbomb);
+                    .spell(waterbomb)
+                    .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, weapon_spell_power));
         }
 
         entries.forEach(entry -> entry.rarity = Rarity.RARE);

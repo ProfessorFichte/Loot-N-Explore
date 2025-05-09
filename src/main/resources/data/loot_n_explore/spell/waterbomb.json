@@ -1,6 +1,6 @@
 {
   "school": "PHYSICAL_MELEE",
-  "range": 5.0,
+  "range": 7.5,
   "tier": 8,
   "type": "PASSIVE",
   "passive": {
@@ -37,10 +37,10 @@
     "area": {
       "distance_dropoff": "NONE",
       "angle_degrees": 360.0,
-      "vertical_range_multiplier": 0.5
+      "horizontal_range_multiplier": 1.0
     }
   },
-  "impact": [
+  "impacts": [
     {
       "action": {
         "type": "DAMAGE",
@@ -48,7 +48,6 @@
           "spell_power_coefficient": 0.5
         }
       },
-
       "sound": {
         "id": "more_rpg_classes:water_magic_impact1",
         "volume": 0.4
@@ -79,6 +78,15 @@
           "max_speed": 1.2
         }
       ]
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "school": "WATER",
+        "damage": {
+          "spell_power_coefficient": 0.5
+        }
+      }
     }
   ],
   "cost": {

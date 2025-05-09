@@ -90,6 +90,7 @@
       ],
       "action": {
         "type": "DAMAGE",
+        "school": "FROST",
         "damage": {
           "spell_power_coefficient": 0.25
         }

@@ -26,7 +26,7 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.75
+          "spell_power_coefficient": 0.5
         }
       },
       "particles": [
@@ -47,6 +47,15 @@
           "max_speed": 0.5
         }
       ]
+    },
+    {
+      "action": {
+        "type": "DAMAGE",
+        "school": "ARCANE",
+        "damage": {
+          "spell_power_coefficient": 0.2
+        }
+      }
     },
     {
       "attribute_from_target": true,
