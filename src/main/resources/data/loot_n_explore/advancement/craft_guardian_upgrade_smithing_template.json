@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "loot_n_explore:guardian_upgrade_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.guardian_smithing_template.title"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.guardian_smithing_template.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:find_poseidons_amphora",
+  "criteria": {
+    "items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:guardian_upgrade_smithing_template"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "items"
+    ]
+  ]
+}

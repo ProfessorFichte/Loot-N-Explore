@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "loot_n_explore:poseidons_amphora"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.find_poseidons_amphora.title"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.find_poseidons_amphora.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:find_rainbow_coral",
+  "criteria": {
+    "items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:poseidons_amphora"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "items"
+    ]
+  ]
+}
