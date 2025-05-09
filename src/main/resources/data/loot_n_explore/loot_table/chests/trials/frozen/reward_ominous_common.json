@@ -50,7 +50,7 @@
             },
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:long_frosted_potion"
+              "id": "loot_n_explore:long_frosted_potion"
             }
           ],
           "name": "minecraft:tipped_arrow",

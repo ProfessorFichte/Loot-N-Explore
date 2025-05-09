@@ -34,7 +34,7 @@
             },
             {
               "function": "minecraft:set_potion",
-              "id": "minecraft:frosted_potion"
+              "id": "loot_n_explore:frosted_potion"
             }
           ],
           "name": "minecraft:tipped_arrow",
