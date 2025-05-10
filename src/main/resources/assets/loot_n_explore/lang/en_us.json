@@ -52,7 +52,7 @@
   "item.loot_n_explore.ender_dragon_sword": "Dragon Slayer",
   "item.loot_n_explore.ender_dragon_axe": "End Conqueror",
   "spell.loot_n_explore.dragonclaw.name": "Dragonclaw",
-  "spell.loot_n_explore.dragonclaw.description": "On melee hit: Deals extra {damage_1} physical- & {damage_2} arcane damage and heals {heal} hearts, if the player is below 25%% health.",
+  "spell.loot_n_explore.dragonclaw.description": "On melee hit: {trigger_chance} chance to deal extra {damage_1} physical- & {damage_2} arcane damage and heals {heal} hearts.",
   "lore.loot_n_explore.ender_dragon_weapon": "This weapon pulses with the essence of the end, holding the power to rend dimensions.",
 
   "item.loot_n_explore.elder_guardian_sword": "Leviathan",
@@ -231,6 +231,16 @@
   "advancements.loot_n_explore.root.description": "Start your journey and explore the world!",
   "advancements.loot_n_explore.find_inn.title": "Take a rest",
   "advancements.loot_n_explore.find_inn.description": "Find a Inn, take a drink and rest!",
+  "advancements.loot_n_explore.glaze.title": "The freezing Glaze!",
+  "advancements.loot_n_explore.glaze.description": "Kill the Glaze in the Glaze Tower, beware it will hail frost balls.",
+  "advancements.loot_n_explore.glacial_tomb.title": "Cold depths",
+  "advancements.loot_n_explore.glacial_tomb.description": "Find and explore the glacial tomb",
+  "advancements.loot_n_explore.frozen_key.title": "Too cold to handle",
+  "advancements.loot_n_explore.frozen_key.description": "Unlock a Frozen Vault with an Frozen Key",
+  "advancements.loot_n_explore.monarchs_key.title": "Freezing trial",
+  "advancements.loot_n_explore.monarchs_key.description": "Unlock a Ominous Frozen Vault with an Monarchs Key",
+  "advancements.loot_n_explore.frost_monarch.title": "Winter is coming",
+  "advancements.loot_n_explore.frost_monarch.description": "Kill the Frost Monarch in his temple. Summon him by placing his crown on the frozensouls block.",
 
   "advancements.loot_n_explore.generic_template.description": "Craft the Smithing Template with the 3 relic items listed before.",
 

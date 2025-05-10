@@ -2,7 +2,6 @@ package more_rpg_loot.compat.spell_engine;
 
 import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
-import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -12,7 +11,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ConfigUtil;
 import net.spell_engine.api.spell.SpellDataComponents;
@@ -146,6 +144,10 @@ public class LNE_Relics {
     public static float health = 2.0F;
     public static float armor_toughness = 1.0F;
 
+    public static final String RANGED_WEAPON_HASTE = "ranged_weapon:haste";
+    public static final String RANGED_WEAPON_DAMAGE = "ranged_weapon:damage";
+    public static final String WATER_SPELL_POWER = "spell_power:water";
+
     // ENDER DRAGON THEME
     public static final Entry ENDER_DRAGON_TOOTH = add(new Entry(2, "ender_dragon_tooth"))
             .config(new LNE_RelicsConfig.Entry()
@@ -177,7 +179,7 @@ public class LNE_Relics {
     public static final Entry UNKNOWN_REMAINS = add(new Entry(2, "unknown_remains"))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
-                            new AttributeModifier(EntityAttributes_RangedWeapon.HASTE.id, haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                            new AttributeModifier(RANGED_WEAPON_HASTE, haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry LOST_SOUL = add(new Entry(2, "lost_soul"))
@@ -232,7 +234,7 @@ public class LNE_Relics {
     public static final Entry AMPHITRITE_DIADEM = add(new Entry(2, "amphitrite_diadem"))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
-                            new AttributeModifier(MoreSpellSchools.WATER.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                            new AttributeModifier(WATER_SPELL_POWER, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry RAINBOW_CORAL = add(new Entry(2, "rainbow_coral"))
@@ -252,7 +254,7 @@ public class LNE_Relics {
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:elder_guardian_eye")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
-                            new AttributeModifier(EntityAttributes_RangedWeapon.DAMAGE.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                            new AttributeModifier(RANGED_WEAPON_DAMAGE, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
 

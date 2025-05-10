@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "loot_n_explore:find_inn",
+  "parent": "loot_n_explore:find_charged_amethyst",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",

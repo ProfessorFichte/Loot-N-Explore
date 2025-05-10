@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "id": "loot_n_explore:blue_ice_bricks"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.glacial_tomb.title"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.glacial_tomb.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:glaze",
+  "criteria": {
+    "glacial_tomb": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": {
+          "location": {
+            "structure": "loot_n_explore:glacial_tomb"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "glacial_tomb"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

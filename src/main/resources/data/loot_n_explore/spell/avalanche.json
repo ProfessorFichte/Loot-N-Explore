@@ -7,7 +7,7 @@
     "triggers": [
       {
         "type": "MELEE_IMPACT",
-        "chance": 0.3,
+        "chance": 0.4,
         "equipment_condition": "MAINHAND"
       }
     ]

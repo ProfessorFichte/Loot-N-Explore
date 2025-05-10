@@ -8,7 +8,7 @@
       {
         "type": "MELEE_IMPACT",
         "equipment_condition": "MAINHAND",
-        "chance": 0.5
+        "chance": 0.4
       }
     ]
   },

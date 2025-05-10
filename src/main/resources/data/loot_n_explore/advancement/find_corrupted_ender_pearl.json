@@ -14,7 +14,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "loot_n_explore:find_charged_amethyst",
+  "parent": "loot_n_explore:find_ender_dragon_tooth",
   "criteria": {
     "items": {
       "trigger": "minecraft:inventory_changed",
