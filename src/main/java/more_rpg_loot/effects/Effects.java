@@ -11,6 +11,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.spell_engine.api.effect.Synchronized;
+import net.spell_engine.api.entity.SpellEngineAttributes;
 
 import java.util.ArrayList;
 
@@ -45,6 +46,8 @@ public class Effects {
             new FreezingEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
     public static final Effects.Entry ELDER_GUARDIANS_CURSE =  new Effects.Entry("elder_guardians_curse",
             new CustomStatusEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
+    public static final Effects.Entry ENDER_DRAGON_SCALES =  new Effects.Entry("ender_dragon_scales",
+            new EnderDragonScalesEffect(StatusEffectCategory.BENEFICIAL, 0x99ccff));
 
     public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
@@ -68,6 +71,13 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, ELDER_GUARDIANS_CURSE.modifierId(),
                         -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+            ENDER_DRAGON_SCALES.effect
+                    .addAttributeModifier(
+                    SpellEngineAttributes.DAMAGE_TAKEN.entry, ENDER_DRAGON_SCALES.modifierId(),
+                    -0.05, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        }
+
         HOT_CHOCOLATE.effect
                 .addAttributeModifier(
                     EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
@@ -111,6 +121,7 @@ public class Effects {
             Synchronized.configure(FROST_RESISTANCE.effect,true);
             Synchronized.configure(FREEZING.effect,true);
             Synchronized.configure(ELDER_GUARDIANS_CURSE.effect,true);
+            Synchronized.configure(ENDER_DRAGON_SCALES.effect,true);
         }
 
         for (Entry entry: entries) {

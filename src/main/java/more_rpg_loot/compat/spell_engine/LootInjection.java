@@ -21,9 +21,9 @@ public class LootInjection {
     private static final Identifier UNDER_WATER_RUIN_BIG_ID = Identifier.of("minecraft", "underwater_ruin_big");
     public static final RegistryKey<LootTable> UNDER_WATER_RUIN_BIG =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, UNDER_WATER_RUIN_BIG_ID.withPrefixedPath("chests/"));
-    private static final Identifier UNDER_WATER_RUIN_WARM_BRUSH_ID = Identifier.of("minecraft", "underwater_ruin_warm");
-    public static final RegistryKey<LootTable> UNDER_WATER_RUIN_WARM_BRUSH =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, UNDER_WATER_RUIN_WARM_BRUSH_ID.withPrefixedPath("archaeology/"));
+    private static final Identifier OCEAN_RUIN_WARM_BRUSH_ID = Identifier.of("minecraft", "ocean_ruin_warm");
+    public static final RegistryKey<LootTable> OCEAN_RUIN_WARM_BRUSH =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, OCEAN_RUIN_WARM_BRUSH_ID.withPrefixedPath("archaeology/"));
     private static final Identifier SHIPWRECK_TREASURE_ID = Identifier.of("minecraft", "shipwreck_treasure");
     public static final RegistryKey<LootTable> SHIPWRECK_TREASURE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, SHIPWRECK_TREASURE_ID.withPrefixedPath("chests/"));
@@ -41,10 +41,10 @@ public class LootInjection {
             RegistryKey.of(RegistryKeys.LOOT_TABLE, GLAZE_TOWER_ID.withPrefixedPath("chests/"));
     private static final Identifier FROZEN_TRIAL_REWARD_ID = Identifier.of("loot_n_explore", "reward");
     public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_ID.withPrefixedPath("chests/trials/frozen"));
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_ID.withPrefixedPath("chests/trials/frozen/"));
     private static final Identifier FROZEN_TRIAL_REWARD_OMINOUS_ID = Identifier.of("loot_n_explore", "reward_ominous");
     public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD_OMINOUS =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_OMINOUS_ID.withPrefixedPath("chests/trials/frozen"));
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_OMINOUS_ID.withPrefixedPath("chests/trials/frozen/"));
     private static final Identifier BASTION_TREASURE_ID = Identifier.of("minecraft", "bastion_treasure");
     public static final RegistryKey<LootTable> BASTION_TREASURE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, BASTION_TREASURE_ID.withPrefixedPath("chests/"));
@@ -144,7 +144,7 @@ public class LootInjection {
                     tableBuilder.pool(poolBuilder.build());
                 }
                 ///ARCHAEOLOGY INJECTION
-                if (source.isBuiltin() && UNDER_WATER_RUIN_WARM_BRUSH.equals(key)) {
+                if (source.isBuiltin() && OCEAN_RUIN_WARM_BRUSH.equals(key)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(archaeology_drop))

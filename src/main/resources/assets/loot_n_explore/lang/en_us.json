@@ -44,6 +44,8 @@
 
   "effect.loot_n_explore.elder_guardians_curse": "Elder Guardians Curse",
   "effect.loot_n_explore.elder_guardians_curse.description": "Lowers Attack Damage.",
+  "effect.loot_n_explore.ender_dragon_scales": "Ender Dragon's Regeneration",
+  "effect.loot_n_explore.ender_dragon_scales.description": "Regenerates Health and reduces incoming damage.",
 
   "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 
@@ -164,6 +166,8 @@
   "spell.loot_n_explore.enderman_teleport.description": "Use: Teleports you forwards for {teleport_distance} blocks.",
   "item.loot_n_explore.charged_amethyst": "Charged Amethyst",
   "item.loot_n_explore.ender_dragon_scales": "Ender Dragon Scales",
+  "spell.loot_n_explore.ender_dragon_scales.name": "Ender Dragon's Regeneration",
+  "spell.loot_n_explore.ender_dragon_scales.description": "Use: Regenerates your health for {effect_duration} seconds and reducing incoming damage for 20%%.",
   "smithing_template.loot_n_explore.ender_dragon.ingredients": "Ender Dragon Scales",
   "item.loot_n_explore.dragon_upgrade_smithing_template": "Smithing Template",
   "smithing_template.loot_n_explore.ender_dragon.title": "Ender Upgrade",
@@ -171,6 +175,8 @@
 
   "item.loot_n_explore.amphitrite_diadem": "Amphitrite's Diadem",
   "item.loot_n_explore.poseidons_amphora": "Poseidon's Amphora",
+  "spell.loot_n_explore.poseidons_grace.name": "Poseidons Grace",
+  "spell.loot_n_explore.poseidons_grace.description": "On taking damage: {trigger_chance} chance to heal the player for {heal} hearts, if the player is below 50%% health.",
   "item.loot_n_explore.rainbow_coral": "Rainbow Coral",
   "item.loot_n_explore.elder_guardian_eye": "Elder Guardian Eye",
   "spell.loot_n_explore.elder_guardian_eye.name": "Elder Guardian's Beam",

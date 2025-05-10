@@ -167,6 +167,7 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry ENDER_DRAGON_SCALES = add(new Entry(4, "ender_dragon_scales"))
+            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:ender_dragon_scales")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(), haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
@@ -241,6 +242,7 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry POSEIDONS_AMPHORA = add(new Entry(3, "poseidons_amphora"))
+            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:poseidons_grace")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString(), health, EntityAttributeModifier.Operation.ADD_VALUE)
