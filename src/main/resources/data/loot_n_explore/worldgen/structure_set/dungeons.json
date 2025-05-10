@@ -15,8 +15,8 @@
       "other_set": "minecraft:villages"
     },
     "type": "minecraft:random_spread",
-    "separation": 10,
-    "spacing": 25,
+    "separation": 8,
+    "spacing": 15,
     "salt": 1487852527
   }
 }

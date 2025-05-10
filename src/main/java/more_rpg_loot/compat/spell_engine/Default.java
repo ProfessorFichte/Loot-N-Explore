@@ -57,7 +57,7 @@ public class Default {
         var scrolls = scrollLootConfig.injectors;
         var scrolls_regex = scrollLootConfig.regex_injectors;
 
-        //CHESTS
+        //LOOT&EXPLORE CHESTS
         List.of("loot_n_explore:chests/inns/desert",
                 "loot_n_explore:chests/inns/plains",
                 "loot_n_explore:chests/vilages/plains/small_inn",
@@ -73,8 +73,8 @@ public class Default {
                         .add(R1)
                 ));
         List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
-                "loot_n_explore:chests/glaze_tower",
-                "loot_n_explore:chests/dungeons/glacial_tomb/spawner_room"
+                "loot_n_explore:spawners/frozen/normal/reward",
+                "loot_n_explore:spawners/frozen/ominous/reward"
                 )                .forEach(id -> {
             items.put(id, new LootConfig.Pool()
                     .rolls(0.75)
@@ -85,7 +85,32 @@ public class Default {
                     .scroll(2, 3));
         });
 
-        //ENTITIES
+        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_common",
+                        "loot_n_explore:chests/trials/frozen/trial_chambers/reward_common")
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(0.5)
+                            .add(W1).weight(2)
+                            .add(A1).weight(2)
+                            .add(R1)
+                    );
+                    scrolls.put(id, new LootConfig.Pool()
+                            .rolls(0.5)
+                            .scroll(1, 2)
+                    );
+                });
+        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_unique",
+                        "loot_n_explore:chests/trials/frozen/reward_unique")
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(1)
+                            .add(W3, true).weight(2)
+                            .add(X4).weight(2)
+                            .add(R3)
+                    );
+                });
+
+        //LOOT&EXPLORE ENTITIES
         items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()
                 .rolls(2)
                 .add(W3).enchant().weight(4)

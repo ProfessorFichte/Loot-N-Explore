@@ -6,5 +6,5 @@ public class TweaksConfig {
     public float archaeology_relic_dropchance = 0.7F;
     public float block_relic_dropchance = 0.025F;
     public float entity_relic_dropchance = 0.025F;
-    public float trial_spawner_relic_dropchance = 0.5F;
+    public float trial_spawner_relic_dropchance = 0.35F;
 }

@@ -25,7 +25,7 @@ public class FreezingEffect extends StatusEffect {
             livingEntity.removeStatusEffect(Effects.FREEZING.registryEntry);
         } else{
             if(livingEntity.hasStatusEffect(Effects.FREEZING.registryEntry)){
-                stackFreezeStacks(livingEntity,20);
+                stackFreezeStacks(livingEntity,10);
             }else{
                 stackFreezeStacks(livingEntity,20*(amplifier+1));
             }

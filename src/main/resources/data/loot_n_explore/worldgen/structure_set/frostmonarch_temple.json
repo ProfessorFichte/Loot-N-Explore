@@ -7,12 +7,12 @@
   ],
   "placement": {
     "exclusion_zone": {
-      "chunk_count": 15,
+      "chunk_count": 10,
       "other_set": "minecraft:trial_chambers"
     },
     "type": "minecraft:random_spread",
-    "separation": 24,
-    "spacing": 42,
+    "separation": 15,
+    "spacing": 30,
     "salt": 589234006
   }
 }

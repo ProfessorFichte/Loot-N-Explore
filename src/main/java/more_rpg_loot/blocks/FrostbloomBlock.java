@@ -61,7 +61,7 @@ public class FrostbloomBlock extends FlowerBlock {
             if (entity instanceof LivingEntity livingEntity) {
                 EntityType<?> type = entity.getType();
                 if (!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
-                    livingEntity.addStatusEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) Effects.FREEZING, 40));
+                    livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.registryEntry, 40));
                 }
             }
 

@@ -49,11 +49,6 @@
               "id": "loot_n_explore:frosted_potion"
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "loot_n_explore:monarchs_crown",
-          "weight": 3
         }
       ],
       "rolls": 1.0
@@ -76,22 +71,6 @@
           ],
           "name": "minecraft:iron_ingot",
           "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "loot_n_explore:frozen_chain",
-          "weight": 5
         },
         {
           "type": "minecraft:item",
