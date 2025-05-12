@@ -7,6 +7,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import java.util.Iterator;
 import java.util.List;
@@ -14,8 +16,8 @@ import java.util.List;
 public class HelperMethods {
 
     public static void spawnCloudEntity(
-            ParticleEffect particleType, Entity owner, Entity target, int waitTime,float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
-            , StatusEffect statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
+            ParticleEffect particleType, Entity owner, Entity target, int waitTime, float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
+            , RegistryEntry<StatusEffect> statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
         if (!target.getWorld().isClient) {
             List<LivingEntity> list = target.getWorld().getNonSpectatingEntities(LivingEntity.class, target.getBoundingBox().expand(4.0, 2.0, 4.0));
             AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(target.getWorld(), target.getX(), target.getY(), target.getZ());
@@ -31,7 +33,8 @@ public class HelperMethods {
             areaEffectCloudEntity.setWaitTime(waitTime);
             areaEffectCloudEntity.setRadiusGrowth((radiusGrowthCloud - areaEffectCloudEntity.getRadius()) / (float) areaEffectCloudEntity.getDuration());
             if(areaEffectCloudEntity != owner){
-                areaEffectCloudEntity.addEffect(new StatusEffectInstance((RegistryEntry<StatusEffect>) statusEffect,
+                areaEffectCloudEntity.addEffect(new StatusEffectInstance(
+                        statusEffect,
                         durationSecondsStatusEffect * 20, amplifierStatusEffect, false, false, true));
             }
             if (!list.isEmpty()) {

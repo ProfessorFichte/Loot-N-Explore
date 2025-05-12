@@ -113,7 +113,8 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                 target.damage(new DamageSource(target.getDamageSources().magic().getTypeRegistryEntry()), 4.0F);
             }
             HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,target,1,1.0F,2,2.0F,
-                    Effects.FREEZING.effect,5,0);
+                    Effects.FREEZING
+                            .registryEntry,5,0);
             this.discard();
         }
     }

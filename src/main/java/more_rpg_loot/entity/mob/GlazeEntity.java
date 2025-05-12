@@ -13,9 +13,12 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -243,8 +246,8 @@ public class GlazeEntity extends HostileEntity {
                     //FROSTSTORM
                     if (this.frostStormCooldown <= 0) {
                         if (!glaze.getWorld().isClient) {
-                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE, glaze, glaze,1,4.0F, 5, 5.0F,
-                                    Effects.FREEZING.effect, 3, 1);
+                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE.getType(), glaze, glaze,1,4.0F, 5, 5.0F,
+                                    Effects.FREEZING.registryEntry, 3, 1);
                             this.frostStormCooldown = 600;
                         }
                     }
