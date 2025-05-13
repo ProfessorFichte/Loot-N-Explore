@@ -1,3 +1,7 @@
+### 1.0.1 - 1.21.1
+- tweak some passive spells
+- fix -> GlazeEntity (ClassCastException with FreezingEffect on 1.21.1) #3
+
 ### 1.0.0 - 1.21.1
 # Official 1.21.1 Release!
 # NEW STUFF

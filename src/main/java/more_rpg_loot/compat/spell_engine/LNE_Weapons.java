@@ -104,7 +104,6 @@ public class LNE_Weapons {
         }
 
         entries.forEach(entry -> entry.rarity = Rarity.RARE);
-        entries.forEach(entry -> entry.rarity = Rarity.RARE);
         Weapon.register(configs, entries, Group.RPG_LOOT_KEY);
     }
 }

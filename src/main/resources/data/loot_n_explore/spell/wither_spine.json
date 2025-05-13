@@ -1,5 +1,5 @@
 {
-  "school": "PHYSICAL_MELEE",
+  "school": "SOUL",
   "range": 48.0,
   "tier": 7,
   "tooltip": {
@@ -63,6 +63,7 @@
 
   "impacts": [
     {
+      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "DAMAGE",
         "damage": {
@@ -84,6 +85,7 @@
       }
     },
     {
+      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {

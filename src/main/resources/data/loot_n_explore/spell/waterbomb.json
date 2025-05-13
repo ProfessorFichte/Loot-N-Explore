@@ -1,5 +1,5 @@
 {
-  "school": "PHYSICAL_MELEE",
+  "school": "WATER",
   "range": 7.5,
   "tier": 8,
   "type": "PASSIVE",
@@ -42,10 +42,11 @@
   },
   "impacts": [
     {
+      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.5
+          "spell_power_coefficient": 0.65
         }
       },
       "sound": {

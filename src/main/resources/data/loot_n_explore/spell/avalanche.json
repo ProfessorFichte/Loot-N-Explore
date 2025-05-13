@@ -1,5 +1,5 @@
 {
-  "school": "PHYSICAL_MELEE",
+  "school": "FROST",
   "range": 0.0,
   "tier": 8,
   "type": "PASSIVE",
@@ -88,11 +88,11 @@
           }
         }
       ],
+      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "DAMAGE",
-        "school": "FROST",
         "damage": {
-          "spell_power_coefficient": 0.25
+          "spell_power_coefficient": 0.35
         }
       },
       "particles": [
