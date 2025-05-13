@@ -46,6 +46,8 @@
   "effect.loot_n_explore.elder_guardians_curse.description": "Lowers Attack Damage.",
   "effect.loot_n_explore.ender_dragon_scales": "Ender Dragon's Regeneration",
   "effect.loot_n_explore.ender_dragon_scales.description": "Regenerates Health and reduces incoming damage.",
+  "effect.loot_n_explore.withers_curse": "Wither's Curse",
+  "effect.loot_n_explore.withers_curse.description": "Increases Incoming Damage, the amplifier increases with each harmful status effect.",
 
   "tooltip.loot_n_explore.shift_down": "Press §eShift§r for more Information!",
 

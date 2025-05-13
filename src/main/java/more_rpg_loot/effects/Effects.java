@@ -48,6 +48,8 @@ public class Effects {
             new CustomStatusEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
     public static final Effects.Entry ENDER_DRAGON_SCALES =  new Effects.Entry("ender_dragon_scales",
             new EnderDragonScalesEffect(StatusEffectCategory.BENEFICIAL, 0x99ccff));
+    public static final Effects.Entry WITHERS_CURSE =  new Effects.Entry("withers_curse",
+            new WithersCurseEffect(StatusEffectCategory.HARMFUL, 0x2a1b01));
 
     public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
@@ -76,6 +78,10 @@ public class Effects {
                     .addAttributeModifier(
                     SpellEngineAttributes.DAMAGE_TAKEN.entry, ENDER_DRAGON_SCALES.modifierId(),
                     -0.05, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+            WITHERS_CURSE.effect
+                    .addAttributeModifier(
+                            SpellEngineAttributes.DAMAGE_TAKEN.entry, WITHERS_CURSE.modifierId(),
+                            0.05, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         }
 
         HOT_CHOCOLATE.effect

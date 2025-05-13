@@ -13,7 +13,7 @@ public class FrostResistanceEffect extends StatusEffect {
     public boolean applyUpdateEffect(LivingEntity livingEntity, int pAmplifier) {
         livingEntity.setFrozenTicks(0);
         super.applyUpdateEffect(livingEntity, pAmplifier);
-        return false;
+        return true;
     }
 
     @Override

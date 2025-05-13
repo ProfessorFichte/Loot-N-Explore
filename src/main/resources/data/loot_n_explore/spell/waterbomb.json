@@ -79,15 +79,6 @@
           "max_speed": 1.2
         }
       ]
-    },
-    {
-      "action": {
-        "type": "DAMAGE",
-        "school": "WATER",
-        "damage": {
-          "spell_power_coefficient": 0.5
-        }
-      }
     }
   ],
   "cost": {
