@@ -1,3 +1,9 @@
+### 1.0.3 - 1.21.1
+- fix Glacial Tomb Advancement
+- Update some passives for the newest Spell Engine API
+- fix some target modifiers in Passive Spell Impact
+- separating exploring and equipment advancements
+
 ### 1.0.2 - 1.21.1
 - fix waterbomb passive lang formatting
 - fix Frost Resistance Status Effect

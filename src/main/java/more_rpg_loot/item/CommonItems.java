@@ -41,11 +41,13 @@ public class CommonItems {
 
 
     public static void registerCommonItems(){
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"hot_chocolate"),HOT_CHOCOLATE);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"potato_soup"),POTATO_SOUP);
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);
+
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"malt_extract"),MALT_EXTRACT);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"beet_rootbeer"),BEET_ROOTBEER);
+
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"espresso"),ESPRESSO);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"vital_drink"),VITAL_DRINK);
 

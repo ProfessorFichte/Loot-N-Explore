@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "loot_n_explore:frozen_rib"
+    },
+    "title": {
+      "translate": "item.loot_n_explore.frozen_rib"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_rib.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:equipment/find_glacier_shard",
+  "criteria": {
+    "items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:frozen_rib"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "items"
+    ]
+  ]
+}

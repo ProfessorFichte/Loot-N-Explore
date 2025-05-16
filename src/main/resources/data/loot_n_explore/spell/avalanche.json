@@ -48,19 +48,25 @@
   },
   "impacts": [
     {
-      "target_conditions": [
+      "target_modifiers": [
         {
-          "entity_type": "#minecraft:freeze_immune_entity_types",
-          "allow_action": false
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "execute": "DENY"
         }
       ],
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "apply_mode": "ADD",
           "effect_id": "loot_n_explore:freezing",
           "duration": 10.0,
-          "amplifier": 2,
+          "amplifier": 1,
+          "amplifier_cap": 3,
+          "apply_mode": "ADD",
+          "refresh_duration": false,
           "show_particles": false
         }
       }

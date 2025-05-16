@@ -229,8 +229,8 @@
   "item.loot_n_explore.frost_monarch_egg": "Frost Monarch Spawn Egg",
   "entity.loot_n_explore.monarchs_servant": "Frost Monarch",
 
-  "advancements.loot_n_explore.root.title": "Loot & Explore!",
-  "advancements.loot_n_explore.root.description": "Start your journey and explore the world!",
+  "advancements.loot_n_explore.root.exploration.title": "Explore new Structures!",
+  "advancements.loot_n_explore.root.exploration.description": "Start your journey and explore the world!",
   "advancements.loot_n_explore.find_inn.title": "Take a rest",
   "advancements.loot_n_explore.find_inn.description": "Find a Inn, take a drink and rest!",
   "advancements.loot_n_explore.glaze.title": "The freezing Glaze!",
@@ -244,6 +244,8 @@
   "advancements.loot_n_explore.frost_monarch.title": "Winter is coming",
   "advancements.loot_n_explore.frost_monarch.description": "Kill the Frost Monarch in his temple. Summon him by placing his crown on the frozensouls block.",
 
+  "advancements.loot_n_explore.root.equipment.title": "Loot Epic Equipment!",
+  "advancements.loot_n_explore.root.equipment.description": "Start your journey and explore the world!",
   "advancements.loot_n_explore.generic_template.description": "Craft the Smithing Template with the 3 relic items listed before.",
 
   "advancements.loot_n_explore.amphitrite_diadem.description": "Find this shiny diadem, in buried shipwrecks, plundered by pirates.",
@@ -251,22 +253,30 @@
   "advancements.loot_n_explore.find_poseidons_amphora.description": "In lost underwater ruins, you may find this ancient relic.",
   "advancements.loot_n_explore.elder_guardian_eye.title": "Eye of the Elder Guardian",
   "advancements.loot_n_explore.elder_guardian_eye.description": "Slay the Elder Guardian to receive his eye and craft a powerful weapon!",
+  "advancements.loot_n_explore.smith_guardian_weapon.title": "Deep Sea Arsenal",
+  "advancements.loot_n_explore.smith_guardian_weapon.description": "Formed over the ages deep within the watery sands of an Abyssal Cove.",
 
   "advancements.loot_n_explore.eternal_snowflake.description": "This snowflake cannot melt, they were collected in igloos.",
   "advancements.loot_n_explore.glacier_shard.description": "Glacial Shards are protected by Glaze's in their tower.",
   "advancements.loot_n_explore.frozen_rib.description": "Master the obstacles in the glacial tomb to obtain the frozen ribs of Frosthaunt's.",
   "advancements.loot_n_explore.frozen_soul.title": "Cursed frozen Soul",
   "advancements.loot_n_explore.frozen_soul.description": "Take the Frozen Soul from the Frostmonarch to craft a powerful weapon!",
+  "advancements.loot_n_explore.smith_glacial_weapon.title": "Monarch's Weaponry",
+  "advancements.loot_n_explore.smith_glacial_weapon.description": "Forged from a frozen soul, these weapons carry a chilling wrath of eternal winter.",
 
   "advancements.loot_n_explore.unknown_remains.description": "Even skeletons once had a name and were someone.",
   "advancements.loot_n_explore.lost_soul.description": "Wither skeletons collect the souls of lost adventures.",
   "advancements.loot_n_explore.withered_obsidian_shard.description":"Piglins don't just like gold, they collect these magical shards in their bastion with their treasures.",
   "advancements.loot_n_explore.wither_spine.title": "The Wither's Spine",
   "advancements.loot_n_explore.wither_spine.description": "Stand strong against the Wither and take his remains to craft a powerful weapon!",
+  "advancements.loot_n_explore.smith_wither_weapon.title": "Cursed Nether Weapons",
+  "advancements.loot_n_explore.smith_wither_weapon.description": "Crafted from shattered Wither remains, imbued with the eternal curse of the Nether.",
 
   "advancements.loot_n_explore.ender_dragon_tooth.description": "The Ender Dragon's Tooth's are scattered across end cities.",
   "advancements.loot_n_explore.charged_amethyst.description": "Take a look at every amethyst cluster, there might be some charged crystals.",
   "advancements.loot_n_explore.corrupted_ender_pearl.description": "Some Enderman carry a corrupted pearl from the end dimension.",
   "advancements.loot_n_explore.ender_dragon_scales.title": "Dragon's Slayer",
-  "advancements.loot_n_explore.ender_dragon_scales.description":"Be victorious against the Ender Dragon, use the dragon's scales to craft a powerful weapon!"
+  "advancements.loot_n_explore.ender_dragon_scales.description":"Be victorious against the Ender Dragon, use the dragon's scales to craft a powerful weapon!",
+  "advancements.loot_n_explore.smith_dragon_weapon.title": "Ender Dragon's Power",
+  "advancements.loot_n_explore.smith_dragon_weapon.description": "These weapons pulsate with the essence of the end, holding the power to rend dimensions."
 }

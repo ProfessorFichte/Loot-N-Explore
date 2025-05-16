@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:espresso",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:vital_drink",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:forrest_spirit",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wizards_elixir",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:butcher_of_blaviken",
+      "required": false
+    }
+  ]
+}

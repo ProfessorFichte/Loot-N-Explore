@@ -44,8 +44,8 @@ public class SpellPowerItems {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"hot_chilli"),HOT_CHILLI);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"sweet_chilli"),SWEET_CHILLI);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"holy_water"),HOLY_WATER);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"wizards_elixir"),WIZARDS_ELIXIR);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"enchanted_ale"),ENCHANTED_ALE);
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"wizards_elixir"),WIZARDS_ELIXIR);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             content.addAfter(CommonItems.SWEET_BERRY_PUNCH,ORANGE_JUICE);

@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "id": "loot_n_explore:corrupted_ender_pearl"
+    },
+    "title": {
+      "translate": "item.loot_n_explore.corrupted_ender_pearl"
+    },
+    "description": {
+      "translate": "advancements.loot_n_explore.corrupted_ender_pearl.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "loot_n_explore:equipment/find_ender_dragon_tooth",
+  "criteria": {
+    "items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:corrupted_ender_pearl"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "items"
+    ]
+  ]
+}
