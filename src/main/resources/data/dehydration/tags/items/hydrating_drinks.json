@@ -52,6 +52,10 @@
     {
       "id": "loot_n_explore:honey_met",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:cactus_juice",
+      "required": false
     }
   ]
 }

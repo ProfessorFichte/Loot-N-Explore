@@ -55,6 +55,10 @@
     {
       "id": "loot_n_explore:rivian_kriek",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:cactus_juice",
+      "required": false
     }
   ]
 }

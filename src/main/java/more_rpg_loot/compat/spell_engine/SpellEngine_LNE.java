@@ -22,7 +22,7 @@ import static more_rpg_loot.compat.spell_engine.LNE_Weapons.*;
 public class SpellEngine_LNE {
 
     public static ConfigManager<LootConfig> lootEquipmentConfig = new ConfigManager<>
-            ("loot_equipment", Default.itemLootConfig)
+            ("loot_equipment_v1", Default.itemLootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)

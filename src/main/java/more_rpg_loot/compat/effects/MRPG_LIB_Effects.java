@@ -49,6 +49,8 @@ public class MRPG_LIB_Effects {
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Entry HONEY_MET =  new Entry("honey_met",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Entry CACTUS_JUICE =  new Entry("cactus_juice",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering More RPG Library Compat Effects for " + MOD_ID);
@@ -68,6 +70,10 @@ public class MRPG_LIB_Effects {
                 .addAttributeModifier(
                         MRPGCEntityAttributes.RAGE_MODIFIER, HONEY_MET.modifierId(),
                         effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        CACTUS_JUICE.effect
+                .addAttributeModifier(
+                        MRPGCEntityAttributes.DAMAGE_REFLECT_MODIFIER, CACTUS_JUICE.modifierId(),
+                        effectsConfig.value.drinks_reflect_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
         for (Entry entry: entries) {
             entry.register();

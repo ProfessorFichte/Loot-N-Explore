@@ -67,6 +67,11 @@ public class Effects {
     public static final Effects.Entry ESPRESSO =  new Effects.Entry("espresso",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
+    public static final Effects.Entry KNIGHTS_FAVOURITE =  new Effects.Entry("knights_favourite",
+            new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final Effects.Entry THE_UNSHAKABLE =  new Effects.Entry("the_unshakable",
+            new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+
     public static void register(){
         RPGLoot.LOGGER.info("Registering Status Effects for " + MOD_ID);
         ELDER_GUARDIANS_CURSE.effect
@@ -120,6 +125,21 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED, ESPRESSO.modifierId(),
                         effectsConfig.value.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+        KNIGHTS_FAVOURITE.effect
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_SPEED, KNIGHTS_FAVOURITE.modifierId(),
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, KNIGHTS_FAVOURITE.modifierId(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        THE_UNSHAKABLE.effect
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ARMOR, THE_UNSHAKABLE.modifierId(),
+                        effectsConfig.value.drinks_armor_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_MAX_HEALTH, THE_UNSHAKABLE.modifierId(),
+                        effectsConfig.value.drinks_health_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
 
 

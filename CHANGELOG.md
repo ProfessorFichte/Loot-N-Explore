@@ -3,6 +3,12 @@
 - Update some passives for the newest Spell Engine API
 - fix some target modifiers in Passive Spell Impact
 - separating exploring and equipment advancements
+- Inject Loot & Explore Buff Drinks & Soups in other Loot Tables
+- Add new T1 Drink -> Cactus Juice, giving Damage Reflect
+- LNE Buff Items now show the Attribute Modifiers in the tooltip
+- added T3 Buff Drinks & Food
+- These epic Consumables give great buffs, absorption like an enchanted golden apple, they also heal you
+- You can only have one of these buffs active
 
 ### 1.0.2 - 1.21.1
 - fix waterbomb passive lang formatting

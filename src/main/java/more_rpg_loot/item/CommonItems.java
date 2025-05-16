@@ -34,6 +34,12 @@ public class CommonItems {
     public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Effects.ESPRESSO.registryEntry, 2);
 
+    public static Item KNIGHTS_FAVOURITE = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.EPIC),
+            Effects.KNIGHTS_FAVOURITE.registryEntry, 3);
+    public static Item THE_UNSHAKABLE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
+            Effects.THE_UNSHAKABLE.registryEntry, 3);
+
+
     public static Item FROSTBALL =  new FrostballItem(new Item.Settings().maxCount(16));
     public static Item GLAZE_ROD =  new Item(new Item.Settings());
     public static Item FROZEN_KEY =  new Item(new Item.Settings());
@@ -51,6 +57,9 @@ public class CommonItems {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"espresso"),ESPRESSO);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"vital_drink"),VITAL_DRINK);
 
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"knights_favourite"),KNIGHTS_FAVOURITE);
+        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"the_unshakable"),THE_UNSHAKABLE);
+
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"frostball"),FROSTBALL);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"glaze_rod"),GLAZE_ROD);
 
@@ -65,6 +74,8 @@ public class CommonItems {
             content.add(BEET_ROOTBEER);
             content.add(VITAL_DRINK);
             content.add(ESPRESSO);
+            content.add(KNIGHTS_FAVOURITE);
+            content.add(THE_UNSHAKABLE);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((content) -> {

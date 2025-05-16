@@ -37,29 +37,26 @@ public class InnkeeperBowlItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        int effectDuration = (200 * 20) * (quality +1);
+        int effectDuration = (200 * 20) * (quality + 1);
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-        super.finishUsing(stack, world, user);
-        if (stack.isEmpty()) {
+        ItemStack resultStack = super.finishUsing(stack, world, user);
+        if (!world.isClient) {
+            user.addStatusEffect(new StatusEffectInstance(boost_effect_0, effectDuration, 0, false, false, true));
+            if (quality == 3) {
+                user.heal(user.getMaxHealth());
+                user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 2400, 3, false, false, true));
+            }
+        }
+        if (resultStack.isEmpty()) {
             return new ItemStack(Items.BOWL);
         }
         if (user instanceof PlayerEntity playerEntity) {
             playerEntity.getInventory().insertStack(new ItemStack(Items.BOWL));
         }
-
-        if (!world.isClient) {
-            user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
-                    effectDuration, 0, false, false, true));
-            if(quality == 3){
-                user.heal(user.getMaxHealth());
-                user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION,
-                        2400, 3, false, false, true));
-            }
-        }
-        return stack;
+        return resultStack;
     }
 
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {

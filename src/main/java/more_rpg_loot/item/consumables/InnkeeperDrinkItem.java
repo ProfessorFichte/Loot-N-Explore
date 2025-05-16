@@ -35,32 +35,34 @@ public class InnkeeperDrinkItem extends Item {
     }
 
 
+    @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        int effectDuration = (200 * 20) * (quality +1);
+        int effectDuration = (200 * 20) * (quality + 1);
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-        if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-            stack.decrement(1);
-                if (stack.isEmpty()) {
-                    return new ItemStack(Items.GLASS_BOTTLE);
-                }
-                if (user instanceof PlayerEntity playerEntity) {
-                    playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-                }
-        }
+        ItemStack resultStack = stack;
+        if (user instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
+            resultStack = stack.copy();
+            resultStack.decrement(1);
 
+            if (resultStack.isEmpty()) {
+                resultStack = new ItemStack(Items.GLASS_BOTTLE);
+            } else {
+                player.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
+            }
+        }
         if (!world.isClient) {
             user.addStatusEffect(new StatusEffectInstance(boost_effect_0,
                     effectDuration, 0, false, false, true));
-            if(quality == 3){
+            if (quality == 3) {
                 user.heal(user.getMaxHealth());
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION,
                         2400, 3, false, false, true));
             }
         }
-        return stack;
+        return resultStack;
     }
 
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
