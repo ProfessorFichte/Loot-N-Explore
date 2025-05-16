@@ -1,9 +1,14 @@
 package more_rpg_loot.item.consumables;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -11,11 +16,12 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.*;
 
 public class InnkeeperBowlItem extends Item {
     private final RegistryEntry<StatusEffect> boost_effect_0;
@@ -85,6 +91,7 @@ public class InnkeeperBowlItem extends Item {
         }
     }
 
+
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         super.appendTooltip(stack, context, tooltip, type);
@@ -102,13 +109,63 @@ public class InnkeeperBowlItem extends Item {
             formatting = Formatting.WHITE;
         }
 
-        String y = "effect." + boost_effect_0.getIdAsString() + ".description";
         String z = "item." + boost_effect_0.getIdAsString() + ".lore";
-        y = y.replace(":",".");
         z = z.replace(":",".");
-        tooltip.add(Text.translatable(y).formatted(formatting));
+
         if(quality == 3) {
             tooltip.add(Text.translatable(z).formatted(formatting));
+        }
+        /// SHOW Attribute Modifiers
+        int effectDuration = (200) * (quality +1);
+        List<StatusEffectInstance> effects = List.of(new StatusEffectInstance(boost_effect_0, effectDuration, 0));
+        if (effects.isEmpty()) {
+            return;
+        }
+        List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> modifiers = new ArrayList<>();
+        boolean hasEffect = false;
+        for (StatusEffectInstance instance : effects) {
+            if (instance == null || instance.getEffectType() == null) continue;
+
+            RegistryEntry<StatusEffect> effectEntry = instance.getEffectType();
+            StatusEffect effect = effectEntry.value();
+            hasEffect = true;
+
+            MutableText effectText = Text.translatable(instance.getTranslationKey());
+            int amplifier = instance.getAmplifier();
+            if (amplifier > 0) {
+                effectText = Text.translatable("potion.withAmplifier", effectText, Text.translatable("potion.potency." + amplifier));
+            }
+            if (!instance.isDurationBelow(20)) {
+                effectText = Text.translatable("potion.withDuration", effectText, StatusEffectUtil.getDurationText(instance, 1.0f, 1.0f));
+            }
+            tooltip.add(effectText.formatted(effect.getCategory().getFormatting()));
+
+            effect.forEachAttributeModifier(amplifier, (attribute, modifier) -> {
+                modifiers.add(Pair.of(attribute, modifier));
+            });
+        }
+        if (!hasEffect) {
+            tooltip.add(Text.translatable("effect.none").formatted(Formatting.GRAY));
+        }
+        if (!modifiers.isEmpty()) {
+            tooltip.add(Text.literal(""));
+            tooltip.add(Text.translatable("potion.whenDrank").formatted(Formatting.DARK_PURPLE));
+
+            for (Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier> pair : modifiers) {
+                RegistryEntry<EntityAttribute> attrEntry = pair.getFirst();
+                EntityAttributeModifier modifier = pair.getSecond();
+
+                double value = modifier.value();
+                double displayValue = switch (modifier.operation()) {
+                    case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> value * 100.0;
+                    case ADD_VALUE -> value;
+                };
+                Text attrText = Text.translatable(attrEntry.value().getTranslationKey());
+                Text line = value > 0
+                        ? Text.translatable("attribute.modifier.plus." + modifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(displayValue), attrText).formatted(Formatting.BLUE)
+                        : Text.translatable("attribute.modifier.take." + modifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(-displayValue), attrText).formatted(Formatting.RED);
+                tooltip.add(line);
+            }
         }
     }
 }
