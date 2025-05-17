@@ -18,13 +18,13 @@
           "type": "minecraft:stray",
           "weight": 100,
           "minCount": 1,
-          "maxCount": 6
+          "maxCount": 2
         },
         {
           "type": "loot_n_explore:frost_haunt",
           "weight": 100,
           "minCount": 1,
-          "maxCount": 3
+          "maxCount": 2
         }
       ]
     }
