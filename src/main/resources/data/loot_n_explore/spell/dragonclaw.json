@@ -51,7 +51,7 @@
         "type": "HEAL",
         "apply_to_caster": true,
         "heal": {
-          "spell_power_coefficient": 0.1
+          "spell_power_coefficient": 0.025
         }
       },
       "particles": [
