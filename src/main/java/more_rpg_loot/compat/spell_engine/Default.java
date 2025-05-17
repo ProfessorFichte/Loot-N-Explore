@@ -100,7 +100,7 @@ public class Default {
                         "minecraft:chests/trial_chambers/reward_unique")
                 .forEach(id -> {
                     items.put(id, new LootConfig.Pool()
-                            .rolls(1)
+                            .rolls(0.7)
                             .add(B3)
                     );
                 });
@@ -121,6 +121,18 @@ public class Default {
                         .add(R1)
                         .add(B0)
                 ));
+        List.of("loot_n_explore:chests/inns/desert",
+                "loot_n_explore:chests/inns/plains",
+                "loot_n_explore:chests/vilages/plains/small_inn",
+                "loot_n_explore:chests/vilages/desert/small_inn",
+                "loot_n_explore:chests/vilages/savanna/small_inn",
+                "loot_n_explore:chests/vilages/snowy/small_inn",
+                "loot_n_explore:chests/vilages/taiga/small_inn"
+        ).forEach(id -> items.put(id,  new LootConfig.Pool()
+                .rolls(0.5)
+                .add(B0)
+                .add(B1)
+        ));
         List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
                 "loot_n_explore:spawners/frozen/normal/reward",
                 "loot_n_explore:spawners/frozen/ominous/reward"
@@ -173,6 +185,7 @@ public class Default {
         items.put("village_taverns:chests/tavern",  new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B0)
+                .add(B1)
         );
         /// AETHER
         items.put("aether:chests/dungeon/silver/silver_dungeon_reward", new LootConfig.Pool()

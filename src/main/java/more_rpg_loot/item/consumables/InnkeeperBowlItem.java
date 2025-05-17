@@ -37,7 +37,7 @@ public class InnkeeperBowlItem extends Item {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        int effectDuration = (200 * 20) * (quality + 1);
+        int effectDuration = (60 * 20) * (quality + 1);
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -113,7 +113,7 @@ public class InnkeeperBowlItem extends Item {
             tooltip.add(Text.translatable(z).formatted(formatting));
         }
         /// SHOW Attribute Modifiers
-        int effectDuration = (200) * (quality +1);
+        int effectDuration = (60) * (quality +1);
         List<StatusEffectInstance> effects = List.of(new StatusEffectInstance(boost_effect_0, effectDuration, 0));
         if (effects.isEmpty()) {
             return;

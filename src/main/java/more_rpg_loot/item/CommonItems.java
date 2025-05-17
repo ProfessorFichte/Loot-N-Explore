@@ -17,23 +17,24 @@ import net.minecraft.util.Rarity;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class CommonItems {
+    /// T0 BUFF ITEMS
     public static Item HOT_CHOCOLATE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             Effects.HOT_CHOCOLATE.registryEntry, 0);
     public static Item POTATO_SOUP = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.COMMON),
             Effects.POTATO_SOUP.registryEntry,0);
     public static Item SWEET_BERRY_PUNCH = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
             Effects.SWEET_BERRY_PUNCH.registryEntry, 0);
-
+    /// T1 BUFF ITEMS
     public static Item BEET_ROOTBEER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             Effects.BEET_ROOTBEER.registryEntry, 1);
     public static Item MALT_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
             Effects.MALT_EXTRACT.registryEntry, 1);
-
+    /// T2 BUFF ITEMS
     public static Item VITAL_DRINK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Effects.VITAL_DRINK.registryEntry, 2);
     public static Item ESPRESSO = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
             Effects.ESPRESSO.registryEntry, 2);
-
+    /// T3 BUFF ITEMS
     public static Item KNIGHTS_FAVOURITE = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.EPIC),
             Effects.KNIGHTS_FAVOURITE.registryEntry, 3);
     public static Item THE_UNSHAKABLE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
@@ -47,16 +48,17 @@ public class CommonItems {
 
 
     public static void registerCommonItems(){
+        /// T0 BUFF ITEMS
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"hot_chocolate"),HOT_CHOCOLATE);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"potato_soup"),POTATO_SOUP);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"sweet_berry_punch"),SWEET_BERRY_PUNCH);
-
+        /// T1 BUFF ITEMS
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"malt_extract"),MALT_EXTRACT);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"beet_rootbeer"),BEET_ROOTBEER);
-
+        /// T2 BUFF ITEMS
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"espresso"),ESPRESSO);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"vital_drink"),VITAL_DRINK);
-
+        /// T3 BUFF ITEMS
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"knights_favourite"),KNIGHTS_FAVOURITE);
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"the_unshakable"),THE_UNSHAKABLE);
 
@@ -67,13 +69,17 @@ public class CommonItems {
         Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"monarchs_key"),MONARCHS_KEY);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
+            /// T0 BUFF ITEMS
             content.add(SWEET_BERRY_PUNCH);
             content.add(HOT_CHOCOLATE);
             content.add(POTATO_SOUP);
+            /// T1 BUFF ITEMS
             content.add(MALT_EXTRACT);
             content.add(BEET_ROOTBEER);
+            /// T2 BUFF ITEMS
             content.add(VITAL_DRINK);
             content.add(ESPRESSO);
+            /// T3 BUFF ITEMS
             content.add(KNIGHTS_FAVOURITE);
             content.add(THE_UNSHAKABLE);
         });

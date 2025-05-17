@@ -50,23 +50,24 @@ public class Effects {
             new EnderDragonScalesEffect(StatusEffectCategory.BENEFICIAL, 0x99ccff));
     public static final Effects.Entry WITHERS_CURSE =  new Effects.Entry("withers_curse",
             new WithersCurseEffect(StatusEffectCategory.HARMFUL, 0x2a1b01));
-
+    /// T0 BUFF EFFECTS
     public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry POTATO_SOUP =  new Effects.Entry("potato_soup",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry SWEET_BERRY_PUNCH =  new Effects.Entry("sweet_berry_punch",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    /// T1 BUFF EFFECTS
     public static final Effects.Entry BEET_ROOTBEER =  new Effects.Entry("beet_rootbeer",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry MALT_EXTRACT =  new Effects.Entry("malt_extract",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-
+    /// T2 BUFF EFFECTS
     public static final Effects.Entry VITAL_DRINK =  new Effects.Entry("vital_drink",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry ESPRESSO =  new Effects.Entry("espresso",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-
+    /// T3 BUFF EFFECTS
     public static final Effects.Entry KNIGHTS_FAVOURITE =  new Effects.Entry("knights_favourite",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final Effects.Entry THE_UNSHAKABLE =  new Effects.Entry("the_unshakable",
@@ -88,7 +89,7 @@ public class Effects {
                             SpellEngineAttributes.DAMAGE_TAKEN.entry, WITHERS_CURSE.modifierId(),
                             0.05, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         }
-
+        /// T0 BUFF EFFECTS
         HOT_CHOCOLATE.effect
                 .addAttributeModifier(
                     EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
@@ -99,22 +100,22 @@ public class Effects {
                     effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         SWEET_BERRY_PUNCH.effect
                 .addAttributeModifier(
-                    EntityAttributes.GENERIC_ARMOR, SWEET_BERRY_PUNCH.modifierId(),
-                    effectsConfig.value.drinks_armor_t0_boost, EntityAttributeModifier.Operation.ADD_VALUE);
-
+                    EntityAttributes.GENERIC_ARMOR_TOUGHNESS, SWEET_BERRY_PUNCH.modifierId(),
+                    effectsConfig.value.drinks_armor_toughness_t0_boost, EntityAttributeModifier.Operation.ADD_VALUE);
+        /// T1 BUFF EFFECTS
         BEET_ROOTBEER.effect
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ARMOR_TOUGHNESS, BEET_ROOTBEER.modifierId(),
-                        effectsConfig.value.drinks_armor_t1_boost, EntityAttributeModifier.Operation.ADD_VALUE);
+                        EntityAttributes.GENERIC_MAX_HEALTH, BEET_ROOTBEER.modifierId(),
+                        effectsConfig.value.drinks_health_t1_boost, EntityAttributeModifier.Operation.ADD_VALUE);
         MALT_EXTRACT.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, MALT_EXTRACT.modifierId(),
                         effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
+        /// T2 BUFF EFFECTS
         VITAL_DRINK.effect
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ARMOR, VITAL_DRINK.modifierId(),
-                        effectsConfig.value.drinks_armor_t2_boost, EntityAttributeModifier.Operation.ADD_VALUE)
+                        EntityAttributes.GENERIC_ARMOR_TOUGHNESS, VITAL_DRINK.modifierId(),
+                        effectsConfig.value.drinks_armor_toughness_t2_boost, EntityAttributeModifier.Operation.ADD_VALUE)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MAX_HEALTH, VITAL_DRINK.modifierId(),
                         effectsConfig.value.drinks_health_t2_boost, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -125,18 +126,24 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED, ESPRESSO.modifierId(),
                         effectsConfig.value.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
+        /// T3 BUFF EFFECTS
         KNIGHTS_FAVOURITE.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_SPEED, KNIGHTS_FAVOURITE.modifierId(),
                         effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, KNIGHTS_FAVOURITE.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, KNIGHTS_FAVOURITE.modifierId(),
+                        effectsConfig.value.drinks_knockback_resistance_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE);
         THE_UNSHAKABLE.effect
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ARMOR, THE_UNSHAKABLE.modifierId(),
-                        effectsConfig.value.drinks_armor_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE)
+                        EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, THE_UNSHAKABLE.modifierId(),
+                        effectsConfig.value.drinks_knockback_resistance_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ARMOR_TOUGHNESS, THE_UNSHAKABLE.modifierId(),
+                        effectsConfig.value.drinks_armor_toughness_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MAX_HEALTH, THE_UNSHAKABLE.modifierId(),
                         effectsConfig.value.drinks_health_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);

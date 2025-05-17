@@ -1,7 +1,8 @@
-package more_rpg_loot.compat.effects;
+package more_rpg_loot.compat.items;
 
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.CustomStatusEffect;
+import more_rpg_loot.effects.SpecialStatusEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -18,14 +19,14 @@ import java.util.ArrayList;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
 
-public class SpellPowerEffects {
-    private static final ArrayList<Entry> entries = new ArrayList<Entry>();
-    public static class Entry {
+public class SpellPower_Effects {
+    private static final ArrayList<SPEntry> entries = new ArrayList<SPEntry>();
+    public static class SPEntry {
         public final Identifier id;
         public final StatusEffect effect;
         public RegistryEntry<StatusEffect> registryEntry;
 
-        public Entry(String name, StatusEffect effect) {
+        public SPEntry(String name, StatusEffect effect) {
             this.id = Identifier.of(MOD_ID, name);
             this.effect = effect;
             entries.add(this);
@@ -40,33 +41,39 @@ public class SpellPowerEffects {
         }
     }
 
-    public static final Entry ORANGE_JUICE =  new Entry("orange_juice",
+    /// T0 BUFF EFFECTS
+    public static final SPEntry ORANGE_JUICE =  new SPEntry("orange_juice",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-
-    public static final Entry SWEET_CHILLI =  new Entry("sweet_chilli",
+    /// T1 BUFF EFFECTS
+    public static final SPEntry SWEET_CHILLI =  new SPEntry("sweet_chilli",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    public static final Entry FRUIT_ICEWATER =  new Entry("fruit_icewater",
+    public static final SPEntry FRUIT_ICEWATER =  new SPEntry("fruit_icewater",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    public static final Entry CHORUS_EXTRACT =  new Entry("chorus_extract",
+    public static final SPEntry CHORUS_EXTRACT =  new SPEntry("chorus_extract",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    public static final Entry HOT_CHILLI =  new Entry("hot_chilli",
+    public static final SPEntry HOT_CHILLI =  new SPEntry("hot_chilli",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    public static final Entry HOLY_WATER =  new Entry("holy_water",
+    public static final SPEntry HOLY_WATER =  new SPEntry("holy_water",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    public static final Entry ENCHANTED_ALE =  new Entry("enchanted_ale",
+    public static final SPEntry ENCHANTED_ALE =  new SPEntry("enchanted_ale",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-
-    public static final Entry WIZARDS_ELIXIR =  new Entry("wizards_elixir",
+    /// T2 BUFF EFFECTS
+    public static final SPEntry WIZARDS_ELIXIR =  new SPEntry("wizards_elixir",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    /// T3 BUFF EFFECTS
+    public static final SPEntry MERLINS_FLASK =  new SPEntry("merlins_flask",
+            new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final SPEntry CRUSADERS_REST =  new SPEntry("crusaders_rest",
+            new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
 
     public static void register(){
         RPGLoot.LOGGER.info("Registering Spell Power Compat Effects for " + MOD_ID);
-
+        /// T0 BUFF EFFECTS
         ORANGE_JUICE.effect.addAttributeModifier(
                 SpellPowerMechanics.HASTE.attributeEntry, ORANGE_JUICE.modifierId(),
                 effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
+        /// T1 BUFF EFFECTS
         SWEET_CHILLI.effect.addAttributeModifier(
                         SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, SWEET_CHILLI.modifierId(),
                         effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
@@ -90,7 +97,7 @@ public class SpellPowerEffects {
                 .addAttributeModifier(
                         SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, ENCHANTED_ALE.modifierId(),
                         effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
+        /// T2 BUFF EFFECTS
         WIZARDS_ELIXIR.effect
                 .addAttributeModifier(
                         SpellSchools.GENERIC.attributeEntry, WIZARDS_ELIXIR.modifierId(),
@@ -98,8 +105,29 @@ public class SpellPowerEffects {
                 .addAttributeModifier(
                         SpellPowerMechanics.HASTE.attributeEntry, WIZARDS_ELIXIR.modifierId(),
                         effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        /// T3 BUFF EFFECTS
+        MERLINS_FLASK.effect
+                .addAttributeModifier(
+                        SpellSchools.GENERIC.attributeEntry, MERLINS_FLASK.modifierId(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        SpellPowerMechanics.HASTE.attributeEntry, MERLINS_FLASK.modifierId(),
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, MERLINS_FLASK.modifierId(),
+                        effectsConfig.value.drinks_crit_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        CRUSADERS_REST.effect
+                .addAttributeModifier(
+                        SpellSchools.HEALING.attributeEntry, CRUSADERS_REST.modifierId(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, CRUSADERS_REST.modifierId(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                .addAttributeModifier(
+                        EntityAttributes.GENERIC_MAX_HEALTH, CRUSADERS_REST.modifierId(),
+                        effectsConfig.value.drinks_health_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-        for (SpellPowerEffects.Entry entry: entries) {
+        for (SpellPower_Effects.SPEntry entry: entries) {
             entry.register();
         }
     }

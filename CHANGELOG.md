@@ -1,14 +1,21 @@
 ### 1.0.3 - 1.21.1
+# BUG FIXES & CHANGES
 - fix Glacial Tomb Advancement
 - Update some passives for the newest Spell Engine API
 - fix some target modifiers in Passive Spell Impact
+- Nerf Dragonclaw passive Heal
+- fix frozen vaults not accepting any keys (unfortunately only works with new generated structures)
+- nerfed and changed some Buf Consumables Attribute Values
+- nerf effect duration
+# NEW CONTENT
 - separating exploring and equipment advancements
 - Inject Loot & Explore Buff Drinks & Soups in other Loot Tables
-- Add new T1 Drink -> Cactus Juice, giving Damage Reflect
+- Add new T1 Drink -> Cactus Juice, giving the Damage Reflect Attribute
 - LNE Buff Items now show the Attribute Modifiers in the tooltip
-- added T3 Buff Drinks & Food
-- These epic Consumables give great buffs, absorption like an enchanted golden apple, they also heal you
+- added 9x new T3 Buff Consumables
+- These epic Consumables give great buffs and absorption like an enchanted golden apple, they also heal you completely when consumed
 - You can only have one of these buffs active
+- These Consumables can only be looted
 
 ### 1.0.2 - 1.21.1
 - fix waterbomb passive lang formatting

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialStatusEffect extends StatusEffect {
-    protected SpecialStatusEffect(StatusEffectCategory category, int color) {
+    public SpecialStatusEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
     public void onApplied(LivingEntity entity, int amplifier) {
