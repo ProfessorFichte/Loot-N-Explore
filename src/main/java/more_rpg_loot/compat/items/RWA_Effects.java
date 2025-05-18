@@ -58,28 +58,28 @@ public class RWA_Effects {
         APPLE_JUICE.effect
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.DAMAGE.entry, APPLE_JUICE.modifierId(),
-                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T1 BUFF EFFECTS
         WALDMEISTER.effect
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T2 BUFF EFFECTS
         FORREST_SPIRIT.effect
                 .addAttributeModifier(
                 EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T3 BUFF EFFECTS
         WOODSNAKE_POTION.effect
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.DAMAGE.entry, WOODSNAKE_POTION.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.HASTE.entry, WOODSNAKE_POTION.modifierId(),
-                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         EntityAttributes_RangedWeapon.VELOCITY.entry, WOODSNAKE_POTION.modifierId(),
                 effectsConfig.value.drinks_arrow_velocity_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE);

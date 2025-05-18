@@ -58,31 +58,31 @@ public class Witcher_Effects {
         BEAUCLAIR_WHITE.effect
                 .addAttributeModifier(
                     WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
-                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T1 BUFF EFFECTS
         RIVIAN_KRIEK.effect
                 .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T2 BUFF EFFECTS
         BUTCHER_OF_BLAVIKEN.effect
                 .addAttributeModifier(
                         WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_special_attribute_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T3 BUFF EFFECTS
         WHITE_WOLF.effect
                 .addAttributeModifier(
                         WitcherAttributes.SIGN_INTENSITY, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
         for (WitcherEntry entry: entries) {
             entry.register();
