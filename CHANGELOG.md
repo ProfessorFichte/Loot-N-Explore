@@ -1,3 +1,7 @@
+### 1.0.4 - 1.21.1
+- fix status effect multiplication
+- fix and tweak passive spells
+
 ### 1.0.3 - 1.21.1
 # BUG FIXES & CHANGES
 - fix Glacial Tomb Advancement

@@ -64,7 +64,7 @@
           "effect_id": "loot_n_explore:freezing",
           "duration": 10.0,
           "amplifier": 1,
-          "amplifier_cap": 3,
+          "amplifier_cap": 2,
           "apply_mode": "ADD",
           "refresh_duration": false,
           "show_particles": false
@@ -98,7 +98,7 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.35
+          "spell_power_coefficient": 0.4
         }
       },
       "particles": [

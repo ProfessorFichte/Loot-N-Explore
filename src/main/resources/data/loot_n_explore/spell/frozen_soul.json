@@ -72,8 +72,11 @@
         "status_effect": {
           "effect_id": "loot_n_explore:freezing",
           "duration": 1.0,
+          "amplifier": 1,
+          "amplifier_cap": 1,
           "apply_mode": "ADD",
-          "amplifier": 2
+          "refresh_duration": false,
+          "show_particles": false
         }
       }
     }
