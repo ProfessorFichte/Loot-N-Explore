@@ -1,3 +1,6 @@
+### 1.0.5 - 1.21.1
+- fixed weird eye rendering for frostmonarch & frosthaunt
+
 ### 1.0.4 - 1.21.1
 - fix status effect multiplication
 - fix and tweak passive spells
