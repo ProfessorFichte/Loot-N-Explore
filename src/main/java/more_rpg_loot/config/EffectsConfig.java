@@ -19,7 +19,7 @@ public class EffectsConfig {
     public float drinks_armor_toughness_t2_boost = 2.0F;
     public float drinks_armor_toughness_t3_boost = 0.5F;
 
-    public float drinks_damage_t0_boost = 0.5F;
+    public float drinks_damage_t0_boost = 0.05F;
     public float drinks_damage_t1_boost = 0.075F;
     public float drinks_damage_t2_boost = 0.1F;
     public float drinks_damage_t3_boost = 0.15F;
