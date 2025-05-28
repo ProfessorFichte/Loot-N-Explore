@@ -6,8 +6,6 @@ import more_rpg_loot.compat.items.RWA_Items;
 import more_rpg_loot.compat.items.SpellPower_Items;
 import more_rpg_loot.compat.items.Witcher_Items;
 import more_rpg_loot.item.CommonItems;
-import more_rpg_loot.worldgen.structures.LNESellMapFactory;
-import more_rpg_loot.worldgen.structures.StructureTags;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.ai.brain.Activity;
@@ -15,13 +13,12 @@ import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.map.MapDecorationTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
-import net.minecraft.village.TradeOffer;
 
 
 public class LNEVillagerTrades {
@@ -44,9 +41,10 @@ public class LNEVillagerTrades {
             int level_2_innkeeper_experience = 15;
             float level_2_innkeeper_priceMultiplier = 0.01F;
 
-            int level_3_innkeeper_price = 0;
+            int level_3_innkeeper_price = 5;
             int level_3_innkeeper_maxUses = 1;
             int level_3_innkeeper_experience = 20;
+            float level_3_innkeeper_priceMultiplier = 0.01F;
 
             int level_4_innkeeper_price = 22;
             int level_4_innkeeper_maxUses = 6;
@@ -91,7 +89,30 @@ public class LNEVillagerTrades {
 
                     });
 
+            TradeOfferHelper.registerVillagerOffers(innkeeper, 3, factories -> {
+                factories.add((entity, random) -> new TradeOffer(
+                        new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                        new ItemStack(Items.COOKED_BEEF, 1),
+                        level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
+                factories.add((entity, random) -> new TradeOffer(
+                        new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                        new ItemStack(Items.COOKED_CHICKEN, 1),
+                        level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
+                factories.add((entity, random) -> new TradeOffer(
+                        new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                        new ItemStack(Items.COOKED_MUTTON, 1),
+                        level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
+                factories.add((entity, random) -> new TradeOffer(
+                        new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                        new ItemStack(Items.COOKED_PORKCHOP, 1),
+                        level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
+                factories.add((entity, random) -> new TradeOffer(
+                        new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                        new ItemStack(Items.COOKED_RABBIT, 1),
+                        level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
+            });
 
+            /*
             TradeOfferHelper.registerVillagerOffers(innkeeper, 3, factories -> {
                 factories.add(((entity, random) -> new LNESellMapFactory(
                         level_3_innkeeper_price, StructureTags.SMALL_MONSTER_QUEST,
@@ -101,7 +122,7 @@ public class LNEVillagerTrades {
                         level_3_innkeeper_experience).create(entity, random)
                 ));
             });
-
+            */
 
 
             TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
