@@ -1,3 +1,15 @@
+### 1.0.7 - 1.21.1
+- improve glaze snowflake particles
+- improve Frostmonarch Freezing Snowflake particles, there is now a small soul particle beam to his servants, indicating they heal the boss
+- Removed the Quest Maps from the Innkeeper, these will be reintroduced with a new Villager Type
+- fix Issue with map pricing that causes server crashing #5
+- The Innkeeper now Sells cooked Meat on Level 3
+- Fix Glacier Shard not being loot-able
+
+### 1.0.6 - 1.21.1
+- fix Tier 1 Damage foods give 50% Bonus
+- Rebalance some passive spell damage modifiers
+
 ### 1.0.5 - 1.21.1
 - fixed weird eye rendering for frostmonarch & frosthaunt
 

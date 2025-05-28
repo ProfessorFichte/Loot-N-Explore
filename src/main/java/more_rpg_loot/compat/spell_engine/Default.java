@@ -133,7 +133,7 @@ public class Default {
                 .add(B0)
                 .add(B1)
         ));
-        List.of("loot_n_explore:chests/dungeons/glacial_tomb/common",
+        List.of("loot_n_explore:chests/dungeons/reward_glacial_tomb.json/common",
                 "loot_n_explore:spawners/frozen/normal/reward",
                 "loot_n_explore:spawners/frozen/ominous/reward"
                 )                .forEach(id -> {

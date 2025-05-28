@@ -36,15 +36,18 @@ public class LootInjection {
     private static final Identifier IGLOO_ID = Identifier.of("minecraft", "igloo_chest");
     public static final RegistryKey<LootTable> IGLOO =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, IGLOO_ID.withPrefixedPath("chests/"));
-    private static final Identifier GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "glaze_tower");
-    public static final RegistryKey<LootTable> GLAZE_TOWER =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, GLAZE_TOWER_ID.withPrefixedPath("chests/"));
-    private static final Identifier FROZEN_TRIAL_REWARD_ID = Identifier.of("loot_n_explore", "reward");
-    public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_ID.withPrefixedPath("chests/trials/frozen/"));
-    private static final Identifier FROZEN_TRIAL_REWARD_OMINOUS_ID = Identifier.of("loot_n_explore", "reward_ominous");
-    public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD_OMINOUS =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_OMINOUS_ID.withPrefixedPath("chests/trials/frozen/"));
+    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "reward_glaze_tower/");
+    public static final RegistryKey<LootTable> FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER_ID.withPrefixedPath("spawners/frozen/normal/"));
+    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "reward_glaze_tower");
+    public static final RegistryKey<LootTable> FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER_ID.withPrefixedPath("spawners/frozen/ominous/"));
+    private static final Identifier FROZEN_TRIAL_REWARD_GLACIAL_TOMB_ID = Identifier.of("loot_n_explore", "reward_glacial_tomb");
+    public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD_GLACIAL_TOMB =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_GLACIAL_TOMB_ID.withPrefixedPath("chests/trials/frozen/"));
+    private static final Identifier FROZEN_TRIAL_REWARD_OMINOUS_GLACIAL_TOMB_ID = Identifier.of("loot_n_explore", "reward_ominous_glacial_tomb");
+    public static final RegistryKey<LootTable> FROZEN_TRIAL_REWARD_OMINOUS_GLACIAL_TOMB =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_REWARD_OMINOUS_GLACIAL_TOMB_ID.withPrefixedPath("chests/trials/frozen/"));
     private static final Identifier BASTION_TREASURE_ID = Identifier.of("minecraft", "bastion_treasure");
     public static final RegistryKey<LootTable> BASTION_TREASURE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, BASTION_TREASURE_ID.withPrefixedPath("chests/"));
@@ -54,7 +57,10 @@ public class LootInjection {
     private static final float archaeology_drop = RPGLoot.tweaksConfig.value.archaeology_relic_dropchance;
     private static final float block_drop = RPGLoot.tweaksConfig.value.block_relic_dropchance;
     private static final float entity_drop = RPGLoot.tweaksConfig.value.entity_relic_dropchance;
-    private static final float trial_drop = RPGLoot.tweaksConfig.value.trial_spawner_relic_dropchance;
+    private static final float trial_spawner_drop = RPGLoot.tweaksConfig.value.trial_spawner_relic_dropchance;
+    private static final float trial_spawner_ominous_drop = RPGLoot.tweaksConfig.value.trial_spawner_ominous_relic_dropchance;
+    private static final float vault_drop = RPGLoot.tweaksConfig.value.vault_relic_dropchance;
+    private static final float vault_ominous_drop = RPGLoot.tweaksConfig.value.vault_ominous_relic_dropchance;
 
     public static void modifyChestLootTables(){
 
@@ -127,14 +133,6 @@ public class LootInjection {
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
-                if (source.isBuiltin() && GLAZE_TOWER.equals(key)) {
-                    LootPool.Builder poolBuilder = LootPool.builder()
-                            .rolls(ConstantLootNumberProvider.create(1))
-                            .conditionally(RandomChanceLootCondition.builder(chest_drop))
-                            .with(ItemEntry.builder(LNE_Relics.GLACIER_SHARD.item().get()))
-                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
-                    tableBuilder.pool(poolBuilder.build());
-                }
                 if (source.isBuiltin() && BASTION_TREASURE.equals(key)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
@@ -186,19 +184,35 @@ public class LootInjection {
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
-                ///TRIAL SPAWNER INJECTION
-                if (source.isBuiltin() && FROZEN_TRIAL_REWARD.equals(key)) {
+                ///TRIAL SPAWNER & VAULT INJECTION
+                if (source.isBuiltin() && FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER.equals(key)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
-                            .conditionally(RandomChanceLootCondition.builder(trial_drop))
+                            .conditionally(RandomChanceLootCondition.builder(trial_spawner_drop))
+                            .with(ItemEntry.builder(LNE_Relics.GLACIER_SHARD.item().get()))
+                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
+                    tableBuilder.pool(poolBuilder.build());
+                }
+                if (source.isBuiltin() && FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER.equals(key)) {
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1))
+                            .conditionally(RandomChanceLootCondition.builder(trial_spawner_ominous_drop))
+                            .with(ItemEntry.builder(LNE_Relics.GLACIER_SHARD.item().get()))
+                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
+                    tableBuilder.pool(poolBuilder.build());
+                }
+                if (source.isBuiltin() && FROZEN_TRIAL_REWARD_GLACIAL_TOMB.equals(key)) {
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1))
+                            .conditionally(RandomChanceLootCondition.builder(vault_drop))
                             .with(ItemEntry.builder(LNE_Relics.FROZEN_RIB.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
-                if (source.isBuiltin() && FROZEN_TRIAL_REWARD_OMINOUS.equals(key)) {
+                if (source.isBuiltin() && FROZEN_TRIAL_REWARD_OMINOUS_GLACIAL_TOMB.equals(key)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))
-                            .conditionally(RandomChanceLootCondition.builder(trial_drop))
+                            .conditionally(RandomChanceLootCondition.builder(vault_ominous_drop))
                             .with(ItemEntry.builder(LNE_Relics.FROZEN_RIB.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
