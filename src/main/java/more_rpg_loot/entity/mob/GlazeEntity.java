@@ -1,7 +1,6 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
@@ -13,12 +12,9 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.DragonFireballEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -99,13 +95,22 @@ public class GlazeEntity extends HostileEntity {
                         ModSounds.ENTITY_GLAZE_FREEZE_EVENT, this.getSoundCategory(), 1F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
 
-            for(int i = 0; i < 2; ++i) {
+            net.minecraft.util.math.random.Random random = this.getWorld().random;
+
+            for (int i = 0; i < 10; i++) {
+                double offsetX = (random.nextDouble() - 0.5) * 3.0;
+                double offsetY = random.nextDouble() * 2.0;
+                double offsetZ = (random.nextDouble() - 0.5) * 3.0;
+
+                double windX = (random.nextDouble() - 0.5) * 0.2;
+                double windY = -0.05 - random.nextDouble() * 0.05;
+                double windZ = (random.nextDouble() - 0.5) * 0.2;
+
                 this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
-                        this.getParticleX(1.5), this.getRandomBodyY(), this.getParticleZ(1.5),
-                        0, -0.1, 0);
-                this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
-                        this.getParticleX(0.5), this.getRandomBodyY(), this.getParticleZ(0.5),
-                        0, 0, 0);
+                        this.getX() + offsetX,
+                        this.getY() + offsetY,
+                        this.getZ() + offsetZ,
+                        windX, windY, windZ);
             }
         }
 
@@ -246,7 +251,7 @@ public class GlazeEntity extends HostileEntity {
                     //FROSTSTORM
                     if (this.frostStormCooldown <= 0) {
                         if (!glaze.getWorld().isClient) {
-                            HelperMethods.spawnCloudEntity(Particles.FREEZING_SNOWFLAKE.getType(), glaze, glaze,1,4.0F, 5, 5.0F,
+                            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE, glaze, glaze,1,2.0F, 5, 4.0F,
                                     Effects.FREEZING.registryEntry, 3, 1);
                             this.frostStormCooldown = 600;
                         }

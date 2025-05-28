@@ -2,10 +2,8 @@ package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
-import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
-import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
@@ -34,7 +32,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.*;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.World;
 import net.more_rpg_classes.effect.MRPGCEffects;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,6 +54,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.bossBar = (ServerBossBar)(new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS)).setDarkenSky(true);
         this.experiencePoints += 50;
     }
+    private float animationProgress = 0.0F;
 
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
         return HostileEntity.createHostileAttributes()
@@ -89,23 +90,62 @@ public class FrostMonarchEntity extends SkeletonEntity {
     }
 
     public void tickMovement() {
+        this.animationProgress += 0.05F;
         List<FrostMonarchServantEntity> list = this.getWorld().getNonSpectatingEntities(FrostMonarchServantEntity.class, this.getBoundingBox().expand(32.0));
         int servantsCount = list.size();
         if (this.getWorld().isClient) {
-            if(!list.isEmpty() && !this.isOnFire()){
-                for(int i = 0; i < servantsCount; ++i) {
-                    this.getWorld().addParticle(ParticleTypes.SOUL,
-                            this.getParticleX(3.5), this.getY(), this.getParticleZ(3.5),
-                            0, 0.15, 0);
-                }
-            }else{
-                for(int i = 0; i < 2; ++i) {
-                    this.getWorld().addParticle(Particles.FREEZING_SNOWFLAKE,
-                            this.getParticleX(1.5), this.getRandomBodyY(), this.getParticleZ(1.5),
-                            -0.1, -0.1, -0.1);
-                }
-            }
+            if(!this.isOnFire()){
+                if(!list.isEmpty()){
+                    for (LivingEntity target : list) {
+                        Vec3d from = new Vec3d(this.getX(), this.getY() + this.getHeight() / 2, this.getZ());
+                        Vec3d to = new Vec3d(target.getX(), target.getY() + target.getHeight() / 2, target.getZ());
 
+                        Vec3d delta = to.subtract(from);
+                        int steps = 20;
+                        long time = this.age;
+
+                        for (int i = 0; i <= steps; i++) {
+                            double t = i / (double) steps;
+                            Vec3d point = from.add(delta.multiply(t));
+                            double wave = Math.sin(time * 0.3 + t * 10.0) * 0.1;
+                            Vec3d offset = delta.crossProduct(new Vec3d(0, 1, 0)).normalize().multiply(wave);
+                            Vec3d finalPos = point.add(offset);
+                            this.getWorld().addParticle(
+                                    ParticleTypes.SOUL,
+                                    finalPos.x, finalPos.y, finalPos.z,
+                                    0, 0, 0
+                            );
+                        }
+                    }
+                }
+                net.minecraft.util.math.random.Random random = this.getWorld().random;
+
+                int particleCount = 5;
+                float sphereRadius = 2.0F;
+                float rotationSpeed = 1.5F;
+                float progress = this.animationProgress;
+
+                for (int i = 0; i < particleCount; i++) {
+                    double theta = Math.acos(2.0 * random.nextDouble() - 1.0);
+                    double phi = 2.0 * Math.PI * random.nextDouble() + progress * rotationSpeed;
+
+                    double xOffset = sphereRadius * Math.sin(theta) * Math.cos(phi);
+                    double yOffset = sphereRadius * Math.cos(theta);
+                    double zOffset = sphereRadius * Math.sin(theta) * Math.sin(phi);
+
+                    double vx = -xOffset * 0.05 + (random.nextDouble() - 0.5) * 0.05;
+                    double vy = -yOffset * 0.05 + (random.nextDouble() - 0.5) * 0.05;
+                    double vz = -zOffset * 0.05 + (random.nextDouble() - 0.5) * 0.05;
+
+                    this.getWorld().addParticle(Particles.FREEZING_SNOWFLAKE,
+                            this.getX() + xOffset,
+                            this.getY() + 1.5 + yOffset,
+                            this.getZ() + zOffset,
+                            vx, vy, vz
+                    );
+                }
+
+            }
         }
         super.tickMovement();
     }
@@ -114,7 +154,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         List<FrostMonarchServantEntity> list = this.getWorld().getNonSpectatingEntities(FrostMonarchServantEntity.class, this.getBoundingBox().expand(32.0));
         int servantsCount = list.size();
         if(!list.isEmpty() && !this.isOnFire()){
-            this.heal(servantsCount*0.2F);
+            this.heal(servantsCount*0.1F);
         }
         this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
     }
