@@ -69,15 +69,15 @@ public class GlazeEntity extends HostileEntity {
 
 
     protected SoundEvent getAmbientSound() {
-        return ModSounds.ENTITY_GLAZE_AMBIENT_EVENT;
+        return ModSounds.ENTITY_GLAZE_AMBIENT.soundEvent();
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.ENTITY_GLAZE_HURT_EVENT;
+        return ModSounds.ENTITY_GLAZE_HURT.soundEvent();
     }
 
     protected SoundEvent getDeathSound() {
-        return ModSounds.ENTITY_GLAZE_DEATH_EVENT;
+        return ModSounds.ENTITY_GLAZE_DEATH.soundEvent();
     }
 
     public float getBrightnessAtEyes() {
@@ -92,7 +92,7 @@ public class GlazeEntity extends HostileEntity {
         if (this.getWorld().isClient) {
             if (this.random.nextInt(24) == 0 && !this.isSilent()) {
                 this.getWorld().playSound(this.getX() + 0.5, this.getY() + 0.5, this.getZ() + 0.5,
-                        ModSounds.ENTITY_GLAZE_FREEZE_EVENT, this.getSoundCategory(), 1F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
+                        ModSounds.ENTITY_GLAZE_FREEZE.soundEvent(), this.getSoundCategory(), 1F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
 
             net.minecraft.util.math.random.Random random = this.getWorld().random;
