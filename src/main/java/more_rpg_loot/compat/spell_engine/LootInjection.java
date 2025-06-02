@@ -21,12 +21,12 @@ public class LootInjection {
     private static final Identifier UNDER_WATER_RUIN_BIG_ID = Identifier.of("minecraft", "underwater_ruin_big");
     public static final RegistryKey<LootTable> UNDER_WATER_RUIN_BIG =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, UNDER_WATER_RUIN_BIG_ID.withPrefixedPath("chests/"));
-    private static final Identifier OCEAN_RUIN_WARM_BRUSH_ID = Identifier.of("minecraft", "ocean_ruin_warm");
-    public static final RegistryKey<LootTable> OCEAN_RUIN_WARM_BRUSH =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, OCEAN_RUIN_WARM_BRUSH_ID.withPrefixedPath("archaeology/"));
     private static final Identifier SHIPWRECK_TREASURE_ID = Identifier.of("minecraft", "shipwreck_treasure");
     public static final RegistryKey<LootTable> SHIPWRECK_TREASURE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, SHIPWRECK_TREASURE_ID.withPrefixedPath("chests/"));
+    private static final Identifier BURIED_TREASURE_ID = Identifier.of("minecraft", "buried_treasure");
+    public static final RegistryKey<LootTable> BURIED_TREASURE =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, BURIED_TREASURE_ID.withPrefixedPath("chests/"));
     private static final Identifier AMETHYST_CLUSTER_ID = Identifier.of("minecraft", "amethyst_cluster");
     public static final RegistryKey<LootTable> AMETHYST_CLUSTER =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, AMETHYST_CLUSTER_ID.withPrefixedPath("blocks/"));
@@ -100,6 +100,7 @@ public class LootInjection {
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
+
                 ///CHEST INJECTION
                 if(source.isBuiltin() && UNDER_WATER_RUIN_BIG.equals(key)){
                     LootPool.Builder poolBuilder = LootPool.builder()
@@ -114,6 +115,14 @@ public class LootInjection {
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(chest_drop))
                             .with(ItemEntry.builder(LNE_Relics.AMPHITRITE_DIADEM.item().get()))
+                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
+                    tableBuilder.pool(poolBuilder.build());
+                }
+                if(source.isBuiltin() && BURIED_TREASURE.equals(key)){
+                    LootPool.Builder poolBuilder = LootPool.builder()
+                            .rolls(ConstantLootNumberProvider.create(1))
+                            .conditionally(RandomChanceLootCondition.builder(chest_drop))
+                            .with(ItemEntry.builder(LNE_Relics.RAINBOW_CORAL.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }
@@ -138,15 +147,6 @@ public class LootInjection {
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(chest_drop))
                             .with(ItemEntry.builder(LNE_Relics.WITHERED_OBSIDIAN_SHARD.item().get()))
-                            .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
-                    tableBuilder.pool(poolBuilder.build());
-                }
-                ///ARCHAEOLOGY INJECTION
-                if (source.isBuiltin() && OCEAN_RUIN_WARM_BRUSH.equals(key)) {
-                    LootPool.Builder poolBuilder = LootPool.builder()
-                            .rolls(ConstantLootNumberProvider.create(1))
-                            .conditionally(RandomChanceLootCondition.builder(archaeology_drop))
-                            .with(ItemEntry.builder(LNE_Relics.RAINBOW_CORAL.item().get()))
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     tableBuilder.pool(poolBuilder.build());
                 }

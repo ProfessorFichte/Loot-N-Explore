@@ -19,7 +19,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class LNEVillagerProfessions {
     public static final RegistryKey<PointOfInterestType> INNKEEPER_POI_KEY = registerKey("innkeeper");
     public static final PointOfInterestType INNKEEPER_POI = registerPoi("innkeeper", ModBlocks.INNKEEPER_SHELF.block());
-    public static final VillagerProfession INNKEEPER = registerProfession("innkeeper", INNKEEPER_POI_KEY, ModSounds.VILLAGER_INNKEEPER_EVENT);
+    public static final VillagerProfession INNKEEPER = registerProfession("innkeeper", INNKEEPER_POI_KEY, ModSounds.VILLAGER_INNKEEPER.soundEvent());
 
 
 

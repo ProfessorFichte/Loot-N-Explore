@@ -41,8 +41,8 @@ public class LNEVillagerTrades {
             int level_2_innkeeper_experience = 15;
             float level_2_innkeeper_priceMultiplier = 0.01F;
 
-            int level_3_innkeeper_price = 5;
-            int level_3_innkeeper_maxUses = 1;
+            int level_3_innkeeper_price = 3;
+            int level_3_innkeeper_maxUses = 8;
             int level_3_innkeeper_experience = 20;
             float level_3_innkeeper_priceMultiplier = 0.01F;
 
@@ -92,23 +92,23 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 3, factories -> {
                 factories.add((entity, random) -> new TradeOffer(
                         new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                        new ItemStack(Items.COOKED_BEEF, 1),
+                        new ItemStack(Items.COOKED_BEEF, 5),
                         level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
                 factories.add((entity, random) -> new TradeOffer(
                         new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                        new ItemStack(Items.COOKED_CHICKEN, 1),
+                        new ItemStack(Items.COOKED_CHICKEN, 5),
                         level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
                 factories.add((entity, random) -> new TradeOffer(
                         new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                        new ItemStack(Items.COOKED_MUTTON, 1),
+                        new ItemStack(Items.COOKED_MUTTON, 5),
                         level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
                 factories.add((entity, random) -> new TradeOffer(
                         new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                        new ItemStack(Items.COOKED_PORKCHOP, 1),
+                        new ItemStack(Items.COOKED_PORKCHOP, 5),
                         level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
                 factories.add((entity, random) -> new TradeOffer(
                         new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                        new ItemStack(Items.COOKED_RABBIT, 1),
+                        new ItemStack(Items.COOKED_RABBIT, 5),
                         level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier));
             });
 

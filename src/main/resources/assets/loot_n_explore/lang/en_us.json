@@ -261,6 +261,7 @@
   "entity.loot_n_explore.frost_haunt": "Frosthaunt",
   "item.loot_n_explore.frost_haunt_egg": "Frosthaunt Spawn Egg",
   "entity.loot_n_explore.frost_monarch": "Frost Monarch",
+  "entity.loot_n_explore.frost_monarch.spawn_message": "§5You fools have freed me!",
   "item.loot_n_explore.frost_monarch_egg": "Frost Monarch Spawn Egg",
   "entity.loot_n_explore.monarchs_servant": "Frost Monarch",
 
@@ -284,7 +285,7 @@
   "advancements.loot_n_explore.generic_template.description": "Craft the Smithing Template with the 3 relic items listed before.",
 
   "advancements.loot_n_explore.amphitrite_diadem.description": "Find this shiny diadem, in buried shipwrecks, plundered by pirates.",
-  "advancements.loot_n_explore.rainbow_coral.description": "You may find these rare corals in suspicious gravel in warm underwater ruins.",
+  "advancements.loot_n_explore.rainbow_coral.description": "You may find these rare corals in buried treasure chests.",
   "advancements.loot_n_explore.find_poseidons_amphora.description": "In lost underwater ruins, you may find this ancient relic.",
   "advancements.loot_n_explore.elder_guardian_eye.title": "Eye of the Elder Guardian",
   "advancements.loot_n_explore.elder_guardian_eye.description": "Slay the Elder Guardian to receive his eye and craft a powerful weapon!",
