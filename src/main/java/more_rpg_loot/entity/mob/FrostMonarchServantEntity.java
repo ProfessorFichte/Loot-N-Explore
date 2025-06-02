@@ -28,11 +28,12 @@ public class FrostMonarchServantEntity extends FrosthauntEntity{
             this.kill();
         }
     }
+
     public static DefaultAttributeContainer.Builder createMonarchServantAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2505)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2f);
     }
     @Nullable

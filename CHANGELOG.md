@@ -1,3 +1,11 @@
+### 1.0.8 - 1.21.1
+- The Frost Monarch now has its own Java Model with custom animations
+- Some internal technical changes for his special effects
+- When the Frost Monarch is not on fire, does not have full hp and his servants are around, he heals and is invulnerable to damage
+- In his Off-Hand is a Frozen Soul, indicating he sucks out the life of his servants
+- removed Rainbow Coral From Archeology Loot table (Injection Does not Work, only one item can drop from a brush-able block)
+- you can now find the Rainbow Coral from Buried Treasure Chests
+
 ### 1.0.7 - 1.21.1
 - improve glaze snowflake particles
 - improve Frostmonarch Freezing Snowflake particles, there is now a small soul particle beam to his servants, indicating they heal the boss

@@ -52,6 +52,7 @@ public class ModEntities {
             .trackRangeChunks(8)
             .build();
 
+
     public static void register(){
         register("frost_haunt", FROST_HAUNT);
         register("frost_monarch", FROST_MONARCH);
@@ -62,6 +63,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(FROST_MONARCH, FrostMonarchEntity.createFrostmonarchAttributes());
         FabricDefaultAttributeRegistry.register(GLAZE, GlazeEntity.createGlazeAttributes());
         FabricDefaultAttributeRegistry.register(MONARCH_SERVANT, FrostMonarchServantEntity.createMonarchServantAttributes());
+
 
     }
 

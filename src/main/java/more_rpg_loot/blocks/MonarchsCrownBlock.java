@@ -7,12 +7,11 @@ import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
@@ -24,13 +23,8 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -115,9 +109,9 @@ public class MonarchsCrownBlock extends Block{
                     if (frostMonarchEntity != null) {
                         CarvedPumpkinBlock.breakPatternBlocks(world, result);
                         BlockPos blockPos = result.translate(1, 2, 0).getBlockPos();
-                        frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, (double)blockPos.getY() + 1.55, (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
+                        frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, blockPos.getY() + 1.0 , (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
                         frostMonarchEntity.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
-                        frostMonarchEntity.equipStack(EquipmentSlot.MAINHAND, Items.IRON_AXE.asItem().getDefaultStack());
+                        frostMonarchEntity.onSummoned();
                         Iterator var8 = world.getNonSpectatingEntities(ServerPlayerEntity.class, frostMonarchEntity.getBoundingBox().expand(50.0)).iterator();
 
                         while(var8.hasNext()) {

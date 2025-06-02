@@ -1,9 +1,13 @@
 package more_rpg_loot.client.entity.renderers.feature;
 
+import more_rpg_loot.client.entity.models.EntityModelLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.*;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.SkeletonEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.mob.MobEntity;
@@ -19,7 +23,7 @@ public class FrostmonarchOverlayFeatureRenderer<T extends MobEntity & RangedAtta
 
     public FrostmonarchOverlayFeatureRenderer(FeatureRendererContext<T, M> context, EntityModelLoader loader, EntityModelLayer layer, Identifier texture) {
         super(context);
-        this.model = new SkeletonEntityModel<>(loader.getModelPart(EntityModelLayers.STRAY_OUTER));
+        this.model = new SkeletonEntityModel<>(loader.getModelPart(EntityModelLayers.FROST_MONARCH_OUTER));
         this.texture = texture;
     }
 

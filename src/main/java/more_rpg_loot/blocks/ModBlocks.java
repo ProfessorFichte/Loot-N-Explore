@@ -78,6 +78,9 @@ public class ModBlocks {
     public static void register(){
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);
         BlockEntityType.VAULT.addSupportedBlock(FROZEN_VAULT.block);
+
+
+
         for (var entry : all) {
             Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
