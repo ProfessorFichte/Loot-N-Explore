@@ -10,7 +10,7 @@
 	"contact": {
 		"sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
 	},
-	"license": "MIT",
+	"license": "ARR",
 	"icon": "assets/loot_n_explore/icon.png",
 	"environment": "*",
 	"entrypoints": {

@@ -1,3 +1,8 @@
+### 0.1.11 - 1.20.1
+- Update License
+- Update Mod Icon
+- Add zh_cn lang file (Thx Ansurfen)
+
 ### 0.1.10 - 1.20.1
 - texture improvements
 
