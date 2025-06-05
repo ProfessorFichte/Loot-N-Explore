@@ -1,3 +1,7 @@
+### 1.0.9 - 1.21.1
+- Update License
+- Update Mod Icon
+
 ### 1.0.8 - 1.21.1
 - The Frost Monarch now has its own Java Model with custom animations
 - Some internal technical changes for his special effects

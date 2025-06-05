@@ -10,7 +10,7 @@
 	"contact": {
 		"sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
 	},
-	"license": "MIT",
+	"license": "ARR",
 	"icon": "assets/loot_n_explore/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -29,7 +29,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.15.10",
-		"minecraft": "~1.21",
+		"minecraft": ">=1.21, <=1.21.1",
 		"java": ">=17",
 		"fabric-api": "*",
 		"structure_pool_api": "*"
@@ -41,6 +41,7 @@
 	},
 	"custom": {
 		"modmenu": {
+			"modId": "loot_n_explore",
 			"links": {
 				"modmenu.discord": "https://discord.gg/AShKd5XrTu"
 			}
