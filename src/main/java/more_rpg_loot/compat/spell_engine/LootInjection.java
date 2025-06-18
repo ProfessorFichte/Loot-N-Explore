@@ -36,10 +36,10 @@ public class LootInjection {
     private static final Identifier IGLOO_ID = Identifier.of("minecraft", "igloo_chest");
     public static final RegistryKey<LootTable> IGLOO =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, IGLOO_ID.withPrefixedPath("chests/"));
-    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "reward_glaze_tower/");
+    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "glaze_tower");
     public static final RegistryKey<LootTable> FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_SPAWNER_REWARD_GLAZE_TOWER_ID.withPrefixedPath("spawners/frozen/normal/"));
-    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "reward_glaze_tower");
+    private static final Identifier FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER_ID = Identifier.of("loot_n_explore", "glaze_tower");
     public static final RegistryKey<LootTable> FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, FROZEN_TRIAL_SPAWNER_REWARD_OMINOUS_GLAZE_TOWER_ID.withPrefixedPath("spawners/frozen/ominous/"));
     private static final Identifier FROZEN_TRIAL_REWARD_GLACIAL_TOMB_ID = Identifier.of("loot_n_explore", "reward_glacial_tomb");

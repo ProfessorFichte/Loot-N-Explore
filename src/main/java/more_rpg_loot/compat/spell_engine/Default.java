@@ -42,6 +42,8 @@ public class Default {
         var A1 = armors(1);
         var A2 = armors(2);
         var A3 = armors(3);
+        var A4 = armors(4);
+        var A5 = armors(5);
 
         var X0 = accessories(0);
         var X1 = accessories(1);
@@ -133,7 +135,7 @@ public class Default {
                 .add(B0)
                 .add(B1)
         ));
-        List.of("loot_n_explore:chests/dungeons/reward_glacial_tomb.json/common",
+        List.of("loot_n_explore:chests/dungeons/reward_glacial_tomb",
                 "loot_n_explore:spawners/frozen/normal/reward",
                 "loot_n_explore:spawners/frozen/ominous/reward"
                 )                .forEach(id -> {
@@ -156,8 +158,8 @@ public class Default {
                             .add(R1)
                     );
                     scrolls.put(id, new LootConfig.Pool()
-                            .rolls(0.5)
-                            .scroll(1, 2)
+                            .rolls(0.25)
+                            .scroll(2, 3)
                     );
                 });
         List.of("loot_n_explore:chests/trials/frozen/reward_ominous_unique",
@@ -168,6 +170,7 @@ public class Default {
                             .add(W3, true).weight(2)
                             .add(X4).weight(2)
                             .add(R3)
+                            .add(A4, true)
                             .add(B3)
                     );
                 });
@@ -180,6 +183,7 @@ public class Default {
                 .add(X3)
                 .add(R3)
                 .add(W5)
+                .add(A5)
         );
         /// TAVERNS RPG SERIES
         items.put("village_taverns:chests/tavern",  new LootConfig.Pool()
@@ -210,7 +214,7 @@ public class Default {
                 .add(B1)
         );
         items.put("nova_structures:chests/end_castle/greater_loot", new LootConfig.Pool()
-                .rolls(0.7)
+                .rolls(0.35)
                 .add(B3)
         );
         // GRAVEYARD
@@ -251,12 +255,12 @@ public class Default {
         );
         /// BETTER NETHER
         items.put("betternether:chests/city_surprise", new LootConfig.Pool()
-                .rolls(0.7)
+                .rolls(0.35)
                 .add(B3)
         );
         /// BETTER END
         items.put("betterend:chests/shadow_forest", new LootConfig.Pool()
-                .rolls(0.5)
+                .rolls(0.35)
                 .add(B2)
                 .add(B3)
         );
@@ -286,7 +290,7 @@ public class Default {
                 .add(B2)
         );
         items.put("dungeons_arise:chests/shiraz_palace/shiraz_palace_treasure", new LootConfig.Pool()
-                .rolls(0.7)
+                .rolls(0.35)
                 .add(B3)
         );
     }
