@@ -1,3 +1,10 @@
+### 1.0.11 - 1.21.1
+- Update Loot Injection Config
+- Fix Glaze Tower Trial Spawner Loot Table
+
+### 1.0.10- 1.21.1
+- fix issue with fabric-mod.json
+
 ### 1.0.9 - 1.21.1
 - Update License
 - Update Mod Icon
