@@ -1,3 +1,8 @@
+### 1.0.12 - 1.21.1
+- fix trinkets not giving attribute modifiers
+- Compatibility with Lithostitched 1.4
+- reduce weight of Inn injection via structure pool api
+
 ### 1.0.11 - 1.21.1
 - Update Loot Injection Config
 - Fix Glaze Tower Trial Spawner Loot Table
