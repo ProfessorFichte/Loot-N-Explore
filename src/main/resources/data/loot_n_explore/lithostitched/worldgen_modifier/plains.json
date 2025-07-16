@@ -1,0 +1,31 @@
+{
+  "type": "lithostitched:add_template_pool_elements",
+  "fabric:load_conditions": {
+    "condition": "fabric:all_mods_loaded",
+    "values": [
+      "loot_n_explore"
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "loot_n_explore"
+    }
+  ],
+  "template_pools": [ "minecraft:village/plains/houses" ],
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "lithostitched:limited",
+        "delegate": {
+          "element_type": "minecraft:single_pool_element",
+          "projection": "rigid",
+          "processors": "minecraft:empty",
+          "location": "loot_n_explore:village/plains/small_inn"
+        },
+        "limit": 1
+      }
+    }
+  ]
+}
