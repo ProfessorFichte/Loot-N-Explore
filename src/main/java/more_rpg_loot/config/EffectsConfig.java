@@ -30,7 +30,7 @@ public class EffectsConfig {
 
     public float drinks_reflect_t1_boost = 0.1F;
 
-    public float drinks_lifesteal_t3_boost = 0.15F;
+    public float drinks_lifesteal_t3_boost = 0.05F;
 
     public float drinks_special_attribute_t1_boost = 0.1F;
     public float drinks_special_attribute_t2_boost = 0.15F;

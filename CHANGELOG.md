@@ -1,3 +1,13 @@
+### 1.0.14 - 1.21.1
+- hide tooltip of weapon passives
+- forgot to add tier3 buff items to item tag
+- internal changes with villager trading code
+- changed Villager Trades
+- nerf lifesteal potion
+
+### 1.0.13 - 1.21.1
+- Spell Engine 1.7
+
 ### 1.0.12 - 1.21.1
 - fix trinkets not giving attribute modifiers
 - Compatibility with Lithostitched 1.4
