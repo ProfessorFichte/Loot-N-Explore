@@ -3,16 +3,6 @@
   "range": 0.0,
   "tier": 8,
   "type": "PASSIVE",
-  "tooltip": {
-    "show_header": false,
-    "name": {
-      "show_in_compact": false,
-      "show_in_details": false
-    },
-    "description": {
-      "color": "dark_green"
-    }
-  },
   "passive": {
     "triggers": [
       {
