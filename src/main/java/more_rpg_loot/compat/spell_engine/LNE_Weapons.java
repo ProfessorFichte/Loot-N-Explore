@@ -57,8 +57,8 @@ public class LNE_Weapons {
         entry.weaponAttributesPreset = "axe";
         return entry;
     }
-    static float sword_damage = 9.0F;
-    static float axe_damage = 10.5F;
+    static float sword_damage = 8.0F;
+    static float axe_damage = 10.0F;
     static float weapon_spell_power = 2.0F;
     public static Identifier dragonclaw = Identifier.of(MOD_ID, "dragonclaw");
     public static Identifier avalanche = Identifier.of(MOD_ID, "avalanche");

@@ -36,7 +36,7 @@ public class SpellEngine_LNE {
             .constrain(LootConfig::constrainValues)
             .build();
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
-            ("equipment", new ConfigFile.Equipment())
+            ("equipment_v1", new ConfigFile.Equipment())
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
