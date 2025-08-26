@@ -15,7 +15,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Vec3d;
-import net.more_rpg_classes.effect.MRPGCEffects;
+import net.spell_engine.api.effect.SpellEngineEffects;
 
 import java.util.List;
 
@@ -83,8 +83,8 @@ public class ScreechGoal extends Goal {
                                     x, y, z, 1, 0, 0, 0, 0);
                         }
                     }
-                    if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-                        living.addStatusEffect(new StatusEffectInstance(MRPGCEffects.STUNNED.registryEntry, 40, 0));
+                    if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+                        living.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.entry, 40, 0));
                     } else {
                         living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 80, 1));
                         living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 80, 1));
