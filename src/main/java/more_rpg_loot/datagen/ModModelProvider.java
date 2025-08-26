@@ -1,12 +1,10 @@
 package more_rpg_loot.datagen;
 
-import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Models;
-import more_rpg_loot.blocks.ModBlocks;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
