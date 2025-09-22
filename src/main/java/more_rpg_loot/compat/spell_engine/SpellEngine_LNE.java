@@ -12,7 +12,7 @@ import net.minecraft.text.Text;
 import net.spell_engine.api.config.ConfigFile;
 import net.spell_engine.rpg_series.loot.LootConfig;
 import net.spell_engine.rpg_series.loot.LootHelper;
-import net.tinyconfig.ConfigManager;
+import net.tiny_config.ConfigManager;
 
 import java.util.HashMap;
 

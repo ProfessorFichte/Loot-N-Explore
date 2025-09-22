@@ -1,3 +1,7 @@
+### 1.0.15 - 1.21.1
+- Fix Missing Dettlaffs Blood Effect Texture 
+- Spell Engine & Optional Dependencies Update
+
 ### 1.0.14 - 1.21.1
 - Removed Dehydration Compat (Extra Datapack will be released)
 - fix crash with Frost Monarchs Screech Goal
