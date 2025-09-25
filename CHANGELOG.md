@@ -1,3 +1,6 @@
+### 0.1.12 - 1.20.1
+- increase Monarchs Crown Drop Chance in Glaze Tower & Glacial Tomb
+
 ### 0.1.11 - 1.20.1
 - Update License
 - Update Mod Icon

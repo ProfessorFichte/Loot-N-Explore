@@ -53,7 +53,7 @@
         {
           "type": "minecraft:item",
           "name": "loot_n_explore:monarchs_crown",
-          "weight": 3
+          "weight": 5
         }
       ],
       "rolls": 1.0
