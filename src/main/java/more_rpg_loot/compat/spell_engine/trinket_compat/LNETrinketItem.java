@@ -1,4 +1,4 @@
-package more_rpg_loot.compat.spell_engine;
+package more_rpg_loot.compat.spell_engine.trinket_compat;
 
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;

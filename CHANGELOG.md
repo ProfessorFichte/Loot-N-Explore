@@ -1,3 +1,6 @@
+### 1.0.16 - 1.21.1
+- fix crash without the trinkets mod
+
 ### 1.0.15 - 1.21.1
 - Fix Missing Dettlaffs Blood Effect Texture 
 - Spell Engine & Optional Dependencies Update
