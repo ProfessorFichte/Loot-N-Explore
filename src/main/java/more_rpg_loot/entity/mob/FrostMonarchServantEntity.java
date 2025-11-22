@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FrostMonarchServantEntity extends FrosthauntEntity{
+public class FrostMonarchServantEntity extends SkeletonEntity{
     public FrostMonarchServantEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -38,7 +38,7 @@ public class FrostMonarchServantEntity extends FrosthauntEntity{
     }
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);

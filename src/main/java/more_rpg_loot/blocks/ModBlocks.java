@@ -42,6 +42,12 @@ public class ModBlocks {
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry CRACKED_BLUE_ICE_BRICKS = entry("cracked_blue_ice_bricks", new Block(
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
+    public static final Entry SNOWY_BLUE_ICE_BRICKS = entry("snowy_blue_ice_bricks", new Block(
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
+    public static final Entry POLISHED_ICE_BLOCK = entry("polished_ice_block", new Block(
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
+    public static final Entry POLISHED_ICE_BRICKS = entry("polished_ice_bricks", new Block(
+            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_SLAB = entry("blue_ice_brick_slab", new SlabBlock(
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)));
     public static final Entry BLUE_ICE_BRICK_WALL = entry("blue_ice_brick_wall", new WallBlock(
@@ -78,8 +84,6 @@ public class ModBlocks {
     public static void register(){
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);
         BlockEntityType.VAULT.addSupportedBlock(FROZEN_VAULT.block);
-
-
 
         for (var entry : all) {
             Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);

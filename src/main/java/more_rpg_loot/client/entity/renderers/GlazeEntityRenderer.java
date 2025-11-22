@@ -25,5 +25,8 @@ public class GlazeEntityRenderer extends MobEntityRenderer<GlazeEntity, GlazeEnt
     public Identifier getTexture(GlazeEntity glazeEntity) {
         return TEXTURE;
     }
+
+
 }
+
 

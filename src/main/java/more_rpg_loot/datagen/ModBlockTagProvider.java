@@ -23,6 +23,8 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
                 .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
                 .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
+                .add(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block())
+                .add(ModBlocks.POLISHED_ICE_BLOCK.block())
         ;
 
         getOrCreateTagBuilder(BlockTags.ICE)
