@@ -73,6 +73,10 @@ public class MRPGC_Effects {
             "Cactus Juice",
             "Increases Damage Reflect.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
+    public static final MRPGCEntry MOSSFLOWER_TEA =  new MRPGCEntry("mossflower_tea",
+            "Mossflower Tea",
+            "Increases Nature Spell Power",
+            new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T3 BUFF EFFECTS
     public static final MRPGCEntry DETTLAFFS_BLOOD =  new MRPGCEntry("dettlaffs_blood",
             "Dettlaff's Blood",
@@ -111,6 +115,10 @@ public class MRPGC_Effects {
                 .addAttributeModifier(
                         MRPGCEntityAttributes.DAMAGE_REFLECT_MODIFIER, CACTUS_JUICE.modifierId(),
                         effectsConfig.value.drinks_reflect_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        MOSSFLOWER_TEA.effect
+                .addAttributeModifier(
+                        MoreSpellSchools.NATURE.attributeEntry, MOSSFLOWER_TEA.modifierId(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         /// T3 BUFF EFFECTS
         DETTLAFFS_BLOOD.effect
                 .addAttributeModifier(

@@ -23,6 +23,9 @@ public class CompatRegistry {
         if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
             Witcher_Effects.register();
         }
+        if(FabricLoader.getInstance().isModLoaded("critical_strike")){
+            CriticalStrike_Effects.register();
+        }
 
         // Register all compatibility items (automatically checks which mods are loaded)
         CompatItems.registerAll();

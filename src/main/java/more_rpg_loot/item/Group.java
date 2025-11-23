@@ -14,18 +14,18 @@ import net.minecraft.util.Identifier;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class Group {
-    public static Identifier ID = Identifier.of(MOD_ID, "loot.generic");
-    public static RegistryKey<ItemGroup> RPG_LOOT_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"loot.generic"));
+    public static Identifier ID = Identifier.of(MOD_ID, "loot.general");
+    public static RegistryKey<ItemGroup> RPG_LOOT_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"loot.general"));
     public static String lootTranslationKey = "itemGroup." + ID.getNamespace() + "." + ID.getPath();
     public static ItemGroup RPG_LOOT;
 
-    public static Identifier FOOD_ID = Identifier.of(MOD_ID, "food.generic");
-    public static RegistryKey<ItemGroup> RPG_FOOD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"food.generic"));
+    public static Identifier FOOD_ID = Identifier.of(MOD_ID, "food.general");
+    public static RegistryKey<ItemGroup> RPG_FOOD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"food.general"));
     public static String foodTranslationKey = "itemGroup." + FOOD_ID.getNamespace() + "." + FOOD_ID.getPath();
     public static ItemGroup RPG_FOOD;
 
-    public static Identifier BLOCK_ID = Identifier.of(MOD_ID, "blocks.generic");
-    public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"blocks.generic"));
+    public static Identifier BLOCK_ID = Identifier.of(MOD_ID, "blocks.general");
+    public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(),Identifier.of(MOD_ID,"blocks.general"));
     public static String blocksTranslationKey = "itemGroup." + BLOCK_ID.getNamespace() + "." + BLOCK_ID.getPath();
     public static ItemGroup RPG_BLOCKS;
 

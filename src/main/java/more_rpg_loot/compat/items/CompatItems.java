@@ -4,6 +4,7 @@ import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemModelType;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
+import more_rpg_loot.item.consumables.InnkeeperFoodItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -119,6 +120,9 @@ public class CompatItems {
     public static final Entry CACTUS_JUICE = entry("cactus_juice",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.CACTUS_JUICE.registryEntry, 1),
             "Cactus Juice", "more_rpg_classes");
+    public static final Entry MOSSFLOWER_TEA = entry("mossflower_tea",
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.MOSSFLOWER_TEA.registryEntry, 1),
+            "Mossflower Tea", "more_rpg_classes");
     /// T3 BUFF ITEMS
     public static final Entry DETTLAFFS_BLOOD = entryWithLore("dettlaffs_blood",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), MRPGC_Effects.DETTLAFFS_BLOOD.registryEntry, 3),
@@ -201,6 +205,23 @@ public class CompatItems {
     public static final Entry WHITE_WOLF = entryWithLore("white_wolf",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), Witcher_Effects.WHITE_WOLF.registryEntry, 3),
             "White Wolf", "Excellent wine from Toussaint, named after the legendary witcher Geralt of Riva.", "witcher_rpg");
+
+    // ==================== CRITICAL STRIKE MOD ITEMS ====================
+    /// T1 BUFF ITEMS
+    public static final Entry BLACKPEPPER_BREAD = entry("blackpepper_bread",
+            () -> new InnkeeperFoodItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_FOOD).rarity(Rarity.UNCOMMON), CriticalStrike_Effects.BLACKPEPPER_BREAD.registryEntry, 1),
+            "Beauclair White", "critical_strike");
+    public static final Entry INFERNO_CHILLI_OIL = entry("inferno_chilli_oil",
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1),
+            "Inferno Chilli Oil", "critical_strike");
+    /// T2 BUFF ITEMS
+    public static final Entry GRILLED_EEL_SUSHI = entry("grilled_eel_sushi",
+            () -> new InnkeeperFoodItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_FOOD).rarity(Rarity.RARE), CriticalStrike_Effects.GRILLED_EEL_SUSHI.registryEntry, 1),
+            "Grilled Eel Sushi Roll", "critical_strike");
+    /// T3 BUFF ITEMS
+    public static final Entry PHANTOMSTRIKE_TONIC = entryWithLore("phantomstrike_tonic",
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), CriticalStrike_Effects.PHANTOMSTRIKE_TONIC.registryEntry, 3),
+            "Phantom Strike Tonic", "A phantom shadow-infused tonic that sharpens instincts and accuracy.", "critical_strike");
 
     // ----------------------
     // REGISTRATION

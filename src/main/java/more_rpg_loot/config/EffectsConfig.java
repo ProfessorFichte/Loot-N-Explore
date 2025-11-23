@@ -6,9 +6,12 @@ public class EffectsConfig {
     public float drinks_haste_t2_boost = 0.075F;
     public float drinks_haste_t3_boost = 0.1F;
 
-    public float drinks_crit_rate_t1_boost = 0.05F;
+    public float drinks_crit_rate_t1_boost = 0.02F;
+    public float drinks_crit_rate_t2_boost = 0.04F;
+    public float drinks_crit_rate_t3_boost = 0.08F;
 
-    public float drinks_crit_damage_t1_boost = 0.1F;
+    public float drinks_crit_damage_t1_boost = 0.06F;
+    public float drinks_crit_damage_t2_boost = 0.12F;
     public float drinks_crit_damage_t3_boost = 0.2F;
 
     public float drinks_speed_t2_boost = 0.1F;
