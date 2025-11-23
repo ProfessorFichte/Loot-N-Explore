@@ -1,0 +1,39 @@
+{
+  "parent": "loot_n_explore:exploration/glaze",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {}
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.glacial_tomb.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frozen_key"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.glacial_tomb.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -10,8 +10,14 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class LNETrinketItem extends TrinketItem {
     private AttributeModifiersComponent customAttributes = AttributeModifiersComponent.builder().build();
@@ -43,5 +49,13 @@ public class LNETrinketItem extends TrinketItem {
             isOnCooldown = !player.isCreative() && player.getItemCooldownManager().isCoolingDown(stack.getItem());
         }
         return super.canUnequip(stack, slot, entity) && !isOnCooldown;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
+        String loreKey = this.getTranslationKey() + ".lore";
+        tooltip.add(ScreenTexts.EMPTY);
+        tooltip.add(Text.translatable(loreKey).formatted(Formatting.GOLD, Formatting.ITALIC));
     }
 }

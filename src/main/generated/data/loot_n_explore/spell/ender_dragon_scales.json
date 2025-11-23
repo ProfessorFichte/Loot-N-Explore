@@ -1,0 +1,47 @@
+{
+  "school": "spell_power:physical_melee",
+  "tier": 1,
+  "learn": {},
+  "active": {},
+  "release": {
+    "animation": "spell_engine:dual_handed_weapon_charge",
+    "particles": [
+      {
+        "particle_id": "end_rod",
+        "origin": "CENTER",
+        "shape": "CIRCLE",
+        "count": 40.0,
+        "min_speed": 0.6,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "dragon_breath",
+        "origin": "CENTER",
+        "shape": "CIRCLE",
+        "count": 40.0,
+        "min_speed": 0.6,
+        "max_speed": 0.8
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_healing_impact_3"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:ender_dragon_scales",
+          "duration": 7.0,
+          "amplifier_power_multiplier": 0.2
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 70.0
+    }
+  }
+}

@@ -5,11 +5,12 @@ import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FlyingItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FireballEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +42,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
 
     @Override
     protected Item getDefaultItem() {
-        return CommonItems.FROSTBALL;
+        return CommonItems.FROSTBALL.item();
     }
 
     protected void onEntityHit(EntityHitResult entityHitResult) {

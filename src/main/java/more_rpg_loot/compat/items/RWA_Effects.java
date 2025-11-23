@@ -19,13 +19,19 @@ import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class RWA_Effects {
     private static final ArrayList<RWAEntry> entries = new ArrayList<RWAEntry>();
+
+    // Entry class for Ranged Weapon API compatible effects with datagen support
     public static class RWAEntry {
         public final Identifier id;
+        public final String title;
+        public final String description;
         public final StatusEffect effect;
         public RegistryEntry<StatusEffect> registryEntry;
 
-        public RWAEntry(String name, StatusEffect effect) {
+        public RWAEntry(String name, String title, String description, StatusEffect effect) {
             this.id = Identifier.of(MOD_ID, name);
+            this.title = title;
+            this.description = description;
             this.effect = effect;
             entries.add(this);
         }
@@ -39,17 +45,30 @@ public class RWA_Effects {
         }
     }
 
+    // Getter to access all registered entries (used by datagen)
+    public static ArrayList<RWAEntry> getEntries() {
+        return entries;
+    }
+
     /// T0 BUFF EFFECTS
     public static final RWAEntry APPLE_JUICE =  new RWAEntry("apple_juice",
+            "Apple Juice",
+            "Increases Ranged Weapon Damage.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T1 BUFF EFFECTS
     public static final RWAEntry WALDMEISTER =  new RWAEntry("waldmeister",
+            "Waldmeister",
+            "Increases Ranged Weapon Haste",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T2 BUFF EFFECTS
     public static final RWAEntry FORREST_SPIRIT =  new RWAEntry("forrest_spirit",
+            "Forrest Spirit",
+            "Increases Ranged Weapon Damage and Ranged Weapon Haste.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T3 BUFF EFFECTS
     public static final RWAEntry WOODSNAKE_POTION =  new RWAEntry("woodsnake_potion",
+            "Wood Snake Potion",
+            "Increases Ranged Damage, Ranged Haste and Arrow Velocity.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){

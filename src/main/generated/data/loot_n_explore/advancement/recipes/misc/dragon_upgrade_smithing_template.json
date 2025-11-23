@@ -1,0 +1,40 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "spell_engine"
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_charged_amethyst": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:charged_amethyst"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:dragon_upgrade_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_charged_amethyst"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:dragon_upgrade_smithing_template"
+    ]
+  }
+}

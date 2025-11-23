@@ -2,6 +2,7 @@ package more_rpg_loot.compat.spell_engine;
 
 import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
+import more_rpg_loot.item.RelicItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -36,18 +37,21 @@ public class LNE_Relics {
     }
 
     public record ItemArgs(Item.Settings settings, @Nullable AttributeModifiersComponent attributes) { }
+
     public static Function<ItemArgs, Item> factory = args -> {
         var settings = args.settings;
         if (args.attributes != null) {
             settings.attributeModifiers(args.attributes);
         }
-        return new Item(settings);
+        return new RelicItem(settings);
     };
     private static Function<ItemArgs, Item> getFactory() { return factory; }
 
     public static final class Entry {
         private final int tier;
         private final String name;
+        private String translatedName = "";
+        private String loreText = "";
         private LNE_RelicsConfig.Entry config;
         public LNE_RelicsConfig.Entry defaults;
         private final Supplier<Item> item;
@@ -129,6 +133,25 @@ public class LNE_Relics {
             return this;
         }
 
+        // Sets the translated display name for this relic (used by datagen)
+        public Entry translatedName(String translatedName) {
+            this.translatedName = translatedName;
+            return this;
+        }
+
+        // Sets the lore text for this relic (shown in tooltip, used by datagen)
+        public Entry lore(String loreText) {
+            this.loreText = loreText;
+            return this;
+        }
+
+        public String translatedName() {
+            return translatedName;
+        }
+
+        public String loreText() {
+            return loreText;
+        }
 
         public boolean isEnabled() {
             return true;
@@ -150,18 +173,24 @@ public class LNE_Relics {
 
     // ENDER DRAGON THEME
     public static final Entry ENDER_DRAGON_TOOTH = add(new Entry(2, "ender_dragon_tooth"))
+            .translatedName("Ender Dragon Tooth")
+            .lore("The Ender Dragon's Tooth's are scattered across end cities.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString(), attack_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry CHARGED_AMETHYST = add(new Entry(2, "charged_amethyst"))
+            .translatedName("Charged Amethyst")
+            .lore("Take a look at every amethyst cluster, there might be some charged crystals.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellSchools.ARCANE.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry CORRUPTED_ENDER_PEARL = add(new Entry(3, "corrupted_ender_pearl"))
+            .translatedName("Corrupted Ender Pearl")
+            .lore("Some Enderman carry a corrupted pearl from the end dimension.")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:enderman_teleport")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -169,6 +198,8 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry ENDER_DRAGON_SCALES = add(new Entry(4, "ender_dragon_scales"))
+            .translatedName("Ender Dragon Scales")
+            .lore("Be victorious against the Ender Dragon, use the dragon's scales to craft a powerful weapon!")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:ender_dragon_scales")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -177,18 +208,24 @@ public class LNE_Relics {
             );
     // WITHER THEME
     public static final Entry UNKNOWN_REMAINS = add(new Entry(2, "unknown_remains"))
+            .translatedName("Unknown Remains")
+            .lore("Even skeletons once had a name and were someone.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(RANGED_WEAPON_HASTE, haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry LOST_SOUL = add(new Entry(2, "lost_soul"))
+            .translatedName("Lost Soul")
+            .lore("Wither skeletons collect the souls of lost adventures.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellSchools.SOUL.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry WITHERED_OBSIDIAN_SHARD = add(new Entry(3, "withered_obsidian_shard"))
+            .translatedName("Withered Obsidian Shard")
+            .lore("Piglins don't just like gold, they collect these magical shards in their bastion with their treasures.")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:wither_touch")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -196,6 +233,8 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry WITHER_SPINE = add(new Entry(4, "wither_spine"))
+            .translatedName("Wither Spine")
+            .lore("Stand strong against the Wither and take his remains to craft a powerful weapon!")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:wither_spine")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -204,18 +243,24 @@ public class LNE_Relics {
             );
     // GLACIAL THEME
     public static final Entry ETERNAL_SNOWFLAKE = add(new Entry(2, "eternal_snowflake"))
+            .translatedName("Eternal Snowflake")
+            .lore("This snowflake cannot melt, they were collected in igloos.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellSchools.FROST.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry GLACIER_SHARD = add(new Entry(2, "glacier_shard"))
+            .translatedName("Glacier Shard")
+            .lore("Glacial Shards are protected by Glaze's in their tower spawners.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ARMOR.getIdAsString(), armor, EntityAttributeModifier.Operation.ADD_VALUE)
                     ))
             );
     public static final Entry FROZEN_RIB = add(new Entry(3, "frozen_rib"))
+            .translatedName("Frozen Rib")
+            .lore("Master the obstacles in the glacial tomb to obtain the frozen ribs of Frosthaunt's from their frozen vaults.")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:frozen_touch")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -223,6 +268,8 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry FROZEN_SOUL = add(new Entry(4, "frozen_soul"))
+            .translatedName("Frozen Soul")
+            .lore("Take the Frozen Soul from the Frostmonarch to craft a powerful weapon!")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:frozen_soul")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -232,18 +279,24 @@ public class LNE_Relics {
 
     // OCEAN THEME
     public static final Entry AMPHITRITE_DIADEM = add(new Entry(2, "amphitrite_diadem"))
+            .translatedName("Amphitrite's Diadem")
+            .lore("Find this shiny diadem, in buried shipwrecks, plundered by pirates.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(WATER_SPELL_POWER, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry RAINBOW_CORAL = add(new Entry(2, "rainbow_coral"))
+            .translatedName("Rainbow Coral")
+            .lore("You may find these rare corals in buried treasure chests.")
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellPowerMechanics.HASTE.id, haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
     public static final Entry POSEIDONS_AMPHORA = add(new Entry(3, "poseidons_amphora"))
+            .translatedName("Poseidon's Amphora")
+            .lore("In lost underwater ruins, you may find this ancient relic.")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:poseidons_grace")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
@@ -251,6 +304,8 @@ public class LNE_Relics {
                     ))
             );
     public static final Entry ELDER_GUARDIAN_EYE = add(new Entry(4, "elder_guardian_eye"))
+            .translatedName("Elder Guardian Eye")
+            .lore("Slay the Elder Guardian to receive his eye and craft a powerful weapon!")
             .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:elder_guardian_eye")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(

@@ -1,0 +1,33 @@
+{
+  "parent": "loot_n_explore:equipment/find_eternal_snowflake",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:glacier_shard"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_glacier_shard.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:glacier_shard"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_glacier_shard.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "loot_n_explore:equipment/find_frozen_soul",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#loot_n_explore:weapon_themes/frostmonarch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.smith_glacial_weapon.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:glacial_sword"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.smith_glacial_weapon.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

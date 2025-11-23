@@ -7,28 +7,34 @@ import net.fabricmc.loader.api.FabricLoader;
 
 
 public class CompatRegistry {
-
-
     public static void registerModCompat(){
         TrinketsCompat.init();
+
+        // Register effects for loaded mods
         if(FabricLoader.getInstance().isModLoaded("spell_power")){
             SpellPower_Effects.register();
-            SpellPower_Items.registerSpellPowerItems();
         }
         if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
             MRPGC_Effects.register();
-            MRPGC_Items.registerMRPGCItems();
         }
         if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")){
             RWA_Effects.register();
-            RWA_Items.registerRangedWeaponAPIItems();
-        }
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            SpellEngine_LNE.initialize();
         }
         if(FabricLoader.getInstance().isModLoaded("witcher_rpg")) {
             Witcher_Effects.register();
-            Witcher_Items.registerWitcherItems();
         }
+
+        // Register all compatibility items (automatically checks which mods are loaded)
+        CompatItems.registerAll();
+
+        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
+            SpellEngine_LNE.initialize();
+        }
+    }
+    public static void registerCompatItems(){
+
+    }
+    public static void registerCompatEffects(){
+
     }
 }

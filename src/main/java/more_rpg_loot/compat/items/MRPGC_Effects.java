@@ -22,13 +22,19 @@ import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class MRPGC_Effects {
     private static final ArrayList<MRPGCEntry> entries = new ArrayList<MRPGCEntry>();
+
+    // Entry class for More RPG Classes compatible effects with datagen support
     public static class MRPGCEntry {
         public final Identifier id;
+        public final String title;
+        public final String description;
         public final StatusEffect effect;
         public RegistryEntry<StatusEffect> registryEntry;
 
-        public MRPGCEntry(String name, StatusEffect effect) {
+        public MRPGCEntry(String name, String title, String description, StatusEffect effect) {
             this.id = Identifier.of(MOD_ID, name);
+            this.title = title;
+            this.description = description;
             this.effect = effect;
             entries.add(this);
         }
@@ -42,23 +48,43 @@ public class MRPGC_Effects {
         }
     }
 
+    public static ArrayList<MRPGCEntry> getEntries() {
+        return entries;
+    }
+
     /// T1 BUFF EFFECTS
     public static final MRPGCEntry WATERMELON_DRINK =  new MRPGCEntry("watermelon_drink",
+            "Watermelon Drink",
+            "Increases Water Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry BLUE_BERRY_PUNCH =  new MRPGCEntry("blue_berry_punch",
+            "Aether Blueberry Punch",
+            "Increases Air Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry GREEN_CHILLI =  new MRPGCEntry("green_chilli",
+            "Green Chilli",
+            "Increases Earth Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry HONEY_MET =  new MRPGCEntry("honey_met",
+            "Honey Met",
+            "Increases Rage.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry CACTUS_JUICE =  new MRPGCEntry("cactus_juice",
+            "Cactus Juice",
+            "Increases Damage Reflect.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T3 BUFF EFFECTS
     public static final MRPGCEntry DETTLAFFS_BLOOD =  new MRPGCEntry("dettlaffs_blood",
+            "Dettlaff's Blood",
+            "Increases Attack Damage and Melee Lifesteal.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry SCARLET_ESSENCE =  new MRPGCEntry("scarlet_essence",
+            "Essence of the Scarlet Runes",
+            "Increases Spell Power and Spell Vampire.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final MRPGCEntry SVABLODS_BREW =  new MRPGCEntry("svablods_brew",
+            "Svablod's Brew",
+            "Increases Rage, Attack Damage and Attack Speed.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
 

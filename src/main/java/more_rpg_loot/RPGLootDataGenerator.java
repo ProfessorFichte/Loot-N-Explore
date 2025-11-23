@@ -1,14 +1,16 @@
 package more_rpg_loot;
 
+import more_rpg_loot.compat.spell_engine.LNE_AbilityDatagen;
 import more_rpg_loot.compat.spell_engine.LNE_Weapons;
+import more_rpg_loot.datagen.*;
+import more_rpg_loot.worldgen.gen.ModConfiguredFeatures;
 import more_rpg_loot.worldgen.gen.ModPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import more_rpg_loot.datagen.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
-import more_rpg_loot.worldgen.gen.ModConfiguredFeatures;
 import net.minecraft.registry.RegistryWrapper;
 import net.spell_engine.rpg_series.datagen.RPGSeriesDataGen;
 
@@ -25,9 +27,13 @@ public class RPGLootDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModEntityTagProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModWorldGenerator::new);
-		//pack.addProvider(ModItemTagProvider::new);
+		pack.addProvider(ModLanguageProvider::new);
+		pack.addProvider(ModAdvancementProvider::new);
 		pack.addProvider(ItemTagGenerator::new);
 
+		if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+			pack.addProvider(LNE_AbilityDatagen::new);
+		}
 	}
 
 	public static class ItemTagGenerator extends RPGSeriesDataGen.ItemTagGenerator {

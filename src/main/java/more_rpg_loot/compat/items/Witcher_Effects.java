@@ -20,13 +20,19 @@ import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class Witcher_Effects {
     private static final ArrayList<WitcherEntry> entries = new ArrayList<WitcherEntry>();
+
+    // Entry class for Witcher RPG compatible effects with datagen support
     public static class WitcherEntry {
         public final Identifier id;
+        public final String title;
+        public final String description;
         public final StatusEffect effect;
         public RegistryEntry<StatusEffect> registryEntry;
 
-        public WitcherEntry(String name, StatusEffect effect) {
+        public WitcherEntry(String name, String title, String description, StatusEffect effect) {
             this.id = Identifier.of(MOD_ID, name);
+            this.title = title;
+            this.description = description;
             this.effect = effect;
             entries.add(this);
         }
@@ -39,17 +45,30 @@ public class Witcher_Effects {
             return Identifier.of(MOD_ID, "effect." + id.getPath());
         }
     }
+
+    // Getter to access all registered entries (used by datagen)
+    public static ArrayList<WitcherEntry> getEntries() {
+        return entries;
+    }
     /// T0 BUFF EFFECTS
     public static final WitcherEntry BEAUCLAIR_WHITE =  new WitcherEntry("beauclair_white",
+            "Beauclair White",
+            "Increases Sign Intensity.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T1 BUFF EFFECTS
     public static final WitcherEntry RIVIAN_KRIEK =  new WitcherEntry("rivian_kriek",
+            "Rivian Kriek",
+            "Increases Adrenaline.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T2 BUFF EFFECTS
     public static final WitcherEntry BUTCHER_OF_BLAVIKEN =  new WitcherEntry("butcher_of_blaviken",
+            "Butcher of Blaviken",
+            "Increases Sign Intensity and Adrenaline.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T3 BUFF EFFECTS
     public static final WitcherEntry WHITE_WOLF =  new WitcherEntry("white_wolf",
+            "White Wolf",
+            "Increases Sign Intensity, Adrenaline and Attack Damage.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){

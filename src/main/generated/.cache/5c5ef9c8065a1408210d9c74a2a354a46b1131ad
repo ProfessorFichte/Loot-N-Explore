@@ -1,7 +1,7 @@
-// 1.21.1	2025-05-08T16:51:18.3112045	Loot & Explore/Block Loot Tables
+// 1.21.1	2025-11-23T18:00:49.9859625	Loot & Explore/Block Loot Tables
 63f5668c5396f24aef1e6b749c862edf0e0bf54a data\loot_n_explore\loot_table\blocks\blue_ice_bricks.json
-9d908d32291f4b76f817c4767000bb6bf54a1b78 data\loot_n_explore\loot_table\blocks\frozen_chain.json
 e74c7142d9b3f36ef6fc35e4420abdc44d787446 data\loot_n_explore\loot_table\blocks\frozen_soul_block.json
+9d908d32291f4b76f817c4767000bb6bf54a1b78 data\loot_n_explore\loot_table\blocks\frozen_chain.json
 db2cc496f7c892a9d9e5df6c8f4f38162866f3b7 data\loot_n_explore\loot_table\blocks\blue_ice_brick_stairs.json
 5833b83a29f8adc7038b722765ebb26dbdb2f09f data\loot_n_explore\loot_table\blocks\frostbloom.json
 d1327c80f3b86ac9ae6dbfdfe43fc794120e83cf data\loot_n_explore\loot_table\blocks\monarchs_crown.json

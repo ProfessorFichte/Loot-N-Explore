@@ -21,13 +21,19 @@ import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class SpellPower_Effects {
     private static final ArrayList<SPEntry> entries = new ArrayList<SPEntry>();
+
+    // Entry class for Spell Power API compatible effects with datagen support
     public static class SPEntry {
         public final Identifier id;
+        public final String title;
+        public final String description;
         public final StatusEffect effect;
         public RegistryEntry<StatusEffect> registryEntry;
 
-        public SPEntry(String name, StatusEffect effect) {
+        public SPEntry(String name, String title, String description, StatusEffect effect) {
             this.id = Identifier.of(MOD_ID, name);
+            this.title = title;
+            this.description = description;
             this.effect = effect;
             entries.add(this);
         }
@@ -41,29 +47,54 @@ public class SpellPower_Effects {
         }
     }
 
+    // Getter to access all registered entries (used by datagen)
+    public static ArrayList<SPEntry> getEntries() {
+        return entries;
+    }
+
     /// T0 BUFF EFFECTS
     public static final SPEntry ORANGE_JUICE =  new SPEntry("orange_juice",
+            "Orange Juice",
+            "Increases Spell Haste.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T1 BUFF EFFECTS
     public static final SPEntry SWEET_CHILLI =  new SPEntry("sweet_chilli",
+            "Sweet Chilli",
+            "Increases Spell Critical Damage.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry FRUIT_ICEWATER =  new SPEntry("fruit_icewater",
+            "Fruit Icewater",
+            "Increases Frost Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry CHORUS_EXTRACT =  new SPEntry("chorus_extract",
+            "Chorus Extract",
+            "Increases Arcane Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry HOT_CHILLI =  new SPEntry("hot_chilli",
+            "Hot Chilli",
+            "Increases Fire Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry HOLY_WATER =  new SPEntry("holy_water",
+            "Holy Water",
+            "Increases Healing Spell Power.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry ENCHANTED_ALE =  new SPEntry("enchanted_ale",
+            "Enchanted Ale",
+            "Increases Spell Critical Chance.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T2 BUFF EFFECTS
     public static final SPEntry WIZARDS_ELIXIR =  new SPEntry("wizards_elixir",
+            "Wizards Elixir",
+            "Increases Spell Power and Spell Haste.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     /// T3 BUFF EFFECTS
     public static final SPEntry MERLINS_FLASK =  new SPEntry("merlins_flask",
+            "Merlin's Flask",
+            "Increases Spell Power, Spell Haste and Spell Critical Damage.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
     public static final SPEntry CRUSADERS_REST =  new SPEntry("crusaders_rest",
+            "Crusader's Rest",
+            "Increases Spell Healing Power, Attack Damage and Max Health.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
 

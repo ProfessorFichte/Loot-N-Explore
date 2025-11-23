@@ -68,41 +68,52 @@ public class LNE_Weapons {
     public static final Weapon.Entry ender_dragon_sword = sword("ender_dragon_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), sword_damage)
             .spell(dragonclaw)
+            .translatedName("Dragon Slayer")
             .attribute(AttributeModifier.bonus(SpellSchools.ARCANE.id, weapon_spell_power));
     public static final Weapon.Entry ender_dragon_axe = axe("ender_dragon_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.AMETHYST_SHARD)), axe_damage)
             .spell(dragonclaw)
+            .translatedName("End Conqueror")
             .attribute(AttributeModifier.bonus(SpellSchools.ARCANE.id, weapon_spell_power));
+
     public static final Weapon.Entry wither_sword = sword("wither_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), sword_damage)
             .spell(wither_pulse)
+            .translatedName("Withered Sword")
             .attribute(AttributeModifier.bonus(SpellSchools.SOUL.id, weapon_spell_power));
     public static final Weapon.Entry wither_axe = axe("wither_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.BONE)), axe_damage)
             .spell(wither_pulse)
+            .translatedName("Withered Axe")
             .attribute(AttributeModifier.bonus(SpellSchools.SOUL.id, weapon_spell_power));
+
     public static final Weapon.Entry glacial_sword = sword("glacial_sword",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), sword_damage)
             .spell(avalanche)
+            .translatedName("Glacial Sword")
             .attribute(AttributeModifier.bonus(SpellSchools.FROST.id, weapon_spell_power));
     public static final Weapon.Entry glacial_axe = axe("glacial_axe",
             Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, () -> Ingredient.ofItems(Items.ICE)), axe_damage)
+            .translatedName("Glacial Axe")
             .spell(avalanche)
             .attribute(AttributeModifier.bonus(SpellSchools.FROST.id, weapon_spell_power));
 
+
     public static void register(Map<String, WeaponConfig> configs) {
+        // Conditional Elder Guardian weapons (only loaded when more_rpg_classes mod is present)
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
             var repair_elder_guardian = ingredient("minecraft:prismarine_shard", FabricLoader.getInstance().isModLoaded("more_rpg_classes"), Items.NETHERITE_INGOT);
-            sword("elder_guardian_sword",
+            var elderGuardianSword = sword("elder_guardian_sword",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), sword_damage)
                     .spell(waterbomb)
+                    .translatedName("Leviathan")
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, weapon_spell_power));
-            axe("elder_guardian_axe",
+            var elderGuardianAxe = axe("elder_guardian_axe",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), axe_damage)
                     .spell(waterbomb)
+                    .translatedName("Nautilus")
                     .attribute(AttributeModifier.bonus(MoreSpellSchools.WATER.id, weapon_spell_power));
         }
-
         entries.forEach(entry -> entry.rarity = Rarity.RARE);
         Weapon.register(configs, entries, Group.RPG_LOOT_KEY);
     }

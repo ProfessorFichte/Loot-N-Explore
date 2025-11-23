@@ -1,0 +1,33 @@
+{
+  "parent": "loot_n_explore:equipment/root",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:amphitrite_diadem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_amphitrite_diadem.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:amphitrite_diadem"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_amphitrite_diadem.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
