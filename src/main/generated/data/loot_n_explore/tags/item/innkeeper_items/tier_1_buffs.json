@@ -1,0 +1,70 @@
+{
+  "values": [
+    "loot_n_explore:beet_rootbeer",
+    "loot_n_explore:malt_extract",
+    {
+      "id": "loot_n_explore:watermelon_drink",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blue_berry_punch",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:green_chilli",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:honey_met",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:cactus_juice",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:mossflower_tea",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:waldmeister",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:sweet_chilli",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:fruit_icewater",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:chorus_extract",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:hot_chilli",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:holy_water",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:enchanted_ale",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:rivian_kriek",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blackpepper_bread",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:inferno_chilli_oil",
+      "required": false
+    }
+  ]
+}

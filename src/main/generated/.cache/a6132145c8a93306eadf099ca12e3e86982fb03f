@@ -1,6 +1,7 @@
-// 1.21.1	2025-11-23T18:00:49.9879657	Loot & Explore/Tags for minecraft:block
+// 1.21.1	2025-12-13T23:29:14.9492548	Loot & Explore/Tags for minecraft:block
 7331c3c3d21361ac34c16f93618eebeeb7b74be1 data\minecraft\tags\block\mineable\axe.json
-d49871f3b598f3da7deb0584cace0373f8720ff5 data\minecraft\tags\block\needs_stone_tool.json
-22dc4575e962af0574c969f9a36f1a2845859108 data\minecraft\tags\block\mineable\pickaxe.json
-a42e2311064184d4e7781f36d82d1368ec9b231d data\minecraft\tags\block\ice.json
+58052e40d472985353e9eb2d67b4f4e722b164ae data\minecraft\tags\block\needs_stone_tool.json
+052e5c25aab320f1c4a467e5672d1f2e79ac358a data\minecraft\tags\block\small_flowers.json
+b00d59895ff9c0ebd72757366e2375f9f92d93b1 data\minecraft\tags\block\mineable\pickaxe.json
+67dd248df8929db1fe695cb6507cc2a5297d8385 data\minecraft\tags\block\ice.json
 9dc25d779e7bd7b9ed4148ae59e213a020e96272 data\minecraft\tags\block\walls.json

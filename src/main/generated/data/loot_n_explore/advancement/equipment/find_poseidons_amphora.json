@@ -1,5 +1,4 @@
 {
-  "parent": "loot_n_explore:equipment/find_rainbow_coral",
   "criteria": {
     "criterion": {
       "conditions": {

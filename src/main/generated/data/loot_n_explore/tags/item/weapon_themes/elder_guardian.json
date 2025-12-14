@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:elder_guardian_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:elder_guardian_axe",
+      "required": false
+    }
+  ]
+}

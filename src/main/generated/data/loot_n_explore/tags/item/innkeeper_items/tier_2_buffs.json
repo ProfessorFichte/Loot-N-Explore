@@ -1,0 +1,22 @@
+{
+  "values": [
+    "loot_n_explore:vital_drink",
+    "loot_n_explore:espresso",
+    {
+      "id": "loot_n_explore:forrest_spirit",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wizards_elixir",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:butcher_of_blaviken",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:grilled_eel_sushi",
+      "required": false
+    }
+  ]
+}

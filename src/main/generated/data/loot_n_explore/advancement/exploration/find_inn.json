@@ -1,5 +1,4 @@
 {
-  "parent": "loot_n_explore:exploration/root",
   "criteria": {
     "criterion": {
       "conditions": {

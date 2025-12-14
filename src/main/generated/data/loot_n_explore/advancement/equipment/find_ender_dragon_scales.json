@@ -1,5 +1,4 @@
 {
-  "parent": "loot_n_explore:equipment/craft_dragon_upgrade_smithing_template",
   "criteria": {
     "criterion": {
       "conditions": {

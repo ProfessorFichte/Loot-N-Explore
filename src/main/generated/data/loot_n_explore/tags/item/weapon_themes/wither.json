@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:wither_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wither_axe",
+      "required": false
+    }
+  ]
+}

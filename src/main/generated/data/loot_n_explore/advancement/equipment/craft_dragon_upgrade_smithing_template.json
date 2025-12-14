@@ -1,5 +1,4 @@
 {
-  "parent": "loot_n_explore:equipment/find_corrupted_ender_pearl",
   "criteria": {
     "criterion": {
       "conditions": {
