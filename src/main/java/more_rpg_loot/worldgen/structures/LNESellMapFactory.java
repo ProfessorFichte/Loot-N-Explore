@@ -2,6 +2,7 @@ package more_rpg_loot.worldgen.structures;
 
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.MapColorComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
@@ -28,14 +29,16 @@ public class LNESellMapFactory implements TradeOffers.Factory {
     private final RegistryEntry<MapDecorationType> decoration;
     private final int maxUses;
     private final int experience;
+    private final int mapColor;
 
-    public LNESellMapFactory(int price, TagKey<Structure> structure, String nameKey, RegistryEntry<MapDecorationType> decoration, int maxUses, int experience) {
+    public LNESellMapFactory(int price, TagKey<Structure> structure, String nameKey, RegistryEntry<MapDecorationType> decoration, int maxUses, int experience, int mapColor) {
         this.price = price;
         this.structure = structure;
         this.decoration = decoration;
         this.nameKey = nameKey;
         this.maxUses = maxUses;
         this.experience = experience;
+        this.mapColor = mapColor;
     }
 
     @Override
@@ -47,12 +50,13 @@ public class LNESellMapFactory implements TradeOffers.Factory {
         }
 
 
-        BlockPos blockPos = serverWorld.locateStructure(this.structure, entity.getBlockPos(), 100, true);
+        BlockPos blockPos = serverWorld.locateStructure(this.structure, entity.getBlockPos(), 300, false);
         if (blockPos != null) {
             ItemStack itemStack = FilledMapItem.createMap(serverWorld, blockPos.getX(), blockPos.getZ(), (byte)2, true, true);
             FilledMapItem.fillExplorationMap(serverWorld, itemStack);
             MapState.addDecorationsNbt(itemStack, blockPos, "+", this.decoration);
             itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(this.nameKey));
+            itemStack.set(DataComponentTypes.MAP_COLOR, new MapColorComponent(this.mapColor));
             return new TradeOffer(new TradedItem(Items.EMERALD, this.price), Optional.of(new TradedItem(Items.PAPER)), itemStack, this.maxUses, this.experience, 0.2F);
         }
         return null;
