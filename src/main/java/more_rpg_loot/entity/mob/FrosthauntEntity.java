@@ -1,18 +1,19 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import mod.azure.azurelib.common.util.MoveAnalysis;
-import more_rpg_loot.client.entity.renderers.frosthaunt.FrosthauntDispatcher;
+import more_rpg_loot.item.CommonItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -20,23 +21,20 @@ import org.jetbrains.annotations.Nullable;
 
 import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
-
-
-
 public class FrosthauntEntity extends SkeletonEntity {
-    public final FrosthauntDispatcher dispatcher;
-    public final MoveAnalysis moveAnalysis;
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
 
     public FrosthauntEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 8.0F);
-        this.dispatcher = new FrosthauntDispatcher(this);
-        this.moveAnalysis = new MoveAnalysis(this);
         this.experiencePoints += 1;
-    }
 
+        this.moveControl = new SmoothMoveControl(this);
+    }
 
     public static DefaultAttributeContainer.Builder createFrosthauntSkeletonAttributes() {
         return HostileEntity.createHostileAttributes()
@@ -47,7 +45,22 @@ public class FrosthauntEntity extends SkeletonEntity {
     }
 
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(CommonItems.FROST_HAUNTS_AXE.item()));
+        this.updateDropChances(EquipmentSlot.MAINHAND);
+    }
+
+    @Override
+    public void updateDropChances(EquipmentSlot slot) {
+        // Only set drop chances for hand slots (mainhand and offhand)
+        if (slot.getType() == EquipmentSlot.Type.HAND) {
+            this.handDropChances[slot.getEntitySlotId()] = 0.0F;
+        } else if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+            this.armorDropChances[slot.getEntitySlotId()] = 0.0F;
+        }
+    }
+
+    @Override
+    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
     }
 
     @Nullable
@@ -65,32 +78,66 @@ public class FrosthauntEntity extends SkeletonEntity {
     public boolean tryAttack(Entity target) {
         boolean attacked = super.tryAttack(target);
         if (attacked && target instanceof LivingEntity entity) {
-            moveAnalysis.update();
             stackFreezeStacks(entity, 20);
-
-            Runnable animationRunner;
-            animationRunner = dispatcher::attack;
-            animationRunner.run();
             this.setAttacking(true);
-
         }
         return attacked;
     }
 
     @Override
+    protected void mobTick() {
+        super.mobTick();
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive()) {
+            this.getLookControl().lookAt(target, 30.0F, 30.0F);
+        }
+    }
+
+    @Override
     public void tick() {
         super.tick();
-        moveAnalysis.update();
 
         if (this.getWorld().isClient) {
-            var isMovingOnGround = moveAnalysis.isMovingHorizontally() && this.isOnGround();
-            Runnable animationRunner;
-            if (isMovingOnGround) {
-                animationRunner = dispatcher::walk;
+            setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if (this.handSwinging && this.handSwingTicks == 0) {
+            this.attackAnimationState.start(this.age);
+        }
+
+        if (!this.handSwinging) {
+            if (this.idleAnimationTimeout <= 0) {
+                this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+                this.idleAnimationState.start(this.age);
             } else {
-                animationRunner = dispatcher::idle;
+                --this.idleAnimationTimeout;
             }
-            animationRunner.run();
+        }
+    }
+
+    static class SmoothMoveControl extends MoveControl {
+        public SmoothMoveControl(FrosthauntEntity entity) {
+            super(entity);
+        }
+
+        @Override
+        protected float wrapDegrees(float from, float to, float max) {
+            float f = net.minecraft.util.math.MathHelper.wrapDegrees(to - from);
+            if (f > 30.0F) {
+                f = 30.0F;
+            }
+            if (f < -30.0F) {
+                f = -30.0F;
+            }
+            float g = from + f;
+            if (g < 0.0F) {
+                g += 360.0F;
+            } else if (g > 360.0F) {
+                g -= 360.0F;
+            }
+            return g;
         }
     }
 }
