@@ -1,5 +1,7 @@
 package more_rpg_loot.client.entity.models;
 
+import more_rpg_loot.client.entity.models.frosthaunt.FrosthauntModel;
+import more_rpg_loot.client.entity.models.frostmonarch.FrostMonarchModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -19,11 +21,13 @@ public class EntityModelLayers {
     public static final EntityModelLayer FROST_MONARCH_OUTER =
             new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "outer");
 
+    public static final EntityModelLayer FROSTHAUNT = new EntityModelLayer(
+            Identifier.of("loot_n_explore", "frosthaunt"),
+            "main"
+    );
 
     public static void registerModelLayers() {
-        EntityModelLayerRegistry.registerModelLayer(FROST_MONARCH, FrostMonarchEntityModel::createBaseModelData);
-        EntityModelLayerRegistry.registerModelLayer(FROST_MONARCH_INNER_ARMOR, FrostMonarchEntityModel::getInnerArmorModelData);
-        EntityModelLayerRegistry.registerModelLayer(FROST_MONARCH_OUTER_ARMOR, FrostMonarchEntityModel::getOuterArmorModelData);
-        EntityModelLayerRegistry.registerModelLayer(FROST_MONARCH_OUTER, FrostMonarchEntityModel::getOverlayModelData);
+        EntityModelLayerRegistry.registerModelLayer(FROST_MONARCH, FrostMonarchModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(FROSTHAUNT, FrosthauntModel::createBodyLayer);
     }
 }

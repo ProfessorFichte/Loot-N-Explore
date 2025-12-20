@@ -1,4 +1,4 @@
-package more_rpg_loot.client.entity.renderers.feature;
+package more_rpg_loot.client.entity.renderers.frostmonarch.features;
 
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.feature.EyesFeatureRenderer;

@@ -3,13 +3,11 @@ package more_rpg_loot.entity.mob;
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.effects.Effects;
-import more_rpg_loot.entity.goals.frostmonarch.CallServantsGoal;
-import more_rpg_loot.entity.goals.frostmonarch.ConditionalGoal;
-import more_rpg_loot.entity.goals.frostmonarch.ScreechGoal;
-import more_rpg_loot.entity.goals.frostmonarch.StayStillWhenServantsAliveGoal;
+import more_rpg_loot.entity.goals.frostmonarch.*;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -46,22 +44,41 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.more_rpg_classes.effect.MRPGCEffects;
+import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
-import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
 public class FrostMonarchEntity extends SkeletonEntity {
     private static final TrackedData<Integer> INVUL_TIMER;
+    private static final TrackedData<Integer> BARRIER_TIMER;
     private static final TrackedData<Boolean> SCREECHING = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> CASTING = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> HAS_SPAWNED = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> FAKE_DEATH = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final int DEFAULT_INVUL_TIMER = 220;
+    private static final int DEATH_ANIMATION_DURATION = 200;
     private final ServerBossBar bossBar;
-    public int callServantsCooldown = 0;
-    public int callServantsMax = 4;
+    private int fakeDeathTimer = 0;
+    // Store the damage source that triggered death. Cannot be saved to NBT, will be null after reload.
+    // Falls back to generic damage source if null.
+    private DamageSource lastFatalDamageSource = null;
+
+    // Animation States
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState screechAnimationState = new AnimationState();
+    public final AnimationState summonAnimationState = new AnimationState();
+    public final AnimationState deathAnimationState = new AnimationState();
+    public final AnimationState spawnAnimationState = new AnimationState();
+    private int idleAnimationTimeout = 0;
     public int screechCooldown = 0;
     public int hailStormCooldown = 0;
+    public int icicleCooldown = 0;
+    public int distanceIcicleCooldown = 0;
+    public int meleeHitCounter = 0;
+    public int globalAbilityCooldown = 0;
     private float particleAnimationProgress = 0.0F;
 
 
@@ -71,6 +88,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.bossBar = (ServerBossBar)(new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS)).setDarkenSky(true);
         this.setHealth(this.getMaxHealth());
         this.experiencePoints += 50;
+
+        this.moveControl = new SmoothMoveControl(this);
     }
 
     public ItemStack getWeaponForDifficulty() {
@@ -85,29 +104,46 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public Float getHealingForDifficulty() {
         Difficulty difficulty = this.getWorld().getDifficulty();
         return switch (difficulty) {
-            case PEACEFUL, EASY -> 0.1F;
-            case NORMAL -> 0.2F;
-            case HARD -> 0.3F;
+            case PEACEFUL, EASY -> 0.25F;
+            case NORMAL -> 0.35F;
+            case HARD -> 0.5F;
         };
     }
 
+    public RegistryEntry<StatusEffect> getFreezingEffect() {
+        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+            return MRPGCEffects.FROSTED.entry;
+        }
+        return Effects.FREEZING.registryEntry;
+    }
+
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
+        // Base attributes (for Normal difficulty)
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 40.0)
                 .add(EntityAttributes.GENERIC_ARMOR, 4.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2605)
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2705)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f);
     }
 
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("Invul", this.getInvulnerableTimer());
+        nbt.putInt("BarrierTimer", this.getBarrierTimer());
+        nbt.putBoolean("HasSpawned", this.hasSpawned());
+        nbt.putBoolean("FakeDeath", this.isFakeDeath());
+        nbt.putInt("FakeDeathTimer", this.fakeDeathTimer);
     }
 
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         this.setInvulTimer(nbt.getInt("Invul"));
+        this.setBarrierTimer(nbt.getInt("BarrierTimer"));
+        this.setHasSpawned(nbt.getBoolean("HasSpawned"));
+        this.setFakeDeath(nbt.getBoolean("FakeDeath"));
+        this.fakeDeathTimer = nbt.getInt("FakeDeathTimer");
         if (this.hasCustomName()) {
             this.bossBar.setName(this.getDisplayName());
         }
@@ -121,23 +157,35 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new CallServantsGoal(this));
-        this.goalSelector.add(1, new StayStillWhenServantsAliveGoal(this));
+        this.goalSelector.add(0, new IceBarrierGoal(this));
+
         this.goalSelector.add(2, new ScreechGoal(this));
-        this.goalSelector.add(3, new ConditionalGoal(this, new MeleeAttackGoal(this, 1.2, false)));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
-        this.goalSelector.add(6, new LookAroundGoal(this));
+        this.goalSelector.add(3, new HailstormGoal(this));
+        this.goalSelector.add(4, new DistanceIcicleGoal(this));
+        this.goalSelector.add(5, new IcicleAttackGoal(this));
+
+        this.goalSelector.add(6, new ConditionalGoal(this, new MeleeAttackGoal(this, 1.2, false)));
+
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
+        this.goalSelector.add(8, new LookAroundGoal(this));
+
+        // Target selectors - NOT wrapped in ConditionalGoal so boss can acquire targets during spawn
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(2, new ConditionalGoal(this, new ActiveTargetGoal<>(this, PlayerEntity.class, true)));
-        this.targetSelector.add(3, new ConditionalGoal(this, new ActiveTargetGoal<>(this, IronGolemEntity.class, true)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(INVUL_TIMER, 0);
-        builder.add(SCREECHING,false);
+        builder.add(BARRIER_TIMER, 0);
+        builder.add(SCREECHING, false);
+        builder.add(CASTING, false);
+        builder.add(HAS_SPAWNED, false);
+        builder.add(FAKE_DEATH, false);
     }
+
     public boolean isScreeching() {
         return this.dataTracker.get(SCREECHING);
     }
@@ -146,25 +194,105 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.dataTracker.set(SCREECHING, value);
     }
 
-    public boolean hasServants() {
-        List<FrostMonarchServantEntity> servants = this.getWorld().getNonSpectatingEntities(
-                FrostMonarchServantEntity.class,
-                this.getBoundingBox().expand(32.0)
-        );
-        return servants.stream().anyMatch(FrostMonarchServantEntity::isAlive);
+    public boolean isCasting() {
+        return this.dataTracker.get(CASTING);
     }
-    public boolean canHeal(){
-        return this.getMaxHealth() != this.getHealth() && !this.isOnFire() && this.hasServants() && this.getInvulnerableTimer() == 0;
+
+    public void setCasting(boolean value) {
+        this.dataTracker.set(CASTING, value);
+    }
+
+    public boolean hasSpawned() {
+        return this.dataTracker.get(HAS_SPAWNED);
+    }
+
+    private void setHasSpawned(boolean value) {
+        this.dataTracker.set(HAS_SPAWNED, value);
+    }
+
+    public boolean isFakeDeath() {
+        return this.dataTracker.get(FAKE_DEATH);
+    }
+
+    private void setFakeDeath(boolean value) {
+        this.dataTracker.set(FAKE_DEATH, value);
+    }
+
+    /**
+     * Check if any ability is currently active
+     * @return true if casting, screeching, in barrier, during invulnerability, or within global cooldown
+     */
+    public boolean isPerformingAbility() {
+        return this.isCasting() || this.isScreeching() || this.getBarrierTimer() > 0
+            || this.getInvulnerableTimer() > 0 || this.globalAbilityCooldown > 0;
+    }
+
+    @Override
+    public void setTarget(@Nullable LivingEntity target) {
+        super.setTarget(target);
+    }
+
+    public float getDifficultyMultiplier() {
+        Difficulty difficulty = this.getWorld().getDifficulty();
+        return switch (difficulty) {
+            case PEACEFUL, EASY -> 0.75F;
+            case NORMAL -> 1.0F;
+            case HARD -> 1.25F;
+        };
+    }
+
+    public float getHealthMultiplier() {
+        float healthPercent = this.getHealth() / this.getMaxHealth();
+
+        if (healthPercent >= 0.75F) {
+            return 1.0F;
+        } else if (healthPercent >= 0.50F) {
+            return 1.1F;
+        } else if (healthPercent >= 0.25F) {
+            return 1.25F;
+        } else if (healthPercent >= 0.10F) {
+            return 1.4F;
+        } else {
+            return 1.6F;
+        }
+    }
+
+    public float getCombinedMultiplier() {
+        return getDifficultyMultiplier() * getHealthMultiplier();
+    }
+
+    public float getScaledDamage(float baseDamage) {
+        return baseDamage * getCombinedMultiplier();
+    }
+
+    public int getScaledCount(int baseCount) {
+        return Math.max(1, Math.round(baseCount * getCombinedMultiplier()));
+    }
+
+    public int getScaledCooldown(int baseCooldown) {
+        return Math.max(20, Math.round(baseCooldown / getHealthMultiplier()));
     }
 
 
     public void tickMovement() {
-        if(this.getInvulnerableTimer() > 0 || this.canHeal()){
-            this.setYaw(this.bodyYaw);
-            this.setHeadYaw(this.bodyYaw);
-            this.prevYaw = this.bodyYaw;
-            this.prevHeadYaw = this.bodyYaw;
+        // Prevent rotation during fake death, real death, or spawn
+        if(this.isFakeDeath() || this.deathTime > 0 || this.getInvulnerableTimer() > 0){
+            float lockedYaw = this.bodyYaw;
+            this.setPitch(0.0F);
+            this.setYaw(lockedYaw);
+            this.setHeadYaw(lockedYaw);
+            this.bodyYaw = lockedYaw;
+            this.prevBodyYaw = lockedYaw;
+            this.prevPitch = 0.0F;
+            this.prevYaw = lockedYaw;
+            this.prevHeadYaw = lockedYaw;
             this.setVelocity(Vec3d.ZERO);
+            this.velocityModified = true;
+        }
+
+        // prevent any movement during fake death
+        if(this.isFakeDeath()) {
+            return;
         }
         if (this.getInvulnerableTimer() > 0) {
             Random random = this.getWorld().random;
@@ -190,33 +318,9 @@ public class FrostMonarchEntity extends SkeletonEntity {
             }
         }else{
             this.particleAnimationProgress += 0.05F;
-            List<FrostMonarchServantEntity> list = this.getWorld().getNonSpectatingEntities(FrostMonarchServantEntity.class, this.getBoundingBox().expand(32.0));
-            int servantsCount = list.size();
+
             if (this.getWorld().isClient) {
                 if(!this.isOnFire()){
-                    if(this.canHeal()){
-                        for (LivingEntity target : list) {
-                            Vec3d from = new Vec3d(this.getX(), this.getY() + this.getHeight() / 2, this.getZ());
-                            Vec3d to = new Vec3d(target.getX(), target.getY() + target.getHeight() / 2, target.getZ());
-
-                            Vec3d delta = to.subtract(from);
-                            int steps = 10 + servantsCount;
-                            long time = this.age;
-
-                            for (int i = 0; i <= steps; i++) {
-                                double t = i / (double) steps;
-                                Vec3d point = from.add(delta.multiply(t));
-                                double wave = Math.sin(time * 0.3 + t * 10.0) * 0.1;
-                                Vec3d offset = delta.crossProduct(new Vec3d(0, 1, 0)).normalize().multiply(wave);
-                                Vec3d finalPos = point.add(offset);
-                                this.getWorld().addParticle(
-                                        ParticleTypes.SCULK_SOUL,
-                                        finalPos.x, finalPos.y, finalPos.z,
-                                        0, 0, 0
-                                );
-                            }
-                        }
-                    }
                     Random random = this.getWorld().random;
 
                     int particleCount = 8;
@@ -251,13 +355,24 @@ public class FrostMonarchEntity extends SkeletonEntity {
     }
 
     protected void mobTick() {
+        LivingEntity target = this.getTarget();
+        if (target != null && target.isAlive()) {
+            this.getLookControl().lookAt(target, 30.0F, 30.0F);
+        }
+
         int i;
         if (this.getInvulnerableTimer() > 0) {
+
             i = this.getInvulnerableTimer() - 1;
-            this.bossBar.setPercent(1.0F - (float)i / 220.0F);
+            // dynamic calculation based on spawn timer (220 ticks)
+            float spawnProgress = 1.0F - (float)i / 220.0F;
+            this.bossBar.setPercent(spawnProgress);
             if (i <= 0) {
                 if (!(this.getWorld() instanceof ServerWorld serverWorld)) return;
-                //GIVE AXE
+                // Mark as spawned so animation doesn't replay
+                this.setHasSpawned(true);
+
+                //GIVE WEAPON
                 this.equipStack(EquipmentSlot.MAINHAND, getWeaponForDifficulty());
                 ///FROST EXPLOSION PARTICLES
                 this.getWorld().playSound(
@@ -300,7 +415,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
                 );
                 RegistryEntry<StatusEffect> effectEntry = Effects.FREEZING.registryEntry;
                 if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-                    effectEntry = MRPGCEffects.FROZEN_SOLID.registryEntry;
+                    effectEntry = MRPGCEffects.FROZEN_SOLID.entry;
                 }
                 for (LivingEntity livingEntity : livingEntities) {
                     livingEntity.addStatusEffect(new StatusEffectInstance(
@@ -312,24 +427,17 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
             this.setInvulTimer(i);
             if (this.age % 10 == 0) {
-                this.heal(10.0F);
+                float healAmount = this.getMaxHealth() / 22.0F;
+                this.heal(healAmount);
             }
 
         } else {
-            List<FrostMonarchServantEntity> list = this.getWorld().getNonSpectatingEntities(FrostMonarchServantEntity.class, this.getBoundingBox().expand(32.0));
-            int servantsCount = list.size();
-            if(canHeal()){
-                this.heal(servantsCount * this.getHealingForDifficulty());
-                for(Entity entities : list){
-                    entities.damage(entities.getDamageSources().magic(),0.2F);
-                }
-            }
+            super.mobTick(); //Let normal mob AI run when not spawning
             this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
         }
     }
 
     protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
-        super.dropEquipment(world, source, causedByPlayer);
     }
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
@@ -349,71 +457,357 @@ public class FrostMonarchEntity extends SkeletonEntity {
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
+        // If NOT spawned with blocks, mark as already spawned
+        if (spawnReason != SpawnReason.STRUCTURE) {
+            this.setHasSpawned(true);
+        }
+
+        Difficulty worldDifficulty = world.getDifficulty();
+        float difficultyMultiplier = getDifficultyMultiplier(worldDifficulty);
+
+        double baseHealth = this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue();
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(baseHealth * difficultyMultiplier);
+
+        double baseAttackDamage = this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getBaseValue();
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(baseAttackDamage * difficultyMultiplier);
+
+        double baseArmor = this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).getBaseValue();
+        this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(baseArmor * difficultyMultiplier);
+
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
         }
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(6.0);
+        if(FabricLoader.getInstance().isModLoaded("spell_power")){
+            double baseFrostPower = 7.0;
+            this.getAttributeInstance(SpellSchools.FROST.attributeEntry).setBaseValue(baseFrostPower * difficultyMultiplier);
+        }
+
         this.updateAttackType();
         return entityData2;
     }
 
+    private float getDifficultyMultiplier(Difficulty difficulty) {
+        return switch (difficulty) {
+            case EASY -> 0.75F;
+            case NORMAL -> 1.0F;
+            case HARD -> 1.25F;
+            default -> 1.0F;
+        };
+    }
+
     @Override
     public boolean tryAttack(Entity target) {
+        // Prevent attacking during ice barrier
+        if (this.getBarrierTimer() > 0) {
+            return false;
+        }
+
         boolean success = super.tryAttack(target);
         if (success) {
             if (target instanceof LivingEntity entity) {
-                stackFreezeStacks(entity, 20);
+                applyStatusEffect(entity,0,6, getFreezingEffect(),2,
+                        true,true,true,0);
+
+                meleeHitCounter++;
+                this.setAttacking(true);
+
+                // After 3-5 hits, trigger frost explosion
+                int hitsForExplosion = 3 + this.random.nextInt(3); // Random between 3-5
+                if (meleeHitCounter >= hitsForExplosion) {
+                    triggerFrostExplosion();
+                    meleeHitCounter = 0;
+                }
             }
         }
         return success;
     }
 
+    private void triggerFrostExplosion() {
+        if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
+            // Create frost explosion particles
+            double radius = 4.0;
+            int particleCount = 100;
+            double speed = 2.0;
+
+            for (int i = 0; i < particleCount; i++) {
+                double angle = 2 * Math.PI * i / particleCount;
+                double xSpeed = Math.cos(angle) * speed;
+                double zSpeed = Math.sin(angle) * speed;
+                double ySpeed = 0.05 + this.random.nextDouble() * 0.1;
+
+                serverWorld.spawnParticles(
+                        Particles.FREEZING_SNOWFLAKE,
+                        this.getPos().x,
+                        this.getPos().y + 1.0,
+                        this.getPos().z,
+                        0, xSpeed, ySpeed, zSpeed, 1.0
+                );
+            }
+
+            // Damage and freeze nearby entities
+            List<LivingEntity> nearbyEntities = this.getWorld().getEntitiesByClass(
+                    LivingEntity.class,
+                    new Box(
+                            this.getPos().x - radius, this.getPos().y - radius, this.getPos().z - radius,
+                            this.getPos().x + radius, this.getPos().y + radius, this.getPos().z + radius
+                    ),
+                    livingEntity -> livingEntity != this && livingEntity.isAlive() && livingEntity.squaredDistanceTo(this.getPos()) <= radius * radius
+            );
+
+            for (LivingEntity entity : nearbyEntities) {
+                entity.damage(
+                        this.getDamageSources().indirectMagic(this, this),
+                        (float) (this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 1.5)
+                );
+                applyStatusEffect(entity,0,6, getFreezingEffect(),10,
+                        true,true,true,0);
+            }
+        }
+    }
+
+    @Override
+    public void heal(float amount) {
+        super.heal(amount);
+    }
+
     public boolean damage(DamageSource source, float amount) {
+        if (this.isInvulnerableTo(source)) {
+            return false;
+        }
+        if (this.isFakeDeath() && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return false;
+        }
         if (this.getInvulnerableTimer() > 0 && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return false;
         }
-        if(canHeal() && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)){
+        if (this.getBarrierTimer() > 0 && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return false;
-        } else{
-            if(source.isIn(DamageTypeTags.IS_FIRE) && !this.isInLava()){
-                return false;
-            }
         }
-        if (!this.getWorld().isClient) {
-            if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
+        if(source.isIn(DamageTypeTags.IS_FIRE)){
+            return false;
+        }
+
+        if (!this.getWorld().isClient && !this.isOnFire()) {
+            if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS) && source.isDirect() && source.isIn(DamageTypeTags.IS_PLAYER_ATTACK)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.registryEntry,1,
-                            true,true,true,1);
+                    applyStatusEffect(livingEntity,0,6, getFreezingEffect(),0,
+                            false,true,true,0);
                 }
             }
         }
+
+        // Check if this damage would kill the entity
+        if (!this.getWorld().isClient && !this.isFakeDeath() && this.getHealth() - amount <= 0.0F) {
+            this.setHealth(0.0F);
+            this.dead = true;
+            this.onDeath(source);
+            return true;
+        }
+
         return super.damage(source, amount);
     }
 
-    private boolean callingServants;
-    private int callAnimationTicks;
+    private void triggerFakeDeath(DamageSource damageSource) {
+        // Store the damage source for fake death animation
+        this.lastFatalDamageSource = damageSource;
+        //Stop all movement immediately
+        this.setVelocity(Vec3d.ZERO);
+        this.velocityModified = true;
+        this.velocityDirty = true;
+        this.setNoGravity(true);
+        float lockedYaw = this.bodyYaw;
+        this.setPitch(0.0F);
+        this.setYaw(lockedYaw);
+        this.setHeadYaw(lockedYaw);
+        this.bodyYaw = lockedYaw;
+        this.prevBodyYaw = lockedYaw;
+        this.prevPitch = 0.0F;
+        this.prevYaw = lockedYaw;
+        this.prevHeadYaw = lockedYaw;
 
-    public void startCallingServants() {
-        this.callingServants = true;
-        this.callAnimationTicks = 20;
+        this.setFakeDeath(true);
+        this.fakeDeathTimer = DEATH_ANIMATION_DURATION;
+
+        this.setHealth(0.5F);
+
+        this.dead = false;
+
+        this.deathTime = 0;
+
+        this.playSound(this.getDeathSound(), this.getSoundVolume(), this.getSoundPitch());
+
+        this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+        this.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
     }
+
+    @Override
+    protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        if (!this.isFakeDeath() && !this.getWorld().isClient) {
+            this.triggerFakeDeath(damageSource);
+        } else if (!this.isFakeDeath()) {
+            super.onDeath(damageSource);
+        }
+    }
+
+    private void dropLootManually(ServerWorld world, DamageSource damageSource) {
+        Entity killer = damageSource.getAttacker();
+
+        net.minecraft.loot.context.LootContextParameterSet.Builder builder =
+            new net.minecraft.loot.context.LootContextParameterSet.Builder(world)
+                .add(net.minecraft.loot.context.LootContextParameters.THIS_ENTITY, this)
+                .add(net.minecraft.loot.context.LootContextParameters.ORIGIN, this.getPos())
+                .add(net.minecraft.loot.context.LootContextParameters.DAMAGE_SOURCE, damageSource)
+                .addOptional(net.minecraft.loot.context.LootContextParameters.ATTACKING_ENTITY, killer)
+                .addOptional(net.minecraft.loot.context.LootContextParameters.DIRECT_ATTACKING_ENTITY, damageSource.getSource());
+
+        if (killer instanceof PlayerEntity player) {
+            builder.add(net.minecraft.loot.context.LootContextParameters.LAST_DAMAGE_PLAYER, player)
+                   .luck(player.getLuck());
+        }
+        net.minecraft.loot.context.LootContextParameterSet lootContextParameterSet = builder.build(net.minecraft.loot.context.LootContextTypes.ENTITY);
+        net.minecraft.loot.LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(this.getLootTable());
+
+        lootTable.generateLoot(lootContextParameterSet, this.getLootTableSeed(), stack -> {
+            ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), stack);
+            itemEntity.setToDefaultPickupDelay();
+            world.spawnEntity(itemEntity);
+        });
+    }
+
+    private void dropExperience(ServerWorld world, @Nullable Entity attacker) {
+        if (attacker instanceof PlayerEntity) {
+            ExperienceOrbEntity.spawn(world, this.getPos(), this.experiencePoints);
+        }
+    }
+
+
 
     @Override
     public void tick() {
         super.tick();
-        if (callAnimationTicks > 0) {
-            callAnimationTicks--;
-        } else {
-            callingServants = false;
+        if (this.isFakeDeath()) {
+            this.hurtTime = 0;
+
+            this.setVelocity(Vec3d.ZERO);
+            this.velocityModified = true;
+            this.velocityDirty = true;
+            this.setNoGravity(true);
+
+            float lockedYaw = this.bodyYaw;
+            this.setPitch(0.0F);
+            this.setYaw(lockedYaw);
+            this.setHeadYaw(lockedYaw);
+            this.bodyYaw = lockedYaw;
+            this.prevBodyYaw = lockedYaw;
+            this.prevPitch = 0.0F;
+            this.prevYaw = lockedYaw;
+            this.prevHeadYaw = lockedYaw;
+
+            if (!this.getWorld().isClient) {
+                this.fakeDeathTimer--;
+
+                if (this.fakeDeathTimer <= 0) {
+                    if (this.getWorld() instanceof ServerWorld serverWorld) {
+                        DamageSource deathSource = this.lastFatalDamageSource;
+                        if (deathSource == null) {
+                            deathSource = this.getDamageSources().generic();
+                        }
+
+                        this.dropLootManually(serverWorld, deathSource);
+
+                        // Drop experience orbs
+                        this.dropExperience(serverWorld, deathSource.getAttacker());
+                    }
+                    this.setNoGravity(false);
+                    this.setHealth(0.0F);
+                    this.dead = true;
+                    this.remove(RemovalReason.KILLED);
+                }
+            }
+
+            // Handle client-side death animation
+            if (this.getWorld().isClient) {
+                setupAnimationStates();
+            }
+            return; // Don't process normal tick logic during fake death
         }
+
+        if (this.deathTime > 0) {
+            this.hurtTime = 0;
+        }
+
+        // Update cooldowns
         if (screechCooldown > 0) screechCooldown--;
         if (hailStormCooldown > 0) hailStormCooldown--;
-        if (callServantsCooldown > 0) callServantsCooldown--;
+        if (icicleCooldown > 0) icicleCooldown--;
+        if (distanceIcicleCooldown > 0) distanceIcicleCooldown--;
+        if (globalAbilityCooldown > 0) globalAbilityCooldown--;
+
+        if (isCasting() || isScreeching() || getBarrierTimer() > 0) {
+            this.setVelocity(Vec3d.ZERO);
+            this.velocityModified = true;
+        }
+
+        // Handle client-side animations
+        if (this.getWorld().isClient) {
+            setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if (this.deathTime > 0 || this.isFakeDeath()) {
+            this.deathAnimationState.startIfNotRunning(this.age);
+
+            this.screechAnimationState.stop();
+            this.summonAnimationState.stop();
+            this.spawnAnimationState.stop();
+            this.idleAnimationState.stop();
+            return; // Don't process other animations
+        }
+
+        if (getInvulnerableTimer() > 0 && !hasSpawned()) {
+            this.spawnAnimationState.startIfNotRunning(this.age);
+        } else {
+            this.spawnAnimationState.stop();
+        }
+
+        if (isScreeching()) {
+            this.screechAnimationState.startIfNotRunning(this.age);
+        } else {
+            this.screechAnimationState.stop();
+        }
+
+        // Play summon animation when casting icicles
+        if (isCasting() && !isScreeching()) {
+            this.summonAnimationState.startIfNotRunning(this.age);
+        } else {
+            this.summonAnimationState.stop();
+        }
+
+        if (!isScreeching() && !isCasting()  && (getInvulnerableTimer() <= 0 || hasSpawned())) {
+            if (this.idleAnimationTimeout <= 0) {
+                this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+                this.idleAnimationState.start(this.age);
+            } else {
+                --this.idleAnimationTimeout;
+            }
+        } else {
+            this.idleAnimationState.stop();
+            this.idleAnimationTimeout = 0;
+        }
     }
 
     public void onSummoned() {
+        if (this.hasSpawned()) {
+            return;
+        }
+
         this.setInvulTimer(220);
         if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
             Text message = Text.translatable("entity.loot_n_explore.frost_monarch.spawn_message");
@@ -447,20 +841,76 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.dataTracker.set(INVUL_TIMER, ticks);
     }
 
+    public int getBarrierTimer() {
+        return (Integer)this.dataTracker.get(BARRIER_TIMER);
+    }
+
+    public void setBarrierTimer(int ticks) {
+        this.dataTracker.set(BARRIER_TIMER, ticks);
+    }
+
     static {
         INVUL_TIMER = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        BARRIER_TIMER = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    }
+
+    @Override
+    public void setPose(EntityPose pose) {
+        if (pose == EntityPose.DYING && this.isFakeDeath()) {
+            super.setPose(EntityPose.STANDING);
+        } else {
+            super.setPose(pose);
+        }
+    }
+
+    @Override
+    public EntityPose getPose() {
+        if (this.isFakeDeath()) {
+            return EntityPose.STANDING;
+        }
+        return super.getPose();
     }
 
     protected SoundEvent getAmbientSound() {
+        if (this.isFakeDeath()) {
+            return null;
+        }
         return ModSounds.FROSTMONARCH_DEATH.soundEvent();
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
+        if (this.isFakeDeath()) {
+            return null;
+        }
         return ModSounds.FROSTMONARCH_HURT.soundEvent();
     }
 
     protected SoundEvent getDeathSound() {
         return ModSounds.FROSTMONARCH_DEATH.soundEvent();
+    }
+
+    static class SmoothMoveControl extends MoveControl {
+        public SmoothMoveControl(FrostMonarchEntity entity) {
+            super(entity);
+        }
+
+        @Override
+        protected float wrapDegrees(float from, float to, float max) {
+            float f = net.minecraft.util.math.MathHelper.wrapDegrees(to - from);
+            if (f > 30.0F) {
+                f = 30.0F;
+            }
+            if (f < -30.0F) {
+                f = -30.0F;
+            }
+            float g = from + f;
+            if (g < 0.0F) {
+                g += 360.0F;
+            } else if (g > 360.0F) {
+                g -= 360.0F;
+            }
+            return g;
+        }
     }
 
 }

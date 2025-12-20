@@ -10,7 +10,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -23,29 +22,63 @@ public class ScreechGoal extends Goal {
     private final FrostMonarchEntity monarch;
     private int channelTicks;
     private boolean isCasting;
+    private boolean hasStarted;
+    private LivingEntity cachedTarget;
+
+    public static final float SCREECH_MIN_DISTANCE = 10.0F;
+    public static final float SCREECH_RADIUS = 40.0F;
 
     public ScreechGoal(FrostMonarchEntity monarch) {
         this.monarch = monarch;
+        this.setControls(java.util.EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK));
     }
-
-    public float screechRange = 7.5F;
-    public float screechImpactRange = 15.0F;
 
     @Override
     public boolean canStart() {
-        if(monarch.getInvulnerableTimer() <= 0){
+        if(!monarch.isPerformingAbility() && !isCasting){
             LivingEntity target = monarch.getTarget();
-            return monarch.screechCooldown <= 0 && !isCasting && target != null && target.isAlive() && !monarch.canHeal() &&
-                    monarch.squaredDistanceTo(target) > screechRange * screechRange;
+            if (target == null || !target.isAlive()) {
+                return false;
+            }
+            if (monarch.screechCooldown > 0) {
+                return false;
+            }
+
+            boolean canSeeTarget = monarch.getVisibilityCache().canSee(target);
+            if (!canSeeTarget) {
+                return false;
+            }
+
+            double distanceSq = monarch.squaredDistanceTo(target);
+            if (distanceSq > SCREECH_MIN_DISTANCE * SCREECH_MIN_DISTANCE) {
+                return true;
+            }
         }
         return false;
     }
 
     @Override
     public void start() {
+        this.cachedTarget = monarch.getTarget();
         this.isCasting = true;
-        this.channelTicks = 20;
+        this.channelTicks = 10;
+        this.hasStarted = false;
         monarch.setScreeching(true);
+        monarch.setCasting(true);
+
+        LivingEntity target = cachedTarget;
+        if (target != null) {
+            double dx = target.getX() - monarch.getX();
+            double dz = target.getZ() - monarch.getZ();
+            float yaw = (float)(net.minecraft.util.math.MathHelper.atan2(dz, dx) * (180.0 / Math.PI)) - 90.0F;
+
+            monarch.setYaw(yaw);
+            monarch.setHeadYaw(yaw);
+            monarch.setBodyYaw(yaw);
+            monarch.prevYaw = yaw;
+            monarch.prevHeadYaw = yaw;
+            monarch.prevBodyYaw = yaw;
+        }
     }
 
 
@@ -53,15 +86,19 @@ public class ScreechGoal extends Goal {
         if (!monarch.getWorld().isClient()) {
             List<Entity> entities = monarch.getWorld().getOtherEntities(
                     monarch,
-                    monarch.getBoundingBox().expand(screechImpactRange)
+                    monarch.getBoundingBox().expand(SCREECH_RADIUS)
             );
 
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity living && !(entity instanceof MobEntity)) {
                     monarch.setVelocity(Vec3d.ZERO);
+
+                    float baseDamage = (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5F;
+                    float scaledDamage = monarch.getScaledDamage(baseDamage);
+
                     living.damage(
                             monarch.getWorld().getDamageSources().indirectMagic(monarch, monarch),
-                            (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)
+                            scaledDamage
                     );
                     double dx = monarch.getX() - entity.getX();
                     double dz = monarch.getZ() - entity.getZ();
@@ -105,36 +142,57 @@ public class ScreechGoal extends Goal {
 
     @Override
     public void tick() {
-        channelTicks--;
+        if (!hasStarted) {
+            hasStarted = true;
+        }
+
+        if (!monarch.isScreeching()) {
+            monarch.setScreeching(true);
+        }
+        if (!monarch.isCasting()) {
+            monarch.setCasting(true);
+        }
+
         if(this.isCasting){
             monarch.setVelocity(Vec3d.ZERO);
-            List<PlayerEntity> playerEntities = monarch.getWorld().getNonSpectatingEntities(
-                    PlayerEntity.class,
-                    monarch.getBoundingBox().expand(screechRange)
-            );
-            for(Entity entities : playerEntities){
-                monarch.getLookControl().lookAt(entities, 10.0F, 10.0F);
-            }
 
+            LivingEntity target = this.cachedTarget;
+            if (target != null && target.isAlive()) {
+                double dx = target.getX() - monarch.getX();
+                double dz = target.getZ() - monarch.getZ();
+                float yaw = (float)(net.minecraft.util.math.MathHelper.atan2(dz, dx) * (180.0 / Math.PI)) - 90.0F;
+
+                monarch.setYaw(yaw);
+                monarch.setHeadYaw(yaw);
+                monarch.setBodyYaw(yaw);
+            }
         }
         if (monarch.screechCooldown > 0) {
             monarch.screechCooldown--;
         }
-        if (channelTicks % 5 == 0) {
+
+        if (channelTicks == 5) {
             screechAttack();
         }
+
+        channelTicks--;
     }
 
     @Override
     public boolean shouldContinue() {
-        return channelTicks > 0 && monarch.screechCooldown <= 0;
+        return !hasStarted || channelTicks > 0;
     }
 
     @Override
     public void stop() {
         this.isCasting = false;
         this.channelTicks = 0;
+        this.hasStarted = false;
+        this.cachedTarget = null;
         monarch.setScreeching(false);
-        monarch.screechCooldown = 300;
+        monarch.setCasting(false);
+
+        monarch.screechCooldown = monarch.getScaledCooldown(300);
+        monarch.globalAbilityCooldown = 20;
     }
 }
