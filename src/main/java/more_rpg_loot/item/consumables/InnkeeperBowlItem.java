@@ -33,7 +33,9 @@ public class InnkeeperBowlItem extends Item {
         this.quality = quality;
     }
 
-
+    public int getQuality() {
+        return quality;
+    }
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {

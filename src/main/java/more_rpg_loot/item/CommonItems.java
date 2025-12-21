@@ -6,9 +6,7 @@ import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -105,6 +103,11 @@ public class CommonItems {
     public static final Entry MONARCHS_KEY = entry("monarchs_key",
             new Item(new Item.Settings()),
             "Monarch's Key", new ItemModelType.Generated("item/misc/"));
+
+    public static final Entry FROST_HAUNTS_AXE = entry("frost_haunt_axe",
+            new AxeItem(ToolMaterials.STONE, new Item.Settings()
+                    .attributeModifiers(AxeItem.createAttributeModifiers(ToolMaterials.STONE, 7.0F, -3.2F))),
+            "Frost Haunt's Axe", new ItemModelType.Handheld("item/weapons/"));
 
 
     public static void registerCommonItems(){

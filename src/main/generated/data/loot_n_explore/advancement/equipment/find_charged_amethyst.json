@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/find_ender_dragon_tooth",
   "criteria": {
     "criterion": {
       "conditions": {

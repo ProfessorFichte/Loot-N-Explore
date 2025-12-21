@@ -11,6 +11,7 @@ import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemsRegistry;
 import more_rpg_loot.item.ModSpawnEggs;
+import more_rpg_loot.map.ModMapDecorations;
 import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.worldgen.gen.ModWorldGen;
 import more_rpg_loot.worldgen.villages.LNEVillagerTrades;
@@ -62,6 +63,7 @@ public class RPGLoot implements ModInitializer {
 		ModSpawnEggs.register();
 		Group.registerItemGroups();
 		Particles.register();
+		ModMapDecorations.register();
 		LNEVillagerTrades.register();
 		ModSounds.register();
 		ModWorldGen.generateModWorldGen();

@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:exploration/frozen_key",
   "criteria": {
     "criterion": {
       "conditions": {

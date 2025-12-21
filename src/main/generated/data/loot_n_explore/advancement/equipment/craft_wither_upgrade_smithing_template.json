@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/find_withered_obsidian_shard",
   "criteria": {
     "criterion": {
       "conditions": {

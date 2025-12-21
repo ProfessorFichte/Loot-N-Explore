@@ -33,11 +33,10 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
         builder.add(ModBlocks.POTTED_FROST_BLOOM, "Potted Frostbloom");
 
-        // COMMON ITEMS (with optional lore text)
+        // COMMON ITEMS
         for (var entry : more_rpg_loot.item.CommonItems.all) {
             builder.add(entry.item().getTranslationKey(), entry.translation());
 
-            // Add lore text if present (shown in item tooltip)
             if (entry.loreText() != null && !entry.loreText().isEmpty()) {
                 builder.add(entry.item().getTranslationKey() + ".lore", entry.loreText());
             }
@@ -56,15 +55,13 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             builder.add("item.minecraft.tipped_arrow.effect." + entry.name(), "Arrow of " + entry.translation());
         }
 
-        // STATUS EFFECTS (Main mod effects)
-        // Generates language entries for effect names and descriptions
+        // STATUS EFFECTS
         for (var entry : Effects.getEntries()) {
             builder.add(entry.effect.getTranslationKey(), entry.title);
             builder.add(entry.effect.getTranslationKey() + ".description", entry.description);
         }
 
-        // CONDITIONAL STATUS EFFECTS (Loaded only when compatible mods are present)
-        // More RPG Classes compatible effects
+        // CONDITIONAL STATUS EFFECTS
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
             for (var entry : MRPGC_Effects.getEntries()) {
                 builder.add(entry.effect.getTranslationKey(), entry.title);
@@ -88,63 +85,55 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             }
         }
 
-        // Witcher RPG compatible effects (generate even when mod is only compiled)
-        // Constructs translation keys directly from ID to avoid needing registered effects
+        // Witcher RPG
         for (var entry : Witcher_Effects.getEntries()) {
-            // Build translation key from ID: effect.<namespace>.<path>
+            String translationKey = "effect." + entry.id.getNamespace() + "." + entry.id.getPath();
+            builder.add(translationKey, entry.title);
+            builder.add(translationKey + ".description", entry.description);
+        }
+        for (var entry : CriticalStrike_Effects.getEntries()) {
             String translationKey = "effect." + entry.id.getNamespace() + "." + entry.id.getPath();
             builder.add(translationKey, entry.title);
             builder.add(translationKey + ".description", entry.description);
         }
 
-        // COMPAT ITEMS (drink items with translations and optional lore)
+        // COMPAT ITEMS
         for (var entry : CompatItems.getAllEntries()) {
-            // Add item name translation (uses full format: item.loot_n_explore.<name>)
             builder.add("item.loot_n_explore." + entry.name(), entry.translation());
 
-            // Add lore text if present (shown in item tooltip)
             if (entry.loreText() != null && !entry.loreText().isEmpty()) {
                 builder.add("item.loot_n_explore." + entry.name() + ".lore", entry.loreText());
             }
         }
 
-        // RELICS (Spell Engine compatible items with lore support)
-        // Generates language entries for relic names and optional lore text
+        // RELICS
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             for (var entry : LNE_Relics.entries) {
                 if (!entry.translatedName().isEmpty()) {
                     builder.add(entry.item().get().getTranslationKey(), entry.translatedName());
                 }
-                // Add lore text if present (shown in item tooltip)
                 if (!entry.loreText().isEmpty()) {
                     builder.add(entry.item().get().getTranslationKey() + ".lore", entry.loreText());
                 }
             }
         }
 
-        // WEAPONS (Spell Engine weapons with built-in translations)
-        // Generates language entries for weapon names using translatedName()
+        // WEAPONS
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             for (var entry : LNE_Weapons.entries) {
-                // Only add translation if translatedName() is set
                 if (entry.translatedName() != null && !entry.translatedName().isEmpty()) {
                     builder.add(entry.item().getTranslationKey(), entry.translatedName());
                 }
             }
         }
 
-        // SMITHING TEMPLATES (Upgrade templates with multiple translation keys)
-        // Generates all required language entries for smithing templates
-        // Each template has 5 translation keys: applies_to, ingredients, title, base_slot_description, additions_slot_description
+        // SMITHING TEMPLATE
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
-            // Generate shared translation strings (used by all templates)
             builder.add("smithing_template.loot_n_explore.applies_to", "Netherite Weapons.");
             builder.add("smithing_template.loot_n_explore.base_slot_description", "Put a Netherite Weapon here.");
 
-            // Generate template-specific translations
             for (var entry : SmithingTemplates.ENTRIES) {
                 String key = entry.templateKey();
-                // Item name (e.g., "item.loot_n_explore.dragon_upgrade_smithing_template": "Smithing Template")
                 builder.add(entry.item().getTranslationKey(), "Smithing Template");
 
                 // Template-specific keys
@@ -154,8 +143,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             }
         }
 
-        // SPELLS (Spell Engine abilities with names and descriptions)
-        // Generates language entries for all spell names and descriptions
+        // SPELLS
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             for (var entry : LNE_Abilities.entries) {
                 var id = entry.id();
@@ -164,8 +152,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             }
         }
 
-        // ADVANCEMENTS (Auto-generated advancement titles and descriptions)
-        // Simply reads title and description from advancement entries - no duplicate data!
+        // ADVANCEMENTS
         for (var entry : ModAdvancementProvider.getAllEntries()) {
             builder.add(entry.titleKey(), entry.title());
             builder.add(entry.descriptionKey(), entry.description());
@@ -178,5 +165,8 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         builder.add("entity.loot_n_explore.frost_monarch", "Frost Monarch");
         builder.add("entity.loot_n_explore.frost_monarch.spawn_message", "§5You fools have freed me!");
         builder.add("entity.loot_n_explore.monarchs_servant", "Frost Monarch' Servant");
+
+        // MAPS
+        builder.add("filled_map.loot_n_explore.frostmonarch_temple", "Frost Monarch Temple Map");
     }
 }

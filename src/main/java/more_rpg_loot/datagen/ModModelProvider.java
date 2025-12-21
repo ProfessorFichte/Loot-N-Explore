@@ -98,8 +98,7 @@ public class ModModelProvider extends FabricModelProvider {
             entry.modelType().generate(itemModelGenerator, null, entry.name());
         }
 
-        // SPELL ENGINE ITEMS (Relics, Weapons, Smithing Templates)
-        // Generate models when spell_engine is loaded
+        // Relics, Weapons, Smithing Templates
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
 
             // RELICS - Generate "item/generated" models with texture path: item/relics/{name}

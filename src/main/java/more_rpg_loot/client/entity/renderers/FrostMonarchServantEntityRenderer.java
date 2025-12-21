@@ -1,7 +1,7 @@
 package more_rpg_loot.client.entity.renderers;
 
 
-import more_rpg_loot.client.entity.renderers.feature.FrostmonarchEyesFeatureRenderer;
+import more_rpg_loot.client.entity.renderers.frostmonarch.features.FrostmonarchEyesFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;

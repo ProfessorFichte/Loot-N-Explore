@@ -58,7 +58,7 @@ public class Effects {
     public static final Effects.Entry FREEZING =  new Effects.Entry("freezing",
             "Freezing",
             "Adds Frozenticks every tick.",
-            new FreezingEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
+            new CustomStatusEffect(StatusEffectCategory.HARMFUL, 0x99ccff));
     public static final Effects.Entry ELDER_GUARDIANS_CURSE =  new Effects.Entry("elder_guardians_curse",
             "Elder Guardians Curse",
             "Lowers Attack Damage.",

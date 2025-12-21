@@ -14,12 +14,14 @@ public class ConditionalGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return monarch.getInvulnerableTimer() == 0 && wrapped.canStart();
+        // Prevent starting during any ability
+        return !monarch.isPerformingAbility() && wrapped.canStart();
     }
 
     @Override
     public boolean shouldContinue() {
-        return monarch.getInvulnerableTimer() == 0 && wrapped.shouldContinue();
+        // Stop continuing if any ability activates
+        return !monarch.isPerformingAbility() && wrapped.shouldContinue();
     }
 
     @Override

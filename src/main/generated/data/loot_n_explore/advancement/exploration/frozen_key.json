@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:exploration/glacial_tomb",
   "criteria": {
     "criterion": {
       "conditions": {

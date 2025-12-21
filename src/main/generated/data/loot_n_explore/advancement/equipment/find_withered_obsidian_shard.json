@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/find_lost_soul",
   "criteria": {
     "criterion": {
       "conditions": {

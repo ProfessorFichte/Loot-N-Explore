@@ -25,23 +25,20 @@ import java.util.function.Consumer;
 
 public class ModAdvancementProvider extends FabricAdvancementProvider {
 
-    // Entry record to hold advancement data (similar to spell entries pattern)
-    // Contains BOTH advancement structure AND translation text in one place
     public record Entry(
         Identifier id,
-        String title,           // Actual English title text
-        String description,     // Actual English description text
+        String title,
+        String description,
         @Nullable Identifier parent,
-        String iconItemName,    // Store item name as string, resolve during generation
+        String iconItemName,
         AdvancementFrame frame,
         boolean showToast,
         boolean announceToChat,
         boolean hidden,
-        @Nullable String background,  // Only for root advancements
+        @Nullable String background,
         AdvancementCriterion<?> criterion,
         @Nullable Integer experienceReward
     ) {
-        // Helper methods to generate translation keys from the advancement ID
         public String titleKey() {
             return "advancements." + id.getNamespace() + "." + id.getPath().replace("/", ".") + ".title";
         }
@@ -51,35 +48,28 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         }
     }
 
-    // Lists to hold all advancement entries
     public static final List<Entry> equipmentEntries = new ArrayList<>();
     public static final List<Entry> explorationEntries = new ArrayList<>();
 
-    // Helper method to add equipment advancement entries
     private static Entry addEquipment(Entry entry) {
         equipmentEntries.add(entry);
         return entry;
     }
 
-    // Helper method to add exploration advancement entries
     private static Entry addExploration(Entry entry) {
         explorationEntries.add(entry);
         return entry;
     }
 
-    // Helper to create identifier
     private static Identifier id(String path) {
         return Identifier.of("loot_n_explore", path);
     }
 
-    // Helper to create advancement criterion for inventory change (single item name)
     private static AdvancementCriterion<?> hasItem(String itemName) {
-        // Add namespace if not present
         String fullName = itemName.contains(":") ? itemName : "loot_n_explore:" + itemName;
         var itemId = Identifier.tryParse(fullName);
         var item = itemId != null ? Registries.ITEM.get(itemId) : Items.BARRIER;
 
-        // If item doesn't exist or is air, use a fallback
         if (item == null || item == Items.AIR) {
             System.out.println("WARNING: Item not found for criterion: " + fullName + ", using DIAMOND as fallback");
             item = Items.DIAMOND;
@@ -88,45 +78,33 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         return InventoryChangedCriterion.Conditions.items(item);
     }
 
-    // Helper to create advancement criterion for inventory change (item tag)
     private static AdvancementCriterion<?> hasItemTag(TagKey<Item> tag) {
         return InventoryChangedCriterion.Conditions.items(
             ItemPredicate.Builder.create().tag(tag).build()
         );
     }
 
-    // Helper to create advancement criterion for location (structures)
     private static AdvancementCriterion<?> atStructures(String... structureIds) {
         var locationBuilder = LocationPredicate.Builder.create();
 
-        // For structure-based location, use a simple tick criterion
-        // The actual structure check will be done via location predicate
         return TickCriterion.Conditions.createLocation(locationBuilder);
     }
 
-    // Helper to create advancement criterion for killing entity
     private static AdvancementCriterion<?> killedEntity(String entityType) {
-        // Create entity predicate with type tag instead of direct type
         var entityPredicate = EntityPredicate.Builder.create();
         return OnKilledCriterion.Conditions.createPlayerKilledEntity(entityPredicate);
     }
 
-    // Helper to create tick criterion (always true)
     private static AdvancementCriterion<?> tick() {
         return TickCriterion.Conditions.createTick();
     }
 
-    // Static initialization block to register all advancements
     static {
-        // Load items registry reference (assuming items are registered in LNE_Relics or similar)
-        // We'll use Identifier strings and resolve items dynamically
-
-        // EQUIPMENT ROOT
         addEquipment(new Entry(
             id("equipment/root"),
             "Loot Epic Equipment!",
             "Start your journey and explore the world!",
-            null,  // No parent (this is root)
+            null,
             "loot_n_explore:ender_dragon_axe",
             AdvancementFrame.TASK,
             false, false, false,
@@ -135,7 +113,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // Dragon theme advancements
         addEquipment(new Entry(
             id("equipment/find_ender_dragon_tooth"),
             "Ender Dragon Tooth",
@@ -522,25 +499,20 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
-        // Generate all equipment advancements
         for (Entry entry : equipmentEntries) {
             generateAdvancementEntry(entry, consumer);
         }
 
-        // Generate all exploration advancements
         for (Entry entry : explorationEntries) {
             generateAdvancementEntry(entry, consumer);
         }
     }
 
     private void generateAdvancementEntry(Entry entry, Consumer<AdvancementEntry> consumer) {
-        // Resolve item icon during generation (not static init)
-        // Add namespace if not present
         String fullItemName = entry.iconItemName().contains(":") ? entry.iconItemName() : "loot_n_explore:" + entry.iconItemName();
         var iconIdentifier = Identifier.tryParse(fullItemName);
         var iconItem = iconIdentifier != null ? Registries.ITEM.get(iconIdentifier) : Items.BARRIER;
 
-        // If item doesn't exist or is air, use a fallback
         if (iconItem == null || iconItem == Items.AIR) {
             System.out.println("WARNING: Item not found for advancement " + entry.id() + ": " + fullItemName + ", using DIAMOND as fallback");
             iconItem = Items.DIAMOND;
@@ -559,14 +531,13 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             )
             .criterion("criterion", entry.criterion());
 
-        // Add parent if present (using deprecated Identifier method for now)
         if (entry.parent() != null) {
             @SuppressWarnings("deprecation")
             var builderWithParent = builder.parent(entry.parent());
             builder = builderWithParent;
+
         }
 
-        // Add experience reward if present
         if (entry.experienceReward() != null) {
             builder.rewards(AdvancementRewards.Builder.experience(entry.experienceReward()));
         }
@@ -574,7 +545,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         consumer.accept(builder.build(consumer, entry.id().toString()));
     }
 
-    // Getter methods to access entries (for language provider)
     public static List<Entry> getAllEntries() {
         List<Entry> all = new ArrayList<>();
         all.addAll(equipmentEntries);

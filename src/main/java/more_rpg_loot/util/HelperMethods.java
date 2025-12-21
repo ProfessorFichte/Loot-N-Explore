@@ -1,54 +1,61 @@
 package more_rpg_loot.util;
 
-import net.minecraft.entity.AreaEffectCloudEntity;
+import more_rpg_loot.entity.CustomCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
-import java.util.Iterator;
-import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
 public class HelperMethods {
 
     public static void spawnCloudEntity(
-            ParticleEffect particleType, Entity owner, Entity target, int waitTime, float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
-            , RegistryEntry<StatusEffect> statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
-        if (!target.getWorld().isClient) {
-            List<LivingEntity> list = target.getWorld().getNonSpectatingEntities(LivingEntity.class, target.getBoundingBox().expand(4.0, 2.0, 4.0));
-            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(target.getWorld(), target.getX(), target.getY(), target.getZ());
-            if (owner instanceof LivingEntity) {
-                areaEffectCloudEntity.setOwner((LivingEntity) owner);
+            ParticleEffect particleType,
+            Entity owner,
+            Entity placementTarget,
+            int waitTime,
+            float radiusCloud,
+            int durationSecondsCloud,
+            float radiusGrowthCloud,
+            @Nullable RegistryEntry<StatusEffect> statusEffect,
+            int durationSecondsStatusEffect,
+            int amplifierStatusEffect,
+            boolean canStackAmplifier,
+            int maxAmplifier,
+            boolean canDealDamage,
+            float damageAmount,
+            @Nullable DamageSource damageSource) {
+        if (!owner.getWorld().isClient) {
+            CustomCloudEntity cloud = new CustomCloudEntity(owner.getWorld(),placementTarget.getX(),placementTarget.getY(),placementTarget.getZ());
+
+            // Set owner from entity or projectile
+            if (owner instanceof LivingEntity living) {
+                cloud.setOwner(living);
             } else if (owner instanceof ProjectileEntity projectile) {
                 Entity projectileOwner = projectile.getOwner();
-                areaEffectCloudEntity.setOwner((LivingEntity) projectileOwner);
-            }
-            areaEffectCloudEntity.setParticleType(particleType);
-            areaEffectCloudEntity.setRadius(radiusCloud);
-            areaEffectCloudEntity.setDuration(durationSecondsCloud * 20);
-            areaEffectCloudEntity.setWaitTime(waitTime);
-            areaEffectCloudEntity.setRadiusGrowth((radiusGrowthCloud - areaEffectCloudEntity.getRadius()) / (float) areaEffectCloudEntity.getDuration());
-            if(areaEffectCloudEntity != owner){
-                areaEffectCloudEntity.addEffect(new StatusEffectInstance(
-                        statusEffect,
-                        durationSecondsStatusEffect * 20, amplifierStatusEffect, false, false, true));
-            }
-            if (!list.isEmpty()) {
-                Iterator var5 = list.iterator();
-                while (var5.hasNext()) {
-                    LivingEntity livingEntity2 = (LivingEntity) var5.next();
-                    double x = owner.squaredDistanceTo(livingEntity2);
-                    if (x < 16.0) {
-                        areaEffectCloudEntity.setPosition(livingEntity2.getX(), livingEntity2.getY(), livingEntity2.getZ());
-                        break;
-                    }
+                if (projectileOwner instanceof LivingEntity living) {
+                    cloud.setOwner(living);
                 }
             }
-            owner.getWorld().spawnEntity(areaEffectCloudEntity);
+
+            cloud.setParticleType(particleType);
+            cloud.setRadius(radiusCloud);
+            cloud.setDuration(durationSecondsCloud * 20);
+            cloud.setWaitTime(waitTime);
+            cloud.setRadiusGrowth((radiusGrowthCloud - radiusCloud) / (float)(durationSecondsCloud * 20));
+
+            if (statusEffect != null) {
+                cloud.setStatusEffect(statusEffect, durationSecondsStatusEffect * 20, amplifierStatusEffect);
+                cloud.setAmplifierStacking(canStackAmplifier, maxAmplifier);
+            }
+
+            cloud.setDamageProperties(canDealDamage, damageAmount, damageSource);
+
+            owner.getWorld().spawnEntity(cloud);
         }
     }
 
@@ -88,6 +95,7 @@ public class HelperMethods {
 
     }
 
+    /*
     public static boolean clearNegativeEffects(LivingEntity entity, boolean removeOne) {
         List<StatusEffectInstance> list = entity.getStatusEffects().stream().toList();
         if (list.isEmpty())
@@ -103,6 +111,8 @@ public class HelperMethods {
         }
         return true;
     }
+
+     */
 
 
 

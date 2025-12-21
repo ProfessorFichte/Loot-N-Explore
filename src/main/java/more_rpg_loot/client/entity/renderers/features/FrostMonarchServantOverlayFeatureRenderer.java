@@ -1,4 +1,4 @@
-package more_rpg_loot.client.entity.renderers.feature;
+package more_rpg_loot.client.entity.renderers.features;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;

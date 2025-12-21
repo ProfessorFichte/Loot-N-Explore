@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/craft_wither_upgrade_smithing_template",
   "criteria": {
     "criterion": {
       "conditions": {

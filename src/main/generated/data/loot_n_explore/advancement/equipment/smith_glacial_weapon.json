@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/find_frozen_soul",
   "criteria": {
     "criterion": {
       "conditions": {

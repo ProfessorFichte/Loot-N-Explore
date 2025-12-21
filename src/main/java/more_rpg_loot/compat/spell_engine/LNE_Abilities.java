@@ -33,10 +33,6 @@ public class LNE_Abilities {
     }
 
     // ===== HELPER METHODS =====
-    /**
-     * Creates a base configuration for passive spells (triggered abilities).
-     * Passive spells trigger automatically based on conditions like melee hits or taking damage.
-     */
     private static Spell passiveSpellBase() {
         var spell = new Spell();
         spell.range = 0;
@@ -53,11 +49,7 @@ public class LNE_Abilities {
 
         return spell;
     }
-    
 
-    /**
-     * Creates a target modifier that denies impact for entities matching the specified entity type tag.
-     */
     private static Spell.Impact.TargetModifier createDenyModifier(String entityTypeTag) {
         var modifier = new Spell.Impact.TargetModifier();
         var condition = new Spell.TargetCondition();
@@ -66,7 +58,7 @@ public class LNE_Abilities {
         modifier.execute = TriState.DENY;
         return modifier;
     }
-    // ===== SPELL DEFINITIONS =====
+    // ===== SPELLS=====
 
     public static Entry dragonclaw = add(dragonclaw());
     private static Entry dragonclaw() {
@@ -385,7 +377,6 @@ public class LNE_Abilities {
         teleportImpact.action.teleport.forward = new Spell.Impact.Action.Teleport.Forward();
         teleportImpact.action.teleport.forward.distance = 30.0F;
 
-        // Depart particles (at starting location)
         teleportImpact.action.teleport.depart_particles = new ParticleBatch[]{
                 new ParticleBatch(
                         "minecraft:portal",
@@ -394,7 +385,6 @@ public class LNE_Abilities {
                         .preSpawnTravel(1)
         };
 
-        // Arrival particles (at destination)
         teleportImpact.particles = new ParticleBatch[]{
                 new ParticleBatch(
                         "minecraft:portal",
@@ -410,8 +400,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== BEAM SPELL =====
-
     public static Entry elder_guardian_eye = add(elder_guardian_eye());
     private static Entry elder_guardian_eye() {
         var id = Identifier.of(MOD_ID, "elder_guardian_eye");
@@ -422,14 +410,12 @@ public class LNE_Abilities {
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
         spell.range = 32.0F;
 
-        // Channeling cast configuration
         spell.active.cast = new Spell.Active.Cast();
         spell.active.cast.duration = 4;
         spell.active.cast.animation = "spell_engine:two_handed_channeling";
         spell.active.cast.sound = new Sound(Identifier.of("entity.guardian.attack"));
         spell.active.cast.channel_ticks = 4;
 
-        // Beam targeting
         spell.target.type = Spell.Target.Type.BEAM;
         spell.target.beam = new Spell.Target.Beam();
         spell.target.beam.texture_id = "minecraft:textures/entity/guardian_beam.png";
@@ -456,8 +442,6 @@ public class LNE_Abilities {
 
         return new Entry(id, spell, title, description, null);
     }
-
-    // ===== PROJECTILE SPELL =====
 
     public static Entry wither_spine = add(wither_spine());
     private static Entry wither_spine() {
@@ -520,7 +504,6 @@ public class LNE_Abilities {
 
         spell.impacts = List.of(damage, witherEffect);
 
-        // Area impact on hit
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.radius = 2.0F;
         spell.area_impact.area = new Spell.Target.Area();
@@ -530,8 +513,6 @@ public class LNE_Abilities {
 
         return new Entry(id, spell, title, description, null);
     }
-
-    // ===== METEOR SPELL =====
 
     public static Entry avalanche = add(avalanche());
     private static Entry avalanche() {
@@ -608,8 +589,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== CLOUD SPELL =====
-
     public static Entry frozen_soul = add(frozen_soul());
     private static Entry frozen_soul() {
         var id = Identifier.of(MOD_ID, "frozen_soul");
@@ -628,7 +607,6 @@ public class LNE_Abilities {
         };
         spell.release.sound = new Sound(Identifier.of("spell_engine", "generic_frost_casting"));
 
-        // Cloud delivery
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
         var cloud = new Spell.Delivery.Cloud();
         cloud.volume.radius = 6.0F;

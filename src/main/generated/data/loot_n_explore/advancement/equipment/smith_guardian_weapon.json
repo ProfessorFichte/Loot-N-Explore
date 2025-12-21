@@ -1,4 +1,5 @@
 {
+  "parent": "loot_n_explore:equipment/find_elder_guardian_eye",
   "criteria": {
     "criterion": {
       "conditions": {
