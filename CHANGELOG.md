@@ -1,3 +1,6 @@
+### 1.0.17 - 1.21.1
+- fix crash because of new MRPG-Lib Version
+
 ### 1.0.16 - 1.21.1
 - fix crash without the trinkets mod
 

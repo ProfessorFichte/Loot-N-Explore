@@ -300,7 +300,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
                 );
                 RegistryEntry<StatusEffect> effectEntry = Effects.FREEZING.registryEntry;
                 if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-                    effectEntry = MRPGCEffects.FROZEN_SOLID.registryEntry;
+                    effectEntry = MRPGCEffects.FROZEN_SOLID.entry;
                 }
                 for (LivingEntity livingEntity : livingEntities) {
                     livingEntity.addStatusEffect(new StatusEffectInstance(
