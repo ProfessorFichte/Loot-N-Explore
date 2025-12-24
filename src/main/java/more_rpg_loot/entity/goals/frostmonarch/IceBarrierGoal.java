@@ -199,7 +199,7 @@ public class IceBarrierGoal extends Goal {
             return;
         }
 
-        int baseCount = getSpawnAmountPerDifficulty() + monarch.getRandom().nextInt(4);
+        int baseCount = getSpawnAmountPerDifficulty() + monarch.getRandom().nextInt(2);
         int hauntCount = monarch.getScaledCount(baseCount);
 
         for (int i = 0; i < hauntCount; i++) {

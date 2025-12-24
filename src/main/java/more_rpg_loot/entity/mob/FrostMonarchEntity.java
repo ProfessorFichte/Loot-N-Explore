@@ -162,7 +162,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.goalSelector.add(2, new ScreechGoal(this));
         this.goalSelector.add(3, new HailstormGoal(this));
         this.goalSelector.add(4, new DistanceIcicleGoal(this));
-        this.goalSelector.add(5, new IcicleAttackGoal(this));
+        this.goalSelector.add(4, new IcicleAttackGoal(this));
 
         this.goalSelector.add(6, new ConditionalGoal(this, new MeleeAttackGoal(this, 1.2, false)));
 
@@ -512,8 +512,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
                 meleeHitCounter++;
                 this.setAttacking(true);
 
-                // After 3-5 hits, trigger frost explosion
-                int hitsForExplosion = 3 + this.random.nextInt(3); // Random between 3-5
+                // After 6 hits, trigger frost explosion
+                int hitsForExplosion = 6;
                 if (meleeHitCounter >= hitsForExplosion) {
                     triggerFrostExplosion();
                     meleeHitCounter = 0;
@@ -558,7 +558,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
             for (LivingEntity entity : nearbyEntities) {
                 entity.damage(
                         this.getDamageSources().indirectMagic(this, this),
-                        (float) (this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 1.5)
+                        (float) (this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.2)
                 );
                 applyStatusEffect(entity,0,6, getFreezingEffect(),10,
                         true,true,true,0);

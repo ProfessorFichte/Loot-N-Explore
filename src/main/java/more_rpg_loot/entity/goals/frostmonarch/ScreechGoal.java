@@ -93,7 +93,7 @@ public class ScreechGoal extends Goal {
                 if (entity instanceof LivingEntity living && !(entity instanceof MobEntity)) {
                     monarch.setVelocity(Vec3d.ZERO);
 
-                    float baseDamage = (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5F;
+                    float baseDamage = (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.1F;
                     float scaledDamage = monarch.getScaledDamage(baseDamage);
 
                     living.damage(
