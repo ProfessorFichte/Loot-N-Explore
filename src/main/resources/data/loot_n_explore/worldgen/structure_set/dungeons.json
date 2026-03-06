@@ -1,10 +1,6 @@
 {
   "structures": [
     {
-      "structure": "loot_n_explore:glacial_tomb",
-      "weight": 5
-    },
-    {
       "structure": "loot_n_explore:glaze_tower",
       "weight": 5
     }

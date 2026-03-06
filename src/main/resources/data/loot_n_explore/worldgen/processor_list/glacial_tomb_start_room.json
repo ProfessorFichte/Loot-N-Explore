@@ -1,0 +1,36 @@
+{
+  "processors": [
+    {
+      "processor_type": "loot_n_explore:glacial_tomb",
+      "top_filler": "minecraft:light_blue_stained_glass",
+      "bottom_filler": "minecraft:blue_stained_glass",
+      "chain_block": "loot_n_explore:frozen_chain",
+      "pillar_block": "minecraft:blue_ice",
+      "ceiling_block": "minecraft:deepslate_bricks",
+      "ceiling_wall_block": "minecraft:deepslate_brick_wall",
+      "max_chain_length": 116,
+      "max_pillar_length": 116,
+      "surface_margin": 2,
+      "enable_surface_culling": false,
+      "remove_water": true,
+      "spiral_pillar": true,
+      "spiral_radius": 2.0,
+      "spiral_speed": 0.4,
+      "randomize_ice": true
+    },
+    {
+      "processor_type": "minecraft:rule",
+      "rules": [
+        {
+          "input_predicate": {
+            "block": "minecraft:deepslate_bricks",
+            "predicate_type": "minecraft:random_block_match",
+            "probability": 0.25
+          },
+          "location_predicate": { "predicate_type": "minecraft:always_true" },
+          "output_state": { "Name": "minecraft:cracked_deepslate_bricks" }
+        }
+      ]
+    }
+  ]
+}

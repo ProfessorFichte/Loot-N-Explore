@@ -1,4 +1,4 @@
-package more_rpg_loot.map;
+package more_rpg_loot.worldgen.map;
 
 import more_rpg_loot.RPGLoot;
 import net.minecraft.item.map.MapDecorationType;

@@ -1,6 +1,6 @@
 package more_rpg_loot.worldgen.villages;
 
-import more_rpg_loot.map.ModMapDecorations;
+import more_rpg_loot.worldgen.map.ModMapDecorations;
 import more_rpg_loot.util.LneItemTags;
 import more_rpg_loot.worldgen.structures.LNESellMapFactory;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;

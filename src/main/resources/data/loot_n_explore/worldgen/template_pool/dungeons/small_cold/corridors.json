@@ -6,7 +6,7 @@
       "weight": 2,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_1",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -15,7 +15,7 @@
       "weight": 2,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_2",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -24,7 +24,7 @@
       "weight": 1,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_3",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -33,7 +33,7 @@
       "weight": 3,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_4",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -42,7 +42,7 @@
       "weight": 2,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_l",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -51,7 +51,7 @@
       "weight": 2,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_r",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -60,7 +60,7 @@
       "weight": 3,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_t",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -69,7 +69,7 @@
       "weight": 3,
       "element": {
         "location": "loot_n_explore:dungeons/small_cold_dungeon/corridor_down",
-        "processors": "loot_n_explore:deepslate_bricks",
+        "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

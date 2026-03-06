@@ -16,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
+import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
