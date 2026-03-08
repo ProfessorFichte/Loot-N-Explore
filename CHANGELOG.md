@@ -1,3 +1,12 @@
+### 1.0.19 - 1.21.1
+- fix crashes due to some old code
+
+### 1.0.18 - 1.21.1
+- Spell Engine 1.9 API Update
+
+### 1.0.17 - 1.21.1
+- fix crash because of new MRPG-Lib Version
+
 ### 1.0.16 - 1.21.1
 - fix crash without the trinkets mod
 

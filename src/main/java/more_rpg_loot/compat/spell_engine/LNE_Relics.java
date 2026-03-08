@@ -16,7 +16,7 @@ import net.spell_engine.api.config.AttributeModifier;
 import net.spell_engine.api.config.ConfigUtil;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.api.spell.container.SpellContainer;
-import net.spell_engine.api.spell.container.SpellContainerHelper;
+import net.spell_engine.api.spell.container.SpellContainers;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
@@ -191,7 +191,7 @@ public class LNE_Relics {
     public static final Entry CORRUPTED_ENDER_PEARL = add(new Entry(3, "corrupted_ender_pearl"))
             .translatedName("Corrupted Ender Pearl")
             .lore("Some Enderman carry a corrupted pearl from the end dimension.")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:enderman_teleport")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:enderman_teleport")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellPowerMechanics.CRITICAL_CHANCE.id, crit_rate, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
@@ -200,7 +200,7 @@ public class LNE_Relics {
     public static final Entry ENDER_DRAGON_SCALES = add(new Entry(4, "ender_dragon_scales"))
             .translatedName("Ender Dragon Scales")
             .lore("Be victorious against the Ender Dragon, use the dragon's scales to craft a powerful weapon!")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:ender_dragon_scales")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:ender_dragon_scales")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(), haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
@@ -226,7 +226,7 @@ public class LNE_Relics {
     public static final Entry WITHERED_OBSIDIAN_SHARD = add(new Entry(3, "withered_obsidian_shard"))
             .translatedName("Withered Obsidian Shard")
             .lore("Piglins don't just like gold, they collect these magical shards in their bastion with their treasures.")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:wither_touch")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:wither_touch")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS.getIdAsString(), armor_toughness, EntityAttributeModifier.Operation.ADD_VALUE)
@@ -235,7 +235,7 @@ public class LNE_Relics {
     public static final Entry WITHER_SPINE = add(new Entry(4, "wither_spine"))
             .translatedName("Wither Spine")
             .lore("Stand strong against the Wither and take his remains to craft a powerful weapon!")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:wither_spine")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:wither_spine")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_ARMOR.getIdAsString(), armor, EntityAttributeModifier.Operation.ADD_VALUE)
@@ -261,7 +261,7 @@ public class LNE_Relics {
     public static final Entry FROZEN_RIB = add(new Entry(3, "frozen_rib"))
             .translatedName("Frozen Rib")
             .lore("Master the obstacles in the glacial tomb to obtain the frozen ribs of Frosthaunt's from their frozen vaults.")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:frozen_touch")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:frozen_touch")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellPowerMechanics.HASTE.id, haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
@@ -270,7 +270,7 @@ public class LNE_Relics {
     public static final Entry FROZEN_SOUL = add(new Entry(4, "frozen_soul"))
             .translatedName("Frozen Soul")
             .lore("Take the Frozen Soul from the Frostmonarch to craft a powerful weapon!")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:frozen_soul")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:frozen_soul")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(SpellSchools.FROST.id, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
@@ -297,7 +297,7 @@ public class LNE_Relics {
     public static final Entry POSEIDONS_AMPHORA = add(new Entry(3, "poseidons_amphora"))
             .translatedName("Poseidon's Amphora")
             .lore("In lost underwater ruins, you may find this ancient relic.")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:poseidons_grace")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:poseidons_grace")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString(), health, EntityAttributeModifier.Operation.ADD_VALUE)
@@ -306,7 +306,7 @@ public class LNE_Relics {
     public static final Entry ELDER_GUARDIAN_EYE = add(new Entry(4, "elder_guardian_eye"))
             .translatedName("Elder Guardian Eye")
             .lore("Slay the Elder Guardian to receive his eye and craft a powerful weapon!")
-            .spell(SpellContainerHelper.createForRelic(Identifier.of("loot_n_explore:elder_guardian_eye")))
+            .spell(SpellContainers.forRelic(Identifier.of("loot_n_explore:elder_guardian_eye")))
             .config(new LNE_RelicsConfig.Entry()
                     .withAttributes(List.of(
                             new AttributeModifier(RANGED_WEAPON_DAMAGE, spell_power, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)

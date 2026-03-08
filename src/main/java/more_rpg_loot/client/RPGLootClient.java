@@ -13,15 +13,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.util.Identifier;
-import net.spell_engine.api.render.CustomModels;
-
-import java.util.List;
-
-import static more_rpg_loot.RPGLoot.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class RPGLootClient implements ClientModInitializer {
@@ -41,12 +34,6 @@ public class RPGLootClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_TRIAL_SPAWNER.block(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_VAULT.block(), RenderLayer.getCutout());
 
-        if(FabricLoader.getInstance().isModLoaded("spell_engine")){
-            CustomModels.registerModelIds(List.of(
-                    Identifier.of(MOD_ID, "projectile/small_avalanche"),
-                    Identifier.of(MOD_ID, "projectile/wither_skull")
-            ));
-        }
     }
 
 }

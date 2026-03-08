@@ -1,8 +1,6 @@
 package more_rpg_loot.entity.mob;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import mod.azure.azurelib.common.util.MoveAnalysis;
-import more_rpg_loot.client.entity.renderers.frosthaunt.FrosthauntDispatcher;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -20,23 +18,14 @@ import org.jetbrains.annotations.Nullable;
 
 import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
-
-
-
 public class FrosthauntEntity extends SkeletonEntity {
-    public final FrosthauntDispatcher dispatcher;
-    public final MoveAnalysis moveAnalysis;
-
     public FrosthauntEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 8.0F);
-        this.dispatcher = new FrosthauntDispatcher(this);
-        this.moveAnalysis = new MoveAnalysis(this);
         this.experiencePoints += 1;
     }
-
 
     public static DefaultAttributeContainer.Builder createFrosthauntSkeletonAttributes() {
         return HostileEntity.createHostileAttributes()
@@ -58,42 +47,19 @@ public class FrosthauntEntity extends SkeletonEntity {
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
         }
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(4.0);
+        this.updateAttackType();
         return entityData2;
     }
 
-    @Override
     public boolean tryAttack(Entity target) {
-        boolean attacked = super.tryAttack(target);
-        if (attacked && target instanceof LivingEntity entity) {
-            moveAnalysis.update();
-            stackFreezeStacks(entity, 20);
-
-            Runnable animationRunner;
-            animationRunner = dispatcher::attack;
-            animationRunner.run();
-            this.setAttacking(true);
-
-        }
-        return attacked;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        moveAnalysis.update();
-
-        if (this.getWorld().isClient) {
-            var isMovingOnGround = moveAnalysis.isMovingHorizontally() && this.isOnGround();
-            Runnable animationRunner;
-            if (isMovingOnGround) {
-                animationRunner = dispatcher::walk;
-            } else {
-                animationRunner = dispatcher::idle;
+        if (super.tryAttack(target)) {
+            if (target instanceof LivingEntity entity) {
+                stackFreezeStacks(entity,20);
             }
-            animationRunner.run();
+            return true;
+        } else {
+            return false;
         }
     }
+
 }
-
-
-

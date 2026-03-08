@@ -4,15 +4,18 @@
   "learn": {},
   "active": {},
   "release": {
-    "animation": "spell_engine:dual_handed_weapon_charge",
+    "animation": {
+      "id": "spell_engine:dual_handed_weapon_charge"
+    },
     "particles": [
       {
-        "particle_id": "spell_engine:magic_frost_spell_decelerate",
+        "particle_id": "spell_engine:magic_frost_decelerate",
         "origin": "CENTER",
         "shape": "CIRCLE",
         "count": 40.0,
         "min_speed": 0.6,
-        "max_speed": 0.8
+        "max_speed": 0.8,
+        "color_rgba": 1724710911
       }
     ],
     "sound": {

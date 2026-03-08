@@ -26,7 +26,12 @@ repositories {
 	// for more information about repositories.
 	maven { url = 'https://maven.kosmx.dev/' }
 	maven { url = 'https://maven.shedaniel.me/' }
-	maven { url = 'https://jitpack.io' }
+	maven {
+		url = 'https://jitpack.io'
+		content {
+			excludeGroup 'maven.modrinth'
+		}
+	}
 	maven {
 		name = 'Modrinth'
 		url = 'https://api.modrinth.com/maven'
@@ -83,10 +88,9 @@ dependencies {
 	modImplementation("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}")
 	modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim_version}")
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
-	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
+	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}")
 	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}")
 	modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}")
-	modImplementation ("mod.azure.azurelib:azurelib-fabric-${project.azure_mc_version}:${project.azure_lib_version}")
 	modCompileOnly("maven.modrinth:witcher-rpg-class:${project.witcher_version}")
 	modCompileOnly("maven.modrinth:relics-rpg:${project.relics_version}")
 

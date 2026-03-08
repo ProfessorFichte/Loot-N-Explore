@@ -7,7 +7,6 @@ import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.compat.spell_engine.LNE_Weapons;
 import more_rpg_loot.compat.spell_engine.SmithingTemplates;
 import more_rpg_loot.effects.Effects;
-import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,9 +22,9 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
-        builder.add(Group.lootTranslationKey, "LNE Equipment");
-        builder.add(Group.foodTranslationKey, "LNE Drinks & Food");
-        builder.add(Group.blocksTranslationKey, "LNE Items & Blocks");
+        builder.add("itemGroup.loot_n_explore.loot.general", "LNE Equipment");
+        builder.add("itemGroup.loot_n_explore.food.general", "LNE Drinks & Food");
+        builder.add("itemGroup.loot_n_explore.blocks.general", "LNE Items & Blocks");
         // BLOCKS
         for (var entry : ModBlocks.all) {
             builder.add(entry.block().getTranslationKey(), entry.translation());
