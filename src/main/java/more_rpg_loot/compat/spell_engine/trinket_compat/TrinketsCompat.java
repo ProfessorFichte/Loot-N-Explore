@@ -4,7 +4,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class TrinketsCompat {
     public static void init() {
-        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+        if (FabricLoader.getInstance().isModLoaded("trinkets") && FabricLoader.getInstance().isModLoaded("spell_engine")) {
             TrinketsHelper.register();
         }
     }

@@ -1,3 +1,6 @@
+### 1.0.20 - 1.21.1
+- Fixed a crash that happens without Spell Engine and Only Trinkets installed
+
 ### 1.0.19 - 1.21.1
 - fix crashes due to some old code
 
