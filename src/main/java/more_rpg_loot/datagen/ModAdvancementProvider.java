@@ -8,7 +8,9 @@ import net.minecraft.advancement.criterion.OnKilledCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.entity.EntityType;
 import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.EntityTypePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
@@ -106,8 +108,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     // Helper to create advancement criterion for killing entity
     private static AdvancementCriterion<?> killedEntity(String entityType) {
-        // Create entity predicate with type tag instead of direct type
-        var entityPredicate = EntityPredicate.Builder.create();
+        EntityType<?> type = (EntityType<?>) Registries.ENTITY_TYPE.get(Identifier.of(entityType));
+        var entityPredicate = EntityPredicate.Builder.create().type(EntityTypePredicate.create(type));
         return OnKilledCriterion.Conditions.createPlayerKilledEntity(entityPredicate);
     }
 
@@ -444,8 +446,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         // Exploration advancements
         addExploration(new Entry(
             id("exploration/find_inn"),
-            "Take a rest",
-            "Find a Inn, take a drink and rest!",
+            "Get some rest",
+            "Take a drink and take a rest!",
             id("exploration/root"),
             "malt_extract",
             AdvancementFrame.TASK,
@@ -457,12 +459,12 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addExploration(new Entry(
             id("exploration/glaze"),
             "The freezing Glaze!",
-            "Kill the Glaze in the Glaze Tower, beware it will hail frost balls.",
+            "Kill the Glaze in the Glaze Tower, beware! It will hail frost balls.",
             id("exploration/root"),
             "frostball",
             AdvancementFrame.TASK,
             true, true, false, null,
-            killedEntity("glaze"),
+            killedEntity("loot_n_explore:glaze"),
             null
         ));
 
@@ -481,7 +483,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addExploration(new Entry(
             id("exploration/frozen_key"),
             "Too cold to handle",
-            "Unlock a Frozen Vault with an Frozen Key",
+            "Unlock a Frozen Vault with a Frozen Key",
             id("exploration/glacial_tomb"),
             "frozen_key",
             AdvancementFrame.TASK,
@@ -493,7 +495,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addExploration(new Entry(
             id("exploration/monarchs_key"),
             "Freezing trial",
-            "Unlock a Ominous Frozen Vault with an Monarchs Key",
+            "Unlock an Ominous Frozen Vault with a Monarch's Key",
             id("exploration/frozen_key"),
             "monarchs_key",
             AdvancementFrame.TASK,
@@ -510,7 +512,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             "monarchs_crown",
             AdvancementFrame.CHALLENGE,
             false, true, false, null,
-            killedEntity("frost_monarch"),
+            killedEntity("loot_n_explore:frost_monarch"),
             null
         ));
     }

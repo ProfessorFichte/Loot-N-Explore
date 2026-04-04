@@ -75,7 +75,7 @@ public class ModBlocks {
                     .strength(-1.0F,3600000.0F)
                     .sounds(BlockSoundGroup.GLASS)
                     .luminance(5)
-                    .nonOpaque()), "Frozen Soul Block");
+                    .nonOpaque()), "Frozen Souls Block");
     public static final Entry MONARCHS_CROWN = entry("monarchs_crown", new MonarchsCrownBlock(
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)), "Monarch's Crown", new ModelType.Custom());
 

@@ -1,3 +1,8 @@
+### 1.0.21 - 1.21.1
+- Fixed a crash with Spell Engine but no More RPG Library installed
+- Fixed the "Freezing Glaze" & "Winter is coming" Advancement being triggered with every Mob-Kill #8
+- Fixed some Item & Advancement Typos
+
 ### 1.0.20 - 1.21.1
 - Fixed a crash that happens without Spell Engine and Only Trinkets installed
 

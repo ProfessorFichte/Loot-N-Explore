@@ -7,7 +7,9 @@
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
-            "predicate": {}
+            "predicate": {
+              "type": "loot_n_explore:frost_monarch"
+            }
           }
         ]
       },

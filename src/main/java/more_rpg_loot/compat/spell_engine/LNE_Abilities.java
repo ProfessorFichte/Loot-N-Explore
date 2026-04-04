@@ -1,5 +1,6 @@
 package more_rpg_loot.compat.spell_engine;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.Formatting;
@@ -15,6 +16,7 @@ import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.util.TriState;
 import net.spell_engine.client.util.Color;
 import net.spell_engine.fx.SpellEngineParticles;
+import net.spell_power.api.SpellSchool;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,6 +64,14 @@ public class LNE_Abilities {
         modifier.execute = TriState.DENY;
         return modifier;
     }
+    // MRPGLIB SAFETY SPELL SCHOOL
+    public static SpellSchool waterSpellSchool() {
+        if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+            return MoreSpellSchools.WATER;
+        } else{
+            return SpellSchools.GENERIC;
+        }
+    }    
     // ===== SPELL DEFINITIONS =====
 
     public static Entry dragonclaw = add(dragonclaw());
@@ -122,7 +132,7 @@ public class LNE_Abilities {
         var description = "On melee hit: {trigger_chance} chance to deal {damage} damage around the target.";
 
         var spell = passiveSpellBase();
-        spell.school = MoreSpellSchools.WATER;
+        spell.school = waterSpellSchool();
         spell.range = 7.5F;
         spell.tier = 8;
 
