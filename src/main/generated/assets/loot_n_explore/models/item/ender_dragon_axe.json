@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "loot_n_explore:item/weapons/ender_dragon_axe"
-  }
-}

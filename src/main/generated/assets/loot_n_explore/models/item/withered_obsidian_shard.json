@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "loot_n_explore:item/relics/withered_obsidian_shard"
-  }
-}
