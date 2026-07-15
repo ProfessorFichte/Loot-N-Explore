@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "loot_n_explore:block/soulfrost_lantern"
+    },
+    "hanging=true": {
+      "model": "loot_n_explore:block/soulfrost_lantern_hanging"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:elder_guardian_eye"
+  },
+  "base": {
+    "item": "minecraft:netherite_axe"
+  },
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:elder_guardian_axe"
+  },
+  "template": {
+    "item": "loot_n_explore:guardian_upgrade_smithing_template"
+  }
+}

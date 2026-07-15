@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:ender_dragon_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:ender_dragon_axe",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:ender_dragon_bow",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:ender_dragon_crossbow",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:ender_dragon_mace",
+      "required": false
+    }
+  ]
+}

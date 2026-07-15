@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:wither_spine"
+  },
+  "base": {
+    "item": "minecraft:netherite_axe"
+  },
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:wither_axe"
+  },
+  "template": {
+    "item": "loot_n_explore:wither_upgrade_smithing_template"
+  }
+}

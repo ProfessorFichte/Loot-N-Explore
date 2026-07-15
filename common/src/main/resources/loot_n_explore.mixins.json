@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "more_rpg_loot.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityMixin",
+    "VillagerMixin"
+  ],
+  "client": [
+    "BossBarHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

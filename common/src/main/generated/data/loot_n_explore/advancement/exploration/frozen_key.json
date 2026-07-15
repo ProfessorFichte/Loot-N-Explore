@@ -1,0 +1,33 @@
+{
+  "parent": "loot_n_explore:exploration/glacial_tomb",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:frozen_key"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.frozen_key.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frozen_key"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.frozen_key.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

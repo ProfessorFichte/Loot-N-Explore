@@ -1,0 +1,6 @@
+{
+  "parent": "loot_n_explore:item/elder_guardian_crossbow",
+  "textures": {
+    "layer0": "loot_n_explore:item/weapons/elder_guardian_crossbow_firework"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=east,hanging=false": { "model": "loot_n_explore:block/acacia_wall_hanging_inn_sign"},
+    "facing=north,hanging=false": { "model": "loot_n_explore:block/acacia_wall_hanging_inn_sign", "y": 90},
+    "facing=south,hanging=false": { "model": "loot_n_explore:block/acacia_wall_hanging_inn_sign", "y": 90 },
+    "facing=west,hanging=false": { "model": "loot_n_explore:block/acacia_wall_hanging_inn_sign" },
+    "facing=east,hanging=true": { "model": "loot_n_explore:block/acacia_hanging_inn_sign", "y": 90 },
+    "facing=north,hanging=true": { "model": "loot_n_explore:block/acacia_hanging_inn_sign" },
+    "facing=south,hanging=true": { "model": "loot_n_explore:block/acacia_hanging_inn_sign", "y": 180 },
+    "facing=west,hanging=true": { "model": "loot_n_explore:block/acacia_hanging_inn_sign", "y": 270 }
+  }
+}

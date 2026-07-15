@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "variant=0,facing=north": { "model": "loot_n_explore:block/dead_skeleton_1" },
+    "variant=0,facing=east":  { "model": "loot_n_explore:block/dead_skeleton_1", "y": 90 },
+    "variant=0,facing=south": { "model": "loot_n_explore:block/dead_skeleton_1", "y": 180 },
+    "variant=0,facing=west":  { "model": "loot_n_explore:block/dead_skeleton_1", "y": 270 },
+    "variant=1,facing=north": { "model": "loot_n_explore:block/dead_skeleton_2" },
+    "variant=1,facing=east":  { "model": "loot_n_explore:block/dead_skeleton_2", "y": 90 },
+    "variant=1,facing=south": { "model": "loot_n_explore:block/dead_skeleton_2", "y": 180 },
+    "variant=1,facing=west":  { "model": "loot_n_explore:block/dead_skeleton_2", "y": 270 },
+    "variant=2,facing=north": { "model": "loot_n_explore:block/dead_skeleton_3" },
+    "variant=2,facing=east":  { "model": "loot_n_explore:block/dead_skeleton_3", "y": 90 },
+    "variant=2,facing=south": { "model": "loot_n_explore:block/dead_skeleton_3", "y": 180 },
+    "variant=2,facing=west":  { "model": "loot_n_explore:block/dead_skeleton_3", "y": 270 }
+  }
+}

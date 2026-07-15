@@ -1,0 +1,35 @@
+{
+  "parent": "loot_n_explore:exploration/root",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {}
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.glaze.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frostball"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.glaze.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

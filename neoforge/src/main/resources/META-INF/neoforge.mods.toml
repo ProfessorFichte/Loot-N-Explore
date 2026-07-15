@@ -1,0 +1,51 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "ARR"
+
+[[mods]]
+modId = "loot_n_explore"
+version = "${version}"
+displayName = "Loot N Explore"
+authors = "Fichte"
+description = '''
+RPG-Structures, Mob Entities, Building Blocks and more.
+'''
+logoFile = "icon.png"
+
+[[dependencies.loot_n_explore]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "structure_pool_api"
+type = "required"
+versionRange = "[${structure_pool_api_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "spell_engine"
+type = "optional"
+versionRange = "[${spell_engine_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "more_rpg_classes"
+type = "optional"
+versionRange = "[${more_rpg_library_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "loot_n_explore.mixins.json"

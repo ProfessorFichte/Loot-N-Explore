@@ -1,0 +1,6 @@
+{
+  "parent": "loot_n_explore:item/wither_crossbow",
+  "textures": {
+    "layer0": "loot_n_explore:item/weapons/bow_pulling/wither_crossbow_pulling_1"
+  }
+}

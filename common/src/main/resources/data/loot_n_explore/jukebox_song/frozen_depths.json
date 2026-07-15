@@ -1,0 +1,8 @@
+{
+  "comparator_output": 4,
+  "description": {
+    "translate": "jukebox_song.loot_n_explore.frozen_depths"
+  },
+  "length_in_seconds": 235.0,
+  "sound_event": "loot_n_explore:music.frozen_depths"
+}

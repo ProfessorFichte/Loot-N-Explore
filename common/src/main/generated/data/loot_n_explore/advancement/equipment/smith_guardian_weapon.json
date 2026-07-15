@@ -1,0 +1,34 @@
+{
+  "parent": "loot_n_explore:equipment/find_elder_guardian_eye",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#loot_n_explore:weapon_themes/guardian"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.smith_guardian_weapon.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:elder_guardian_sword"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.smith_guardian_weapon.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

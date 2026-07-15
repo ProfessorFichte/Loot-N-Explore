@@ -1,0 +1,37 @@
+{
+  "parent": "loot_n_explore:exploration/monarchs_key",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {}
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.frost_monarch.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:monarchs_crown"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.frost_monarch.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

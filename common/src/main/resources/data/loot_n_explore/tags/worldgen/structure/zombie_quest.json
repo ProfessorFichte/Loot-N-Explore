@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "betterdungeons:small_dungeon",
+      "required": false
+    },
+    {
+    "id": "betterdungeons:zombie_dungeon",
+    "required": false
+    }
+  ]
+}

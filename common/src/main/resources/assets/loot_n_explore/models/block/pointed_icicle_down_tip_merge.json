@@ -1,0 +1,7 @@
+﻿{
+  "ambientocclusion": false,
+  "parent": "loot_n_explore:block/pointed_icicle",
+  "textures": {
+    "cross": "loot_n_explore:block/pointed_icicle_down_tip_merge"
+  }
+}

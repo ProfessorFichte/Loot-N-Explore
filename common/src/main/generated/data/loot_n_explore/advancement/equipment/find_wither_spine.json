@@ -1,0 +1,34 @@
+{
+  "parent": "loot_n_explore:equipment/craft_wither_upgrade_smithing_template",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:wither_spine"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_wither_spine.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:wither_spine"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_wither_spine.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

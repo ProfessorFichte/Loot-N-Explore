@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:plains",
+    {
+      "id": "#c:plains",
+      "required": false
+    }
+  ]
+}

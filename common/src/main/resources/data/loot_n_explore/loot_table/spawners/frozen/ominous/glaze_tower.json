@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "loot_n_explore:spawners/frozen/normal/key",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "loot_n_explore:spawners/frozen/ominous/key",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "loot_n_explore:spawners/frozen/ominous/reward",
+          "weight": 5
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "loot_n_explore:spawners/frozen/normal/glaze_tower"
+}

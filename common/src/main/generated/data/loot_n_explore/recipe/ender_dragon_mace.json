@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "lne_paladins"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:ender_dragon_scales"
+  },
+  "base": {
+    "item": "minecraft:mace"
+  },
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:ender_dragon_mace"
+  },
+  "template": {
+    "item": "loot_n_explore:dragon_upgrade_smithing_template"
+  }
+}

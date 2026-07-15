@@ -1,0 +1,63 @@
+architectury {
+    common rootProject.enabled_platforms.split(',')
+}
+
+sourceSets {
+    main {
+        resources.srcDir 'src/main/generated'
+    }
+}
+
+def platform = "fabric"
+
+repositories {
+    maven { url 'https://maven.kosmx.dev/' }
+    maven { url 'https://maven.shedaniel.me/' }
+    maven { url 'https://maven.azuredoom.com/mods' }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content {
+            includeGroup 'maven.modrinth'
+        }
+    }
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://maven.ladysnake.org/releases'
+    }
+    maven { url 'https://maven.wispforest.io/releases' }
+    maven { url 'https://maven.su5ed.dev/releases' }
+    maven { url 'https://maven.fabricmc.net' }
+    maven { url 'https://jitpack.io' }
+    mavenLocal()
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$project.fabric_loader_version"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$project.fabric_api_version"
+
+    modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-${platform}")
+    modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${project.player_anim_version}")
+    modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
+    modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
+    modCompileOnly("com.github.thedeathlycow:thermoo:${project.thermoo_version}")
+
+    modCompileOnly("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
+    modCompileOnly("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
+    modCompileOnly("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
+    modCompileOnly("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}-${platform}")
+    modCompileOnly("maven.modrinth:witcher-rpg-class:${project.witcher_version}-${platform}")
+    modCompileOnly("maven.modrinth:relics-rpg:${project.relics_version}-${platform}")
+    modCompileOnly("maven.modrinth:critical-strike:${project.critical_strike_version}-${platform}")
+
+    modCompileOnly("maven.modrinth:trinkets:${project.trinkets_version}")
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3"
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3"
+
+    modCompileOnly "io.wispforest:owo-lib:${project.owo_version}"
+    modImplementation("io.wispforest:accessories-common:${project.accessories_version}")
+}

@@ -1,0 +1,63 @@
+{
+  "school": "spell_power:physical_melee",
+  "range": 32.0,
+  "tier": 1,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 4.0,
+      "channel_ticks": 20,
+      "animation": {
+        "id": "spell_engine:two_handed_channeling"
+      },
+      "sound": {
+        "id": "minecraft:entity.guardian.attack"
+      }
+    }
+  },
+  "target": {
+    "type": "BEAM",
+    "beam": {
+      "texture_id": "minecraft:textures/entity/guardian_beam.png",
+      "width": 0.08,
+      "flow": 2.0,
+      "block_hit_particles": [
+        {
+          "particle_id": "bubble",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "count": 1.5,
+          "min_speed": 0.1,
+          "max_speed": 0.2
+        }
+      ]
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {}
+      },
+      "sound": {
+        "id": "minecraft:entity.guardian.attack",
+        "volume": 0.4
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:elder_guardians_curse",
+          "duration": 8.0
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 60.0
+    }
+  }
+}

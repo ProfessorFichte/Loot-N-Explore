@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:hot_chocolate",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:potato_soup",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:sweet_berry_punch",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:apple_juice",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:orange_juice",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:beauclair_white",
+      "required": false
+    }
+  ]
+}

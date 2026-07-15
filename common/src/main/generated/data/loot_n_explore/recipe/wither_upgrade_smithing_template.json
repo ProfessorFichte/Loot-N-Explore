@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "spell_engine"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:nether_bricks"
+    },
+    "A": {
+      "item": "loot_n_explore:unknown_remains"
+    },
+    "B": {
+      "item": "loot_n_explore:lost_soul"
+    },
+    "C": {
+      "item": "loot_n_explore:withered_obsidian_shard"
+    }
+  },
+  "pattern": [
+    "#A#",
+    "#B#",
+    "#C#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:wither_upgrade_smithing_template"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:item/bow",
+  "overrides": [
+    {
+      "model": "loot_n_explore:item/ender_dragon_bow_pulling_0",
+      "predicate": {
+        "pulling": 1
+      }
+    },
+    {
+      "model": "loot_n_explore:item/ender_dragon_bow_pulling_0",
+      "predicate": {
+        "pull": 0.333,
+        "pulling": 1
+      }
+    },
+    {
+      "model": "loot_n_explore:item/ender_dragon_bow_pulling_1",
+      "predicate": {
+        "pull": 0.666,
+        "pulling": 1
+      }
+    },
+    {
+      "model": "loot_n_explore:item/ender_dragon_bow_pulling_2",
+      "predicate": {
+        "pull": 0.9990000000000001,
+        "pulling": 1
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "loot_n_explore:item/weapons/ender_dragon_bow"
+  }
+}

@@ -1,0 +1,7 @@
+// 1.21.1	2026-04-11T18:43:39.2356405	Loot N Explore/Tags for minecraft:entity_type
+5cfd13c459e1dc784bb09722f0e362d0cfed5fcb data\frostiful\tags\entity_type\benefits_from_cold.json
+edfaf8cc1d79e6252d86920557b6c9066b8e678e data\minecraft\tags\entity_type\powder_snow_walkable_mobs.json
+f6726e025a383a62fce97c51d112960c99055a01 data\minecraft\tags\entity_type\fall_damage_immune.json
+edfaf8cc1d79e6252d86920557b6c9066b8e678e data\minecraft\tags\entity_type\freeze_immune_entity_types.json
+734dd7995ee87d62fa5eac61bd93bb50a11cacd3 data\minecraft\tags\entity_type\skeletons.json
+5f66f72538e94ec59c5ebc3008ad26600ab639a3 data\c\tags\entity_type\bosses.json

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": "#loot_n_explore:has_structure/icy_dungeons",
+  "start_pool": "loot_n_explore:dungeons/frostmonarch_temple",
+  "max_distance_from_center": 116,
+  "size": 7,
+  "step": "underground_decoration",
+  "terrain_adaptation": "beard_box",
+  "start_height": {
+    "absolute": -27
+  },
+  "spawn_overrides": {
+  },
+  "use_expansion_hack": false
+}

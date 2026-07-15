@@ -1,0 +1,36 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:ender_dragon_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:ender_dragon_axe",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wither_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:wither_axe",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:glacial_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:glacial_axe",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:elder_guardian_sword",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:elder_guardian_axe",
+      "required": false
+    }
+  ]
+}

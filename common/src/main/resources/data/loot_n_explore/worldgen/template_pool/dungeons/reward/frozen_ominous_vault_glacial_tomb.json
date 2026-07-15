@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "loot_n_explore:dungeons/reward/frozen_ominous_vault_glacial_tomb",
+        "processors": "loot_n_explore:glacial_tomb_pillars"
+      }
+    }
+  ]
+}

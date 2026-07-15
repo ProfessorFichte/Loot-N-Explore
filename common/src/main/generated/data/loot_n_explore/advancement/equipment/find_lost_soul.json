@@ -1,0 +1,33 @@
+{
+  "parent": "loot_n_explore:equipment/find_unknown_remains",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:lost_soul"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_lost_soul.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:lost_soul"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_lost_soul.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

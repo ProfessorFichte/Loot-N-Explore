@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "loot_n_explore",
+  "version": "${version}",
+  "name": "Loot N Explore",
+  "description": "RPG-Structures, Mob Entities, Building Blocks and more.",
+  "authors": [
+    "Fichte"
+  ],
+  "contact": {
+    "sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
+  },
+  "license": "ARR",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.lne.fabric.RPGLootFabric"
+    ],
+    "client": [
+      "com.lne.fabric.client.RPGLootFabricClient"
+    ],
+    "fabric-datagen": [
+      "more_rpg_loot.RPGLootDataGenerator"
+    ]
+  },
+  "mixins": [
+    "loot_n_explore.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.5",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*",
+    "structure_pool_api": "*"
+  },
+  "suggests": {
+    "spell_engine": "*",
+    "spell_power": "*",
+    "more_rpg_classes": "*",
+    "ranged_weapon_api": "*",
+    "trinkets": "*"
+  }
+}

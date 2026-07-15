@@ -1,0 +1,50 @@
+{
+	"schemaVersion": 1,
+	"id": "loot_n_explore",
+	"version": "${version}",
+	"name": "Loot & Explore",
+	"description": "Explore and loot new structures and fight new dangerous foes!",
+	"authors": [
+		"Fichte"
+	],
+	"contact": {
+		"sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
+	},
+	"license": "ARR",
+	"icon": "assets/loot_n_explore/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.lne.fabric.RPGLootFabric"
+		],
+		"client": [
+			"com.lne.fabric.client.RPGLootFabricClient"
+		],
+		"fabric-datagen": [
+			"more_rpg_loot.RPGLootDataGenerator"
+		]
+	},
+	"mixins": [
+		"loot_n_explore.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.10",
+		"minecraft": "~1.21",
+		"java": ">=17",
+		"fabric-api": "*",
+		"structure_pool_api": "*"
+	},
+	"suggests": {
+		"spell_engine": "*",
+		"spell_power": "*",
+		"more_rpg_classes": "*"
+	},
+	"custom": {
+		"modmenu": {
+			"modId": "loot_n_explore",
+			"links": {
+				"modmenu.discord": "https://discord.gg/AShKd5XrTu"
+			}
+		}
+	}
+}

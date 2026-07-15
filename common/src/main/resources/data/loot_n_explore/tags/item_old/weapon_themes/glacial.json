@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "loot_n_explore:glacial_axe",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:glacial_sword",
+      "required": false
+    }
+  ]
+}

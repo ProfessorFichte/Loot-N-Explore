@@ -1,0 +1,27 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "lne_archers"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:elder_guardian_eye"
+  },
+  "base": {
+    "item": "minecraft:crossbow"
+  },
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:elder_guardian_crossbow"
+  },
+  "template": {
+    "item": "loot_n_explore:guardian_upgrade_smithing_template"
+  }
+}

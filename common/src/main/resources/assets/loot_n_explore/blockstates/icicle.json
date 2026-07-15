@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "vertical_direction=down": { "model": "loot_n_explore:block/pointed_icicle_down_tip" },
+    "vertical_direction=up": { "model": "loot_n_explore:block/pointed_icicle_up_tip" }
+  }
+}
