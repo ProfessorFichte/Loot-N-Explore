@@ -84,6 +84,9 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         );
     }
 
+    // Structures are a dynamic (datapack-backed) registry, so a RegistryEntryList can only be
+    // resolved from the WrapperLookup generateAdvancement() receives - not from a static field
+    // initializer. Left as an unfiltered location criterion until entries are built lazily.
     private static AdvancementCriterion<?> atStructures(String... structureIds) {
         var locationBuilder = LocationPredicate.Builder.create();
 
@@ -91,8 +94,15 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
     }
 
     private static AdvancementCriterion<?> killedEntity(String entityType) {
-        var entityPredicate = EntityPredicate.Builder.create();
-        return OnKilledCriterion.Conditions.createPlayerKilledEntity(entityPredicate);
+        String fullName = entityType.contains(":") ? entityType : "loot_n_explore:" + entityType;
+        var entityId = Identifier.tryParse(fullName);
+        var type = entityId != null ? Registries.ENTITY_TYPE.get(entityId) : null;
+
+        var predicateBuilder = EntityPredicate.Builder.create();
+        if (type != null) {
+            predicateBuilder.type(type);
+        }
+        return OnKilledCriterion.Conditions.createPlayerKilledEntity(predicateBuilder);
     }
 
     private static AdvancementCriterion<?> tick() {

@@ -3,20 +3,15 @@ package more_rpg_loot.client.entity.models.frozen_depths.frostmonarch;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
-import net.minecraft.util.Identifier;
-
-import static more_rpg_loot.RPGLoot.MOD_ID;
 
 // Made with Blockbench 5.1.4
 // Converted for Fabric 1.21.1 with Yarn mappings
 
 public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity> implements ModelWithArms {
-    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Identifier.of(MOD_ID, "frost_monarch"), "main");
     private final ModelPart group;
     private final ModelPart frostmonarch;
     private final ModelPart waist;
@@ -51,31 +46,6 @@ public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity>
 
     @Override
     public ModelPart getPart() {
-        return this.group;
-    }
-
-    // Getters for held item rendering
-    public ModelPart getRightArm() {
-        return this.RightArm;
-    }
-
-    public ModelPart getLeftArm() {
-        return this.LeftArm;
-    }
-
-    public ModelPart getBody() {
-        return this.Body;
-    }
-
-    public ModelPart getWaist() {
-        return this.waist;
-    }
-
-    public ModelPart getFrostmonarch() {
-        return this.frostmonarch;
-    }
-
-    public ModelPart getGroup() {
         return this.group;
     }
 
@@ -147,30 +117,25 @@ public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity>
 
     @Override
     public void setArmAngle(Arm arm, MatrixStack matrices) {
-        // Get the appropriate arm based on which side
         ModelPart armPart = arm == Arm.RIGHT ? this.RightArm : this.LeftArm;
-        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null; // Only left hand has the item part defined
+        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null; // only the left arm has an item part defined
 
-        // Apply transformations through the model hierarchy
-        // group -> frostmonarch -> waist -> Body -> arm -> hand position
         this.applyPartTransform(matrices, this.group);
         this.applyPartTransform(matrices, this.frostmonarch);
         this.applyPartTransform(matrices, this.waist);
         this.applyPartTransform(matrices, this.Body);
         this.applyPartTransform(matrices, armPart);
 
-        // If there's a hand part (leftItem), use it. Otherwise calculate hand position
         if (handPart != null) {
             this.applyPartTransform(matrices, handPart);
         } else {
-            // For right arm, manually position at hand location (end of arm)
-            // LeftArm hand is at (2.0, 11, 1), RightArm hand is mirrored at (-2.0, 11, 1)
-            matrices.translate(-0.125F, 0.6875F, 0.0625F); // (-2/16, 11/16, 1/16)
+            // right arm has no item part, so the hand offset is applied manually: mirror of leftItem's pivot (2.0, 11, 1)
+            matrices.translate(-0.125F, 0.6875F, 0.0625F);
         }
     }
 
+    // rotate() also applies the part's pivot translation, so this is the whole parent-chain transform
     private void applyPartTransform(MatrixStack matrices, ModelPart part) {
-        // ModelPart.rotate() handles both pivot translation and rotations
         part.rotate(matrices);
     }
 }

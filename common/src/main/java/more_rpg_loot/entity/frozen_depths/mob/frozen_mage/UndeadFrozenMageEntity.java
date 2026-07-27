@@ -3,9 +3,9 @@ package more_rpg_loot.entity.frozen_depths.mob.frozen_mage;
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.entity.frozen_depths.projectile.StraightIcicleEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.TrackingIcicleEntity;
+import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -42,7 +42,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
-        this.moveControl = new SmoothMoveControl(this);
+        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 5;
     }
 
@@ -283,20 +283,4 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         }
     }
 
-    static class SmoothMoveControl extends MoveControl {
-        SmoothMoveControl(UndeadFrozenMageEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = net.minecraft.util.math.MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) f = 30.0F;
-            if (f < -30.0F) f = -30.0F;
-            float g = from + f;
-            if (g < 0.0F) g += 360.0F;
-            else if (g > 360.0F) g -= 360.0F;
-            return g;
-        }
-    }
 }

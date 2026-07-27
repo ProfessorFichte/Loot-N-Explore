@@ -1,9 +1,9 @@
 package more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -12,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -47,7 +48,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
     public MonarchsSoldierEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.moveControl = new SmoothMoveControl(this);
+        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 8;
     }
 
@@ -81,6 +82,14 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+
+        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
+        // melee-attack goal alongside this class's own explicit MeleeAttackGoal above, causing
+        // two redundant melee goals to compete for the same controls - strip the hidden one out.
+        this.goalSelector.getGoals().stream()
+                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .toList()
+                .forEach(g -> this.goalSelector.remove(g.getGoal()));
     }
 
     @Nullable
@@ -157,7 +166,11 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
     }
 
     private void setupAnimationStates() {
-        boolean moving = this.getVelocity().horizontalLengthSquared() > 0.01;
+        // getVelocity() isn't reliably synced to the client during normal AI pathfinding movement
+        // (only knockback sends a velocity packet), so detect movement from the actual position delta instead
+        double dx = this.getX() - this.prevX;
+        double dz = this.getZ() - this.prevZ;
+        boolean moving = (dx * dx + dz * dz) > 0.0001;
 
         if (this.isPerformingAoe()) {
             this.aoeSwingAnimationState.startIfNotRunning(this.age);
@@ -207,7 +220,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             this.target = soldier.getTarget();
             return target != null && target.isAlive()
                     && soldier.squaredDistanceTo(target) <= 4.0 * 4.0
-                    && soldier.aoeCooldown <= 0;
+                    && soldier.aoeCooldown <= 0
+                    && !soldier.isBlocking();
         }
 
         @Override
@@ -243,7 +257,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
                 if (entity.isTeammate(soldier)) continue;
 
                 Vec3d toEntity = entity.getPos().subtract(soldier.getPos());
-                double angle = Math.abs(MathHelper.wrapDegrees((float) (Math.atan2(toEntity.z, toEntity.x) * (180.0 / Math.PI)) - soldier.getYaw()));
+                // atan2 gives a raw math angle; Minecraft yaw is offset by -90 from that convention
+                double angle = Math.abs(MathHelper.wrapDegrees((float) (Math.atan2(toEntity.z, toEntity.x) * (180.0 / Math.PI)) - 90.0F - soldier.getYaw()));
                 if (angle <= 45.0) {
                     soldier.tryAttack(entity);
                 }
@@ -271,9 +286,9 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             this.target = soldier.getTarget();
             if (target == null || !target.isAlive()) return false;
             double dist = soldier.squaredDistanceTo(target);
-            return dist <= 6.0 * 6.0 && dist > 1.5 * 1.5
-                    && !soldier.isBlocking()
-                    && soldier.random.nextFloat() < 0.006F;
+            return dist <= 7.0 * 7.0 && dist > 1.0 * 1.0
+                    && !soldier.isBlocking() && !soldier.isPerformingAoe()
+                    && soldier.random.nextFloat() < 0.08F;
         }
 
         @Override
@@ -294,20 +309,4 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         }
     }
 
-    static class SmoothMoveControl extends MoveControl {
-        SmoothMoveControl(MonarchsSoldierEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) f = 30.0F;
-            if (f < -30.0F) f = -30.0F;
-            float g = from + f;
-            if (g < 0.0F) g += 360.0F;
-            else if (g > 360.0F) g -= 360.0F;
-            return g;
-        }
-    }
 }

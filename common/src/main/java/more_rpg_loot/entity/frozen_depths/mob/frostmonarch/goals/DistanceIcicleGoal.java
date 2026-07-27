@@ -50,19 +50,10 @@ public class DistanceIcicleGoal extends Goal {
         this.channelTicks = 10;
         this.hasStarted = false;
         monarch.setCasting(true);
+        monarch.getNavigation().stop();
 
-        LivingEntity target = cachedTarget;
-        if (target != null) {
-            double dx = target.getX() - monarch.getX();
-            double dz = target.getZ() - monarch.getZ();
-            float yaw = (float)(MathHelper.atan2(dz, dx) * (180.0 / Math.PI)) - 90.0F;
-
-            monarch.setYaw(yaw);
-            monarch.setHeadYaw(yaw);
-            monarch.setBodyYaw(yaw);
-            monarch.prevYaw = yaw;
-            monarch.prevHeadYaw = yaw;
-            monarch.prevBodyYaw = yaw;
+        if (cachedTarget != null) {
+            monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
     }
 
@@ -74,6 +65,10 @@ public class DistanceIcicleGoal extends Goal {
 
         if (!monarch.isCasting()) {
             monarch.setCasting(true);
+        }
+
+        if (cachedTarget != null && cachedTarget.isAlive()) {
+            monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
 
         if (channelTicks == 5) {

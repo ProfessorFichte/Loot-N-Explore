@@ -1,6 +1,5 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
-import more_rpg_loot.effects.Effects;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
@@ -10,13 +9,10 @@ import net.minecraft.entity.Ownable;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_power.api.SpellSchools;
 
 import java.util.HashMap;
@@ -25,6 +21,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
 
 public class StraightIcicleEntity extends Entity implements Ownable {
     // Animation timing
@@ -205,13 +202,6 @@ public class StraightIcicleEntity extends Entity implements Ownable {
 
         int elapsed = LIFETIME_TICKS - this.ticksLeft;
         return Math.min(1.0F, ((float)elapsed - tickDelta) / (float)LIFETIME_TICKS);
-    }
-
-    public RegistryEntry<StatusEffect> getFreezingEffect() {
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            return MRPGCEffects.FROSTED.entry;
-        }
-        return Effects.FREEZING.registryEntry;
     }
 
 }

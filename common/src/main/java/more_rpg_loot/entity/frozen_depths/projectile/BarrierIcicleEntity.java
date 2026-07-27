@@ -1,6 +1,5 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
-import more_rpg_loot.effects.Effects;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -8,17 +7,15 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Ownable;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_power.api.SpellSchools;
 
 import java.util.UUID;
 
+import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
 import static more_rpg_loot.util.HelperMethods.spawnCloudEntity;
 
 public class BarrierIcicleEntity extends Entity implements Ownable {
@@ -26,7 +23,6 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
     public static final int RISE_DURATION = 10;
     public static final int RETRACT_DURATION = 10;
 
-    private int age = 0;
     private int maxLifetime;
     private LivingEntity owner;
     private UUID ownerUuid;
@@ -90,7 +86,6 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
     @Override
     public void tick() {
         super.tick();
-        this.age++;
 
         if (!this.getWorld().isClient) {
             int retractStartAge = maxLifetime - RETRACT_DURATION;
@@ -180,11 +175,5 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
     @Override
     public boolean isCollidable() {
         return true;
-    }
-    public RegistryEntry<StatusEffect> getFreezingEffect() {
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            return MRPGCEffects.FROSTED.entry;
-        }
-        return Effects.FREEZING.registryEntry;
     }
 }

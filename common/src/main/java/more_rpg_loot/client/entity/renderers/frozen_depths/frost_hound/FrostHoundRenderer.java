@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class FrostHoundRenderer extends MobEntityRenderer<FrostHoundEntity, FrostHoundModel> {
-    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/entity/mobs/frost_hound.png");
+    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/entity/frozen_depths/mobs/frost_hound.png");
 
     public FrostHoundRenderer(EntityRendererFactory.Context context) {
         super(context, new FrostHoundModel(context.getPart(EntityModelLayers.FROST_HOUND)), 0.5f);

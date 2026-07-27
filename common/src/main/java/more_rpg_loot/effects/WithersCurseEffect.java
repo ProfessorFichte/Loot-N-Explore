@@ -19,8 +19,8 @@ public class WithersCurseEffect extends StatusEffect {
             for (StatusEffectInstance statusEffectInstance : list) {
                 StatusEffect statusEffect = statusEffectInstance.getEffectType().value();
                 if (!statusEffect.isBeneficial()) {
+                    amount_negative++;
                 }
-                amount_negative++;
             }
             if(amplifier < amount_negative){
                 livingEntity.addStatusEffect(new StatusEffectInstance(Effects.WITHERS_CURSE.registryEntry,

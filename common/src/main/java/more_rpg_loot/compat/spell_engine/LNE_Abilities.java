@@ -432,7 +432,9 @@ public class LNE_Abilities {
         spell.active.cast.duration = 4;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
         spell.active.cast.sound = new Sound(Identifier.of("entity.guardian.attack"));
-        spell.active.cast.channel_ticks = 20;
+        spell.active.cast.type = Spell.Active.Cast.Type.CHANNEL;
+        spell.active.cast.channel = new Spell.Active.Cast.Channel();
+        spell.active.cast.channel.ticks = 20;
 
         spell.target.type = Spell.Target.Type.BEAM;
         spell.target.beam = new Spell.Target.Beam();
@@ -495,8 +497,9 @@ public class LNE_Abilities {
 
 
         projectile.client_data = new Spell.ProjectileData.Client();
-        projectile.client_data.model = new Spell.ProjectileModel();
-        projectile.client_data.model.model_id = "loot_n_explore:spell_projectile/wither_skull";
+        var witherSkullModel = SpellBuilder.ProjectileModels.model("loot_n_explore:spell_projectile/wither_skull", 1.5F, LightEmission.RADIATE);
+        witherSkullModel.rotate_degrees_per_tick = 0.0F;
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(witherSkullModel);
         projectile.client_data.travel_particles= new ParticleBatch[]{
                 new ParticleBatch(
                         "smoke",
@@ -504,9 +507,6 @@ public class LNE_Abilities {
                         2, 0.6F, 0.9F)
                         .rotate(ParticleBatch.Rotation.LOOK)
         };
-        projectile.client_data.model.scale = 1.5F;
-        projectile.client_data.model.light_emission = LightEmission.RADIATE;
-        projectile.client_data.model.rotate_degrees_per_tick = 0.0F;
 
         var damage = SpellBuilder.Impacts.damage(0.25F);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
@@ -575,8 +575,7 @@ public class LNE_Abilities {
                         3, 0.0F, 0.1F)
                         .rotate(ParticleBatch.Rotation.LOOK)
         };
-        projectile.client_data.model = new Spell.ProjectileModel();
-        projectile.client_data.model.model_id = "loot_n_explore:spell_projectile/small_avalanche";
+        projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("loot_n_explore:spell_projectile/small_avalanche");
         spell.deliver.meteor.projectile = projectile;
 
         var freezingEffect = SpellBuilder.Impacts.effectAdd("loot_n_explore:freezing", 10.0F,1,3);

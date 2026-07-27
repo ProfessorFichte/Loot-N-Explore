@@ -12,7 +12,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class GlazeEntityRenderer extends MobEntityRenderer<GlazeEntity, GlazeModel> {
     private static final Identifier TEXTURE =
-            Identifier.of(MOD_ID, "textures/entity/mobs/glaze.png");
+            Identifier.of(MOD_ID, "textures/entity/frozen_depths/mobs/glaze.png");
 
     public GlazeEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new GlazeModel(context.getPart(EntityModelLayers.GLAZE)), 0.5F);

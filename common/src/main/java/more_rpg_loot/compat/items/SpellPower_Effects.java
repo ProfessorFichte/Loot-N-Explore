@@ -3,10 +3,16 @@ package more_rpg_loot.compat.items;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.CustomStatusEffect;
 import more_rpg_loot.effects.SpecialStatusEffect;
+import more_rpg_loot.item.CommonItems;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -161,5 +167,21 @@ public class SpellPower_Effects {
         for (SpellPower_Effects.SPEntry entry: entries) {
             entry.register();
         }
+    }
+
+    public static void applyMonarchsFrostStaffPower() {
+        DefaultItemComponentEvents.MODIFY.register(context ->
+                context.modify(CommonItems.MONARCHS_FROST_STAFF.item(), builder -> builder.add(DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                        AttributeModifiersComponent.builder()
+                                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                                        new EntityAttributeModifier(Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, 4.0F, EntityAttributeModifier.Operation.ADD_VALUE),
+                                        AttributeModifierSlot.MAINHAND)
+                                .add(EntityAttributes.GENERIC_ATTACK_SPEED,
+                                        new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, -3.0F, EntityAttributeModifier.Operation.ADD_VALUE),
+                                        AttributeModifierSlot.MAINHAND)
+                                .add(SpellSchools.FROST.attributeEntry,
+                                        new EntityAttributeModifier(Identifier.of(MOD_ID, "monarchs_frost_staff_power"), 8.0F, EntityAttributeModifier.Operation.ADD_VALUE),
+                                        AttributeModifierSlot.MAINHAND)
+                                .build())));
     }
 }

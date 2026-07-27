@@ -44,11 +44,6 @@ public class CompatItems {
             this.quality = quality;
         }
 
-        // Constructor without lore text (for backwards compatibility)
-        public Entry(String name, Supplier<Item> supplier, String translation, ItemModelType modelType, String requiredMod, int quality) {
-            this(name, supplier, translation, "", modelType, requiredMod, quality);
-        }
-
         // Constructor with lore text but default model type
         public Entry(String name, Supplier<Item> supplier, String translation, String loreText, String requiredMod, int quality) {
             this(name, supplier, translation, loreText, new ItemModelType.Generated("item/drinks/"), requiredMod, quality);

@@ -2,10 +2,9 @@ package more_rpg_loot.entity.frozen_depths.mob.frozen_ranger;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.entity.frozen_depths.projectile.FrozenArrowEntity;
-import more_rpg_loot.item.weapons.LNE_WeaponItems;
+import more_rpg_loot.item.CommonItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,13 +12,13 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -42,7 +41,6 @@ public class FrostedRangerEntity extends SkeletonEntity {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
-        this.moveControl = new SmoothMoveControl(this);
         this.experiencePoints += 5;
     }
 
@@ -73,6 +71,14 @@ public class FrostedRangerEntity extends SkeletonEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+
+        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
+        // melee-attack goal (independent of this initGoals() override), which is why the Ranger
+        // was meleeing instead of using BowAttackGoal - strip it out since we're purely ranged.
+        this.goalSelector.getGoals().stream()
+                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .toList()
+                .forEach(g -> this.goalSelector.remove(g.getGoal()));
     }
 
     @Nullable
@@ -88,7 +94,7 @@ public class FrostedRangerEntity extends SkeletonEntity {
 
     @Override
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(LNE_WeaponItems.FROZEN_BOW.item()));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(CommonItems.FROZEN_BOW.item()));
         this.updateDropChances(EquipmentSlot.MAINHAND);
     }
 
@@ -154,8 +160,7 @@ public class FrostedRangerEntity extends SkeletonEntity {
         private LivingEntity target;
         private int phase = 0;
         private int windupTimer = 0;
-        private int arrowsFired = 0;
-        private int fireTimer = 0;
+        private int retreatTimer = 0;
 
         FrostSalvoGoal(FrostedRangerEntity ranger) {
             this.ranger = ranger;
@@ -179,8 +184,7 @@ public class FrostedRangerEntity extends SkeletonEntity {
         public void start() {
             phase = 1;
             windupTimer = 15;
-            arrowsFired = 0;
-            fireTimer = 0;
+            retreatTimer = 0;
             ranger.setPerformingSalvo(true);
             ranger.getNavigation().stop();
         }
@@ -191,23 +195,23 @@ public class FrostedRangerEntity extends SkeletonEntity {
 
             if (phase == 1) {
                 if (--windupTimer <= 0) {
-                    jumpBack();
+                    for (int i = 0; i < ranger.getSalvoArrowCount(); i++) {
+                        fireArrow(i);
+                    }
                     phase = 2;
-                    fireTimer = 3;
+                    retreatTimer = 3;
                 }
             } else if (phase == 2) {
-                if (--fireTimer <= 0 && arrowsFired < ranger.getSalvoArrowCount()) {
-                    fireArrow(arrowsFired);
-                    arrowsFired++;
-                    fireTimer = 4;
+                if (--retreatTimer <= 0) {
+                    jumpBack();
+                    stop();
                 }
-                if (arrowsFired >= ranger.getSalvoArrowCount()) stop();
             }
         }
 
         private void jumpBack() {
             if (target == null) return;
-            Vec3d awayDir = ranger.getPos().subtract(target.getPos()).normalize();
+            Vec3d awayDir = new Vec3d(ranger.getX() - target.getX(), 0.0, ranger.getZ() - target.getZ()).normalize();
             ranger.addVelocity(awayDir.x * 0.5, 0.3, awayDir.z * 0.5);
             ranger.velocityModified = true;
         }
@@ -237,23 +241,6 @@ public class FrostedRangerEntity extends SkeletonEntity {
             phase = 0;
             ranger.setPerformingSalvo(false);
             ranger.salvoCooldown = 100 + ranger.random.nextInt(60);
-        }
-    }
-
-    static class SmoothMoveControl extends MoveControl {
-        SmoothMoveControl(FrostedRangerEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) f = 30.0F;
-            if (f < -30.0F) f = -30.0F;
-            float g = from + f;
-            if (g < 0.0F) g += 360.0F;
-            else if (g > 360.0F) g -= 360.0F;
-            return g;
         }
     }
 }

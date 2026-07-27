@@ -2,8 +2,7 @@ package more_rpg_loot.client.entity.renderers.frozen_depths.frostmonarch;
 
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.models.frozen_depths.frostmonarch.FrostMonarchModel;
-import more_rpg_loot.client.entity.renderers.frozen_depths.frostmonarch.FrostMonarchHeldItemFeatureRenderer;
-import more_rpg_loot.client.entity.renderers.frozen_depths.frostmonarch.FrostmonarchEyesFeatureRenderer;
+import more_rpg_loot.client.entity.renderers.generic.GenericEyesFeatureRenderer;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -12,13 +11,18 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
+import static more_rpg_loot.RPGLoot.MOD_ID;
+
 public class FrostmonarchEntityRenderer extends MobEntityRenderer<FrostMonarchEntity, FrostMonarchModel> {
-    private static final Identifier TEXTURE = Identifier.of("loot_n_explore", "textures/entity/mobs/frostmonarch.png");
+    private static final Identifier TEXTURE = Identifier.of(
+            MOD_ID, "textures/entity/frozen_depths/mobs/frostmonarch.png");
+    private static final Identifier EYES_TEXTURE = Identifier.of(
+            MOD_ID, "textures/entity/frozen_depths/mobs/frostmonarch_eyes.png");
 
     public FrostmonarchEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new FrostMonarchModel(context.getPart(EntityModelLayers.FROST_MONARCH)), 0.6f);
         this.addFeature(new FrostMonarchHeldItemFeatureRenderer(this, context.getHeldItemRenderer()));
-        this.addFeature(new FrostmonarchEyesFeatureRenderer(this));
+        this.addFeature(new GenericEyesFeatureRenderer<>(this, EYES_TEXTURE));
     }
 
     @Override

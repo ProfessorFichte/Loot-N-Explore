@@ -5,19 +5,18 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
-public class FrostHoundEntity extends PathAwareEntity {
+public class FrostHoundEntity extends HostileEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     public final AnimationState biteAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    public FrostHoundEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    public FrostHoundEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.experiencePoints += 3;
     }
@@ -25,7 +24,7 @@ public class FrostHoundEntity extends PathAwareEntity {
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.0);
@@ -89,9 +88,4 @@ public class FrostHoundEntity extends PathAwareEntity {
             }
         }
     }
-    /*
-    public EntityDimensions getDimensions(EntityPose pose) {
-        return EntityDimensions.fixed(0.65F, 0.80F);
-    }
-     */
 }

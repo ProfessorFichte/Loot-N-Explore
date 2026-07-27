@@ -13,6 +13,7 @@ import more_rpg_loot.client.particle.DragonClawParticle;
 import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import more_rpg_loot.network.FrozenDepthsMusicPayload;
 import net.fabricmc.api.EnvType;
@@ -31,6 +32,7 @@ import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
@@ -62,36 +64,44 @@ public class RPGLootClient {
 
     public static void registerModelPredicates() {
         for (var entry : LNE_WeaponItems.rangedEntries) {
-            Item item = entry.item();
-            if (item instanceof BowItem) {
-                ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
-                    (stack, world, entity, seed) ->
-                        entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
-                ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
-                    (stack, world, entity, seed) -> {
-                        if (entity == null || !entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
-                        return BowItem.getPullProgress(entity.getItemUseTime());
-                    });
-            } else if (item instanceof CrossbowItem) {
-                ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
-                    (stack, world, entity, seed) -> {
-                        if (entity == null) return 0.0F;
-                        return CrossbowItem.isCharged(stack) ? 0.0F : (entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
-                    });
-                ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
-                    (stack, world, entity, seed) -> {
-                        if (entity == null || CrossbowItem.isCharged(stack)) return 0.0F;
-                        if (!entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
-                        return (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / (float)CrossbowItem.getPullTime(stack, entity);
-                    });
-                ModelPredicateProviderRegistry.register(item, Identifier.of("charged"),
-                    (stack, world, entity, seed) -> CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-                ModelPredicateProviderRegistry.register(item, Identifier.of("firework"),
-                    (stack, world, entity, seed) -> {
-                        ChargedProjectilesComponent charged = stack.get(DataComponentTypes.CHARGED_PROJECTILES);
-                        return CrossbowItem.isCharged(stack) && charged != null && charged.getProjectiles().stream().anyMatch(s -> s.isOf(Items.FIREWORK_ROCKET)) ? 1.0F : 0.0F;
-                    });
-            }
+            registerBowOrCrossbowPredicates(entry.item());
+        }
+        registerBowOrCrossbowPredicates(CommonItems.FROZEN_BOW.item());
+    }
+
+    private static void registerBowOrCrossbowPredicates(Item item) {
+        if (item instanceof BowItem) {
+            ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
+                (stack, world, entity, seed) ->
+                    entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
+            ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null || !entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
+                    return BowItem.getPullProgress(entity.getItemUseTime());
+                });
+        } else if (item instanceof CrossbowItem) {
+            ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null) return 0.0F;
+                    return CrossbowItem.isCharged(stack) ? 0.0F : (entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
+                });
+            ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
+                (stack, world, entity, seed) -> {
+                    if (entity == null || CrossbowItem.isCharged(stack)) return 0.0F;
+                    if (!entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
+                    return (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / (float)CrossbowItem.getPullTime(stack, entity);
+                });
+            ModelPredicateProviderRegistry.register(item, Identifier.of("charged"),
+                (stack, world, entity, seed) -> CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+            ModelPredicateProviderRegistry.register(item, Identifier.of("firework"),
+                (stack, world, entity, seed) -> {
+                    ChargedProjectilesComponent charged = stack.get(DataComponentTypes.CHARGED_PROJECTILES);
+                    if (!CrossbowItem.isCharged(stack) || charged == null) return 0.0F;
+                    for (ItemStack projectile : charged.getProjectiles()) {
+                        if (projectile.isOf(Items.FIREWORK_ROCKET)) return 1.0F;
+                    }
+                    return 0.0F;
+                });
         }
     }
 

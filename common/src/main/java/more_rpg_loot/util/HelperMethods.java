@@ -1,6 +1,8 @@
 package more_rpg_loot.util;
 
+import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.generic.entity.CustomCloudEntity;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -9,9 +11,18 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.more_rpg_classes.effect.MRPGCEffects;
 import org.jetbrains.annotations.Nullable;
 
 public class HelperMethods {
+
+    /** The Frozen Depths freezing effect, swapped for More RPG Classes' Frosted effect when that mod is present. */
+    public static RegistryEntry<StatusEffect> getFreezingEffect() {
+        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+            return MRPGCEffects.FROSTED.entry;
+        }
+        return Effects.FREEZING.registryEntry;
+    }
 
     public static void spawnCloudEntity(
             ParticleEffect particleType,
@@ -65,8 +76,9 @@ public class HelperMethods {
                                          int increaseEffectDurationSeconds){
 
         if(target.hasStatusEffect(statusEffect)){
-            int currentAmplifier = target.getStatusEffect(statusEffect).getAmplifier();
-            int currentDuration = target.getStatusEffect(statusEffect).getDuration();
+            StatusEffectInstance currentEffect = target.getStatusEffect(statusEffect);
+            int currentAmplifier = currentEffect.getAmplifier();
+            int currentDuration = currentEffect.getDuration();
             int increaseAmp = 0;
             if(increaseDuration){
                 currentDuration = currentDuration + (increaseEffectDurationSeconds*20);

@@ -457,8 +457,6 @@ public class LNE_WeaponItems {
     public static Entry ELDER_GUARDIAN_BOW;
     public static Entry ELDER_GUARDIAN_CROSSBOW;
 
-    public static Entry FROZEN_BOW;
-
     private static final String LORE_DRAGON   = "On hit (20% chance): Drains 15% of your attack damage as magic damage, restoring it as health. (15s cooldown)";
     private static final String LORE_WITHER   = "On hit (20% chance): Fires three Wither Skulls at your target. (12s cooldown)";
     private static final String LORE_GLACIAL  = "On hit (20% chance): Summons a ring of frostballs above your target. (18s cooldown)";
@@ -507,21 +505,11 @@ public class LNE_WeaponItems {
         GLACIAL_CROSSBOW        = addRanged("glacial_crossbow",        new AbilityCrossbowItem(LNEAbilityArrowEntity.GLACIAL),   "Glacial Crossbow",        LORE_GLACIAL_RANGED);
         ELDER_GUARDIAN_BOW      = addRanged("elder_guardian_bow",      new AbilityBowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Bow",    LORE_GUARDIAN_RANGED);
         ELDER_GUARDIAN_CROSSBOW = addRanged("elder_guardian_crossbow", new AbilityCrossbowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Crossbow", LORE_GUARDIAN_RANGED);
-        FROZEN_BOW              = addRanged("frozen_bow",              new BowItem(new Item.Settings().maxDamage(384)),           "Frozen Bow",              "");
         for (var entry : rangedEntries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
             for (var entry : rangedEntries) content.add(entry.item());
         });
-    }
-
-    // Frozen Ranger's bow is a plain vanilla-style weapon (no ability), so unlike the ability
-    // bows above it must register even when lne_archers is installed and registerRanged() is skipped.
-    // Mutually exclusive with registerRanged() - see CompatRegistry - so frozen_bow is never registered twice.
-    public static void registerFrozenBow() {
-        FROZEN_BOW = addRanged("frozen_bow", new BowItem(new Item.Settings().maxDamage(384)), "Frozen Bow", "");
-        Registry.register(Registries.ITEM, FROZEN_BOW.id(), FROZEN_BOW.item());
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> content.add(FROZEN_BOW.item()));
     }
 }

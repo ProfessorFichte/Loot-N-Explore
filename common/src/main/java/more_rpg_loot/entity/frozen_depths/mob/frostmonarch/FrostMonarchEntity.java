@@ -6,9 +6,9 @@ import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals.*;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.sounds.ModSounds;
+import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -24,6 +24,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -52,6 +53,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
 
 public class FrostMonarchEntity extends SkeletonEntity {
     private static final TrackedData<Integer> INVUL_TIMER;
@@ -95,7 +97,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.setHealth(this.getMaxHealth());
         this.experiencePoints += 50;
 
-        this.moveControl = new SmoothMoveControl(this);
+        this.moveControl = new ClampedYawMoveControl(this);
     }
 
     public ItemStack getWeaponForDifficulty() {
@@ -109,13 +111,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
             case NORMAL -> 0.35F;
             case HARD -> 0.5F;
         };
-    }
-
-    public RegistryEntry<StatusEffect> getFreezingEffect() {
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            return MRPGCEffects.FROSTED.entry;
-        }
-        return Effects.FREEZING.registryEntry;
     }
 
     public static DefaultAttributeContainer.Builder createFrostmonarchAttributes() {
@@ -175,6 +170,14 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.targetSelector.add(1, new RevengeGoal(this, new Class[0]));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+
+        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
+        // melee-attack goal alongside this class's own ConditionalGoal-wrapped MeleeAttackGoal
+        // above, causing two redundant melee goals to compete for the same controls - strip the hidden one out.
+        this.goalSelector.getGoals().stream()
+                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .toList()
+                .forEach(g -> this.goalSelector.remove(g.getGoal()));
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -226,11 +229,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public boolean isPerformingAbility() {
         return this.isCasting() || this.isScreeching() || this.getBarrierTimer() > 0
             || this.getInvulnerableTimer() > 0 || this.globalAbilityCooldown > 0;
-    }
-
-    @Override
-    public void setTarget(@Nullable LivingEntity target) {
-        super.setTarget(target);
     }
 
     public float getDifficultyMultiplier() {
@@ -567,11 +565,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
     }
 
-    @Override
-    public void heal(float amount) {
-        super.heal(amount);
-    }
-
     public boolean damage(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
@@ -905,30 +898,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     protected SoundEvent getDeathSound() {
         return ModSounds.FROSTMONARCH_DEATH.soundEvent();
-    }
-
-    static class SmoothMoveControl extends MoveControl {
-        public SmoothMoveControl(FrostMonarchEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = net.minecraft.util.math.MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) {
-                f = 30.0F;
-            }
-            if (f < -30.0F) {
-                f = -30.0F;
-            }
-            float g = from + f;
-            if (g < 0.0F) {
-                g += 360.0F;
-            } else if (g > 360.0F) {
-                g -= 360.0F;
-            }
-            return g;
-        }
     }
 
 }

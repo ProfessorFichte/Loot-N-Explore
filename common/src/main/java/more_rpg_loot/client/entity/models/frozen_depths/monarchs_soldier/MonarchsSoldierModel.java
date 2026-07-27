@@ -41,31 +41,6 @@ public class MonarchsSoldierModel<T extends MonarchsSoldierEntity> extends Singl
 		return this.group;
 	}
 
-	// Getters for held item rendering
-	public ModelPart getRightArm() {
-		return this.RightArm;
-	}
-
-	public ModelPart getLeftArm() {
-		return this.LeftArm;
-	}
-
-	public ModelPart getRightItem() {
-		return this.rightItem;
-	}
-
-	public ModelPart getLeftItem() {
-		return this.leftItem;
-	}
-
-	public ModelPart getWaist() {
-		return this.waist;
-	}
-
-	public ModelPart getGroup() {
-		return this.group;
-	}
-
 	public static TexturedModelData createBodyLayer() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();

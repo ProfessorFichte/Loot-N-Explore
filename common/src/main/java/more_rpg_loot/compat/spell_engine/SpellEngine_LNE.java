@@ -1,11 +1,13 @@
 package more_rpg_loot.compat.spell_engine;
 
+import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Identifier;
 import net.spell_engine.api.config.ConfigFile;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.api.spell.container.SpellContainer;
@@ -56,8 +58,6 @@ public class SpellEngine_LNE {
         lootScrollsConfig.refresh();
         LootInjection.modifyChestLootTables();
         Group.registerLootItemGroup(() -> LNE_WeaponItems.ENDER_DRAGON_SWORD.item());
-        SmithingTemplates.registerSmithingUpgrades();
-        LNE_Relics.register(relicsConfig.value.entries);
         configureWeaponSpells();
         itemConfig.save();
         relicsConfig.save();
@@ -134,6 +134,11 @@ public class SpellEngine_LNE {
                                     .withAdditionalSpell(List.of(LNE_Abilities.waterbomb.id().toString())));
                 }
             }
+
+            context.modify(CommonItems.MONARCHS_FROST_STAFF.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                    SpellContainers.forMagicWeapon().withSpellId(Identifier.of("wizards", "frostbolt"))));
+            context.modify(CommonItems.GUARDS_FROST_LANCE.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                    SpellContainers.forMeleeWeapon().withSpellId(WeaponSkills.IMPALE.id())));
         });
     }
 

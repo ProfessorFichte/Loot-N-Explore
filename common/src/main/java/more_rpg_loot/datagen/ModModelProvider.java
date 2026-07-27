@@ -6,6 +6,7 @@ import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.blocks.ModelType;
 import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.compat.spell_engine.SmithingTemplates;
+import more_rpg_loot.item.ItemModelType;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -30,6 +31,10 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         Map<Block, BlockStateModelGenerator.BlockTexturePool> texturePools = new HashMap<>();
+        Map<String, ModBlocks.Entry> entriesByName = new HashMap<>();
+        for (var entry : ModBlocks.all) {
+            entriesByName.put(entry.name(), entry);
+        }
 
         for (var entry : ModBlocks.all) {
             ModelType modelType = entry.modelType();
@@ -40,10 +45,7 @@ public class ModModelProvider extends FabricModelProvider {
                         .replace("_stairs", "s")
                         .replace("_wall", "s");
 
-                ModBlocks.Entry baseEntry = ModBlocks.all.stream()
-                        .filter(e -> e.name().equals(baseName))
-                        .findFirst()
-                        .orElse(null);
+                ModBlocks.Entry baseEntry = entriesByName.get(baseName);
 
                 if (baseEntry != null) {
                     Block baseBlock = baseEntry.block();
@@ -87,7 +89,7 @@ public class ModModelProvider extends FabricModelProvider {
         for (var entry : LNE_WeaponItems.entries) {
             Identifier modelId = Identifier.of(MOD_ID, "item/" + entry.name());
             JsonObject json = new JsonObject();
-            json.addProperty("parent", "item/handheld");
+            json.addProperty("parent", "minecraft:item/handheld");
             JsonObject textures = new JsonObject();
             textures.addProperty("layer0", MOD_ID + ":item/weapons/" + entry.name());
             json.add("textures", textures);
@@ -97,7 +99,7 @@ public class ModModelProvider extends FabricModelProvider {
         for (var entry : LNE_WeaponItems.rangedEntries) {
             Identifier itemId = Identifier.of(MOD_ID, entry.name());
             if (entry.name().endsWith("_bow")) {
-                generateBowModel(itemModelGenerator, itemId, entry.name());
+                new ItemModelType.Bow().generate(itemModelGenerator, entry.item(), entry.name());
             } else if (entry.name().endsWith("_crossbow")) {
                 generateCrossbowModel(itemModelGenerator, itemId, entry.name());
             }
@@ -110,7 +112,7 @@ public class ModModelProvider extends FabricModelProvider {
                 Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
 
                 JsonObject json = new JsonObject();
-                json.addProperty("parent", "item/generated");
+                json.addProperty("parent", "minecraft:item/generated");
                 JsonObject textures = new JsonObject();
                 textures.addProperty("layer0", MOD_ID + ":item/relics/" + entry.name());
                 json.add("textures", textures);
@@ -123,7 +125,7 @@ public class ModModelProvider extends FabricModelProvider {
                 Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
 
                 JsonObject json = new JsonObject();
-                json.addProperty("parent", "item/generated");
+                json.addProperty("parent", "minecraft:item/generated");
                 JsonObject textures = new JsonObject();
                 textures.addProperty("layer0", MOD_ID + ":item/template/" + entry.templateKey() + "_upgrade");
                 json.add("textures", textures);
@@ -133,48 +135,6 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
 
-
-    private void generateBowModel(ItemModelGenerator itemModelGenerator, Identifier itemId, String name) {
-        Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + name);
-
-        JsonObject json = new JsonObject();
-        json.addProperty("parent", "minecraft:item/bow");
-        JsonObject textures = new JsonObject();
-        textures.addProperty("layer0", MOD_ID + ":item/weapons/" + name);
-        json.add("textures", textures);
-
-        JsonArray overrides = new JsonArray();
-
-        JsonObject pullingOverride = new JsonObject();
-        JsonObject pullingPredicate = new JsonObject();
-        pullingPredicate.addProperty("pulling", 1);
-        pullingOverride.add("predicate", pullingPredicate);
-        pullingOverride.addProperty("model", MOD_ID + ":item/" + name + "_pulling_0");
-        overrides.add(pullingOverride);
-
-        for (int i = 0; i <= 2; i++) {
-            JsonObject pullOverride = new JsonObject();
-            JsonObject pullPredicate = new JsonObject();
-            pullPredicate.addProperty("pulling", 1);
-            pullPredicate.addProperty("pull", (i + 1) * 0.333);
-            pullOverride.add("predicate", pullPredicate);
-            pullOverride.addProperty("model", MOD_ID + ":item/" + name + "_pulling_" + i);
-            overrides.add(pullOverride);
-        }
-
-        json.add("overrides", overrides);
-        itemModelGenerator.writer.accept(modelId, () -> json);
-
-        for (int i = 0; i <= 2; i++) {
-            Identifier pullingModelId = Identifier.of(itemId.getNamespace(), "item/" + name + "_pulling_" + i);
-            JsonObject pullingJson = new JsonObject();
-            pullingJson.addProperty("parent", "item/generated");
-            JsonObject pullingTextures = new JsonObject();
-            pullingTextures.addProperty("layer0", MOD_ID + ":item/weapons/bow_pulling/" + name + "_pulling_" + i);
-            pullingJson.add("textures", pullingTextures);
-            itemModelGenerator.writer.accept(pullingModelId, () -> pullingJson);
-        }
-    }
 
     private void generateCrossbowModel(ItemModelGenerator itemModelGenerator, Identifier itemId, String name) {
         Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + name);

@@ -6,15 +6,14 @@ import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.jukebox.JukeboxSong;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.JukeboxPlayableComponent;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryPair;
+import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
@@ -43,23 +42,31 @@ public class CommonItems {
 
     public static final ArrayList<Entry> all = new ArrayList<>();
 
-    // Helper method without lore text
     private static Entry entry(String name, Item item, String translation, ItemModelType modelType) {
         var entry = new Entry(name, item, translation, "", modelType);
         all.add(entry);
         return entry;
     }
 
-    // Helper method without lore text and default model type
     private static Entry entry(String name, Item item, String translation) {
         return entry(name, item, translation, new ItemModelType.Generated());
     }
 
-    // Helper method with lore text
     private static Entry entryWithLore(String name, Item item, String translation, String loreText, ItemModelType modelType) {
         var entry = new Entry(name, item, translation, loreText, modelType);
         all.add(entry);
         return entry;
+    }
+
+    private static AttributeModifiersComponent weaponAttributes(float attackDamage, float attackSpeed) {
+        return AttributeModifiersComponent.builder()
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE,
+                        new EntityAttributeModifier(Item.BASE_ATTACK_DAMAGE_MODIFIER_ID, attackDamage, EntityAttributeModifier.Operation.ADD_VALUE),
+                        AttributeModifierSlot.MAINHAND)
+                .add(EntityAttributes.GENERIC_ATTACK_SPEED,
+                        new EntityAttributeModifier(Item.BASE_ATTACK_SPEED_MODIFIER_ID, attackSpeed, EntityAttributeModifier.Operation.ADD_VALUE),
+                        AttributeModifierSlot.MAINHAND)
+                .build();
     }
 
     /// T0 BUFF ITEMS
@@ -125,12 +132,16 @@ public class CommonItems {
                     .attributeModifiers(AxeItem.createAttributeModifiers(ToolMaterials.STONE, 7.0F, -3.2F))),
             "Frost Haunt's Axe", new ItemModelType.Handheld("item/weapons/"));
     public static final Entry MONARCHS_FROST_STAFF = entry("monarchs_frost_staff",
-            new StaffItem(new Item.Settings().maxDamage(0)),
-            "Monarch's Frost Staff", new ItemModelType.Handheld("item/weapons/"));
+            new StaffItem(new Item.Settings().maxDamage(0)
+                    .attributeModifiers(weaponAttributes(4.0F, -3.0F))),
+            "Monarch's Frost Staff", new ItemModelType.Custom());
     public static final Entry GUARDS_FROST_LANCE = entry("guards_frost_lance",
             new SwordItem(ToolMaterials.STONE, new Item.Settings()
-                    .attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.STONE, 6, -2.6F))),
-            "Guard's Frost Lance", new ItemModelType.Handheld("item/weapons/"));
+                    .attributeModifiers(weaponAttributes(5.0F, -2.6F))),
+            "Guard's Frost Lance", new ItemModelType.Custom());
+    public static final Entry FROZEN_BOW = entry("frozen_bow",
+            new BowItem(new Item.Settings().maxDamage(384)),
+            "Frozen Bow", new ItemModelType.Bow());
 
 
     public static void registerCommonItems(){
@@ -160,6 +171,7 @@ public class CommonItems {
             content.add(FROST_HAUNTS_AXE.item());
             content.add(MONARCHS_FROST_STAFF.item());
             content.add(GUARDS_FROST_LANCE.item());
+            content.add(FROZEN_BOW.item());
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
             content.addAfter(Items.BLAZE_ROD, GLAZE_ROD.item());

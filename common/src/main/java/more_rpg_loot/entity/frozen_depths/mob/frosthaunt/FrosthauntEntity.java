@@ -2,9 +2,9 @@ package more_rpg_loot.entity.frozen_depths.mob.frosthaunt;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -35,7 +35,7 @@ public class FrosthauntEntity extends SkeletonEntity {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 8.0F);
         this.experiencePoints += 1;
 
-        this.moveControl = new SmoothMoveControl(this);
+        this.moveControl = new ClampedYawMoveControl(this);
     }
 
     public static DefaultAttributeContainer.Builder createFrosthauntSkeletonAttributes() {
@@ -125,29 +125,6 @@ public class FrosthauntEntity extends SkeletonEntity {
         }
     }
 
-    static class SmoothMoveControl extends MoveControl {
-        public SmoothMoveControl(FrosthauntEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = net.minecraft.util.math.MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) {
-                f = 30.0F;
-            }
-            if (f < -30.0F) {
-                f = -30.0F;
-            }
-            float g = from + f;
-            if (g < 0.0F) {
-                g += 360.0F;
-            } else if (g > 360.0F) {
-                g -= 360.0F;
-            }
-            return g;
-        }
-    }
 }
 
 

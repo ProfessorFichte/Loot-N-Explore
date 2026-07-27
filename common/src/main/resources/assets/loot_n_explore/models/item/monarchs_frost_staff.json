@@ -1,0 +1,6 @@
+{
+  "parent": "loot_n_explore:item/base/medium_staff",
+  "textures": {
+    "layer0": "loot_n_explore:item/weapons/monarchs_frost_staff"
+  }
+}

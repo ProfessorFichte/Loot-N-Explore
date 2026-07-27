@@ -15,6 +15,7 @@ public class HailstormGoal extends Goal {
     private int channelTicks;
     private boolean isCasting;
     private boolean hasStarted;
+    private LivingEntity cachedTarget;
     private java.util.List<DelayedHailball> delayedHailballs = new java.util.ArrayList<>();
 
     public static final float HAILSTORM_RADIUS = 40.0F;
@@ -67,7 +68,13 @@ public class HailstormGoal extends Goal {
         this.channelTicks = 20;
         this.hasStarted = false;
         this.delayedHailballs.clear();
+        this.cachedTarget = monarch.getTarget();
         monarch.setCasting(true);
+        monarch.getNavigation().stop();
+
+        if (cachedTarget != null) {
+            monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
+        }
     }
 
     @Override
@@ -80,6 +87,10 @@ public class HailstormGoal extends Goal {
         if (channelTicks > 0) {
             if (!monarch.isCasting()) {
                 monarch.setCasting(true);
+            }
+
+            if (cachedTarget != null && cachedTarget.isAlive()) {
+                monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
             }
 
             if (channelTicks == 10) {
@@ -177,6 +188,7 @@ public class HailstormGoal extends Goal {
         this.isCasting = false;
         this.channelTicks = 0;
         this.hasStarted = false;
+        this.cachedTarget = null;
         this.delayedHailballs.clear();
         monarch.setCasting(false);
 

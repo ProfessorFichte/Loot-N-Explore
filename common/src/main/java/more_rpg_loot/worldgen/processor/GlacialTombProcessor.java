@@ -30,9 +30,9 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GlacialTombProcessor extends StructureProcessor {
 
@@ -41,13 +41,12 @@ public class GlacialTombProcessor extends StructureProcessor {
     private static final int BLOCK_UPDATE_FLAGS = Block.NOTIFY_LISTENERS | Block.FORCE_STATE;
 
     private static final int BLEND_DISTANCE = 8;
-    private static final double BLEND_INTENSITY = 0.75;
 
     private static final int ICE_DETECTION_RADIUS = 12;
     private static final double ICE_OVERGROWTH_THRESHOLD = 0.08;
-    private static final Block[] OVERGROWTH_ICE_BLOCKS = {Blocks.PACKED_ICE, Blocks.BLUE_ICE, Blocks.ICE};
 
-    private final Map<Long, Double> icyTerrainCache = new HashMap<>();
+    // StructureProcessor instances are shared across concurrent worldgen threads
+    private final Map<Long, Double> icyTerrainCache = new ConcurrentHashMap<>();
 
     public static final MapCodec<GlacialTombProcessor> CODEC = RecordCodecBuilder.mapCodec(instance ->
             instance.group(
@@ -146,11 +145,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         BlockPos blockPos = currentBlockInfo.pos();
 
         if (isUnderTreeCanopy(world, blockPos)) {
-            // Don't place any structure blocks under trees
-            if (!state.isAir()) {
-                return null;
-            }
-            // For air blocks return null
             return null;
         }
 
@@ -399,28 +393,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         long seed = pos.asLong();
         Random random = Random.create(seed);
         return ICE_BLOCKS[random.nextInt(ICE_BLOCKS.length)].getDefaultState();
-    }
-
-    private boolean isAirOrCaveAir(BlockState state) {
-        return state.isAir() || state.isOf(Blocks.CAVE_AIR);
-    }
-
-
-    private boolean shouldStartChain(BlockState state) {
-        if (state.isAir()) return true;
-        if (state.isOf(Blocks.CAVE_AIR)) return true;
-        if (state.isOf(Blocks.WATER)) return true;
-        if (!state.getFluidState().isEmpty() && state.getFluidState().isIn(FluidTags.WATER)) return true;
-        return false;
-    }
-
-    private boolean shouldStartPillar(BlockState state) {
-        if (state.isAir()) return true;
-        if (state.isOf(Blocks.CAVE_AIR)) return true;
-        if (state.isOf(Blocks.WATER)) return true;
-        if (state.isOf(Blocks.LAVA)) return true;
-        if (!state.getFluidState().isEmpty()) return true;
-        return false;
     }
 
     private boolean canChainReplace(BlockState state) {
@@ -724,10 +696,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         }
     }
 
-    private BlockState getRandomOvergrowthIce(Random random) {
-        return getRandomOvergrowthIce(random, 5);
-    }
-
     private boolean isExposedToSky(WorldView world, BlockPos pos) {
         int x = pos.getX();
         int z = pos.getZ();
@@ -746,8 +714,6 @@ public class GlacialTombProcessor extends StructureProcessor {
 
         BlockPos.Mutable mutable = pos.up().mutableCopy();
         int maxCheck = Math.min(actualGroundY - y + 10, 25);
-
-        boolean foundOnlySoftBlocks = true;
 
         for (int i = 0; i < maxCheck; i++) {
             BlockState state = world.getBlockState(mutable);
@@ -833,15 +799,6 @@ public class GlacialTombProcessor extends StructureProcessor {
             }
         }
 
-        return false;
-    }
-
-    private boolean hasAdjacentTerrain(WorldView world, BlockPos pos) {
-        for (Direction dir : Direction.Type.HORIZONTAL) {
-            if (isTerrainBlock(world.getBlockState(pos.offset(dir)))) {
-                return true;
-            }
-        }
         return false;
     }
 

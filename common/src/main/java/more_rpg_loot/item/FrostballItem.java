@@ -12,7 +12,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class FrostballItem  extends Item {
-    public static final int field_30926 = 10;
     public FrostballItem(Item.Settings settings) {
         super(settings);
     }

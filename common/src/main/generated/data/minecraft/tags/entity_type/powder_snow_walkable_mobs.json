@@ -2,6 +2,14 @@
   "values": [
     "loot_n_explore:glaze",
     "loot_n_explore:frost_haunt",
-    "loot_n_explore:frost_monarch"
+    "loot_n_explore:frost_monarch",
+    "loot_n_explore:undead_frozen_mage",
+    "loot_n_explore:general_undead_frozen_mage",
+    "loot_n_explore:frosted_ranger",
+    "loot_n_explore:general_frosted_ranger",
+    "loot_n_explore:frost_hound",
+    "loot_n_explore:monarchs_soldier",
+    "loot_n_explore:general_monarchs_soldier",
+    "loot_n_explore:monarchs_guard"
   ]
 }

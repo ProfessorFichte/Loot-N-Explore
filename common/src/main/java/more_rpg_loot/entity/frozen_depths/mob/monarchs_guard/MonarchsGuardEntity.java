@@ -1,11 +1,11 @@
 package more_rpg_loot.entity.frozen_depths.mob.monarchs_guard;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.entity.frozen_depths.projectile.StraightIcicleEntity;
+import more_rpg_loot.entity.frozen_depths.projectile.FrozenArrowEntity;
 import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -13,13 +13,13 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -43,10 +43,14 @@ public class MonarchsGuardEntity extends SkeletonEntity {
     private int throwCooldown = 0;
     private int stabCooldown = 0;
 
+    // Server-side only - lets the three special-attack goals below check each other's state so a
+    // higher-priority goal can't interrupt one that's already mid-windup/mid-action
+    private boolean stabbingActive = false;
+
     public MonarchsGuardEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.moveControl = new SmoothMoveControl(this);
+        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 8;
     }
 
@@ -80,6 +84,14 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+
+        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
+        // melee-attack goal alongside this class's own explicit MeleeAttackGoal above, causing
+        // two redundant melee goals to compete for the same controls - strip the hidden one out.
+        this.goalSelector.getGoals().stream()
+                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .toList()
+                .forEach(g -> this.goalSelector.remove(g.getGoal()));
     }
 
     @Nullable
@@ -128,7 +140,11 @@ public class MonarchsGuardEntity extends SkeletonEntity {
     }
 
     private void setupAnimationStates() {
-        boolean moving = this.getVelocity().horizontalLengthSquared() > 0.01;
+        // getVelocity() isn't reliably synced to the client during normal AI pathfinding movement
+        // (only knockback sends a velocity packet), so detect movement from the actual position delta instead
+        double dx = this.getX() - this.prevX;
+        double dz = this.getZ() - this.prevZ;
+        boolean moving = (dx * dx + dz * dz) > 0.0001;
 
         if (this.isDashing()) {
             this.chargeAnimationState.startIfNotRunning(this.age);
@@ -159,6 +175,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         private final MonarchsGuardEntity guard;
         private LivingEntity target;
         private int windupTimer = 0;
+        private int coastTicks = 0;
         private boolean active = false;
 
         DashAttackGoal(MonarchsGuardEntity guard) {
@@ -170,6 +187,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         public boolean canStart() {
             this.target = guard.getTarget();
             if (target == null || !target.isAlive() || guard.dashCooldown > 0) return false;
+            if (guard.isThrowing() || guard.stabbingActive) return false;
             double dist = guard.squaredDistanceTo(target);
             return dist > 4.0 * 4.0 && dist <= 12.0 * 12.0;
         }
@@ -181,6 +199,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         public void start() {
             active = true;
             windupTimer = 10;
+            coastTicks = 0;
             guard.setDashing(true);
             guard.getNavigation().stop();
         }
@@ -188,10 +207,12 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public void tick() {
             if (target != null) guard.getLookControl().lookAt(target, 30.0F, 30.0F);
-            if (--windupTimer <= 0) {
-                if (target != null) {
+
+            if (windupTimer > 0) {
+                if (--windupTimer <= 0 && target != null) {
                     Vec3d dir = target.getPos().subtract(guard.getPos()).normalize();
-                    guard.setVelocity(dir.x * 1.5, 0.1, dir.z * 1.5);
+                    // Moderate impulse (not 1.5+) so it reads as a lunge, not a teleport
+                    guard.setVelocity(dir.x * 0.8, 0.1, dir.z * 0.8);
                     guard.velocityModified = true;
 
                     guard.getWorld().getNonSpectatingEntities(LivingEntity.class, guard.getBoundingBox().expand(1.5).offset(dir.multiply(2))).forEach(entity -> {
@@ -199,7 +220,15 @@ public class MonarchsGuardEntity extends SkeletonEntity {
                             guard.tryAttack(entity);
                         }
                     });
+
+                    // Keep holding Control.MOVE for a few ticks so normal AI navigation/other goals
+                    // can't immediately cancel the impulse mid-flight, letting it decelerate naturally
+                    coastTicks = 5;
                 }
+                return;
+            }
+
+            if (coastTicks > 0 && --coastTicks <= 0) {
                 stop();
             }
         }
@@ -227,6 +256,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         public boolean canStart() {
             this.target = guard.getTarget();
             if (target == null || !target.isAlive() || guard.throwCooldown > 0) return false;
+            if (guard.isDashing() || guard.stabbingActive) return false;
             double dist = guard.squaredDistanceTo(target);
             return dist > 6.0 * 6.0 && dist <= 20.0 * 20.0;
         }
@@ -254,10 +284,17 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         private void throwSpear() {
             if (target == null) return;
             World world = guard.getWorld();
-            Vec3d spawnPos = guard.getPos().add(0, guard.getHeight() * 0.5, 0);
-            Vec3d toTarget = target.getPos().add(0, target.getHeight() * 0.5, 0).subtract(spawnPos).normalize();
-            float yaw = (float) (MathHelper.atan2(-toTarget.x, toTarget.z) * (180.0 / Math.PI));
-            world.spawnEntity(new StraightIcicleEntity(world, spawnPos.x, spawnPos.y, spawnPos.z, yaw, 5, guard));
+            if (world.isClient) return;
+
+            // StraightIcicleEntity is a stationary ground-spike hazard (see IcicleAttackGoal), not a
+            // traveling projectile, so a genuinely thrown weapon needs an actual projectile entity instead
+            Vec3d spawnPos = guard.getPos().add(0, guard.getStandingEyeHeight() * 0.8, 0);
+            Vec3d toTarget = target.getPos().add(0, target.getHeight() * 0.5, 0).subtract(spawnPos);
+
+            FrozenArrowEntity spear = new FrozenArrowEntity(world, guard);
+            spear.setPosition(spawnPos.x, spawnPos.y, spawnPos.z);
+            spear.setVelocity(toTarget.x, toTarget.y, toTarget.z, 2.0F, 1.0F);
+            world.spawnEntity(spear);
         }
 
         @Override
@@ -276,12 +313,14 @@ public class MonarchsGuardEntity extends SkeletonEntity {
 
         LongRangeStabGoal(MonarchsGuardEntity guard) {
             this.guard = guard;
+            this.setControls(EnumSet.of(Control.LOOK));
         }
 
         @Override
         public boolean canStart() {
             this.target = guard.getTarget();
             if (target == null || !target.isAlive() || guard.stabCooldown > 0) return false;
+            if (guard.isDashing() || guard.isThrowing()) return false;
             double dist = guard.squaredDistanceTo(target);
             return dist > 1.5 * 1.5 && dist <= 4.5 * 4.5;
         }
@@ -293,6 +332,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         public void start() {
             active = true;
             windupTimer = 8;
+            guard.stabbingActive = true;
         }
 
         @Override
@@ -310,24 +350,9 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public void stop() {
             active = false;
+            guard.stabbingActive = false;
             guard.stabCooldown = 30 + guard.random.nextInt(20);
         }
     }
 
-    static class SmoothMoveControl extends MoveControl {
-        SmoothMoveControl(MonarchsGuardEntity entity) {
-            super(entity);
-        }
-
-        @Override
-        protected float wrapDegrees(float from, float to, float max) {
-            float f = MathHelper.wrapDegrees(to - from);
-            if (f > 30.0F) f = 30.0F;
-            if (f < -30.0F) f = -30.0F;
-            float g = from + f;
-            if (g < 0.0F) g += 360.0F;
-            else if (g > 360.0F) g -= 360.0F;
-            return g;
-        }
-    }
 }

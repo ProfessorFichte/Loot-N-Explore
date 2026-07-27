@@ -48,6 +48,11 @@ public class IcicleAttackGoal extends Goal {
         this.channelTicks = 10;
         this.hasStarted = false;
         monarch.setCasting(true);
+        monarch.getNavigation().stop();
+
+        if (cachedTarget != null) {
+            monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
+        }
     }
 
     @Override
@@ -58,6 +63,10 @@ public class IcicleAttackGoal extends Goal {
 
         if (!monarch.isCasting()) {
             monarch.setCasting(true);
+        }
+
+        if (cachedTarget != null && cachedTarget.isAlive()) {
+            monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
 
         if (channelTicks == 5) {

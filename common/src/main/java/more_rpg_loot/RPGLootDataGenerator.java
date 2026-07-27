@@ -28,6 +28,8 @@ public class RPGLootDataGenerator implements DataGeneratorEntrypoint {
 		if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
 			pack.addProvider(LNE_AbilityDatagen::new);
 		}
+
+		pack.addProvider(WeaponAttributesGenerator::new);
 	}
 
 

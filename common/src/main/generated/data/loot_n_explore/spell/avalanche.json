@@ -47,8 +47,14 @@
               "max_speed": 0.1
             }
           ],
-          "model": {
-            "model_id": "loot_n_explore:spell_projectile/small_avalanche"
+          "composite_model": {
+            "models": [
+              {
+                "fx": {
+                  "model_id": "loot_n_explore:spell_projectile/small_avalanche"
+                }
+              }
+            ]
           }
         }
       }

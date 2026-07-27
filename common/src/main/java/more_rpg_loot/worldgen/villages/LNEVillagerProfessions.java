@@ -52,7 +52,4 @@ public class LNEVillagerProfessions {
     public static RegistryKey<PointOfInterestType> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, Identifier.of(MOD_ID, name));
     }
-
-    public static void registerVillagers() {
-    }
 }

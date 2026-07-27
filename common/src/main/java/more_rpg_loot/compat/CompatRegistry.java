@@ -1,12 +1,13 @@
 package more_rpg_loot.compat;
 
-import more_rpg_loot.compat.accessories.AccessoriesCompat;
 import more_rpg_loot.compat.items.*;
+import more_rpg_loot.compat.spell_engine.LNE_Relics;
+import more_rpg_loot.compat.spell_engine.SmithingTemplates;
 import more_rpg_loot.compat.spell_engine.SpellEngine_LNE;
-import more_rpg_loot.compat.spell_engine.trinket_compat.TrinketsCompat;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.relics.LNE_RelicItems;
 import more_rpg_loot.item.relics.RelicLootInjection;
+import more_rpg_loot.item.relics.VanillaRelicAbilities;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
@@ -14,11 +15,9 @@ import net.minecraft.item.Items;
 
 public class CompatRegistry {
     public static void registerModCompat() {
-        TrinketsCompat.init();
-        AccessoriesCompat.init();
-
         if (FabricLoader.getInstance().isModLoaded("spell_power")) {
             SpellPower_Effects.register();
+            SpellPower_Effects.applyMonarchsFrostStaffPower();
         }
         if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
             MRPGC_Effects.register();
@@ -39,21 +38,26 @@ public class CompatRegistry {
         LNE_WeaponItems.register();
 
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
-            // Handles item group, spell relics, loot injection, smithing templates, scroll config
+            // Handles item group, loot injection, scroll config, weapon spells
             SpellEngine_LNE.initialize();
         } else {
             Group.registerLootItemGroup(() -> Items.ENDER_EYE);
+        }
+
+        SmithingTemplates.registerSmithingUpgrades();
+
+        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+            LNE_Relics.register(SpellEngine_LNE.relicsConfig.value.entries);
+        } else {
+            LNE_RelicItems.spellEnhancer = new VanillaRelicAbilities();
             LNE_RelicItems.register();
             RelicLootInjection.inject();
         }
 
         // Ranged weapons only if lne_archers is not installed (it registers its own bows/crossbows).
-        // registerRanged() already includes frozen_bow, so only fall back to registerFrozenBow() alone
-        // when registerRanged() is skipped - frozen_bow must never be registered by both.
+        // Frozen Bow is a plain vanilla-style weapon registered via CommonItems, independent of this.
         if (!FabricLoader.getInstance().isModLoaded("lne_archers")) {
             LNE_WeaponItems.registerRanged();
-        } else {
-            LNE_WeaponItems.registerFrozenBow();
         }
 
         // Maces only if lne_paladins is not installed (it registers its own maces)

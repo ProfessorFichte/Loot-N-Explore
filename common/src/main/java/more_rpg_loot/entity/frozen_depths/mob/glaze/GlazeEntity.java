@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
 
@@ -210,28 +209,14 @@ public class GlazeEntity extends HostileEntity {
                     if (!bl) {
                         return;
                     }
+                    this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
                     this.glaze.tryAttack(livingEntity);
-                    this.glaze.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
+                    this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
                 }
 
-                /*
-                                 Random rand = new Random();
-                                float random = rand.nextFloat() * (0.025F - 0.0F) + 0.0F;
-                                BlockPos blockPos = this.glaze.getBlockPos()
-                                        .add(-2 + this.glaze.random.nextInt(5), 2, -2 + this.glaze.random.nextInt(5));
-                                FrostballEntity frostballEntity2 = new  FrostballEntity(livingEntity.getWorld(), livingEntity);
-                                frostballEntity2.setOwner(this.glaze);
-                                frostballEntity2.refreshPositionAndAngles(blockPos, 0.0F, 0.0F);
-                                frostballEntity2.setVelocity(
-                                        this.glaze,
-                                        this.glaze.getPitch() + this.glaze.random.nextFloat(),
-                                        this.glaze.getHeadYaw() + this.glaze.random.nextFloat(),
-                                        0.0f, 2.5f+random, 0.5f+random
-                                this.glaze.getWorld().spawnEntity(frostballEntity2);
-                                */
-
-                else if(d < followRangeSquare & d> frostStormRange  && bl){
+                else if(d < followRangeSquare && d > frostStormRange && bl){
                     //FROSTBALL HAIL
+                    this.glaze.getNavigation().stop();
                     if (this.frostballHailCooldown <= 0) {
                         ++this.frostballsHailFired;
                         if (this.frostballsHailFired == 1) {
@@ -245,10 +230,9 @@ public class GlazeEntity extends HostileEntity {
 
                         if (this.frostballsHailFired > 1) {
                             for(int i = 0; i < 1; ++i) {
-                                Random rand = new Random();
-                                float random = rand.nextFloat() * (0.025F - 0.0F) + 0.0F;
-                                float randomDivergence = rand.nextFloat() * (0.5F - 0.0F) + 0.0F;
-                                float randomHeight = rand.nextFloat() * (3.0F - 1.0F) + 1.0F;
+                                float random = this.glaze.random.nextFloat() * 0.025F;
+                                float randomDivergence = this.glaze.random.nextFloat() * 0.5F;
+                                float randomHeight = this.glaze.random.nextFloat() * 2.0F + 1.0F;
 
                                 FrostballEntity frostballEntity = new  FrostballEntity(livingEntity.getWorld(), livingEntity);
                                 frostballEntity.setOwner(this.glaze);
@@ -263,6 +247,8 @@ public class GlazeEntity extends HostileEntity {
                 }
                 else if(d< frostStormRange && bl){
                     //FROSTSTORM
+                    this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
+                    this.glaze.getNavigation().stop();
                     if (this.frostStormCooldown <= 0) {
                         if (!glaze.getWorld().isClient) {
                             HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE, glaze, glaze,1,2.0F, 5, 4.0F,
@@ -273,7 +259,8 @@ public class GlazeEntity extends HostileEntity {
                     }
                 }
                 else if (this.targetNotVisibleTicks < 5) {
-                    this.glaze.getMoveControl().moveTo(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 1.0);
+                    this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
+                    this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
                 }
 
                 super.tick();

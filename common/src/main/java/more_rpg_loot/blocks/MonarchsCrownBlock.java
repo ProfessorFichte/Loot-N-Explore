@@ -27,7 +27,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 
 
 public class MonarchsCrownBlock extends Block{
@@ -112,10 +111,7 @@ public class MonarchsCrownBlock extends Block{
                         frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, blockPos.getY() + 1.0 , (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
                         frostMonarchEntity.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
                         frostMonarchEntity.onSummoned();
-                        Iterator var8 = world.getNonSpectatingEntities(ServerPlayerEntity.class, frostMonarchEntity.getBoundingBox().expand(50.0)).iterator();
-
-                        while(var8.hasNext()) {
-                            ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)var8.next();
+                        for (ServerPlayerEntity serverPlayerEntity : world.getNonSpectatingEntities(ServerPlayerEntity.class, frostMonarchEntity.getBoundingBox().expand(50.0))) {
                             Criteria.SUMMONED_ENTITY.trigger(serverPlayerEntity, frostMonarchEntity);
                         }
                         world.spawnEntity(frostMonarchEntity);

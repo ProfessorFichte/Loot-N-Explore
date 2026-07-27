@@ -41,27 +41,6 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
         return this.group;
     }
 
-    // Getters for held item rendering
-    public ModelPart getRightArm() {
-        return this.RightArm;
-    }
-
-    public ModelPart getLeftArm() {
-        return this.LeftArm;
-    }
-
-    public ModelPart getLeftItem() {
-        return this.leftItem;
-    }
-
-    public ModelPart getWaist() {
-        return this.waist;
-    }
-
-    public ModelPart getGroup() {
-        return this.group;
-    }
-
     public static TexturedModelData createBodyLayer() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
@@ -114,29 +93,24 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
 
     @Override
     public void setArmAngle(Arm arm, MatrixStack matrices) {
-        // Get the appropriate arm based on which side
         ModelPart armPart = arm == Arm.RIGHT ? this.RightArm : this.LeftArm;
-        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null; // Only left hand has the item part defined
+        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null; // only the left arm has an item part defined
 
-        // Apply transformations through the model hierarchy
-        // group -> waist -> Body -> arm -> hand position
         this.applyPartTransform(matrices, this.group);
         this.applyPartTransform(matrices, this.waist);
         this.applyPartTransform(matrices, this.Body);
         this.applyPartTransform(matrices, armPart);
 
-        // If there's a hand part (leftItem), use it. Otherwise calculate hand position
         if (handPart != null) {
             this.applyPartTransform(matrices, handPart);
         } else {
-            // For right arm, manually position at hand location (end of arm)
-            // LeftArm hand is at (2.0, 8, 1), RightArm hand is mirrored at (-2.0, 8, 1)
-            matrices.translate(-0.125F, 0.5F, 0.0625F); // (-2/16, 8/16, 1/16)
+            // right arm has no item part, so the hand offset is applied manually: mirror of leftItem's pivot (2.0, 8, 1)
+            matrices.translate(-0.125F, 0.5F, 0.0625F);
         }
     }
 
+    // rotate() also applies the part's pivot translation, so this is the whole parent-chain transform
     private void applyPartTransform(MatrixStack matrices, ModelPart part) {
-        // ModelPart.rotate() handles both pivot translation and rotations
         part.rotate(matrices);
     }
 }

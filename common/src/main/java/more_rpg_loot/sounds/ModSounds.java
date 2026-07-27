@@ -16,7 +16,6 @@ public class ModSounds {
         private final Identifier id;
         private final SoundEvent soundEvent;
         private RegistryEntry<SoundEvent> entry;
-        private int variants = 1;
 
         public Entry(Identifier id, SoundEvent soundEvent) {
             this.id = id;
@@ -31,12 +30,6 @@ public class ModSounds {
             this(id, SoundEvent.of(id));
         }
 
-
-        public Entry variants(int variants) {
-            this.variants = variants;
-            return this;
-        }
-
         public Identifier id() {
             return id;
         }
@@ -47,10 +40,6 @@ public class ModSounds {
 
         public RegistryEntry<SoundEvent> entry() {
             return entry;
-        }
-
-        public int variants() {
-            return variants;
         }
     }
     public static final List<Entry> entries = new ArrayList<>();

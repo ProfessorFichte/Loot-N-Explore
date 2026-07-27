@@ -1,6 +1,5 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
-import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
@@ -9,21 +8,19 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Ownable;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
 import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
+import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
 
 public class TrackingIcicleEntity extends Entity implements Ownable {
     private static final float SPEED = 0.9F;
@@ -142,12 +139,6 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
         return Math.max(5.0F, base);
     }
 
-    private RegistryEntry<StatusEffect> getFreezingEffect() {
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            return MRPGCEffects.FROSTED.entry;
-        }
-        return Effects.FREEZING.registryEntry;
-    }
 
     @Override
     public void handleStatus(byte status) {

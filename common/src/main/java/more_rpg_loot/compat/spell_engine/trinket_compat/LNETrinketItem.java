@@ -4,6 +4,7 @@ import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import more_rpg_loot.item.relics.VanillaRelicAbilities;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -15,7 +16,10 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -40,6 +44,11 @@ public class LNETrinketItem extends TrinketItem {
 
     public void setConfigurableModifiers(AttributeModifiersComponent component) {
         this.customAttributes = component;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        return VanillaRelicAbilities.use(world, user, hand);
     }
 
     @Override
