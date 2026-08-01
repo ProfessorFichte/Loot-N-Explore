@@ -2,7 +2,7 @@
 	"credit": "Made by pedravila",
 	"texture_size": [32, 32],
 	"textures": {
-		"2": "loot_n_explore:item/weapons/wither_mace"
+		"2": "loot_n_explore:item/weapons/generic/wither_mace"
 	},
 	"elements": [
 		{

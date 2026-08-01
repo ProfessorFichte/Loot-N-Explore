@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/grilled_eel_sushi"
+    "layer0": "loot_n_explore:item/consumables/critical_strike/grilled_eel_sushi"
   }
 }

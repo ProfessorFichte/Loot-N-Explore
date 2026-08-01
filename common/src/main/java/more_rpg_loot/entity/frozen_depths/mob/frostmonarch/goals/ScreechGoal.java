@@ -61,7 +61,7 @@ public class ScreechGoal extends Goal {
     public void start() {
         this.cachedTarget = monarch.getTarget();
         this.isCasting = true;
-        this.channelTicks = 10;
+        this.channelTicks = 25;
         this.hasStarted = false;
         monarch.setScreeching(true);
         monarch.setCasting(true);
@@ -70,6 +70,7 @@ public class ScreechGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
+        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] ScreechGoal started, target={}", cachedTarget);
     }
 
 
@@ -79,9 +80,11 @@ public class ScreechGoal extends Goal {
                     monarch,
                     monarch.getBoundingBox().expand(SCREECH_RADIUS)
             );
+            int hitCount = 0;
 
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity living && !(entity instanceof MobEntity)) {
+                    hitCount++;
                     monarch.setVelocity(Vec3d.ZERO);
 
                     float baseDamage = (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.1F;
@@ -127,6 +130,7 @@ public class ScreechGoal extends Goal {
                     SoundCategory.PLAYERS,
                     2.5f, 1.0f
             );
+            more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] Screech hit {} entities", hitCount);
         }
     }
 
@@ -151,7 +155,7 @@ public class ScreechGoal extends Goal {
                 monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
             }
         }
-        if (channelTicks == 5) {
+        if (channelTicks == 13) {
             screechAttack();
         }
 

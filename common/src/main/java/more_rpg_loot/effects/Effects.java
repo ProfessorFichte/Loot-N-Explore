@@ -2,6 +2,9 @@ package more_rpg_loot.effects;
 
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.config.EffectsConfig;
+import more_rpg_loot.effects.frozen_depths.FrostResistanceEffect;
+import more_rpg_loot.effects.generic.EnderDragonScalesEffect;
+import more_rpg_loot.effects.generic.WithersCurseEffect;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;

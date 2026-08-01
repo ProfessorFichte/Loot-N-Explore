@@ -1,9 +1,10 @@
 package more_rpg_loot.entity.frozen_depths.mob.monarchs_guard;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.entity.frozen_depths.projectile.FrozenArrowEntity;
+import more_rpg_loot.RPGLoot;
+import more_rpg_loot.entity.frozen_depths.projectile.ThrownLanceEntity;
 import more_rpg_loot.item.CommonItems;
-import more_rpg_loot.util.ClampedYawMoveControl;
+import more_rpg_loot.util.LongReachMeleeAttackGoal;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -13,7 +14,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -38,10 +38,12 @@ public class MonarchsGuardEntity extends SkeletonEntity {
     public final AnimationState spearThrowAnimationState = new AnimationState();
     public final AnimationState chargeAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private int stabAnimTicksRemaining = 0;
 
     private int dashCooldown = 0;
     private int throwCooldown = 0;
     private int stabCooldown = 0;
+    private int postActionCooldown = 0;
 
     // Server-side only - lets the three special-attack goals below check each other's state so a
     // higher-priority goal can't interrupt one that's already mid-windup/mid-action
@@ -50,7 +52,6 @@ public class MonarchsGuardEntity extends SkeletonEntity {
     public MonarchsGuardEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 8;
     }
 
@@ -76,7 +77,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         this.goalSelector.add(1, new DashAttackGoal(this));
         this.goalSelector.add(2, new SpearThrowGoal(this));
         this.goalSelector.add(3, new LongRangeStabGoal(this));
-        this.goalSelector.add(4, new MeleeAttackGoal(this, 1.0, false));
+        this.goalSelector.add(4, new LongReachMeleeAttackGoal(this, 1.0, false, 4.5));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
@@ -85,13 +86,20 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
 
-        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
-        // melee-attack goal alongside this class's own explicit MeleeAttackGoal above, causing
-        // two redundant melee goals to compete for the same controls - strip the hidden one out.
+        // Defensive: strip any duplicate melee goal that slipped in before updateAttackType() was
+        // neutralized below (excludes our own LongReachMeleeAttackGoal subclass).
         this.goalSelector.getGoals().stream()
-                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .filter(g -> g.getGoal().getClass() == MeleeAttackGoal.class)
                 .toList()
                 .forEach(g -> this.goalSelector.remove(g.getGoal()));
+    }
+
+    @Override
+    public void updateAttackType() {
+        // AbstractSkeletonEntity re-adds its own internal meleeAttackGoal here whenever equipment
+        // changes, since getMainHandStack().isOf(Items.BOW) is always false for the lance - that
+        // runs after initGoals() (during equip), so a one-time goal filter can't catch it. Stop the
+        // vanilla swap entirely; this entity's own LongReachMeleeAttackGoal is already in initGoals().
     }
 
     @Nullable
@@ -133,6 +141,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             if (dashCooldown > 0) dashCooldown--;
             if (throwCooldown > 0) throwCooldown--;
             if (stabCooldown > 0) stabCooldown--;
+            if (postActionCooldown > 0) postActionCooldown--;
         }
         if (this.getWorld().isClient) {
             setupAnimationStates();
@@ -150,18 +159,25 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             this.chargeAnimationState.startIfNotRunning(this.age);
             this.idleAnimationState.stop();
             this.walkAnimationState.stop();
+            this.spearThrowAnimationState.stop();
         } else if (this.isThrowing()) {
             this.spearThrowAnimationState.startIfNotRunning(this.age);
             this.idleAnimationState.stop();
+            this.chargeAnimationState.stop();
         } else if (this.handSwinging && this.handSwingTicks == 0) {
             this.stabAnimationState.start(this.age);
+            this.stabAnimTicksRemaining = 10;
+            this.chargeAnimationState.stop();
+            this.spearThrowAnimationState.stop();
         } else if (moving) {
             this.walkAnimationState.startIfNotRunning(this.age);
             this.chargeAnimationState.stop();
             this.idleAnimationState.stop();
+            this.spearThrowAnimationState.stop();
         } else {
             this.chargeAnimationState.stop();
             this.walkAnimationState.stop();
+            this.spearThrowAnimationState.stop();
             if (idleAnimationTimeout <= 0) {
                 idleAnimationTimeout = this.random.nextInt(40) + 80;
                 this.idleAnimationState.start(this.age);
@@ -169,13 +185,18 @@ public class MonarchsGuardEntity extends SkeletonEntity {
                 --idleAnimationTimeout;
             }
         }
+
+        if (this.stabAnimTicksRemaining > 0 && --this.stabAnimTicksRemaining <= 0) {
+            this.stabAnimationState.stop();
+        }
     }
 
     private class DashAttackGoal extends Goal {
         private final MonarchsGuardEntity guard;
         private LivingEntity target;
         private int windupTimer = 0;
-        private int coastTicks = 0;
+        private int chargeTicks = 0;
+        private Vec3d chargeDir = Vec3d.ZERO;
         private boolean active = false;
 
         DashAttackGoal(MonarchsGuardEntity guard) {
@@ -186,7 +207,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public boolean canStart() {
             this.target = guard.getTarget();
-            if (target == null || !target.isAlive() || guard.dashCooldown > 0) return false;
+            if (target == null || !target.isAlive() || guard.dashCooldown > 0 || guard.postActionCooldown > 0) return false;
             if (guard.isThrowing() || guard.stabbingActive) return false;
             double dist = guard.squaredDistanceTo(target);
             return dist > 4.0 * 4.0 && dist <= 12.0 * 12.0;
@@ -198,10 +219,11 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public void start() {
             active = true;
-            windupTimer = 10;
-            coastTicks = 0;
+            windupTimer = 10 + guard.random.nextInt(11);
+            chargeTicks = 0;
             guard.setDashing(true);
             guard.getNavigation().stop();
+            RPGLoot.LOGGER.info("[MonarchsGuard] DashAttackGoal started against {}, windup={}", target, windupTimer);
         }
 
         @Override
@@ -210,25 +232,39 @@ public class MonarchsGuardEntity extends SkeletonEntity {
 
             if (windupTimer > 0) {
                 if (--windupTimer <= 0 && target != null) {
-                    Vec3d dir = target.getPos().subtract(guard.getPos()).normalize();
-                    // Moderate impulse (not 1.5+) so it reads as a lunge, not a teleport
-                    guard.setVelocity(dir.x * 0.8, 0.1, dir.z * 0.8);
-                    guard.velocityModified = true;
+                    chargeDir = target.getPos().subtract(guard.getPos()).normalize();
+                    chargeTicks = 8;
 
-                    guard.getWorld().getNonSpectatingEntities(LivingEntity.class, guard.getBoundingBox().expand(1.5).offset(dir.multiply(2))).forEach(entity -> {
+                    // Force-face the charge direction exactly at launch rather than trusting
+                    // look-control/body-control to have fully caught up - in rare cases (target
+                    // was near directly behind at windup start) body yaw can still be lagging,
+                    // making the model appear to charge backward even though velocity is correct.
+                    float launchYaw = (float) (Math.toDegrees(Math.atan2(-chargeDir.x, chargeDir.z)));
+                    guard.setYaw(launchYaw);
+                    guard.setBodyYaw(launchYaw);
+                    guard.setHeadYaw(launchYaw);
+                    guard.prevYaw = launchYaw;
+                    guard.prevBodyYaw = launchYaw;
+                    guard.prevHeadYaw = launchYaw;
+
+                    var hits = guard.getWorld().getNonSpectatingEntities(LivingEntity.class, guard.getBoundingBox().expand(1.5).offset(chargeDir.multiply(2)));
+                    int hitCount = 0;
+                    for (LivingEntity entity : hits) {
                         if (entity != guard && !entity.isTeammate(guard)) {
                             guard.tryAttack(entity);
+                            hitCount++;
                         }
-                    });
-
-                    // Keep holding Control.MOVE for a few ticks so normal AI navigation/other goals
-                    // can't immediately cancel the impulse mid-flight, letting it decelerate naturally
-                    coastTicks = 5;
+                    }
+                    RPGLoot.LOGGER.info("[MonarchsGuard] Dash launched toward {}, hit {} entities", target, hitCount);
                 }
                 return;
             }
 
-            if (coastTicks > 0 && --coastTicks <= 0) {
+            if (chargeTicks > 0) {
+                guard.setVelocity(chargeDir.x * 0.9, guard.getVelocity().y, chargeDir.z * 0.9);
+                guard.velocityModified = true;
+                if (--chargeTicks <= 0) stop();
+            } else {
                 stop();
             }
         }
@@ -238,6 +274,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             active = false;
             guard.setDashing(false);
             guard.dashCooldown = 60 + guard.random.nextInt(40);
+            guard.postActionCooldown = 10;
         }
     }
 
@@ -245,6 +282,8 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         private final MonarchsGuardEntity guard;
         private LivingEntity target;
         private int windupTimer = 0;
+        private int recoverTimer = 0;
+        private boolean hasThrown = false;
         private boolean active = false;
 
         SpearThrowGoal(MonarchsGuardEntity guard) {
@@ -255,10 +294,10 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public boolean canStart() {
             this.target = guard.getTarget();
-            if (target == null || !target.isAlive() || guard.throwCooldown > 0) return false;
+            if (target == null || !target.isAlive() || guard.throwCooldown > 0 || guard.postActionCooldown > 0) return false;
             if (guard.isDashing() || guard.stabbingActive) return false;
             double dist = guard.squaredDistanceTo(target);
-            return dist > 6.0 * 6.0 && dist <= 20.0 * 20.0;
+            return dist > 6.0 * 6.0 && dist <= 32.0 * 32.0;
         }
 
         @Override
@@ -267,34 +306,45 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public void start() {
             active = true;
-            windupTimer = 20;
+            // throwSpear animation (21.67 ticks total) hides the held lance model between tick 10
+            // and ~19 (leftItem scale keyframes) - the throw must fire exactly when it vanishes.
+            windupTimer = 10;
+            hasThrown = false;
             guard.setThrowing(true);
             guard.getNavigation().stop();
+            RPGLoot.LOGGER.info("[MonarchsGuard] SpearThrowGoal started against {}", target);
         }
 
         @Override
         public void tick() {
             if (target != null) guard.getLookControl().lookAt(target, 30.0F, 30.0F);
-            if (--windupTimer <= 0) {
-                throwSpear();
+            if (!hasThrown) {
+                if (--windupTimer <= 0) {
+                    throwSpear();
+                    hasThrown = true;
+                    recoverTimer = 12;
+                }
+            } else if (--recoverTimer <= 0) {
                 stop();
             }
         }
 
         private void throwSpear() {
-            if (target == null) return;
+            if (target == null) {
+                RPGLoot.LOGGER.warn("[MonarchsGuard] SpearThrowGoal fired with a null target - no lance spawned");
+                return;
+            }
             World world = guard.getWorld();
             if (world.isClient) return;
 
-            // StraightIcicleEntity is a stationary ground-spike hazard (see IcicleAttackGoal), not a
-            // traveling projectile, so a genuinely thrown weapon needs an actual projectile entity instead
             Vec3d spawnPos = guard.getPos().add(0, guard.getStandingEyeHeight() * 0.8, 0);
             Vec3d toTarget = target.getPos().add(0, target.getHeight() * 0.5, 0).subtract(spawnPos);
 
-            FrozenArrowEntity spear = new FrozenArrowEntity(world, guard);
-            spear.setPosition(spawnPos.x, spawnPos.y, spawnPos.z);
-            spear.setVelocity(toTarget.x, toTarget.y, toTarget.z, 2.0F, 1.0F);
-            world.spawnEntity(spear);
+            ThrownLanceEntity lance = new ThrownLanceEntity(world, guard);
+            lance.setPosition(spawnPos.x, spawnPos.y, spawnPos.z);
+            lance.setVelocity(toTarget.x, toTarget.y, toTarget.z, 2.5F, 0.3F);
+            world.spawnEntity(lance);
+            RPGLoot.LOGGER.info("[MonarchsGuard] Lance thrown at {}", target);
         }
 
         @Override
@@ -302,6 +352,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             active = false;
             guard.setThrowing(false);
             guard.throwCooldown = 120 + guard.random.nextInt(60);
+            guard.postActionCooldown = 10;
         }
     }
 
@@ -319,7 +370,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
         @Override
         public boolean canStart() {
             this.target = guard.getTarget();
-            if (target == null || !target.isAlive() || guard.stabCooldown > 0) return false;
+            if (target == null || !target.isAlive() || guard.stabCooldown > 0 || guard.postActionCooldown > 0) return false;
             if (guard.isDashing() || guard.isThrowing()) return false;
             double dist = guard.squaredDistanceTo(target);
             return dist > 1.5 * 1.5 && dist <= 4.5 * 4.5;
@@ -333,6 +384,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             active = true;
             windupTimer = 8;
             guard.stabbingActive = true;
+            RPGLoot.LOGGER.info("[MonarchsGuard] LongRangeStabGoal started against {}", target);
         }
 
         @Override
@@ -342,6 +394,8 @@ public class MonarchsGuardEntity extends SkeletonEntity {
                 if (target != null && guard.squaredDistanceTo(target) <= 5.0 * 5.0) {
                     guard.tryAttack(target);
                     if (guard.getWorld().isClient) guard.stabAnimationState.start(guard.age);
+                } else {
+                    RPGLoot.LOGGER.info("[MonarchsGuard] LongRangeStabGoal whiffed - target {} out of range or gone at resolve time", target);
                 }
                 stop();
             }
@@ -352,6 +406,7 @@ public class MonarchsGuardEntity extends SkeletonEntity {
             active = false;
             guard.stabbingActive = false;
             guard.stabCooldown = 30 + guard.random.nextInt(20);
+            guard.postActionCooldown = 6;
         }
     }
 

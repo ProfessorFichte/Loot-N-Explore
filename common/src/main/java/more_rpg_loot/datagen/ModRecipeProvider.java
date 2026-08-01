@@ -3,7 +3,6 @@ package more_rpg_loot.datagen;
 import more_rpg_loot.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
@@ -25,23 +24,28 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter exporter) {
-        RecipeExporter spellengineConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("spell_engine"));
-        RecipeExporter mrpgcConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("more_rpg_classes"));
-        RecipeExporter noArchersExporter = withConditions(exporter, ResourceConditions.not(ResourceConditions.allModsLoaded("lne_archers")));
-        RecipeExporter noPaladinsExporter = withConditions(exporter, ResourceConditions.not(ResourceConditions.allModsLoaded("lne_paladins")));
-
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.LIGHT_BLUE_DYE)
                 .input(ModBlocks.FROST_BLOOM.block())
                 .criterion(hasItem(Items.LIGHT_BLUE_DYE), conditionsFromItem(Items.LIGHT_BLUE_DYE))
                 .criterion(hasItem(ModBlocks.FROST_BLOOM.block()), conditionsFromItem(ModBlocks.FROST_BLOOM.block()))
-                .offerTo(exporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/light_blue_dye_from_frost_bloom"));
 
         Item glazeRod = getItem("loot_n_explore:glaze_rod");
         Item frostball = getItem("loot_n_explore:frostball");
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, frostball, 4)
                 .input(glazeRod)
                 .criterion(hasItem(glazeRod), conditionsFromItem(glazeRod))
-                .offerTo(exporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frostball"));
+
+        Item frozenSoulItem = getItem("loot_n_explore:frozen_soul");
+        ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, ModBlocks.FROZEN_SOULS.block())
+                .pattern("OOO")
+                .pattern("OSO")
+                .pattern("OOO")
+                .input('O', Items.OBSIDIAN)
+                .input('S', frozenSoulItem)
+                .criterion(hasItem(frozenSoulItem), conditionsFromItem(frozenSoulItem))
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frozen_soul_block"));
 
         Item dragonTemplate = getItem("loot_n_explore:dragon_upgrade_smithing_template");
         Item dragonTooth = getItem("loot_n_explore:ender_dragon_tooth");
@@ -57,7 +61,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('B', corruptedPearl)
                 .input('C', dragonTooth)
                 .criterion(hasItem(chargedAmethyst), conditionsFromItem(chargedAmethyst))
-                .offerTo(spellengineConditionalExporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/dragon_upgrade_smithing_template"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, dragonTemplate, 2)
                 .pattern("#A#")
@@ -67,7 +71,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', dragonTemplate)
                 .criterion(hasItem(dragonTemplate), conditionsFromItem(dragonTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "dragon_upgrade_smithing_template_multiply"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/dragon_upgrade_smithing_template_multiply"));
 
         Item guardianTemplate = getItem("loot_n_explore:guardian_upgrade_smithing_template");
         Item amphora = getItem("loot_n_explore:poseidons_amphora");
@@ -83,7 +87,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('B', coral)
                 .input('C', amphora)
                 .criterion(hasItem(diadem), conditionsFromItem(diadem))
-                .offerTo(mrpgcConditionalExporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/guardian_upgrade_smithing_template"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, guardianTemplate, 2)
                 .pattern("#A#")
@@ -93,7 +97,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', guardianTemplate)
                 .criterion(hasItem(guardianTemplate), conditionsFromItem(guardianTemplate))
-                .offerTo(mrpgcConditionalExporter, Identifier.of("loot_n_explore", "guardian_upgrade_smithing_template_multiply"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/guardian_upgrade_smithing_template_multiply"));
 
         Item witherTemplate = getItem("loot_n_explore:wither_upgrade_smithing_template");
         Item unknownRemains = getItem("loot_n_explore:unknown_remains");
@@ -109,7 +113,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('B', lostSoul)
                 .input('C', witheredShard)
                 .criterion(hasItem(unknownRemains), conditionsFromItem(unknownRemains))
-                .offerTo(spellengineConditionalExporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/wither_upgrade_smithing_template"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, witherTemplate, 2)
                 .pattern("#A#")
@@ -119,7 +123,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', witherTemplate)
                 .criterion(hasItem(witherTemplate), conditionsFromItem(witherTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "wither_upgrade_smithing_template_multiply"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/wither_upgrade_smithing_template_multiply"));
 
         Item frostTemplate = getItem("loot_n_explore:frostmonarch_upgrade_smithing_template");
         Item snowflake = getItem("loot_n_explore:eternal_snowflake");
@@ -135,7 +139,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('B', glacierShard)
                 .input('C', frozenRib)
                 .criterion(hasItem(snowflake), conditionsFromItem(snowflake))
-                .offerTo(spellengineConditionalExporter);
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frostmonarch_upgrade_smithing_template"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, frostTemplate, 2)
                 .pattern("#A#")
@@ -145,45 +149,35 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', frostTemplate)
                 .criterion(hasItem(frostTemplate), conditionsFromItem(frostTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "frostmonarch_upgrade_smithing_template_multiply"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frostmonarch_upgrade_smithing_template_multiply"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.AMETHYST_SHARD, 5)
                 .input(chargedAmethyst)
                 .criterion(hasItem(chargedAmethyst), conditionsFromItem(chargedAmethyst))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "uncraft_charged_amethyst"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/uncraft_charged_amethyst"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BONE, 8)
                 .input(unknownRemains)
                 .criterion(hasItem(unknownRemains), conditionsFromItem(unknownRemains))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "uncraft_unknown_remains"));
+                .offerTo(exporter, Identifier.of("loot_n_explore", "generic/uncraft_unknown_remains"));
 
         Item dragonScales = getItem("loot_n_explore:ender_dragon_scales");
         Item guardianEye   = getItem("loot_n_explore:elder_guardian_eye");
         Item witherSpine   = getItem("loot_n_explore:wither_spine");
         Item frozenSoul    = getItem("loot_n_explore:frozen_soul");
 
-        createSmithingTransformRecipe(exporter, dragonTemplate, Items.NETHERITE_SWORD, dragonScales, getItem("loot_n_explore:ender_dragon_sword"), "ender_dragon_sword");
-        createSmithingTransformRecipe(exporter, dragonTemplate, Items.NETHERITE_AXE,   dragonScales, getItem("loot_n_explore:ender_dragon_axe"),   "ender_dragon_axe");
-        createSmithingTransformRecipe(exporter, guardianTemplate, Items.NETHERITE_SWORD, guardianEye, getItem("loot_n_explore:elder_guardian_sword"), "elder_guardian_sword");
-        createSmithingTransformRecipe(exporter, guardianTemplate, Items.NETHERITE_AXE,   guardianEye, getItem("loot_n_explore:elder_guardian_axe"),   "elder_guardian_axe");
-        createSmithingTransformRecipe(exporter, witherTemplate, Items.NETHERITE_SWORD, witherSpine, getItem("loot_n_explore:wither_sword"), "wither_sword");
-        createSmithingTransformRecipe(exporter, witherTemplate, Items.NETHERITE_AXE,   witherSpine, getItem("loot_n_explore:wither_axe"),   "wither_axe");
-        createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_SWORD, frozenSoul, getItem("loot_n_explore:glacial_sword"), "glacial_sword");
-        createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_AXE,   frozenSoul, getItem("loot_n_explore:glacial_axe"),   "glacial_axe");
+        createSmithingTransformRecipe(exporter, dragonTemplate, Items.NETHERITE_SWORD, dragonScales, getItem("loot_n_explore:ender_dragon_sword"), "generic/ender_dragon_sword");
+        createSmithingTransformRecipe(exporter, dragonTemplate, Items.NETHERITE_AXE,   dragonScales, getItem("loot_n_explore:ender_dragon_axe"),   "generic/ender_dragon_axe");
+        createSmithingTransformRecipe(exporter, guardianTemplate, Items.NETHERITE_SWORD, guardianEye, getItem("loot_n_explore:elder_guardian_sword"), "generic/elder_guardian_sword");
+        createSmithingTransformRecipe(exporter, guardianTemplate, Items.NETHERITE_AXE,   guardianEye, getItem("loot_n_explore:elder_guardian_axe"),   "generic/elder_guardian_axe");
+        createSmithingTransformRecipe(exporter, witherTemplate, Items.NETHERITE_SWORD, witherSpine, getItem("loot_n_explore:wither_sword"), "generic/wither_sword");
+        createSmithingTransformRecipe(exporter, witherTemplate, Items.NETHERITE_AXE,   witherSpine, getItem("loot_n_explore:wither_axe"),   "generic/wither_axe");
+        createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_SWORD, frozenSoul, getItem("loot_n_explore:glacial_sword"), "frozen_depths/glacial_sword");
+        createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_AXE,   frozenSoul, getItem("loot_n_explore:glacial_axe"),   "frozen_depths/glacial_axe");
 
-        createSmithingTransformRecipe(noArchersExporter, dragonTemplate, Items.BOW,      dragonScales, getItem("loot_n_explore:ender_dragon_bow"),      "ender_dragon_bow");
-        createSmithingTransformRecipe(noArchersExporter, dragonTemplate, Items.CROSSBOW, dragonScales, getItem("loot_n_explore:ender_dragon_crossbow"), "ender_dragon_crossbow");
-        createSmithingTransformRecipe(noArchersExporter, guardianTemplate, Items.BOW,      guardianEye, getItem("loot_n_explore:elder_guardian_bow"),      "elder_guardian_bow");
-        createSmithingTransformRecipe(noArchersExporter, guardianTemplate, Items.CROSSBOW, guardianEye, getItem("loot_n_explore:elder_guardian_crossbow"), "elder_guardian_crossbow");
-        createSmithingTransformRecipe(noArchersExporter, witherTemplate, Items.BOW,      witherSpine, getItem("loot_n_explore:wither_bow"),      "wither_bow");
-        createSmithingTransformRecipe(noArchersExporter, witherTemplate, Items.CROSSBOW, witherSpine, getItem("loot_n_explore:wither_crossbow"), "wither_crossbow");
-        createSmithingTransformRecipe(noArchersExporter, frostTemplate, Items.BOW,      frozenSoul, getItem("loot_n_explore:glacial_bow"),      "glacial_bow");
-        createSmithingTransformRecipe(noArchersExporter, frostTemplate, Items.CROSSBOW, frozenSoul, getItem("loot_n_explore:glacial_crossbow"), "glacial_crossbow");
-
-        createSmithingTransformRecipe(noPaladinsExporter, dragonTemplate,  Items.MACE, dragonScales, getItem("loot_n_explore:ender_dragon_mace"),   "ender_dragon_mace");
-        createSmithingTransformRecipe(noPaladinsExporter, guardianTemplate, Items.MACE, guardianEye,  getItem("loot_n_explore:elder_guardian_mace"), "elder_guardian_mace");
-        createSmithingTransformRecipe(noPaladinsExporter, witherTemplate,   Items.MACE, witherSpine,  getItem("loot_n_explore:wither_mace"),         "wither_mace");
-        createSmithingTransformRecipe(noPaladinsExporter, frostTemplate,    Items.MACE, frozenSoul,   getItem("loot_n_explore:glacial_mace"),        "glacial_mace");
+        // Bow/crossbow (unless lne_archers installed) and mace (unless lne_paladins installed) recipes
+        // need both fabric:load_conditions and neoforge:conditions, which the FabricRecipeProvider
+        // exporter can't emit together - see LootExploreConditionalRecipeProvider.
     }
 
 

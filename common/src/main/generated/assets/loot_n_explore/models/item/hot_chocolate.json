@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/hot_chocolate"
+    "layer0": "loot_n_explore:item/consumables/generic/hot_chocolate"
   }
 }

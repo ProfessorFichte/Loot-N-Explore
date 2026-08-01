@@ -43,6 +43,6 @@
     }
   ],
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/ender_dragon_crossbow"
+    "layer0": "loot_n_explore:item/weapons/generic/ender_dragon_crossbow"
   }
 }

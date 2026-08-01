@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "loot_n_explore:item/wither_bow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/bow_pulling/wither_bow_pulling_2"
+    "layer0": "loot_n_explore:item/weapons/generic/bow_pulling/wither_bow_pulling_2"
   }
 }

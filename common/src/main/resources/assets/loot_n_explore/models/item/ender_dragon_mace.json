@@ -2,7 +2,7 @@
 	"credit": "Made by pedravila",
 	"texture_size": [64, 64],
 	"textures": {
-		"2": "loot_n_explore:item/weapons/ender_dragon_mace"
+		"2": "loot_n_explore:item/weapons/generic/ender_dragon_mace"
 	},
 	"elements": [
 		{

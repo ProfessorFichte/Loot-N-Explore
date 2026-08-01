@@ -12,6 +12,7 @@ public interface StructureTags {
     TagKey<Structure> SPIDER_QUEST = register("spider_quest");
     TagKey<Structure> SKELETEON_QUEST = register("skeleton_quest");
     TagKey<Structure> PILLAGER_QUEST = register("pillager_quest");
+    TagKey<Structure> FROSTMONARCH_TEMPLE_LOCATED = register("frostmonarch_temple");
 
     private static TagKey<Structure> register(String id) {
         return TagKey.of(RegistryKeys.STRUCTURE,  RPGLoot.id(id));

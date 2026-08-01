@@ -20,8 +20,8 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
  * variant, a yaw rotation) differs.
  */
 public abstract class AbstractIcicleModelRenderer<T extends Entity> extends EntityRenderer<T> {
-    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/block/sharp_icicles.png");
-    private static final Identifier MODEL_ID = Identifier.of(MOD_ID, "block/icicle_straight");
+    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/block/frozen_depths/sharp_icicles.png");
+    private static final Identifier MODEL_ID = Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight");
 
     // Model extends from y=-16 to y=28 (44px = 2.75 blocks)
     private static final float MODEL_HEIGHT = 2.75F;

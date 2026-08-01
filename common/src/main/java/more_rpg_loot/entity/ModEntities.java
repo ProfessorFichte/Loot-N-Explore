@@ -53,6 +53,13 @@ public class ModEntities {
             .dimensions(EntityDimensions.fixed(0.8f, 0.8f))
             .trackRangeChunks(8)
             .build();
+    public static final EntityType<FrostballLocatorEntity> FROSTBALL_LOCATOR = FabricEntityTypeBuilder.create(
+                    SpawnGroup.MISC,
+                    (EntityType.EntityFactory<FrostballLocatorEntity>) FrostballLocatorEntity::new
+            )
+            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+            .trackRangeChunks(8)
+            .build();
     public static final EntityType<StraightIcicleEntity> STRAIGHT_ICICLE = FabricEntityTypeBuilder.create(
                     SpawnGroup.MISC,
                     (EntityType.EntityFactory<StraightIcicleEntity>) StraightIcicleEntity::new
@@ -87,6 +94,13 @@ public class ModEntities {
                     (EntityType.EntityFactory<TrackingIcicleEntity>) TrackingIcicleEntity::new
             )
             .dimensions(EntityDimensions.fixed(0.3f, 0.3f))
+            .trackRangeChunks(8)
+            .build();
+    public static final EntityType<ThrownLanceEntity> THROWN_LANCE = FabricEntityTypeBuilder.create(
+                    SpawnGroup.MISC,
+                    (EntityType.EntityFactory<ThrownLanceEntity>) ThrownLanceEntity::new
+            )
+            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
             .trackRangeChunks(8)
             .build();
     public static final EntityType<FrozenArrowEntity> FROZEN_ARROW = FabricEntityTypeBuilder.create(
@@ -159,12 +173,14 @@ public class ModEntities {
         register("frost_monarch", FROST_MONARCH);
         register("glaze", GLAZE);
         register("frostball", FROSTBALL);
+        register("frostball_locator", FROSTBALL_LOCATOR);
         register("straight_icicle", STRAIGHT_ICICLE);
         register("barrier_icicle", BARRIER_ICICLE);
         register("lne_ability_arrow", LNE_ABILITY_ARROW);
         register("custom_cloud", CUSTOM_CLOUD);
         register("tracking_icicle", TRACKING_ICICLE);
         register("frozen_arrow", FROZEN_ARROW);
+        register("thrown_lance", THROWN_LANCE);
         register("undead_frozen_mage", UNDEAD_FROZEN_MAGE);
         register("general_undead_frozen_mage", GENERAL_UNDEAD_FROZEN_MAGE);
         register("frosted_ranger", FROSTED_RANGER);

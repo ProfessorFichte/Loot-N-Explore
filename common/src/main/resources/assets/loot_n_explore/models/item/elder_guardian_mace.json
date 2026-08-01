@@ -2,7 +2,7 @@
 	"credit": "Made by pedravila",
 	"texture_size": [64, 64],
 	"textures": {
-		"3": "loot_n_explore:item/weapons/elder_guardian_mace"
+		"3": "loot_n_explore:item/weapons/generic/elder_guardian_mace"
 	},
 	"elements": [
 		{

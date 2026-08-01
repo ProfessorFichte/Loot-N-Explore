@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/fruit_icewater"
+    "layer0": "loot_n_explore:item/consumables/spell_power/fruit_icewater"
   }
 }

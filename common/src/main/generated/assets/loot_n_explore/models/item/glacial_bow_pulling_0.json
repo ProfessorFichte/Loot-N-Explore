@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "loot_n_explore:item/glacial_bow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/bow_pulling/glacial_bow_pulling_0"
+    "layer0": "loot_n_explore:item/weapons/frozen_depths/bow_pulling/glacial_bow_pulling_0"
   }
 }

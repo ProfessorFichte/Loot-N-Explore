@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "loot_n_explore:block/monarchs_crown"
+      "model": "loot_n_explore:block/frozen_depths/monarchs_crown"
     }
   }
 }

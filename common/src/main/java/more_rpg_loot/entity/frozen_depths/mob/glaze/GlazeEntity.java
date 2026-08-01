@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.frozen_depths.mob.glaze;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
@@ -211,7 +212,9 @@ public class GlazeEntity extends HostileEntity {
                     }
                     this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
                     this.glaze.tryAttack(livingEntity);
-                    this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
+                    if (this.glaze.age % 10 == 0) {
+                        this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
+                    }
                 }
 
                 else if(d < followRangeSquare && d > frostStormRange && bl){
@@ -239,6 +242,7 @@ public class GlazeEntity extends HostileEntity {
                                 frostballEntity.setPosition(livingEntity.getX() + random, livingEntity.getBodyY(randomHeight) + 0.5, livingEntity.getZ() + random);
                                 frostballEntity.setVelocity(frostballEntity, frostballEntity.getPitch(), frostballEntity.getYaw(), random, random, randomDivergence);
                                 this.glaze.getWorld().spawnEntity(frostballEntity);
+                                RPGLoot.LOGGER.info("[Glaze] Frostball hail projectile #{} spawned at {}", this.frostballsHailFired, livingEntity);
                             }
                         }
                     }
@@ -255,12 +259,15 @@ public class GlazeEntity extends HostileEntity {
                                     Effects.FREEZING.registryEntry, 3, 1,false,0,true,(float) glaze.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) *0.3F,
                                     new DamageSource(glaze.getTarget().getDamageSources().freeze().getTypeRegistryEntry()));
                             this.frostStormCooldown = 600;
+                            RPGLoot.LOGGER.info("[Glaze] Froststorm cast on {}", livingEntity);
                         }
                     }
                 }
                 else if (this.targetNotVisibleTicks < 5) {
                     this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
-                    this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
+                    if (this.glaze.age % 10 == 0) {
+                        this.glaze.getNavigation().startMovingTo(livingEntity, 1.0);
+                    }
                 }
 
                 super.tick();

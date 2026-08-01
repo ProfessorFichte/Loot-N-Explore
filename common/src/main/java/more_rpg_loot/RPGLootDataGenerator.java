@@ -20,6 +20,8 @@ public class RPGLootDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModEntityTagProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
+		pack.addProvider(LootExploreConditionalRecipeProvider::new);
+		pack.addProvider(LootExploreConditionalTagProvider::new);
 		pack.addProvider(ModWorldGenerator::new);
 		pack.addProvider(ModLanguageProvider::new);
 		pack.addProvider(ModAdvancementProvider::new);

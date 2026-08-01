@@ -1,0 +1,38 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "loot_n_explore:block/frozen_depths/ice_bars",
+		"bars": "loot_n_explore:block/frozen_depths/ice_bars"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 8],
+			"to": [8, 16, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 16]},
+			"faces": {
+				"east": {"uv": [0, 0, 8, 16], "texture": "#bars"},
+				"west": {"uv": [8, 0, 0, 16], "texture": "#bars"}
+			}
+		},
+		{
+			"from": [7, 15.99, 9],
+			"to": [9, 15.99, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 16]},
+			"faces": {
+				"up": {"uv": [7, 2, 0, 0], "rotation": 90, "texture": "#bars"},
+				"down": {"uv": [0, 0, 7, 2], "rotation": 90, "texture": "#bars"}
+			}
+		},
+		{
+			"from": [7, -0.01, 9],
+			"to": [9, -0.01, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, -16, 16]},
+			"faces": {
+				"up": {"uv": [7, 16, 0, 14], "rotation": 90, "texture": "#bars"},
+				"down": {"uv": [0, 14, 7, 16], "rotation": 90, "texture": "#bars"}
+			}
+		}
+	]
+}

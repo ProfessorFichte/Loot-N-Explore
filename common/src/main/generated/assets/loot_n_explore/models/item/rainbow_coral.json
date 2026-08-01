@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/relics/rainbow_coral"
+    "layer0": "loot_n_explore:item/relics/generic/rainbow_coral"
   }
 }

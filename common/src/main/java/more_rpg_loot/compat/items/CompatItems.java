@@ -46,12 +46,12 @@ public class CompatItems {
 
         // Constructor with lore text but default model type
         public Entry(String name, Supplier<Item> supplier, String translation, String loreText, String requiredMod, int quality) {
-            this(name, supplier, translation, loreText, new ItemModelType.Generated("item/drinks/"), requiredMod, quality);
+            this(name, supplier, translation, loreText, new ItemModelType.Generated("item/consumables/" + requiredMod + "/"), requiredMod, quality);
         }
 
         // Constructor without lore text and default model type (original)
         public Entry(String name, Supplier<Item> supplier, String translation, String requiredMod, int quality) {
-            this(name, supplier, translation, "", new ItemModelType.Generated("item/drinks/"), requiredMod, quality);
+            this(name, supplier, translation, "", new ItemModelType.Generated("item/consumables/" + requiredMod + "/"), requiredMod, quality);
         }
 
         public String name() { return name; }

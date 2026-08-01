@@ -4,9 +4,9 @@
     "facing=north,hanging=false": { "model": "loot_n_explore:block/spruce_wall_hanging_inn_sign", "y": 90},
     "facing=south,hanging=false": { "model": "loot_n_explore:block/spruce_wall_hanging_inn_sign", "y": 90 },
     "facing=west,hanging=false": { "model": "loot_n_explore:block/spruce_wall_hanging_inn_sign" },
-    "facing=east,hanging=true": { "model": "loot_n_explore:block/spruce_hanging_inn_sign", "y": 90 },
-    "facing=north,hanging=true": { "model": "loot_n_explore:block/spruce_hanging_inn_sign" },
-    "facing=south,hanging=true": { "model": "loot_n_explore:block/spruce_hanging_inn_sign", "y": 180 },
-    "facing=west,hanging=true": { "model": "loot_n_explore:block/spruce_hanging_inn_sign", "y": 270 }
+    "facing=east,hanging=true": { "model": "loot_n_explore:block/generic/spruce_hanging_inn_sign", "y": 90 },
+    "facing=north,hanging=true": { "model": "loot_n_explore:block/generic/spruce_hanging_inn_sign" },
+    "facing=south,hanging=true": { "model": "loot_n_explore:block/generic/spruce_hanging_inn_sign", "y": 180 },
+    "facing=west,hanging=true": { "model": "loot_n_explore:block/generic/spruce_hanging_inn_sign", "y": 270 }
   }
 }

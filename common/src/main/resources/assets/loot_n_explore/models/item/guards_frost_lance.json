@@ -1,6 +1,6 @@
 {
   "parent": "loot_n_explore:item/base/spear_32",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/guards_frost_lance"
+    "layer0": "loot_n_explore:item/weapons/frozen_depths/guards_frost_lance"
   }
 }

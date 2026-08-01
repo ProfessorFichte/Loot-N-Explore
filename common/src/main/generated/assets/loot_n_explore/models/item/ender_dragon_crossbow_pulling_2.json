@@ -1,6 +1,6 @@
 {
   "parent": "loot_n_explore:item/ender_dragon_crossbow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/bow_pulling/ender_dragon_crossbow_pulling_2"
+    "layer0": "loot_n_explore:item/weapons/generic/bow_pulling/ender_dragon_crossbow_pulling_2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "loot_n_explore:item/ender_dragon_crossbow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/ender_dragon_crossbow_firework"
+    "layer0": "loot_n_explore:item/weapons/generic/ender_dragon_crossbow_firework"
   }
 }

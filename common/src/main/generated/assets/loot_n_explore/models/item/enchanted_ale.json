@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/enchanted_ale"
+    "layer0": "loot_n_explore:item/consumables/spell_power/enchanted_ale"
   }
 }

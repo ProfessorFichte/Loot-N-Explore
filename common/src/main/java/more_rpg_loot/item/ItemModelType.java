@@ -21,7 +21,7 @@ public sealed interface ItemModelType {
 
     /**
      * Standard generated item model (2D texture).
-     * @param texturePath Path to texture relative to textures/ (e.g., "item/drinks/", "item/misc/")
+     * @param texturePath Path to texture relative to textures/ (e.g., "item/consumables/generic/", "item/misc/")
      */
     record Generated(String texturePath) implements ItemModelType {
         public Generated() {
@@ -105,9 +105,9 @@ public sealed interface ItemModelType {
             for (int i = 0; i <= 2; i++) {
                 Identifier pullingModelId = Identifier.of(MOD_ID, "item/" + itemName + "_pulling_" + i);
                 JsonObject pullingJson = new JsonObject();
-                pullingJson.addProperty("parent", "minecraft:item/generated");
+                pullingJson.addProperty("parent", MOD_ID + ":item/" + itemName);
                 JsonObject pullingTextures = new JsonObject();
-                pullingTextures.addProperty("layer0", MOD_ID + ":item/weapons/bow_pulling/" + itemName + "_pulling_" + i);
+                pullingTextures.addProperty("layer0", MOD_ID + ":" + texturePath + "bow_pulling/" + itemName + "_pulling_" + i);
                 pullingJson.add("textures", pullingTextures);
                 generator.writer.accept(pullingModelId, () -> pullingJson);
             }

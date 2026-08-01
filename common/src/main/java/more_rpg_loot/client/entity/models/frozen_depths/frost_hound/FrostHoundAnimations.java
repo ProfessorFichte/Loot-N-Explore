@@ -416,8 +416,6 @@ public class FrostHoundAnimations {
 		))
 		.build();
 
-	// exported "claw" attack variant has no matching AnimationState field on FrostHoundEntity
-	// (only vanilla melee -> bite is wired); kept for potential future use, currently unused.
 	public static final Animation claw = Animation.Builder.create(0.625F)
 		.addBoneAnimation("tail", new Transformation(Transformation.Targets.ROTATE,
 			new Keyframe(0.0F, AnimationHelper.createRotationalVector(-10.0461F, 2.2975F, -2.2993F), Transformation.Interpolations.CUBIC),

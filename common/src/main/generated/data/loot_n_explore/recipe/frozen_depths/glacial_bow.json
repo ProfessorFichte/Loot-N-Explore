@@ -1,0 +1,36 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "fabric:all_mods_loaded",
+        "values": [
+          "lne_archers"
+        ]
+      }
+    }
+  ],
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "loot_n_explore:frozen_soul"
+  },
+  "base": {
+    "item": "minecraft:bow"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "lne_archers"
+      }
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:glacial_bow"
+  },
+  "template": {
+    "item": "loot_n_explore:frostmonarch_upgrade_smithing_template"
+  }
+}

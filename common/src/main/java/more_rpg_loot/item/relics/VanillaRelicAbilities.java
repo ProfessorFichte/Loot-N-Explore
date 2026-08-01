@@ -1,5 +1,6 @@
 package more_rpg_loot.item.relics;
 
+import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.compat.spell_engine.ISpellRelicEnhancer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
@@ -8,7 +9,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
@@ -72,6 +75,10 @@ public class VanillaRelicAbilities implements ISpellRelicEnhancer {
         var hit = world.raycast(new RaycastContext(start, end,
                 RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, player));
         var target = hit.getType() == HitResult.Type.MISS ? end : hit.getPos();
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.spawnParticles(ParticleTypes.PORTAL, start.x, start.y, start.z, 20, 0.3, 0.5, 0.3, 0.1);
+            serverWorld.spawnParticles(ParticleTypes.REVERSE_PORTAL, target.x, target.y, target.z, 20, 0.3, 0.5, 0.3, 0.1);
+        }
         player.requestTeleport(target.x, target.y, target.z);
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1.0F, 1.0F);
@@ -81,6 +88,9 @@ public class VanillaRelicAbilities implements ISpellRelicEnhancer {
         if (world.isClient) return;
         for (var target : nearbyEnemies(world, player, 4.0)) {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 0));
+            if (world instanceof ServerWorld serverWorld) {
+                serverWorld.spawnParticles(ParticleTypes.SOUL, target.getX(), target.getBodyY(0.5), target.getZ(), 10, 0.3, 0.4, 0.3, 0.02);
+            }
         }
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ENTITY_WITHER_AMBIENT, SoundCategory.PLAYERS, 0.5F, 1.4F);
@@ -91,6 +101,9 @@ public class VanillaRelicAbilities implements ISpellRelicEnhancer {
         for (var target : nearbyEnemies(world, player, 4.0)) {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 1));
+            if (world instanceof ServerWorld serverWorld) {
+                serverWorld.spawnParticles(Particles.FREEZING_SNOWFLAKE, target.getX(), target.getBodyY(0.5), target.getZ(), 10, 0.3, 0.4, 0.3, 0.02);
+            }
         }
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 0.6F, 0.6F);
@@ -100,6 +113,9 @@ public class VanillaRelicAbilities implements ISpellRelicEnhancer {
         if (world.isClient) return;
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 1200, 0));
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 1200, 0));
+        if (world instanceof ServerWorld serverWorld) {
+            serverWorld.spawnParticles(ParticleTypes.BUBBLE_COLUMN_UP, player.getX(), player.getY(), player.getZ(), 20, 0.4, 0.1, 0.4, 0.05);
+        }
         world.playSound(null, player.getX(), player.getY(), player.getZ(),
                 SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.PLAYERS, 1.0F, 1.2F);
     }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/dettlaffs_blood"
+    "layer0": "loot_n_explore:item/consumables/more_rpg_classes/dettlaffs_blood"
   }
 }

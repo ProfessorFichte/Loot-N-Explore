@@ -53,6 +53,7 @@ public class IcicleAttackGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
+        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] IcicleAttackGoal started, target={}", cachedTarget);
     }
 
     @Override
@@ -180,6 +181,8 @@ public class IcicleAttackGoal extends Goal {
                 new Vec3d(x, (double)blockPos.getY() + yOffset, z),
                 GameEvent.Emitter.of(monarch)
             );
+        } else {
+            more_rpg_loot.RPGLoot.LOGGER.warn("[FrostMonarch] IcicleAttackGoal found no ground for icicle at x={}, z={} (minY={}, maxY={}) - icicle skipped", x, z, minY, maxY);
         }
     }
 

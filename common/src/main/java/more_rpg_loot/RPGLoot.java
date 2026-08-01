@@ -11,6 +11,7 @@ import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemsRegistry;
 import more_rpg_loot.item.ModSpawnEggs;
+import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
 import more_rpg_loot.network.FrozenDepthsMusicPayload;
 import more_rpg_loot.server.LNEServerEvents;
 import more_rpg_loot.worldgen.map.ModMapDecorations;
@@ -105,6 +106,7 @@ public class RPGLoot {
 
 	public static void registerPayloads() {
 		PayloadTypeRegistry.playS2C().register(FrozenDepthsMusicPayload.ID, FrozenDepthsMusicPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(FrostMonarchSpawnOverlayPayload.ID, FrostMonarchSpawnOverlayPayload.CODEC);
 	}
 
 	public static void registerServerEvents() {

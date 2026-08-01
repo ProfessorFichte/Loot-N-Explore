@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/blocks/monarchs_crown"
+    "layer0": "loot_n_explore:item/blocks/frozen_depths/monarchs_crown"
   }
 }

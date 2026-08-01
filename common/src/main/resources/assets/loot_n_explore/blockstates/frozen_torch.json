@@ -1,12 +1,12 @@
 {
   "variants": {
-    "facing=east,floor=false": { "model": "loot_n_explore:block/frost_wall_torch" },
-    "facing=east,floor=true": { "model": "loot_n_explore:block/frozen_torch" },
-    "facing=north,floor=false": { "model": "loot_n_explore:block/frost_wall_torch", "y": 270 },
-    "facing=north,floor=true": { "model": "loot_n_explore:block/frozen_torch" },
-    "facing=south,floor=false": { "model": "loot_n_explore:block/frost_wall_torch", "y": 90 },
-    "facing=south,floor=true": { "model": "loot_n_explore:block/frozen_torch" },
-    "facing=west,floor=false": { "model": "loot_n_explore:block/frost_wall_torch", "y": 180 },
-    "facing=west,floor=true": { "model": "loot_n_explore:block/frozen_torch" }
+    "facing=east,floor=false": { "model": "loot_n_explore:block/frozen_depths/frost_wall_torch" },
+    "facing=east,floor=true": { "model": "loot_n_explore:block/frozen_depths/frozen_torch" },
+    "facing=north,floor=false": { "model": "loot_n_explore:block/frozen_depths/frost_wall_torch", "y": 270 },
+    "facing=north,floor=true": { "model": "loot_n_explore:block/frozen_depths/frozen_torch" },
+    "facing=south,floor=false": { "model": "loot_n_explore:block/frozen_depths/frost_wall_torch", "y": 90 },
+    "facing=south,floor=true": { "model": "loot_n_explore:block/frozen_depths/frozen_torch" },
+    "facing=west,floor=false": { "model": "loot_n_explore:block/frozen_depths/frost_wall_torch", "y": 180 },
+    "facing=west,floor=true": { "model": "loot_n_explore:block/frozen_depths/frozen_torch" }
   }
 }

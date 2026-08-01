@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "more_rpg_classes"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "more_rpg_classes"
+    }
+  ],
+  "replace": false,
+  "values": [
+    "loot_n_explore:ender_dragon_tooth",
+    "loot_n_explore:charged_amethyst",
+    "loot_n_explore:corrupted_ender_pearl",
+    "loot_n_explore:ender_dragon_scales",
+    "loot_n_explore:unknown_remains",
+    "loot_n_explore:lost_soul",
+    "loot_n_explore:withered_obsidian_shard",
+    "loot_n_explore:wither_spine",
+    "loot_n_explore:eternal_snowflake",
+    "loot_n_explore:glacier_shard",
+    "loot_n_explore:frozen_rib",
+    "loot_n_explore:frozen_soul",
+    "loot_n_explore:amphitrite_diadem",
+    "loot_n_explore:rainbow_coral",
+    "loot_n_explore:poseidons_amphora",
+    "loot_n_explore:elder_guardian_eye"
+  ]
+}

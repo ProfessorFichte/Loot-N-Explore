@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/orange_juice"
+    "layer0": "loot_n_explore:item/consumables/spell_power/orange_juice"
   }
 }

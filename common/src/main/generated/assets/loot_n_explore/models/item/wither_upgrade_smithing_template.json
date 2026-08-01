@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/template/wither_upgrade"
+    "layer0": "loot_n_explore:item/template/generic/wither_upgrade"
   }
 }

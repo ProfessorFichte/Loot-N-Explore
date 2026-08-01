@@ -1,123 +1,123 @@
 {
   "variants": {
     "facing=east,ominous=false,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/normal/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/active",
       "y": 90
     },
     "facing=east,ominous=false,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/normal/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/ejecting_reward",
       "y": 90
     },
     "facing=east,ominous=false,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/normal/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/inactive",
       "y": 90
     },
     "facing=east,ominous=false,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/normal/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/unlocking",
       "y": 90
     },
     "facing=east,ominous=true,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/active",
       "y": 90
     },
     "facing=east,ominous=true,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/ejecting_reward",
       "y": 90
     },
     "facing=east,ominous=true,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/inactive",
       "y": 90
     },
     "facing=east,ominous=true,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/unlocking",
       "y": 90
     },
     "facing=north,ominous=false,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/normal/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/active"
     },
     "facing=north,ominous=false,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/normal/ejecting_reward"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/ejecting_reward"
     },
     "facing=north,ominous=false,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/normal/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/inactive"
     },
     "facing=north,ominous=false,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/normal/unlocking"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/unlocking"
     },
     "facing=north,ominous=true,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/active"
     },
     "facing=north,ominous=true,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/ejecting_reward"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/ejecting_reward"
     },
     "facing=north,ominous=true,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/inactive"
     },
     "facing=north,ominous=true,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/unlocking"
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/unlocking"
     },
     "facing=south,ominous=false,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/normal/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/active",
       "y": 180
     },
     "facing=south,ominous=false,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/normal/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/ejecting_reward",
       "y": 180
     },
     "facing=south,ominous=false,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/normal/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/inactive",
       "y": 180
     },
     "facing=south,ominous=false,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/normal/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/unlocking",
       "y": 180
     },
     "facing=south,ominous=true,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/active",
       "y": 180
     },
     "facing=south,ominous=true,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/ejecting_reward",
       "y": 180
     },
     "facing=south,ominous=true,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/inactive",
       "y": 180
     },
     "facing=south,ominous=true,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/unlocking",
       "y": 180
     },
     "facing=west,ominous=false,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/normal/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/active",
       "y": 270
     },
     "facing=west,ominous=false,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/normal/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/ejecting_reward",
       "y": 270
     },
     "facing=west,ominous=false,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/normal/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/inactive",
       "y": 270
     },
     "facing=west,ominous=false,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/normal/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/normal/unlocking",
       "y": 270
     },
     "facing=west,ominous=true,vault_state=active": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/active",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/active",
       "y": 270
     },
     "facing=west,ominous=true,vault_state=ejecting": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/ejecting_reward",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/ejecting_reward",
       "y": 270
     },
     "facing=west,ominous=true,vault_state=inactive": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/inactive",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/inactive",
       "y": 270
     },
     "facing=west,ominous=true,vault_state=unlocking": {
-      "model": "loot_n_explore:block/frozen_vault/ominous/unlocking",
+      "model": "loot_n_explore:block/frozen_depths/frozen_vault/ominous/unlocking",
       "y": 270
     }
   }

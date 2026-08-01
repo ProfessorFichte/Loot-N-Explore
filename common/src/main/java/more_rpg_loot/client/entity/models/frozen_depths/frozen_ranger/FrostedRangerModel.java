@@ -82,8 +82,8 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
         // Play animations based on entity state
         this.animateMovement(FrostedRangerAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.updateAnimation(entity.idleAnimationState, FrostedRangerAnimations.idle, ageInTicks);
-        this.updateAnimation(entity.normalShootAnimationState, FrostedRangerAnimations.attackFast, ageInTicks);
-        this.updateAnimation(entity.salvoAnimationState, FrostedRangerAnimations.attack, ageInTicks);
+        this.updateAnimation(entity.normalShootAnimationState, FrostedRangerAnimations.attack, ageInTicks);
+        this.updateAnimation(entity.salvoAnimationState, FrostedRangerAnimations.attackFast, ageInTicks);
     }
 
     @Override

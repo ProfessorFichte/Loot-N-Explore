@@ -6,8 +6,10 @@ import more_rpg_loot.client.entity.renderers.ModMobRenderers;
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.BarrierIcicleRenderer;
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.StraightIcicleRenderer;
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.TrackingIcicleRenderer;
+import more_rpg_loot.client.entity.renderers.frozen_depths.monarchs_guard.ThrownLanceEntityRenderer;
 import more_rpg_loot.client.entity.renderers.generic.CustomCloudRenderer;
 import more_rpg_loot.client.models.CustomModelHelper;
+import more_rpg_loot.client.hud.FrostMonarchSpawnOverlay;
 import more_rpg_loot.client.music.LNEMusicManager;
 import more_rpg_loot.client.particle.DragonClawParticle;
 import more_rpg_loot.client.particle.Particles;
@@ -15,6 +17,7 @@ import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
+import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
 import more_rpg_loot.network.FrozenDepthsMusicPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -23,6 +26,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.SnowflakeParticle;
 import net.minecraft.client.render.entity.ArrowEntityRenderer;
@@ -53,6 +57,7 @@ public class RPGLootClient {
         EntityRendererRegistry.register(ModEntities.CUSTOM_CLOUD, CustomCloudRenderer::new);
         EntityRendererRegistry.register(ModEntities.LNE_ABILITY_ARROW, ArrowEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.FROZEN_ARROW, ArrowEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.THROWN_LANCE, ThrownLanceEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.TRACKING_ICICLE, TrackingIcicleRenderer::new);
         ModMobRenderers.register();
     }
@@ -119,6 +124,10 @@ public class RPGLootClient {
                 LNEMusicManager.stopAmbientMusic();
             }
         });
+
+        ClientPlayNetworking.registerGlobalReceiver(FrostMonarchSpawnOverlayPayload.ID, (payload, context) ->
+                FrostMonarchSpawnOverlay.start());
+        HudRenderCallback.EVENT.register(FrostMonarchSpawnOverlay::render);
     }
 
     public static void init() {
@@ -140,7 +149,7 @@ public class RPGLootClient {
 
 
         List<Identifier> customModels = List.of(
-                Identifier.of(MOD_ID, "block/icicle_straight")
+                Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight")
         );
         CustomModelHelper.registerModelIds(customModels);
         CustomModelHelper.initialize();

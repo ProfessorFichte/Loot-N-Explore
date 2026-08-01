@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/crusaders_rest"
+    "layer0": "loot_n_explore:item/consumables/spell_power/crusaders_rest"
   }
 }

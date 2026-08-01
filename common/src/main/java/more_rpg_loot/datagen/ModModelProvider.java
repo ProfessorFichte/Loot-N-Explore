@@ -14,6 +14,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
+import net.minecraft.data.client.TextureMap;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
@@ -50,7 +52,7 @@ public class ModModelProvider extends FabricModelProvider {
                 if (baseEntry != null) {
                     Block baseBlock = baseEntry.block();
                     texturePools.computeIfAbsent(baseBlock, b ->
-                        blockStateModelGenerator.registerCubeAllModelTexturePool(b));
+                        createCubeAllTexturePool(blockStateModelGenerator, b, "block/frozen_depths/" + baseEntry.name()));
 
                     BlockStateModelGenerator.BlockTexturePool pool = texturePools.get(baseBlock);
                     switch (poolVariant.variantType()) {
@@ -61,11 +63,18 @@ public class ModModelProvider extends FabricModelProvider {
                 }
             } else if (modelType instanceof ModelType.CubeAll) {
                 texturePools.computeIfAbsent(entry.block(), b ->
-                    blockStateModelGenerator.registerCubeAllModelTexturePool(b));
+                    createCubeAllTexturePool(blockStateModelGenerator, b, "block/frozen_depths/" + entry.name()));
             } else if (!(modelType instanceof ModelType.Custom)) {
                 modelType.generate(blockStateModelGenerator, entry.block());
             }
         }
+    }
+
+    // registerCubeAllModelTexturePool always derives the texture id from the block's own registry name with
+    // no override, so a nested (theme-sorted) texture path needs a manually built pool instead.
+    private BlockStateModelGenerator.BlockTexturePool createCubeAllTexturePool(BlockStateModelGenerator generator, Block block, String textureId) {
+        return generator.new BlockTexturePool(TextureMap.all(Identifier.of(MOD_ID, textureId)))
+                .base(block, Models.CUBE_ALL);
     }
 
     @Override
@@ -91,17 +100,18 @@ public class ModModelProvider extends FabricModelProvider {
             JsonObject json = new JsonObject();
             json.addProperty("parent", "minecraft:item/handheld");
             JsonObject textures = new JsonObject();
-            textures.addProperty("layer0", MOD_ID + ":item/weapons/" + entry.name());
+            textures.addProperty("layer0", MOD_ID + ":item/weapons/" + weaponTheme(entry.name()) + "/" + entry.name());
             json.add("textures", textures);
             itemModelGenerator.writer.accept(modelId, () -> json);
         }
 
         for (var entry : LNE_WeaponItems.rangedEntries) {
             Identifier itemId = Identifier.of(MOD_ID, entry.name());
+            String theme = weaponTheme(entry.name());
             if (entry.name().endsWith("_bow")) {
-                new ItemModelType.Bow().generate(itemModelGenerator, entry.item(), entry.name());
+                new ItemModelType.Bow("item/weapons/" + theme + "/").generate(itemModelGenerator, entry.item(), entry.name());
             } else if (entry.name().endsWith("_crossbow")) {
-                generateCrossbowModel(itemModelGenerator, itemId, entry.name());
+                generateCrossbowModel(itemModelGenerator, itemId, entry.name(), theme);
             }
         }
 
@@ -114,7 +124,7 @@ public class ModModelProvider extends FabricModelProvider {
                 JsonObject json = new JsonObject();
                 json.addProperty("parent", "minecraft:item/generated");
                 JsonObject textures = new JsonObject();
-                textures.addProperty("layer0", MOD_ID + ":item/relics/" + entry.name());
+                textures.addProperty("layer0", MOD_ID + ":item/relics/" + relicTheme(entry.name()) + "/" + entry.name());
                 json.add("textures", textures);
                 itemModelGenerator.writer.accept(modelId, () -> json);
             }
@@ -124,25 +134,39 @@ public class ModModelProvider extends FabricModelProvider {
                 Identifier itemId = Registries.ITEM.getId(item);
                 Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
 
+                String theme = entry.templateKey().equals("frostmonarch") ? "frozen_depths" : "generic";
                 JsonObject json = new JsonObject();
                 json.addProperty("parent", "minecraft:item/generated");
                 JsonObject textures = new JsonObject();
-                textures.addProperty("layer0", MOD_ID + ":item/template/" + entry.templateKey() + "_upgrade");
+                textures.addProperty("layer0", MOD_ID + ":item/template/" + theme + "/" + entry.templateKey() + "_upgrade");
                 json.add("textures", textures);
                 itemModelGenerator.writer.accept(modelId, () -> json);
             }
         }
     }
 
+    // Only "glacial" weapons belong to the Frozen Depths theme - matches the ModItemTagProvider weapon-theme tag convention.
+    private static String weaponTheme(String name) {
+        return name.contains("glacial") || name.equals("frozen_bow") ? "frozen_depths" : "generic";
+    }
+
+    private static final java.util.Set<String> FROZEN_DEPTHS_RELICS = java.util.Set.of(
+            "eternal_snowflake", "glacier_shard", "frozen_rib", "frozen_soul");
+
+    private static String relicTheme(String name) {
+        return FROZEN_DEPTHS_RELICS.contains(name) ? "frozen_depths" : "generic";
+    }
 
 
-    private void generateCrossbowModel(ItemModelGenerator itemModelGenerator, Identifier itemId, String name) {
+
+    private void generateCrossbowModel(ItemModelGenerator itemModelGenerator, Identifier itemId, String name, String theme) {
         Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + name);
+        String texturePath = "item/weapons/" + theme + "/";
 
         JsonObject json = new JsonObject();
         json.addProperty("parent", "minecraft:item/crossbow");
         JsonObject textures = new JsonObject();
-        textures.addProperty("layer0", MOD_ID + ":item/weapons/" + name);
+        textures.addProperty("layer0", MOD_ID + ":" + texturePath + name);
         json.add("textures", textures);
 
         JsonArray overrides = new JsonArray();
@@ -187,7 +211,7 @@ public class ModModelProvider extends FabricModelProvider {
             JsonObject pullingJson = new JsonObject();
             pullingJson.addProperty("parent", MOD_ID + ":item/" + name);
             JsonObject pullingTextures = new JsonObject();
-            pullingTextures.addProperty("layer0", MOD_ID + ":item/weapons/bow_pulling/" + name + "_pulling_" + i);
+            pullingTextures.addProperty("layer0", MOD_ID + ":" + texturePath + "bow_pulling/" + name + "_pulling_" + i);
             pullingJson.add("textures", pullingTextures);
             itemModelGenerator.writer.accept(pullingModelId, () -> pullingJson);
         }
@@ -196,7 +220,7 @@ public class ModModelProvider extends FabricModelProvider {
         JsonObject arrowJson = new JsonObject();
         arrowJson.addProperty("parent", MOD_ID + ":item/" + name);
         JsonObject arrowTextures = new JsonObject();
-        arrowTextures.addProperty("layer0", MOD_ID + ":item/weapons/" + name + "_arrow");
+        arrowTextures.addProperty("layer0", MOD_ID + ":" + texturePath + name + "_arrow");
         arrowJson.add("textures", arrowTextures);
         itemModelGenerator.writer.accept(arrowModelId, () -> arrowJson);
 
@@ -204,7 +228,7 @@ public class ModModelProvider extends FabricModelProvider {
         JsonObject fireworkJson = new JsonObject();
         fireworkJson.addProperty("parent", MOD_ID + ":item/" + name);
         JsonObject fireworkTextures = new JsonObject();
-        fireworkTextures.addProperty("layer0", MOD_ID + ":item/weapons/" + name + "_firework");
+        fireworkTextures.addProperty("layer0", MOD_ID + ":" + texturePath + name + "_firework");
         fireworkJson.add("textures", fireworkTextures);
         itemModelGenerator.writer.accept(fireworkModelId, () -> fireworkJson);
     }

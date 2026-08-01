@@ -2,7 +2,6 @@ package more_rpg_loot.entity.frozen_depths.mob.frosthaunt;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.item.CommonItems;
-import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -35,7 +34,6 @@ public class FrosthauntEntity extends SkeletonEntity {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 8.0F);
         this.experiencePoints += 1;
 
-        this.moveControl = new ClampedYawMoveControl(this);
     }
 
     public static DefaultAttributeContainer.Builder createFrosthauntSkeletonAttributes() {

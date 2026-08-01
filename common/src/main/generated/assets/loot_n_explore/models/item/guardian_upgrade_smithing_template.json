@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/template/elder_guardian_upgrade"
+    "layer0": "loot_n_explore:item/template/generic/elder_guardian_upgrade"
   }
 }

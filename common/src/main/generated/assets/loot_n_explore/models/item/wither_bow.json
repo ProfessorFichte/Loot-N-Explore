@@ -30,6 +30,6 @@
     }
   ],
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/wither_bow"
+    "layer0": "loot_n_explore:item/weapons/generic/wither_bow"
   }
 }

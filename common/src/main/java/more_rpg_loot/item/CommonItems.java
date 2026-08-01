@@ -72,50 +72,50 @@ public class CommonItems {
     /// T0 BUFF ITEMS
     public static final Entry HOT_CHOCOLATE = entry("hot_chocolate",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Effects.HOT_CHOCOLATE.registryEntry, 0),
-            "Hot Chocolate", new ItemModelType.Generated("item/drinks/"));
+            "Hot Chocolate", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry POTATO_SOUP = entry("potato_soup",
             new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.COMMON), Effects.POTATO_SOUP.registryEntry, 0),
-            "Potato Soup", new ItemModelType.Generated("item/drinks/"));
+            "Potato Soup", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry SWEET_BERRY_PUNCH = entry("sweet_berry_punch",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Effects.SWEET_BERRY_PUNCH.registryEntry, 0),
-            "Sweet Berry Punch", new ItemModelType.Generated("item/drinks/"));
+            "Sweet Berry Punch", new ItemModelType.Generated("item/consumables/generic/"));
 
     /// T1 BUFF ITEMS
     public static final Entry BEET_ROOTBEER = entry("beet_rootbeer",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.BEET_ROOTBEER.registryEntry, 1),
-            "Beet Rootbeer", new ItemModelType.Generated("item/drinks/"));
+            "Beet Rootbeer", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry MALT_EXTRACT = entry("malt_extract",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.MALT_EXTRACT.registryEntry, 1),
-            "Malt Extract", new ItemModelType.Generated("item/drinks/"));
+            "Malt Extract", new ItemModelType.Generated("item/consumables/generic/"));
 
     /// T2 BUFF ITEMS
     public static final Entry VITAL_DRINK = entry("vital_drink",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), Effects.VITAL_DRINK.registryEntry, 2),
-            "Vital Drink", new ItemModelType.Generated("item/drinks/"));
+            "Vital Drink", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry ESPRESSO = entry("espresso",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), Effects.ESPRESSO.registryEntry, 2),
-            "Espresso", new ItemModelType.Generated("item/drinks/"));
+            "Espresso", new ItemModelType.Generated("item/consumables/generic/"));
 
     /// T3 BUFF ITEMS (with lore text)
     public static final Entry KNIGHTS_FAVOURITE = entryWithLore("knights_favourite",
             new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.EPIC), Effects.KNIGHTS_FAVOURITE.registryEntry, 3),
-            "Knight's Favourite", "A special dish with which no knight has ever lost.", new ItemModelType.Generated("item/drinks/"));
+            "Knight's Favourite", "A special dish with which no knight has ever lost.", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry THE_UNSHAKABLE = entryWithLore("the_unshakable",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), Effects.THE_UNSHAKABLE.registryEntry, 3),
-            "The Unshakable", "For the knights of the front line, they cannot be stopped.", new ItemModelType.Generated("item/drinks/"));
+            "The Unshakable", "For the knights of the front line, they cannot be stopped.", new ItemModelType.Generated("item/consumables/generic/"));
 
     public static final Entry FROSTBALL = entry("frostball",
             new FrostballItem(new Item.Settings().maxCount(16)),
-            "Frostball", new ItemModelType.Generated("item/misc/"));
+            "Frostball", new ItemModelType.Generated("item/misc/frozen_depths/"));
     public static final Entry GLAZE_ROD = entry("glaze_rod",
             new Item(new Item.Settings()),
-            "Glaze Rod", new ItemModelType.Handheld("item/misc/"));
+            "Glaze Rod", new ItemModelType.Handheld("item/misc/frozen_depths/"));
     public static final Entry FROZEN_KEY = entry("frozen_key",
             new Item(new Item.Settings()),
-            "Frozen Key", new ItemModelType.Generated("item/misc/"));
+            "Frozen Key", new ItemModelType.Generated("item/misc/frozen_depths/"));
     public static final Entry MONARCHS_KEY = entry("monarchs_key",
             new Item(new Item.Settings()),
-            "Monarch's Key", new ItemModelType.Generated("item/misc/"));
+            "Monarch's Key", new ItemModelType.Generated("item/misc/frozen_depths/"));
 
     public static final Entry FROZEN_DEPTHS_DISC = entry("frozen_depths_disc",
             new Item(new Item.Settings()
@@ -125,12 +125,12 @@ public class CommonItems {
                             new JukeboxPlayableComponent(new RegistryPair<>(
                                     RegistryKey.of(RegistryKeys.JUKEBOX_SONG, Identifier.of(MOD_ID, "frozen_depths"))),
                                     true))),
-            "Frozen Depths", new ItemModelType.Generated("item/misc/"));
+            "Frozen Depths", new ItemModelType.Generated("item/misc/frozen_depths/"));
 
     public static final Entry FROST_HAUNTS_AXE = entry("frost_haunt_axe",
             new AxeItem(ToolMaterials.STONE, new Item.Settings()
                     .attributeModifiers(AxeItem.createAttributeModifiers(ToolMaterials.STONE, 7.0F, -3.2F))),
-            "Frost Haunt's Axe", new ItemModelType.Handheld("item/weapons/"));
+            "Frost Haunt's Axe", new ItemModelType.Handheld("item/weapons/frozen_depths/"));
     public static final Entry MONARCHS_FROST_STAFF = entry("monarchs_frost_staff",
             new StaffItem(new Item.Settings().maxDamage(0)
                     .attributeModifiers(weaponAttributes(4.0F, -3.0F))),
@@ -141,7 +141,7 @@ public class CommonItems {
             "Guard's Frost Lance", new ItemModelType.Custom());
     public static final Entry FROZEN_BOW = entry("frozen_bow",
             new BowItem(new Item.Settings().maxDamage(384)),
-            "Frozen Bow", new ItemModelType.Bow());
+            "Frozen Bow", new ItemModelType.Bow("item/weapons/frozen_depths/"));
 
 
     public static void registerCommonItems(){

@@ -43,6 +43,6 @@
     }
   ],
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/elder_guardian_crossbow"
+    "layer0": "loot_n_explore:item/weapons/generic/elder_guardian_crossbow"
   }
 }

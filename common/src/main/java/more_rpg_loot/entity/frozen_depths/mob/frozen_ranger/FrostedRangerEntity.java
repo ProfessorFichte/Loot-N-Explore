@@ -1,6 +1,7 @@
 package more_rpg_loot.entity.frozen_depths.mob.frozen_ranger;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.RPGLoot;
 import more_rpg_loot.entity.frozen_depths.projectile.FrozenArrowEntity;
 import more_rpg_loot.item.CommonItems;
 import net.fabricmc.loader.api.FabricLoader;
@@ -12,13 +13,13 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -29,6 +30,7 @@ import java.util.EnumSet;
 
 public class FrostedRangerEntity extends SkeletonEntity {
     private static final TrackedData<Boolean> PERFORMING_SALVO = DataTracker.registerData(FrostedRangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> DRAWING_BOW = DataTracker.registerData(FrostedRangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState normalShootAnimationState = new AnimationState();
@@ -57,13 +59,14 @@ public class FrostedRangerEntity extends SkeletonEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(PERFORMING_SALVO, false);
+        builder.add(DRAWING_BOW, false);
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new FrostSalvoGoal(this));
-        this.goalSelector.add(2, new BowAttackGoal<>(this, 1.0, 20, 15.0F));
+        this.goalSelector.add(2, new NormalShotGoal(this));
         this.goalSelector.add(3, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(4, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
@@ -72,13 +75,20 @@ public class FrostedRangerEntity extends SkeletonEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
 
-        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
-        // melee-attack goal (independent of this initGoals() override), which is why the Ranger
-        // was meleeing instead of using BowAttackGoal - strip it out since we're purely ranged.
+        // Defensive: strip any melee goal that slipped in before updateAttackType() was neutralized.
         this.goalSelector.getGoals().stream()
-                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .filter(g -> g.getGoal() instanceof MeleeAttackGoal)
                 .toList()
                 .forEach(g -> this.goalSelector.remove(g.getGoal()));
+    }
+
+    @Override
+    public void updateAttackType() {
+        // AbstractSkeletonEntity re-adds its own internal meleeAttackGoal/bowAttackGoal here
+        // whenever equipment changes, deciding via getMainHandStack().isOf(Items.BOW) - which is
+        // false for our custom FROZEN_BOW item, so it always falls back to melee. That call runs
+        // after initGoals() (during equip), so a one-time goal filter can't catch it - stop the
+        // vanilla swap entirely and let initGoals() be the only source of truth for this entity's goals.
     }
 
     @Nullable
@@ -115,6 +125,14 @@ public class FrostedRangerEntity extends SkeletonEntity {
         this.dataTracker.set(PERFORMING_SALVO, performing);
     }
 
+    public boolean isDrawingBow() {
+        return this.dataTracker.get(DRAWING_BOW);
+    }
+
+    public void setDrawingBow(boolean drawing) {
+        this.dataTracker.set(DRAWING_BOW, drawing);
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -133,9 +151,7 @@ public class FrostedRangerEntity extends SkeletonEntity {
             this.salvoAnimationState.startIfNotRunning(this.age);
             this.normalShootAnimationState.stop();
             this.idleAnimationState.stop();
-        } else if (this.isUsingItem()) {
-            // Bow draw begins here; vanilla BowAttackGoal fires the arrow at itemUseTime == 20,
-            // which lands near the end of the ~20.8-tick attackFast clip (its release/relax tail).
+        } else if (this.isDrawingBow()) {
             this.normalShootAnimationState.startIfNotRunning(this.age);
             this.salvoAnimationState.stop();
             this.idleAnimationState.stop();
@@ -153,6 +169,99 @@ public class FrostedRangerEntity extends SkeletonEntity {
 
     protected int getSalvoArrowCount() {
         return 5;
+    }
+
+    @Override
+    public void shootAt(LivingEntity target, float pullProgress) {
+        FrozenArrowEntity arrow = new FrozenArrowEntity(this.getWorld(), this);
+        double dx = target.getX() - this.getX();
+        double dy = target.getBodyY(0.3333333333333333) - arrow.getY();
+        double dz = target.getZ() - this.getZ();
+        double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
+        arrow.setVelocity(dx, dy + horizontalDistance * 0.20000000298023224, dz, 1.6F,
+                (float) (14 - this.getWorld().getDifficulty().getId() * 4));
+        arrow.setDamage(this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5);
+        this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.getWorld().spawnEntity(arrow);
+        RPGLoot.LOGGER.info("[FrostedRanger] Normal arrow shot at {}", target);
+    }
+
+    private class NormalShotGoal extends Goal {
+        // Matches the length of FrostedRangerAnimations.attack (1.6667s), now bound to
+        // normalShootAnimationState, so the arrow releases right as the draw animation finishes.
+        private static final int DRAW_TICKS = 33;
+        private static final int SHOT_COOLDOWN = 20;
+
+        private final FrostedRangerEntity ranger;
+        private LivingEntity target;
+        private int drawTimer = 0;
+        private int shotCooldown = 0;
+
+        NormalShotGoal(FrostedRangerEntity ranger) {
+            this.ranger = ranger;
+            this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        }
+
+        @Override
+        public boolean canStart() {
+            LivingEntity t = ranger.getTarget();
+            return t != null && t.isAlive() && ranger.squaredDistanceTo(t) <= 20.0 * 20.0;
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return target != null && target.isAlive() && ranger.squaredDistanceTo(target) <= 22.0 * 22.0;
+        }
+
+        @Override
+        public void start() {
+            target = ranger.getTarget();
+            drawTimer = 0;
+            shotCooldown = 0;
+            RPGLoot.LOGGER.info("[FrostedRanger] NormalShotGoal started against {}", target);
+        }
+
+        @Override
+        public void stop() {
+            target = null;
+            drawTimer = 0;
+            ranger.setDrawingBow(false);
+            ranger.getNavigation().stop();
+        }
+
+        @Override
+        public void tick() {
+            if (target == null) return;
+            ranger.getLookControl().lookAt(target, 30.0F, 30.0F);
+
+            double distSq = ranger.squaredDistanceTo(target);
+            boolean canSee = ranger.getVisibilityCache().canSee(target);
+
+            if (distSq > 14.0 * 14.0 || !canSee) {
+                ranger.getNavigation().startMovingTo(target, 1.0);
+            } else {
+                ranger.getNavigation().stop();
+            }
+
+            if (shotCooldown > 0) {
+                shotCooldown--;
+                return;
+            }
+
+            if (canSee) {
+                drawTimer++;
+                ranger.setDrawingBow(true);
+                if (drawTimer >= DRAW_TICKS) {
+                    ranger.shootAt(target, 1.0F);
+                    drawTimer = 0;
+                    shotCooldown = SHOT_COOLDOWN;
+                    ranger.setDrawingBow(false);
+                }
+            } else {
+                drawTimer = 0;
+                ranger.setDrawingBow(false);
+            }
+        }
     }
 
     private class FrostSalvoGoal extends Goal {
@@ -183,10 +292,13 @@ public class FrostedRangerEntity extends SkeletonEntity {
         @Override
         public void start() {
             phase = 1;
-            windupTimer = 15;
+            // Matches the length of FrostedRangerAnimations.attackFast (1.0417s), now bound to
+            // salvoAnimationState, so the volley fires right as the draw animation finishes.
+            windupTimer = 21;
             retreatTimer = 0;
             ranger.setPerformingSalvo(true);
             ranger.getNavigation().stop();
+            RPGLoot.LOGGER.info("[FrostedRanger] FrostSalvoGoal started against {}", target);
         }
 
         @Override
@@ -195,8 +307,13 @@ public class FrostedRangerEntity extends SkeletonEntity {
 
             if (phase == 1) {
                 if (--windupTimer <= 0) {
-                    for (int i = 0; i < ranger.getSalvoArrowCount(); i++) {
-                        fireArrow(i);
+                    if (target == null) {
+                        RPGLoot.LOGGER.warn("[FrostedRanger] FrostSalvoGoal windup finished with a null target - no arrows fired");
+                    } else {
+                        for (int i = 0; i < ranger.getSalvoArrowCount(); i++) {
+                            fireArrow(i);
+                        }
+                        RPGLoot.LOGGER.info("[FrostedRanger] Salvo volley fired at {}", target);
                     }
                     phase = 2;
                     retreatTimer = 3;
@@ -210,9 +327,12 @@ public class FrostedRangerEntity extends SkeletonEntity {
         }
 
         private void jumpBack() {
-            if (target == null) return;
+            if (target == null) {
+                RPGLoot.LOGGER.warn("[FrostedRanger] FrostSalvoGoal tried to leap back with a null target - skipped");
+                return;
+            }
             Vec3d awayDir = new Vec3d(ranger.getX() - target.getX(), 0.0, ranger.getZ() - target.getZ()).normalize();
-            ranger.addVelocity(awayDir.x * 0.5, 0.3, awayDir.z * 0.5);
+            ranger.addVelocity(awayDir.x * 1.1, 0.4, awayDir.z * 1.1);
             ranger.velocityModified = true;
         }
 

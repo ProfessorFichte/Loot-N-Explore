@@ -43,6 +43,6 @@ public class RPGLootNeoForgeClient {
 
     @SubscribeEvent
     public static void onRegisterAdditionalModels(ModelEvent.RegisterAdditional event) {
-        event.register(new ModelIdentifier(Identifier.of(RPGLoot.MOD_ID, "block/icicle_straight"), ""));
+        event.register(new ModelIdentifier(Identifier.of(RPGLoot.MOD_ID, "block/frozen_depths/icicle_straight"), ""));
     }
 }

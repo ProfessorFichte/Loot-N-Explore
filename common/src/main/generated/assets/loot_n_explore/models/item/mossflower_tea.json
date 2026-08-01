@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/mossflower_tea"
+    "layer0": "loot_n_explore:item/consumables/more_rpg_classes/mossflower_tea"
   }
 }

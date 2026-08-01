@@ -1,4 +1,13 @@
 {
   "type": "minecraft:entity",
-  "random_sequence": "loot_n_explore:entities/frost_monarch"
+  "random_sequence": "loot_n_explore:entities/frost_monarch",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:item", "name": "loot_n_explore:monarchs_crown", "weight": 1 }
+      ],
+      "conditions": [ { "condition": "minecraft:killed_by_player" } ]
+    }
+  ]
 }

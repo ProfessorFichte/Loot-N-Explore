@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "loot_n_explore:unknown_remains"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "id": "minecraft:bone"
+  }
+}

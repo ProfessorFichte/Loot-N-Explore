@@ -27,6 +27,7 @@ public class ModMobRenderers {
         EntityRendererRegistry.register(ModEntities.FROST_MONARCH, FrostmonarchEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.GLAZE, GlazeEntityRenderer::new);
         EntityRendererRegistry.register(ModEntities.FROSTBALL, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.FROSTBALL_LOCATOR, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.UNDEAD_FROZEN_MAGE,
                 ctx -> new UndeadFrozenMageRenderer<UndeadFrozenMageEntity>(ctx));

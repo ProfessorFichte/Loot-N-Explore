@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/relics/poseidons_amphora"
+    "layer0": "loot_n_explore:item/relics/generic/poseidons_amphora"
   }
 }

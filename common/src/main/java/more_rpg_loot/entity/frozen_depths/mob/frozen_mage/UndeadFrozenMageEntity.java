@@ -1,10 +1,11 @@
 package more_rpg_loot.entity.frozen_depths.mob.frozen_mage;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
+import more_rpg_loot.RPGLoot;
 import more_rpg_loot.entity.frozen_depths.projectile.StraightIcicleEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.TrackingIcicleEntity;
-import more_rpg_loot.util.ClampedYawMoveControl;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -20,6 +21,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -37,12 +40,12 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
 
     int closeCooldown = 0;
     int rangeCooldown = 0;
+    int postActionCooldown = 0;
 
     public UndeadFrozenMageEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 8.0F);
-        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 5;
     }
 
@@ -73,6 +76,19 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+
+        // Defensive: strip any melee goal that slipped in before updateAttackType() was neutralized.
+        this.goalSelector.getGoals().stream()
+                .filter(g -> g.getGoal() instanceof MeleeAttackGoal)
+                .toList()
+                .forEach(g -> this.goalSelector.remove(g.getGoal()));
+    }
+
+    @Override
+    public void updateAttackType() {
+        // AbstractSkeletonEntity would otherwise re-add its own internal meleeAttackGoal here
+        // whenever equipment changes, since getMainHandStack().isOf(Items.BOW) is always false
+        // for the held snowball; this entity's own icicle goals are already in initGoals().
     }
 
     @Nullable
@@ -116,6 +132,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         if (!this.getWorld().isClient) {
             if (closeCooldown > 0) closeCooldown--;
             if (rangeCooldown > 0) rangeCooldown--;
+            if (postActionCooldown > 0) postActionCooldown--;
         }
 
         if (this.getWorld().isClient) {
@@ -162,7 +179,8 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
             this.target = mage.getTarget();
             return target != null && target.isAlive()
                     && mage.squaredDistanceTo(target) <= 8.0 * 8.0
-                    && mage.closeCooldown <= 0;
+                    && mage.closeCooldown <= 0
+                    && mage.postActionCooldown <= 0;
         }
 
         @Override
@@ -171,11 +189,17 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         }
 
         @Override
+        public boolean canStop() {
+            return !casting;
+        }
+
+        @Override
         public void start() {
             casting = true;
             castTimer = 20;
             mage.setCasting(true);
             mage.getNavigation().stop();
+            RPGLoot.LOGGER.info("[UndeadFrozenMage] CloseRangeIcicleGoal started, target={}", target);
         }
 
         @Override
@@ -192,6 +216,8 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
             World world = mage.getWorld();
             double targetAngle = Math.atan2(target.getZ() - mage.getZ(), target.getX() - mage.getX());
             int count = mage.getGroundIcicleCount();
+            double minY = mage.getY() - 3.0;
+            double maxY = mage.getY() + 2.0;
 
             for (int i = 0; i < count; i++) {
                 double angleOffset = (i - count / 2.0) * (Math.PI / (count * 1.5));
@@ -199,9 +225,39 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
                 double dist = 1.5 + i * 1.0;
                 double x = mage.getX() + Math.cos(angle) * dist;
                 double z = mage.getZ() + Math.sin(angle) * dist;
-                double y = mage.getY();
                 float yawRad = (float) MathHelper.atan2(-(float)(x - mage.getX()), (float)(z - mage.getZ()));
-                world.spawnEntity(new StraightIcicleEntity(world, x, y, z, yawRad, i * 4, mage));
+                spawnIcicleOnGround(world, x, z, minY, maxY, yawRad, i * 4);
+            }
+        }
+
+        private void spawnIcicleOnGround(World world, double x, double z, double minY, double maxY, float yaw, int warmup) {
+            BlockPos blockPos = BlockPos.ofFloored(x, maxY, z);
+            boolean foundGround = false;
+            double yOffset = 0.0;
+
+            do {
+                BlockPos belowPos = blockPos.down();
+                BlockState blockState = world.getBlockState(belowPos);
+
+                if (blockState.isSideSolidFullSquare(world, belowPos, Direction.UP)) {
+                    if (!world.isAir(blockPos)) {
+                        BlockState aboveState = world.getBlockState(blockPos);
+                        var voxelShape = aboveState.getCollisionShape(world, blockPos);
+                        if (!voxelShape.isEmpty()) {
+                            yOffset = voxelShape.getMax(Direction.Axis.Y);
+                        }
+                    }
+                    foundGround = true;
+                    break;
+                }
+
+                blockPos = blockPos.down();
+            } while (blockPos.getY() >= MathHelper.floor(minY) - 1);
+
+            if (foundGround) {
+                world.spawnEntity(new StraightIcicleEntity(world, x, (double) blockPos.getY() + yOffset, z, yaw, warmup, mage));
+            } else {
+                RPGLoot.LOGGER.warn("[UndeadFrozenMage] CloseRangeIcicleGoal found no ground for icicle at x={}, z={} (minY={}, maxY={}) - icicle skipped", x, z, minY, maxY);
             }
         }
 
@@ -210,6 +266,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
             casting = false;
             mage.setCasting(false);
             mage.closeCooldown = 60 + mage.random.nextInt(40);
+            mage.postActionCooldown = 10;
         }
     }
 
@@ -229,7 +286,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         @Override
         public boolean canStart() {
             this.target = mage.getTarget();
-            if (target == null || !target.isAlive() || mage.rangeCooldown > 0) return false;
+            if (target == null || !target.isAlive() || mage.rangeCooldown > 0 || mage.postActionCooldown > 0) return false;
             double distSq = mage.squaredDistanceTo(target);
             return distSq > 5.0 * 5.0 && distSq <= 22.0 * 22.0;
         }
@@ -240,12 +297,18 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
         }
 
         @Override
+        public boolean canStop() {
+            return phase == 0;
+        }
+
+        @Override
         public void start() {
             phase = 1;
             castTimer = 20;
             iciclesFired = 0;
             mage.setCasting(true);
             mage.getNavigation().stop();
+            RPGLoot.LOGGER.info("[UndeadFrozenMage] LongRangeIcicleGoal started, target={}", target);
         }
 
         @Override
@@ -280,6 +343,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
             phase = 0;
             mage.setCasting(false);
             mage.rangeCooldown = 80 + mage.random.nextInt(40);
+            mage.postActionCooldown = 10;
         }
     }
 

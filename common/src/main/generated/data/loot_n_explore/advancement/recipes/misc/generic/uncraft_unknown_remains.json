@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:generic/uncraft_unknown_remains"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_unknown_remains": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:unknown_remains"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_unknown_remains"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:generic/uncraft_unknown_remains"
+    ]
+  }
+}

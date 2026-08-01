@@ -1,0 +1,7 @@
+﻿{
+  "ambientocclusion": false,
+  "parent": "minecraft:block/template_hanging_lantern",
+  "textures": {
+    "lantern": "loot_n_explore:block/frozen_depths/soulfrost_lantern"
+  }
+}

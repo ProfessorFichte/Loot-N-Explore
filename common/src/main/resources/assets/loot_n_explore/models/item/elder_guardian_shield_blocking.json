@@ -1,0 +1,22 @@
+{
+  "parent": "loot_n_explore:item/elder_guardian_shield",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [25, -25, 0],
+      "translation": [-0.75, 4.25, 8]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [-155, -155, -180],
+      "translation": [-0.75, 4.25, 8]
+    },
+
+    "firstperson_righthand": {
+      "rotation": [0, 0, 0],
+      "translation": [-1, 9.5, -1]
+    },
+    "firstperson_lefthand": {
+      "rotation": [0, 0, 0],
+      "translation": [-1, 9.5, -1]
+    }
+  }
+}

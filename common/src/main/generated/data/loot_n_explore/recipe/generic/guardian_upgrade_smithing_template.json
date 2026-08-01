@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:prismarine"
+    },
+    "A": {
+      "item": "loot_n_explore:amphitrite_diadem"
+    },
+    "B": {
+      "item": "loot_n_explore:rainbow_coral"
+    },
+    "C": {
+      "item": "loot_n_explore:poseidons_amphora"
+    }
+  },
+  "pattern": [
+    "#A#",
+    "#B#",
+    "#C#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:guardian_upgrade_smithing_template"
+  }
+}

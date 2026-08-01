@@ -61,6 +61,7 @@ public class ModSounds {
     public static final Entry FROSTMONARCH_DEATH = add(new Entry("frostmonarch.death"));
     public static final Entry MUSIC_FROST_MONARCH_BATTLE = add(new Entry("music.frost_monarch_battle"));
     public static final Entry MUSIC_FROZEN_DEPTHS = add(new Entry("music.frozen_depths"));
+    public static final Entry BLOCK_FROZEN_SOUL_AMBIENT = add(new Entry("block.frozen_soul_block.ambient"));
 
     public static void register() {
         for (var entry: entries) {

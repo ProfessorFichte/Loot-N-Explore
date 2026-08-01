@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/misc/frozen_depths_disc"
+    "layer0": "loot_n_explore:item/misc/frozen_depths/frozen_depths_disc"
   }
 }

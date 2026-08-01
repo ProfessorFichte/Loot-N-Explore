@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_amphitrite_diadem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:amphitrite_diadem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:generic/guardian_upgrade_smithing_template"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_amphitrite_diadem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:generic/guardian_upgrade_smithing_template"
+    ]
+  }
+}

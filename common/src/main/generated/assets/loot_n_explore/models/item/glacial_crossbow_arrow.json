@@ -1,6 +1,6 @@
 {
   "parent": "loot_n_explore:item/glacial_crossbow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/glacial_crossbow_arrow"
+    "layer0": "loot_n_explore:item/weapons/frozen_depths/glacial_crossbow_arrow"
   }
 }

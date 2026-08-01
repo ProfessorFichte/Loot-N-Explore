@@ -30,6 +30,6 @@
     }
   ],
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/frozen_bow"
+    "layer0": "loot_n_explore:item/weapons/frozen_depths/frozen_bow"
   }
 }

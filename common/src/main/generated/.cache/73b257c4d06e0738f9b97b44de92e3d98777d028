@@ -1,0 +1,4 @@
+// 1.21.1	2026-07-29T10:26:13.3723893	Loot N Explore/Loot & Explore Conditional Relic Slot Tags
+ab79538194a2370df66b46bc7d4d0c62b296e6cd data\accessories\tags\item\necklace.json
+94e0e24db107ed990a4b97e30421083a7bb6d69a data\trinkets\tags\item\charm\trinket.json
+d11e59ce22649f91d28a9cdcaafa4e4d0b6cf4b9 data\spell_engine\tags\item\spell_trinket.json

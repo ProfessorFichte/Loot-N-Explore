@@ -14,7 +14,11 @@ public class FrostHoundEntity extends HostileEntity {
     public final AnimationState walkAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();
     public final AnimationState biteAnimationState = new AnimationState();
+    public final AnimationState clawAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private boolean nextAttackIsClaw = false;
+    private int biteAnimTicksRemaining = 0;
+    private int clawAnimTicksRemaining = 0;
 
     public FrostHoundEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
@@ -33,7 +37,7 @@ public class FrostHoundEntity extends HostileEntity {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, true));
+        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.2, false));
         this.goalSelector.add(2, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(4, new LookAroundGoal(this));
@@ -41,17 +45,6 @@ public class FrostHoundEntity extends HostileEntity {
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
-    }
-
-    @Override
-    public boolean tryAttack(Entity target) {
-        boolean attacked = super.tryAttack(target);
-        if (attacked) {
-            if (this.getWorld().isClient) {
-                this.biteAnimationState.start(this.age);
-            }
-        }
-        return attacked;
     }
 
     @Override
@@ -68,7 +61,21 @@ public class FrostHoundEntity extends HostileEntity {
         boolean sprinting = moving && target != null;
 
         if (this.handSwinging && this.handSwingTicks == 0) {
-            this.biteAnimationState.start(this.age);
+            if (nextAttackIsClaw) {
+                this.clawAnimationState.start(this.age);
+                this.clawAnimTicksRemaining = 13;
+            } else {
+                this.biteAnimationState.start(this.age);
+                this.biteAnimTicksRemaining = 8;
+            }
+            nextAttackIsClaw = !nextAttackIsClaw;
+        }
+
+        if (this.biteAnimTicksRemaining > 0 && --this.biteAnimTicksRemaining <= 0) {
+            this.biteAnimationState.stop();
+        }
+        if (this.clawAnimTicksRemaining > 0 && --this.clawAnimTicksRemaining <= 0) {
+            this.clawAnimationState.stop();
         }
 
         if (sprinting) {

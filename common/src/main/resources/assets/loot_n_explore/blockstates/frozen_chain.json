@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "loot_n_explore:block/frozen_chain",
+      "model": "loot_n_explore:block/frozen_depths/frozen_chain",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "loot_n_explore:block/frozen_chain"
+      "model": "loot_n_explore:block/frozen_depths/frozen_chain"
     },
     "axis=z": {
-      "model": "loot_n_explore:block/frozen_chain",
+      "model": "loot_n_explore:block/frozen_depths/frozen_chain",
       "x": 90
     }
   }

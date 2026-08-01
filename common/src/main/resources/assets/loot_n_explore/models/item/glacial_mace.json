@@ -2,8 +2,8 @@
 	"credit": "Made by pedravila",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "loot_n_explore:item/weapons/glacial_mace",
-		"particle": "loot_n_explore:item/weapons/glacial_mace"
+		"1": "loot_n_explore:item/weapons/frozen_depths/glacial_mace",
+		"particle": "loot_n_explore:item/weapons/frozen_depths/glacial_mace"
 	},
 	"elements": [
 		{

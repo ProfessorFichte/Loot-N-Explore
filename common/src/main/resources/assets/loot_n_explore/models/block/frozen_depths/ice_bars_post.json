@@ -1,0 +1,30 @@
+﻿{
+	"ambientocclusion": false,
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench by AnolXD",
+	"parent": "minecraft:block/template_bars_post",
+	"textures": {
+		"1": "loot_n_explore:block/frozen_depths/ice_bars_post",
+		"particle": "loot_n_explore:block/frozen_depths/ice_bars"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 8],
+			"to": [9, 16, 8],
+			"faces": {
+				"north": {"uv": [6, 0, 4, 16], "texture": "#1"},
+				"south": {"uv": [2, 0, 4, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [8, 0, 7],
+			"to": [8, 16, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7.75, 8]},
+			"faces": {
+				"east": {"uv": [6, 0, 4, 16], "texture": "#1"},
+				"west": {"uv": [2, 0, 4, 16], "texture": "#1"}
+			}
+		}
+	],
+	"display": {}
+}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/phantomstrike_tonic"
+    "layer0": "loot_n_explore:item/consumables/critical_strike/phantomstrike_tonic"
   }
 }

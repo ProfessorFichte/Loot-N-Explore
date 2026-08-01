@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/beauclair_white"
+    "layer0": "loot_n_explore:item/consumables/witcher_rpg/beauclair_white"
   }
 }

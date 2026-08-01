@@ -1,6 +1,6 @@
 {
   "parent": "loot_n_explore:item/wither_crossbow",
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/wither_crossbow_arrow"
+    "layer0": "loot_n_explore:item/weapons/generic/wither_crossbow_arrow"
   }
 }

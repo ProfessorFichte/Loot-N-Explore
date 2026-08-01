@@ -1,40 +1,40 @@
 {
   "variants": {
     "ominous=false,trial_spawner_state=active": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/active"
     },
     "ominous=false,trial_spawner_state=cooldown": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/inactive"
     },
     "ominous=false,trial_spawner_state=ejecting_reward": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/ejecting_reward"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/ejecting_reward"
     },
     "ominous=false,trial_spawner_state=inactive": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/inactive"
     },
     "ominous=false,trial_spawner_state=waiting_for_players": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/active"
     },
     "ominous=false,trial_spawner_state=waiting_for_reward_ejection": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/normal/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/normal/active"
     },
     "ominous=true,trial_spawner_state=active": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/active"
     },
     "ominous=true,trial_spawner_state=cooldown": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/inactive"
     },
     "ominous=true,trial_spawner_state=ejecting_reward": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/ejecting_reward"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/ejecting_reward"
     },
     "ominous=true,trial_spawner_state=inactive": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/inactive"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/inactive"
     },
     "ominous=true,trial_spawner_state=waiting_for_players": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/active"
     },
     "ominous=true,trial_spawner_state=waiting_for_reward_ejection": {
-      "model": "loot_n_explore:block/frozen_trial_spawner/ominous/active"
+      "model": "loot_n_explore:block/frozen_depths/frozen_trial_spawner/ominous/active"
     }
   }
 }

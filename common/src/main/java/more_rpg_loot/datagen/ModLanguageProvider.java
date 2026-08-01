@@ -139,6 +139,16 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             builder.add(key + ".lore", entry.loreText());
         }
 
+        // SHIELDS (registered only when lne_paladins is not installed)
+        builder.add("item.loot_n_explore.ender_dragon_shield", "Coral Reef Guardian");
+        builder.add("item.loot_n_explore.ender_dragon_shield.lore", LNE_WeaponItems.LORE_DRAGON_BLOCK);
+        builder.add("item.loot_n_explore.wither_shield", "The Mouth of the Wither");
+        builder.add("item.loot_n_explore.wither_shield.lore", LNE_WeaponItems.LORE_WITHER_BLOCK);
+        builder.add("item.loot_n_explore.glacial_shield", "Frozen Wall");
+        builder.add("item.loot_n_explore.glacial_shield.lore", LNE_WeaponItems.LORE_GLACIAL_BLOCK);
+        builder.add("item.loot_n_explore.elder_guardian_shield", "Dragon Bulwark");
+        builder.add("item.loot_n_explore.elder_guardian_shield.lore", LNE_WeaponItems.LORE_GUARDIAN_BLOCK);
+
         // SMITHING TEMPLATE
         if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
             builder.add("smithing_template.loot_n_explore.applies_to", "Netherite Weapons.");
@@ -175,8 +185,11 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         builder.add("entity.loot_n_explore.glaze", "Glaze");
         builder.add("entity.loot_n_explore.frost_haunt", "Frosthaunt");
         builder.add("entity.loot_n_explore.frost_monarch", "Frost Monarch");
-        builder.add("entity.loot_n_explore.frost_monarch.spawn_message", "§5You fools have freed me!");
+        builder.add("entity.loot_n_explore.frost_monarch.spawn_message", "§3You fools have freed me!");
         builder.add("block.loot_n_explore.frozen_soul_block.hint", "Please free our soul, bring us the cursed Crown");
+        builder.add("block.loot_n_explore.frozen_soul_block.lore", "It seems powerful magic compressed this block. The souls constantly call for something.");
+        builder.add("block.loot_n_explore.monarchs_crown.lore", "This crown once belonged to a king who lost everything to his obsession with power and the freezing cold.");
+        builder.add("block.loot_n_explore.monarchs_crown.ability_hint", "[Shift + Right Click] Listen to the soul's voices.");
 
         // MAPS
         builder.add("filled_map.loot_n_explore.frostmonarch_temple", "Frost Monarch Temple Map");

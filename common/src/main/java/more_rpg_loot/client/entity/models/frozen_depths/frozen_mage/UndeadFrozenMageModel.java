@@ -84,7 +84,12 @@ public class UndeadFrozenMageModel<T extends UndeadFrozenMageEntity> extends Sin
     public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        this.animateMovement(UndeadFrozenMageAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
+        // Vanilla walk-cycle blending fights the cast pose if residual limb-swing momentum is
+        // still present right as casting starts (navigation.stop() doesn't zero it out instantly) -
+        // skip it while casting so the cast animation isn't intermittently masked.
+        if (!entity.isCasting()) {
+            this.animateMovement(UndeadFrozenMageAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
+        }
         this.updateAnimation(entity.idleAnimationState, UndeadFrozenMageAnimations.idle, ageInTicks);
         this.updateAnimation(entity.castAnimationState, UndeadFrozenMageAnimations.cast, ageInTicks);
     }

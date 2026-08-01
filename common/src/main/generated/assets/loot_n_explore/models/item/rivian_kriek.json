@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/rivian_kriek"
+    "layer0": "loot_n_explore:item/consumables/witcher_rpg/rivian_kriek"
   }
 }

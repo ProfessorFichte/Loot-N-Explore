@@ -4,8 +4,8 @@
 	"credit": "Made with Blockbench by AnolXD",
 	"texture_size": [64, 64],
 	"textures": {
-		"0": "loot_n_explore:block/acacia_inn_sign",
-		"particle": "loot_n_explore:block/acacia_inn_sign"
+		"0": "loot_n_explore:block/generic/acacia_inn_sign",
+		"particle": "loot_n_explore:block/generic/acacia_inn_sign"
 	},
 	"elements": [
 		{

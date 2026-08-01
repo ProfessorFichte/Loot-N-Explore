@@ -22,7 +22,7 @@ public class AccessoriesHelper {
             if (attrs != null) {
                 var builder = AccessoryItemAttributeModifiers.builder();
                 for (var entry : attrs.modifiers()) {
-                    builder = builder.addForSlot(entry.attribute(), entry.modifier(), "charm", true);
+                    builder = builder.addForSlot(entry.attribute(), entry.modifier(), "necklace", true);
                 }
                 settings = settings.component(AccessoriesDataComponents.ATTRIBUTES, builder.build());
             }

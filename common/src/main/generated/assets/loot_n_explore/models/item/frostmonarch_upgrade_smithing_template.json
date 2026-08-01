@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/template/frostmonarch_upgrade"
+    "layer0": "loot_n_explore:item/template/frozen_depths/frostmonarch_upgrade"
   }
 }

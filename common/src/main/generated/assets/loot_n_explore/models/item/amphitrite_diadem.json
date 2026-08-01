@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/relics/amphitrite_diadem"
+    "layer0": "loot_n_explore:item/relics/generic/amphitrite_diadem"
   }
 }

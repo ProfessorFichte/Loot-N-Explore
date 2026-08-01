@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/template/ender_dragon_upgrade"
+    "layer0": "loot_n_explore:item/template/generic/ender_dragon_upgrade"
   }
 }

@@ -30,8 +30,6 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
     private UUID ownerUuid;
     private Vec3d velocity = Vec3d.ZERO;
     private int ticksAlive = 0;
-    private boolean playingAnimation = false;
-    private int ticksLeft = LIFETIME_TICKS;
 
     public TrackingIcicleEntity(EntityType<? extends TrackingIcicleEntity> type, World world) {
         super(type, world);
@@ -96,7 +94,6 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
         super.tick();
 
         if (this.getWorld().isClient) {
-            if (playingAnimation) --ticksLeft;
             return;
         }
 
@@ -139,21 +136,6 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
         return Math.max(5.0F, base);
     }
 
-
-    @Override
-    public void handleStatus(byte status) {
-        super.handleStatus(status);
-        if (status == 4) {
-            playingAnimation = true;
-            ticksLeft = LIFETIME_TICKS;
-        }
-    }
-
-    public float getAnimationProgress(float tickDelta) {
-        if (!playingAnimation) return 0.0F;
-        int elapsed = LIFETIME_TICKS - ticksLeft;
-        return Math.min(1.0F, ((float) elapsed - tickDelta) / LIFETIME_TICKS);
-    }
 
     @Override
     public boolean isCollidable() {

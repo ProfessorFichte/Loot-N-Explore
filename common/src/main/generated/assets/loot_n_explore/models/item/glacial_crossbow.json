@@ -43,6 +43,6 @@
     }
   ],
   "textures": {
-    "layer0": "loot_n_explore:item/weapons/glacial_crossbow"
+    "layer0": "loot_n_explore:item/weapons/frozen_depths/glacial_crossbow"
   }
 }

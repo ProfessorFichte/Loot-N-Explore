@@ -1,7 +1,7 @@
 package more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import more_rpg_loot.util.ClampedYawMoveControl;
+import more_rpg_loot.RPGLoot;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -12,7 +12,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -20,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -28,6 +28,7 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -41,14 +42,16 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
     public final AnimationState normalHitAnimationState = new AnimationState();
     public final AnimationState aoeSwingAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+    private int normalHitAnimTicksRemaining = 0;
 
     private int aoeCooldown = 0;
     private int blockTimer = 0;
+    private int blockCooldown = 0;
+    private int postActionCooldown = 0;
 
     public MonarchsSoldierEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.moveControl = new ClampedYawMoveControl(this);
         this.experiencePoints += 8;
     }
 
@@ -74,22 +77,31 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AoeSwordSwingGoal(this));
         this.goalSelector.add(2, new ShieldBlockGoal(this));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0, false));
+        MeleeAttackGoal ownMeleeGoal = new MeleeAttackGoal(this, 1.0, false);
+        this.goalSelector.add(3, ownMeleeGoal);
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
+        this.targetSelector.add(2, new FocusAttackerGoal(this));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
 
-        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
-        // melee-attack goal alongside this class's own explicit MeleeAttackGoal above, causing
-        // two redundant melee goals to compete for the same controls - strip the hidden one out.
+        // Defensive: strip any duplicate melee goal that slipped in before updateAttackType() was
+        // neutralized below (excludes our own tracked instance).
         this.goalSelector.getGoals().stream()
-                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .filter(g -> g.getGoal().getClass() == MeleeAttackGoal.class && g.getGoal() != ownMeleeGoal)
                 .toList()
                 .forEach(g -> this.goalSelector.remove(g.getGoal()));
+    }
+
+    @Override
+    public void updateAttackType() {
+        // AbstractSkeletonEntity re-adds its own internal meleeAttackGoal here whenever equipment
+        // changes, since getMainHandStack().isOf(Items.BOW) is always false for the sword/shield -
+        // that runs after initGoals() (during equip), so a one-time goal filter can't catch it.
+        // Stop the vanilla swap entirely; this entity's own MeleeAttackGoal is already in initGoals().
     }
 
     @Nullable
@@ -138,11 +150,19 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (isBlocking() && source.getAttacker() instanceof LivingEntity attacker) {
-            Vec3d attackDir = attacker.getPos().subtract(this.getPos());
-            Vec3d facing = Vec3d.fromPolar(0, this.getYaw());
-            if (attackDir.dotProduct(facing) > 0) {
-                amount *= 0.5F;
+        if (isBlocking() && !source.isIn(DamageTypeTags.BYPASSES_SHIELD)) {
+            Entity origin = source.getSource() != null ? source.getSource() : source.getAttacker();
+            if (origin != null) {
+                Vec3d attackDir = origin.getPos().subtract(this.getPos()).normalize();
+                Vec3d facing = Vec3d.fromPolar(0, this.getYaw());
+                boolean fromBehind = attackDir.dotProduct(facing) < -0.3;
+                boolean isProjectile = source.isIn(DamageTypeTags.IS_PROJECTILE);
+                if (!(fromBehind && isProjectile)) {
+                    RPGLoot.LOGGER.info("[MonarchsSoldier] Blocked {} damage from {} (fromBehind={}, isProjectile={})",
+                            amount, origin, fromBehind, isProjectile);
+                    return false;
+                }
+                RPGLoot.LOGGER.info("[MonarchsSoldier] Block bypassed by projectile from behind: {} damage from {}", amount, origin);
             }
         }
         return super.damage(source, amount);
@@ -154,6 +174,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
 
         if (!this.getWorld().isClient) {
             if (aoeCooldown > 0) aoeCooldown--;
+            if (blockCooldown > 0) blockCooldown--;
+            if (postActionCooldown > 0) postActionCooldown--;
             if (blockTimer > 0) {
                 blockTimer--;
                 if (blockTimer <= 0) setBlocking(false);
@@ -179,8 +201,11 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             this.idleAnimationState.stop();
         } else if (this.handSwinging && this.handSwingTicks == 0) {
             this.normalHitAnimationState.start(this.age);
+            this.normalHitAnimTicksRemaining = 15;
             this.aoeSwingAnimationState.stop();
-        } else if (this.isBlocking() && moving) {
+        } else if (this.isBlocking()) {
+            // No dedicated stationary block pose exists - keep the shield-raised walk animation
+            // showing while blocking even if standing still, rather than falling through to idle.
             this.blockWalkAnimationState.startIfNotRunning(this.age);
             this.walkAnimationState.stop();
             this.idleAnimationState.stop();
@@ -198,6 +223,10 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
                 --idleAnimationTimeout;
             }
         }
+
+        if (this.normalHitAnimTicksRemaining > 0 && --this.normalHitAnimTicksRemaining <= 0) {
+            this.normalHitAnimationState.stop();
+        }
     }
 
     protected int getAoeSwingRange() {
@@ -208,6 +237,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         private final MonarchsSoldierEntity soldier;
         private LivingEntity target;
         private int windupTimer = 0;
+        private int recoverTimer = 0;
+        private boolean hasSwung = false;
         private boolean active = false;
 
         AoeSwordSwingGoal(MonarchsSoldierEntity soldier) {
@@ -221,6 +252,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             return target != null && target.isAlive()
                     && soldier.squaredDistanceTo(target) <= 4.0 * 4.0
                     && soldier.aoeCooldown <= 0
+                    && soldier.postActionCooldown <= 0
                     && !soldier.isBlocking();
         }
 
@@ -232,7 +264,10 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         @Override
         public void start() {
             active = true;
-            windupTimer = 12;
+            // attack_aoe (18.33 ticks total) swings the weapon arm through its widest sweep
+            // between roughly tick 3 and tick 11 - land the hit mid-sweep, not near the end.
+            windupTimer = 7;
+            hasSwung = false;
             soldier.setPerformingAoe(true);
             soldier.getNavigation().stop();
         }
@@ -240,8 +275,13 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         @Override
         public void tick() {
             if (target != null) soldier.getLookControl().lookAt(target, 30.0F, 30.0F);
-            if (--windupTimer <= 0) {
-                performAoeSwing();
+            if (!hasSwung) {
+                if (--windupTimer <= 0) {
+                    performAoeSwing();
+                    hasSwung = true;
+                    recoverTimer = 11;
+                }
+            } else if (--recoverTimer <= 0) {
                 stop();
             }
         }
@@ -249,9 +289,10 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         private void performAoeSwing() {
             float radius = soldier.getAoeSwingRange();
             Vec3d forward = Vec3d.fromPolar(0, soldier.getYaw());
-            Box aoeBox = Box.of(soldier.getPos().add(forward.multiply(radius * 0.5)), radius * 2, 2.5, radius * 2);
+            Box aoeBox = Box.of(soldier.getPos().add(forward.multiply(radius * 0.5)), radius * 2.5, 3.0, radius * 2.5);
 
             List<LivingEntity> targets = soldier.getWorld().getNonSpectatingEntities(LivingEntity.class, aoeBox);
+            int hitCount = 0;
             for (LivingEntity entity : targets) {
                 if (entity == soldier) continue;
                 if (entity.isTeammate(soldier)) continue;
@@ -259,9 +300,15 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
                 Vec3d toEntity = entity.getPos().subtract(soldier.getPos());
                 // atan2 gives a raw math angle; Minecraft yaw is offset by -90 from that convention
                 double angle = Math.abs(MathHelper.wrapDegrees((float) (Math.atan2(toEntity.z, toEntity.x) * (180.0 / Math.PI)) - 90.0F - soldier.getYaw()));
-                if (angle <= 45.0) {
+                if (angle <= 60.0) {
                     soldier.tryAttack(entity);
+                    hitCount++;
                 }
+            }
+            if (hitCount == 0) {
+                RPGLoot.LOGGER.info("[MonarchsSoldier] AoE swing hit nobody ({} candidates in box)", targets.size());
+            } else {
+                RPGLoot.LOGGER.info("[MonarchsSoldier] AoE swing hit {} entities", hitCount);
             }
         }
 
@@ -270,6 +317,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             active = false;
             soldier.setPerformingAoe(false);
             soldier.aoeCooldown = 80 + soldier.random.nextInt(40);
+            soldier.postActionCooldown = 10;
         }
     }
 
@@ -279,6 +327,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
 
         ShieldBlockGoal(MonarchsSoldierEntity soldier) {
             this.soldier = soldier;
+            this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
         }
 
         @Override
@@ -288,6 +337,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             double dist = soldier.squaredDistanceTo(target);
             return dist <= 7.0 * 7.0 && dist > 1.0 * 1.0
                     && !soldier.isBlocking() && !soldier.isPerformingAoe()
+                    && soldier.blockCooldown <= 0
                     && soldier.random.nextFloat() < 0.08F;
         }
 
@@ -300,12 +350,73 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         public void start() {
             soldier.setBlocking(true);
             soldier.blockTimer = 40 + soldier.random.nextInt(20);
+            RPGLoot.LOGGER.info("[MonarchsSoldier] ShieldBlockGoal started against {} for {} ticks", target, soldier.blockTimer);
+        }
+
+        @Override
+        public void tick() {
+            if (target == null || !target.isAlive()) {
+                soldier.getNavigation().stop();
+                return;
+            }
+            soldier.getLookControl().lookAt(target, 30.0F, 30.0F);
+            if (soldier.squaredDistanceTo(target) > 3.0 * 3.0) {
+                if (soldier.age % 10 == 0) {
+                    soldier.getNavigation().startMovingTo(target, 0.8);
+                }
+            } else {
+                soldier.getNavigation().stop();
+            }
         }
 
         @Override
         public void stop() {
             soldier.setBlocking(false);
             soldier.blockTimer = 0;
+            soldier.blockCooldown = 60 + soldier.random.nextInt(40);
+            soldier.postActionCooldown = 10;
+        }
+    }
+
+    private class FocusAttackerGoal extends Goal {
+        private final MonarchsSoldierEntity soldier;
+
+        FocusAttackerGoal(MonarchsSoldierEntity soldier) {
+            this.soldier = soldier;
+            this.setControls(EnumSet.noneOf(Control.class));
+        }
+
+        @Override
+        public boolean canStart() {
+            LivingEntity current = soldier.getTarget();
+            if (current == null || !current.isAlive()) return false;
+            boolean fleeing = soldier.squaredDistanceTo(current) > 5.0 * 5.0
+                    && current.getPos().subtract(soldier.getPos()).dotProduct(current.getVelocity()) > 0;
+            if (!fleeing) return false;
+            return findCloserAttacker(current) != null;
+        }
+
+        @Override
+        public boolean shouldContinue() {
+            return false;
+        }
+
+        @Override
+        public void start() {
+            LivingEntity current = soldier.getTarget();
+            PlayerEntity attacker = findCloserAttacker(current);
+            if (attacker != null) {
+                RPGLoot.LOGGER.info("[MonarchsSoldier] Switching target from fleeing {} to closer {}", current, attacker);
+                soldier.setTarget(attacker);
+            }
+        }
+
+        private PlayerEntity findCloserAttacker(LivingEntity current) {
+            return soldier.getWorld().getEntitiesByClass(PlayerEntity.class, soldier.getBoundingBox().expand(8.0),
+                            p -> p != current && !p.isSpectator() && soldier.canTarget(p))
+                    .stream()
+                    .min(Comparator.comparingDouble(soldier::squaredDistanceTo))
+                    .orElse(null);
         }
     }
 

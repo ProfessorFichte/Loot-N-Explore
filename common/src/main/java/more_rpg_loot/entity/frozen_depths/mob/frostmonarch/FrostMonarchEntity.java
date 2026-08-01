@@ -5,8 +5,10 @@ import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals.*;
 import more_rpg_loot.item.CommonItems;
+import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
 import more_rpg_loot.sounds.ModSounds;
-import more_rpg_loot.util.ClampedYawMoveControl;
+import more_rpg_loot.util.LongReachMeleeAttackGoal;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -15,8 +17,6 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.network.packet.s2c.play.TitleFadeS2CPacket;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
@@ -24,7 +24,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -81,6 +80,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
     public final AnimationState attackAnimationState3 = new AnimationState();
     private int idleAnimationTimeout = 0;
     private int attackAnimationCounter = 0;
+    private int attackAnimTicksRemaining = 0;
     public int screechCooldown = 0;
     public int hailStormCooldown = 0;
     public int icicleCooldown = 0;
@@ -96,8 +96,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.bossBar = (ServerBossBar)(new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS)).setDarkenSky(true);
         this.setHealth(this.getMaxHealth());
         this.experiencePoints += 50;
-
-        this.moveControl = new ClampedYawMoveControl(this);
     }
 
     public ItemStack getWeaponForDifficulty() {
@@ -160,7 +158,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.goalSelector.add(4, new DistanceIcicleGoal(this));
         this.goalSelector.add(4, new IcicleAttackGoal(this));
 
-        this.goalSelector.add(6, new ConditionalGoal(this, new MeleeAttackGoal(this, 1.2, false)));
+        this.goalSelector.add(6, new ConditionalGoal(this, new LongReachMeleeAttackGoal(this, 1.2, false, 3.5)));
 
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 12.0F));
@@ -171,13 +169,21 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
 
-        // AbstractSkeletonEntity's own constructor unconditionally adds an internal anonymous
-        // melee-attack goal alongside this class's own ConditionalGoal-wrapped MeleeAttackGoal
-        // above, causing two redundant melee goals to compete for the same controls - strip the hidden one out.
+        // Defensive: strip any duplicate melee goal that slipped in before updateAttackType() was
+        // neutralized below (our own goal is a LongReachMeleeAttackGoal wrapped in ConditionalGoal,
+        // so it never matches MeleeAttackGoal.class exactly).
         this.goalSelector.getGoals().stream()
-                .filter(g -> g.getGoal().getClass().getEnclosingClass() == AbstractSkeletonEntity.class)
+                .filter(g -> g.getGoal().getClass() == MeleeAttackGoal.class)
                 .toList()
                 .forEach(g -> this.goalSelector.remove(g.getGoal()));
+    }
+
+    @Override
+    public void updateAttackType() {
+        // AbstractSkeletonEntity re-adds its own internal meleeAttackGoal here whenever equipment
+        // changes, since getMainHandStack().isOf(Items.BOW) is always false for the frost staff -
+        // that runs after initGoals() (during equip), so a one-time goal filter can't catch it.
+        // Stop the vanilla swap entirely; this entity's own melee goal is already in initGoals().
     }
 
     protected void initDataTracker(DataTracker.Builder builder) {
@@ -565,6 +571,10 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
     }
 
+    protected boolean isAffectedByDaylight() {
+        return false;
+    }
+
     public boolean damage(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
@@ -774,11 +784,15 @@ public class FrostMonarchEntity extends SkeletonEntity {
             this.attackAnimationState3.stop();
             int idx = attackAnimationCounter % 3;
             switch (idx) {
-                case 0 -> this.attackAnimationState1.start(this.age);
-                case 1 -> this.attackAnimationState2.start(this.age);
-                default -> this.attackAnimationState3.start(this.age);
+                case 0 -> { this.attackAnimationState1.start(this.age); this.attackAnimTicksRemaining = 18; }
+                case 1 -> { this.attackAnimationState2.start(this.age); this.attackAnimTicksRemaining = 35; }
+                default -> { this.attackAnimationState3.start(this.age); this.attackAnimTicksRemaining = 30; }
             }
             attackAnimationCounter++;
+        } else if (this.attackAnimTicksRemaining > 0 && --this.attackAnimTicksRemaining <= 0) {
+            this.attackAnimationState1.stop();
+            this.attackAnimationState2.stop();
+            this.attackAnimationState3.stop();
         }
 
         if (getInvulnerableTimer() > 0 && !hasSpawned()) {
@@ -820,10 +834,8 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
         this.setInvulTimer(220);
         if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
-            Text message = Text.translatable("entity.loot_n_explore.frost_monarch.spawn_message");
             for (ServerPlayerEntity player : serverWorld.getPlayers()) {
-                player.networkHandler.sendPacket(new TitleS2CPacket(message));
-                player.networkHandler.sendPacket(new TitleFadeS2CPacket(10, 70, 20));
+                ServerPlayNetworking.send(player, new FrostMonarchSpawnOverlayPayload());
             }
         }
         this.getWorld().playSound(

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "loot_n_explore:block/polished_ice_block"
+    "all": "loot_n_explore:block/frozen_depths/polished_ice_block"
   }
 }

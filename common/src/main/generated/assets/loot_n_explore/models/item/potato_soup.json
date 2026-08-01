@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/potato_soup"
+    "layer0": "loot_n_explore:item/consumables/generic/potato_soup"
   }
 }

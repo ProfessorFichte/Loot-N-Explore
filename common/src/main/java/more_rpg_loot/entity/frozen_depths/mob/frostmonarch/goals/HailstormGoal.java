@@ -75,6 +75,7 @@ public class HailstormGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
+        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] HailstormGoal started, target={}", cachedTarget);
     }
 
     @Override

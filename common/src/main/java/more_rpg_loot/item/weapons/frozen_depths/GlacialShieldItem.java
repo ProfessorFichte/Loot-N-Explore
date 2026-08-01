@@ -1,0 +1,36 @@
+package more_rpg_loot.item.weapons.frozen_depths;
+
+import more_rpg_loot.item.weapons.LNE_ShieldItems;
+import more_rpg_loot.item.weapons.LNE_WeaponItems;
+import more_rpg_loot.item.weapons.ShieldBlockAbility;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShieldItem;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+
+import java.util.List;
+
+import static more_rpg_loot.RPGLoot.MOD_ID;
+
+public class GlacialShieldItem extends ShieldItem implements ShieldBlockAbility {
+    private static final int COOLDOWN = 360;
+    public GlacialShieldItem() { super(LNE_ShieldItems.shieldSettings(Identifier.of(MOD_ID, "frozen_soul"))); }
+    @Override public boolean canRepair(ItemStack stack, ItemStack ingredient) { return ingredient.isOf(Items.ICE); }
+    @Override public void onShieldBlock(PlayerEntity blocker, LivingEntity attacker) {
+        if (FabricLoader.getInstance().isModLoaded("spell_engine")
+                || blocker.getItemCooldownManager().isCoolingDown(this)
+                || blocker.getRandom().nextFloat() >= 0.20f) {
+            return;
+        }
+        LNE_WeaponItems.spawnFrostballs(blocker.getWorld(), blocker);
+        blocker.getItemCooldownManager().set(this, COOLDOWN);
+    }
+    @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type); LNE_WeaponItems.addAbilityTooltip(this, tooltip);
+    }
+}

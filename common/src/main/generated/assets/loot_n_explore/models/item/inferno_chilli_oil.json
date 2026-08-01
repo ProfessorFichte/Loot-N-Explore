@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/inferno_chilli_oil"
+    "layer0": "loot_n_explore:item/consumables/critical_strike/inferno_chilli_oil"
   }
 }

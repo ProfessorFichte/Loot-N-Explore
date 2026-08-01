@@ -97,6 +97,7 @@ public class FrostHoundModel extends SinglePartEntityModel<FrostHoundEntity> {
         this.updateAnimation(entity.walkAnimationState, FrostHoundAnimations.walk, ageInTicks);
         this.updateAnimation(entity.runAnimationState, FrostHoundAnimations.running, ageInTicks);
         this.updateAnimation(entity.biteAnimationState, FrostHoundAnimations.bite, ageInTicks);
+        this.updateAnimation(entity.clawAnimationState, FrostHoundAnimations.claw, ageInTicks);
     }
 
     @Override

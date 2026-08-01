@@ -3,6 +3,18 @@ package more_rpg_loot.item.weapons;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import more_rpg_loot.entity.generic.projectile.LNEAbilityArrowEntity;
 import more_rpg_loot.item.Group;
+import more_rpg_loot.item.weapons.frozen_depths.GlacialAxeItem;
+import more_rpg_loot.item.weapons.frozen_depths.GlacialMaceItem;
+import more_rpg_loot.item.weapons.frozen_depths.GlacialSwordItem;
+import more_rpg_loot.item.weapons.generic.ElderGuardianAxeItem;
+import more_rpg_loot.item.weapons.generic.ElderGuardianMaceItem;
+import more_rpg_loot.item.weapons.generic.ElderGuardianSwordItem;
+import more_rpg_loot.item.weapons.generic.EnderDragonAxeItem;
+import more_rpg_loot.item.weapons.generic.EnderDragonMaceItem;
+import more_rpg_loot.item.weapons.generic.EnderDragonSwordItem;
+import more_rpg_loot.item.weapons.generic.WitherAxeItem;
+import more_rpg_loot.item.weapons.generic.WitherMaceItem;
+import more_rpg_loot.item.weapons.generic.WitherSwordItem;
 import more_rpg_loot.util.HelperMethods;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
@@ -65,7 +77,7 @@ public class LNE_WeaponItems {
         return e;
     }
 
-    private static Item.Settings meleeSettings(float bonusDamage, float attackSpeed) {
+    public static Item.Settings meleeSettings(float bonusDamage, float attackSpeed) {
         return new Item.Settings()
                 .rarity(Rarity.RARE)
                 .attributeModifiers(SwordItem.createAttributeModifiers(
@@ -73,7 +85,7 @@ public class LNE_WeaponItems {
     }
 
     // MaceItem(Settings) does not call ToolMaterial.applySettings, so maxDamage must be set explicitly
-    private static Item.Settings maceSettings(float bonusDamage, float attackSpeed) {
+    public static Item.Settings maceSettings(float bonusDamage, float attackSpeed) {
         return new Item.Settings()
                 .rarity(Rarity.RARE)
                 .maxDamage(2031)
@@ -81,45 +93,7 @@ public class LNE_WeaponItems {
                         ToolMaterials.NETHERITE, (int) bonusDamage, attackSpeed));
     }
 
-    private static class EnderDragonSwordItem extends SwordItem {
-        private static final int COOLDOWN = 300;
-        EnderDragonSwordItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.15f);
-                target.damage(target.getDamageSources().magic(), dmg);
-                player.heal(dmg);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-                spawnDragonParticles(attacker.getWorld(), target);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class EnderDragonAxeItem extends AxeItem {
-        private static final int COOLDOWN = 300;
-        EnderDragonAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.15f);
-                target.damage(target.getDamageSources().magic(), dmg);
-                player.heal(dmg);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-                spawnDragonParticles(attacker.getWorld(), target);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static void spawnDragonParticles(World world, LivingEntity target) {
+    public static void spawnDragonParticles(World world, LivingEntity target) {
         if (world instanceof ServerWorld sw) {
             double cx = target.getX(), cy = target.getY() + target.getHeight() / 2.0, cz = target.getZ();
             sw.spawnParticles(ParticleTypes.PORTAL,       cx, cy, cz, 20, 0.4, 0.5, 0.4, 0.2);
@@ -127,39 +101,7 @@ public class LNE_WeaponItems {
         }
     }
 
-    private static class WitherSwordItem extends SwordItem {
-        private static final int COOLDOWN = 240;
-        WitherSwordItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnWitherSkulls(attacker.getWorld(), attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class WitherAxeItem extends AxeItem {
-        private static final int COOLDOWN = 240;
-        WitherAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnWitherSkulls(attacker.getWorld(), attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static void spawnWitherSkulls(World world, LivingEntity attacker, LivingEntity target) {
+    public static void spawnWitherSkulls(World world, LivingEntity attacker, LivingEntity target) {
         double dx = target.getX() - attacker.getX();
         double dy = target.getEyeY() - attacker.getEyeY();
         double dz = target.getZ() - attacker.getZ();
@@ -175,39 +117,7 @@ public class LNE_WeaponItems {
         }
     }
 
-    private static class GlacialSwordItem extends SwordItem {
-        private static final int COOLDOWN = 360;
-        GlacialSwordItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnFrostballs(attacker.getWorld(), attacker);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class GlacialAxeItem extends AxeItem {
-        private static final int COOLDOWN = 360;
-        GlacialAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnFrostballs(attacker.getWorld(), attacker);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static void spawnFrostballs(World world, LivingEntity attacker) {
+    public static void spawnFrostballs(World world, LivingEntity attacker) {
         double bx = attacker.getX(), by = attacker.getY() + 6.0, bz = attacker.getZ();
         double r = 1.5;
         for (int i = 0; i < 5; i++) {
@@ -219,123 +129,14 @@ public class LNE_WeaponItems {
         }
     }
 
-    private static class ElderGuardianSwordItem extends SwordItem {
-        private static final int COOLDOWN = 200;
-        ElderGuardianSwordItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnRainCloud(attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addElderGuardianTooltip(this, tooltip);
-        }
-    }
-    private static class ElderGuardianAxeItem extends AxeItem {
-        private static final int COOLDOWN = 200;
-        ElderGuardianAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, meleeSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnRainCloud(attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addElderGuardianTooltip(this, tooltip);
-        }
-    }
-    private static void spawnRainCloud(LivingEntity attacker, LivingEntity target) {
+    public static void spawnRainCloud(LivingEntity attacker, LivingEntity target) {
         float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.25f);
         HelperMethods.spawnCloudEntity(ParticleTypes.RAIN, attacker, target, 1,
                 5.0f, 5, 5.0f, null, 0, 0, false, 0,
                 true, dmg, target.getDamageSources().magic());
     }
 
-    // Mace abilities are suppressed when spell_engine is installed; Elder Guardian mace also suppressed when more_rpg_classes is installed.
-    private static class EnderDragonMaceItem extends MaceItem {
-        private static final int COOLDOWN = 300;
-        EnderDragonMaceItem(float bonus, float speed) { super(maceSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient
-                    && !FabricLoader.getInstance().isModLoaded("spell_engine")
-                    && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.15f);
-                target.damage(target.getDamageSources().magic(), dmg);
-                player.heal(dmg);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class WitherMaceItem extends MaceItem {
-        private static final int COOLDOWN = 240;
-        WitherMaceItem(float bonus, float speed) { super(maceSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient
-                    && !FabricLoader.getInstance().isModLoaded("spell_engine")
-                    && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnWitherSkulls(attacker.getWorld(), attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class GlacialMaceItem extends MaceItem {
-        private static final int COOLDOWN = 360;
-        GlacialMaceItem(float bonus, float speed) { super(maceSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient
-                    && !FabricLoader.getInstance().isModLoaded("spell_engine")
-                    && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnFrostballs(attacker.getWorld(), attacker);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addAbilityTooltip(this, tooltip);
-        }
-    }
-    private static class ElderGuardianMaceItem extends MaceItem {
-        private static final int COOLDOWN = 200;
-        ElderGuardianMaceItem(float bonus, float speed) { super(maceSettings(bonus, speed)); }
-        @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-            if (!attacker.getWorld().isClient
-                    && !FabricLoader.getInstance().isModLoaded("spell_engine")
-                    && !FabricLoader.getInstance().isModLoaded("more_rpg_classes")
-                    && attacker instanceof PlayerEntity player
-                    && !player.getItemCooldownManager().isCoolingDown(this)
-                    && attacker.getRandom().nextFloat() < 0.20f) {
-                spawnRainCloud(attacker, target);
-                player.getItemCooldownManager().set(this, COOLDOWN);
-            }
-            return super.postHit(stack, target, attacker);
-        }
-        @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            super.appendTooltip(stack, context, tooltip, type); addElderGuardianTooltip(this, tooltip);
-        }
-    }
-
-    private static void addAbilityTooltip(Item item, List<Text> tooltip) {
+    public static void addAbilityTooltip(Item item, List<Text> tooltip) {
         if (!FabricLoader.getInstance().isModLoaded("spell_engine")) {
             tooltip.add(ScreenTexts.EMPTY);
             tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
@@ -343,7 +144,7 @@ public class LNE_WeaponItems {
         }
     }
 
-    private static void addElderGuardianTooltip(Item item, List<Text> tooltip) {
+    public static void addElderGuardianTooltip(Item item, List<Text> tooltip) {
         if (!FabricLoader.getInstance().isModLoaded("spell_engine")
                 && !FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
             tooltip.add(ScreenTexts.EMPTY);
@@ -465,6 +266,11 @@ public class LNE_WeaponItems {
     private static final String LORE_WITHER_RANGED   = "On arrow hit (20% chance): Fires three Wither Skulls at your target. (12s cooldown)";
     private static final String LORE_GLACIAL_RANGED  = "On arrow hit (20% chance): Summons a ring of frostballs above your target. (18s cooldown)";
     private static final String LORE_GUARDIAN_RANGED = "On arrow hit (20% chance): Conjures a rain storm around your target, dealing 25% of your attack damage. (10s cooldown)";
+
+    public static final String LORE_DRAGON_BLOCK   = "On block (20% chance): Drains 15% of your attack damage as magic damage, restoring it as health. (15s cooldown)";
+    public static final String LORE_WITHER_BLOCK   = "On block (20% chance): Fires three Wither Skulls at your attacker. (12s cooldown)";
+    public static final String LORE_GLACIAL_BLOCK  = "On block (20% chance): Summons a ring of frostballs above you. (18s cooldown)";
+    public static final String LORE_GUARDIAN_BLOCK = "On block (20% chance): Conjures a rain storm around your attacker, dealing 25% of your attack damage. (10s cooldown)";
 
     public static void register() {
         ENDER_DRAGON_SWORD   = add("ender_dragon_sword",   new EnderDragonSwordItem(4, -2.4f),   "Dragon Slayer",   LORE_DRAGON);

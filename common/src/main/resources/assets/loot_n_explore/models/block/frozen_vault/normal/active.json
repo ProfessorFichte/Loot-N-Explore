@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/template_vault",
-  "textures": {
-    "bottom": "loot_n_explore:block/frozen_vault/normal/bottom",
-    "front": "loot_n_explore:block/frozen_vault/normal/front_on",
-    "side": "loot_n_explore:block/frozen_vault/normal/side_on",
-    "top": "loot_n_explore:block/frozen_vault/normal/top"
-  }
-}

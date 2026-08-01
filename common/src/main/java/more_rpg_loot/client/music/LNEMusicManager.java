@@ -1,5 +1,7 @@
 package more_rpg_loot.client.music;
 
+import more_rpg_loot.client.music.frozen_depths.FrostMonarchBattleMusic;
+import more_rpg_loot.client.music.frozen_depths.FrozenDepthsAmbientMusic;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

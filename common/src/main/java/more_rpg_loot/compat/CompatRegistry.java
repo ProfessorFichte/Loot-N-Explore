@@ -8,6 +8,7 @@ import more_rpg_loot.item.Group;
 import more_rpg_loot.item.relics.LNE_RelicItems;
 import more_rpg_loot.item.relics.RelicLootInjection;
 import more_rpg_loot.item.relics.VanillaRelicAbilities;
+import more_rpg_loot.item.weapons.LNE_ShieldItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
@@ -60,9 +61,10 @@ public class CompatRegistry {
             LNE_WeaponItems.registerRanged();
         }
 
-        // Maces only if lne_paladins is not installed (it registers its own maces)
+        // Maces and Shields only if lne_paladins is not installed (it registers its own themed variants)
         if (!FabricLoader.getInstance().isModLoaded("lne_paladins")) {
             LNE_WeaponItems.registerMaces();
+            LNE_ShieldItems.register();
         }
     }
 }

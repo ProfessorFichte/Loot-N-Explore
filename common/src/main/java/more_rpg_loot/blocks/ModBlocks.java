@@ -1,5 +1,18 @@
 package more_rpg_loot.blocks;
 
+import more_rpg_loot.blocks.frozen_depths.FrostbloomBlock;
+import more_rpg_loot.blocks.frozen_depths.FrozenAdventurerBlock;
+import more_rpg_loot.blocks.frozen_depths.FrozenBonesBlock;
+import more_rpg_loot.blocks.frozen_depths.FrozenChainBlock;
+import more_rpg_loot.blocks.frozen_depths.FrozenSoulBlock;
+import more_rpg_loot.blocks.frozen_depths.FrozenSoulBlockItem;
+import more_rpg_loot.blocks.frozen_depths.FrozenTorchBlock;
+import more_rpg_loot.blocks.frozen_depths.IcicleBarBlock;
+import more_rpg_loot.blocks.frozen_depths.IcicleBlock;
+import more_rpg_loot.blocks.frozen_depths.MonarchsCrownBlock;
+import more_rpg_loot.blocks.frozen_depths.MonarchsCrownItem;
+import more_rpg_loot.blocks.generic.HangingInnSignBlock;
+import more_rpg_loot.blocks.generic.InnkeeperShelfBlock;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -43,6 +56,29 @@ public class ModBlocks {
         return entry;
     }
 
+    private static Entry entry(String name, Block block, BlockItem item, String translation, ModelType modelType) {
+        var entry = new Entry(name, block, item, translation, modelType);
+        all.add(entry);
+        return entry;
+    }
+
+    private static Entry monarchsCrownEntry() {
+        MonarchsCrownBlock block = new MonarchsCrownBlock(FabricBlockSettings.copyOf(Blocks.BLUE_ICE));
+        return entry("monarchs_crown", block, new MonarchsCrownItem(block, new Item.Settings()), "Monarch's Crown", new ModelType.Custom());
+    }
+
+    private static Entry frozenSoulsEntry() {
+        FrozenSoulBlock block = new FrozenSoulBlock(
+                FabricBlockSettings.create()
+                        .mapColor(MapColor.PALE_PURPLE)
+                        .instrument(NoteBlockInstrument.BASS)
+                        .strength(-1.0F, 3600000.0F)
+                        .sounds(BlockSoundGroup.GLASS)
+                        .luminance(5)
+                        .nonOpaque());
+        return entry("frozen_soul_block", block, new FrozenSoulBlockItem(block, new Item.Settings()), "Frozen Soul Block", new ModelType.CubeAll());
+    }
+
     /// BASE MOD BLOCKS
     public static final Entry INNKEEPER_SHELF = entry("innkeeper_shelf", new InnkeeperShelfBlock(
             FabricBlockSettings.create()
@@ -68,16 +104,8 @@ public class ModBlocks {
             FabricBlockSettings.copyOf(Blocks.BLUE_ICE)), "Blue Ice Brick Wall", new ModelType.PoolVariant(null, ModelType.PoolVariant.VariantType.WALL));
     public static final Entry BLUE_ICE_BRICK_STAIRS = entry("blue_ice_brick_stairs", new StairsBlock(
             ModBlocks.BLUE_ICE_BRICKS.block.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BLUE_ICE)), "Blue Ice Brick Stairs", new ModelType.PoolVariant(null, ModelType.PoolVariant.VariantType.STAIRS));
-    public static final Entry FROZEN_SOULS = entry("frozen_soul_block", new FrozenSoulBlock(
-            FabricBlockSettings.create()
-                    .mapColor(MapColor.PALE_PURPLE)
-                    .instrument(NoteBlockInstrument.BASS)
-                    .strength(-1.0F,3600000.0F)
-                    .sounds(BlockSoundGroup.GLASS)
-                    .luminance(5)
-                    .nonOpaque()), "Frozen Soul Block");
-    public static final Entry MONARCHS_CROWN = entry("monarchs_crown", new MonarchsCrownBlock(
-            FabricBlockSettings.copyOf(Blocks.BLUE_ICE)), "Monarch's Crown", new ModelType.Custom());
+    public static final Entry FROZEN_SOULS = frozenSoulsEntry();
+    public static final Entry MONARCHS_CROWN = monarchsCrownEntry();
 
     public static final Entry FROZEN_CHAIN = entry("frozen_chain", new FrozenChainBlock(
             FabricBlockSettings.copyOf(Blocks.CHAIN).nonOpaque()), "Frozen Chain", new ModelType.Custom());

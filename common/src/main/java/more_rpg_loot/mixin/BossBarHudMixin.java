@@ -16,7 +16,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 /**
  * Replaces the vanilla boss bar texture for the Frost Monarch boss.
- * The custom texture (assets/loot_n_explore/textures/gui/boss_bar/frost_monarch.png)
+ * The custom texture (assets/loot_n_explore/textures/gui/boss_bar/frozen_depths/frost_monarch.png)
  * must be 208x32: top 16 rows = background, bottom 16 rows = progress fill.
  *
  * NOTE: If this mixin fails to apply, verify that "renderBossBar" matches the
@@ -28,7 +28,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class BossBarHudMixin {
 
     private static final Identifier FROST_MONARCH_BAR =
-            Identifier.of(MOD_ID, "textures/gui/boss_bar/frost_monarch.png");
+            Identifier.of(MOD_ID, "textures/gui/boss_bar/frozen_depths/frost_monarch.png");
 
     @Inject(method = "renderBossBar", at = @At("HEAD"), cancellable = true)
     private void lne_renderFrostMonarchBar(DrawContext context, int x, int y,

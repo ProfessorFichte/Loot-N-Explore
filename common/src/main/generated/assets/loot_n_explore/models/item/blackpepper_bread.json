@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "loot_n_explore:item/drinks/blackpepper_bread"
+    "layer0": "loot_n_explore:item/consumables/critical_strike/blackpepper_bread"
   }
 }

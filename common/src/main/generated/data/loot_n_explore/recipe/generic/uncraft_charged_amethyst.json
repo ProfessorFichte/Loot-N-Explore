@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "loot_n_explore:charged_amethyst"
+    }
+  ],
+  "result": {
+    "count": 5,
+    "id": "minecraft:amethyst_shard"
+  }
+}
