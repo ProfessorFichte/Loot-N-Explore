@@ -7,6 +7,7 @@ import more_rpg_loot.blocks.frozen_depths.FrozenChainBlock;
 import more_rpg_loot.blocks.frozen_depths.FrozenSoulBlock;
 import more_rpg_loot.blocks.frozen_depths.FrozenSoulBlockItem;
 import more_rpg_loot.blocks.frozen_depths.FrozenTorchBlock;
+import more_rpg_loot.blocks.frozen_depths.FragileIceBlock;
 import more_rpg_loot.blocks.frozen_depths.IcicleBarBlock;
 import more_rpg_loot.blocks.frozen_depths.IcicleBlock;
 import more_rpg_loot.blocks.frozen_depths.MonarchsCrownBlock;
@@ -172,6 +173,9 @@ public class ModBlocks {
     public static final Entry ICICLE_BAR = entry("icicle_bar", new IcicleBarBlock(
             FabricBlockSettings.copyOf(Blocks.IRON_BARS)
                     .nonOpaque()), "Icicle Bar", new ModelType.Custom());
+    public static final Entry FRAGILE_ICE = entry("fragile_ice", new FragileIceBlock(
+            FabricBlockSettings.copyOf(Blocks.ICE)), "Fragile Ice",
+            new ModelType.ExistingTexture(Identifier.of("minecraft", "block/ice")));
 
     public static void register(){
         BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);

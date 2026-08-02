@@ -39,6 +39,17 @@ public sealed interface ModelType {
     }
 
     /**
+     * Simple cube reusing a texture from another namespace (e.g. a vanilla block) instead of
+     * shipping this mod's own texture.
+     */
+    record ExistingTexture(Identifier textureId) implements ModelType {
+        @Override
+        public void generate(BlockStateModelGenerator generator, Block block) {
+            // Handled explicitly in ModModelProvider - needs a texture pool keyed by an external id
+        }
+    }
+
+    /**
      * Cube with different textures for bottom, top, and sides.
      * Uses: cube_bottom_top parent model
      * Requires: name_bottom.png, name_top.png, name_side.png textures

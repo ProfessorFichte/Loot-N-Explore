@@ -64,6 +64,10 @@ public class ModModelProvider extends FabricModelProvider {
             } else if (modelType instanceof ModelType.CubeAll) {
                 texturePools.computeIfAbsent(entry.block(), b ->
                     createCubeAllTexturePool(blockStateModelGenerator, b, "block/frozen_depths/" + entry.name()));
+            } else if (modelType instanceof ModelType.ExistingTexture existingTexture) {
+                texturePools.computeIfAbsent(entry.block(), b ->
+                    blockStateModelGenerator.new BlockTexturePool(TextureMap.all(existingTexture.textureId()))
+                            .base(b, Models.CUBE_ALL));
             } else if (!(modelType instanceof ModelType.Custom)) {
                 modelType.generate(blockStateModelGenerator, entry.block());
             }
