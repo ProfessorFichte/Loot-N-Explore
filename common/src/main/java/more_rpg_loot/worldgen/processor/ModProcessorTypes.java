@@ -9,12 +9,19 @@ public class ModProcessorTypes {
 
     public static final StructureProcessorType<GlacialTombProcessor> GLACIAL_TOMB =
             () -> GlacialTombProcessor.CODEC;
+    public static final StructureProcessorType<IcicleGrowthProcessor> ICICLE_GROWTH =
+            () -> IcicleGrowthProcessor.CODEC;
 
     public static void register() {
         Registry.register(
                 Registries.STRUCTURE_PROCESSOR,
                 RPGLoot.id("glacial_tomb"),
                 GLACIAL_TOMB
+        );
+        Registry.register(
+                Registries.STRUCTURE_PROCESSOR,
+                RPGLoot.id("icicle_growth"),
+                ICICLE_GROWTH
         );
     }
 }

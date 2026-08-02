@@ -100,15 +100,22 @@ public class IcicleBlock extends Block implements LandingBlock {
         }
     }
 
+    private static final int LANDING_FREEZE_TICKS = 60;
+
     @Override
     public void onDestroyedOnLanding(World world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
         if (world instanceof ServerWorld serverWorld) {
             double impact = Math.min(fallingBlockEntity.fallDistance, 40.0);
             if (impact > 0) {
                 serverWorld.getEntitiesByClass(LivingEntity.class, new Box(pos).expand(0.3, 0.5, 0.3),
-                        e -> true)
-                        .forEach(e -> e.damage(serverWorld.getDamageSources().fallingBlock(fallingBlockEntity),
-                                (float) (impact * 2.0)));
+                        e -> !e.getType().isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES))
+                        .forEach(e -> {
+                            e.damage(serverWorld.getDamageSources().fallingBlock(fallingBlockEntity),
+                                    (float) (impact * 2.0));
+                            if (e.canFreeze()) {
+                                e.setFrozenTicks(e.getFrozenTicks() + LANDING_FREEZE_TICKS);
+                            }
+                        });
             }
         }
     }

@@ -1,8 +1,10 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
 
+import more_rpg_loot.blocks.frozen_depths.IcicleBlock;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.sounds.ModSounds;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -13,6 +15,8 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.effect.SpellEngineEffects;
 
@@ -130,8 +134,40 @@ public class ScreechGoal extends Goal {
                     SoundCategory.PLAYERS,
                     2.5f, 1.0f
             );
+            dropCeilingIcicles();
             more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] Screech hit {} entities", hitCount);
         }
+    }
+
+    private static final int ICICLE_DROP_RADIUS = 20;
+    private static final int ICICLE_DROP_HEIGHT = 24;
+
+    // Walks each column above the monarch and schedules a tick on the topmost hanging icicle segment,
+    // letting IcicleBlock's own falling logic take it (and everything below it) down.
+    private void dropCeilingIcicles() {
+        var world = monarch.getWorld();
+        BlockPos center = monarch.getBlockPos();
+
+        BlockPos.Mutable pos = new BlockPos.Mutable();
+        for (int dx = -ICICLE_DROP_RADIUS; dx <= ICICLE_DROP_RADIUS; dx++) {
+            for (int dz = -ICICLE_DROP_RADIUS; dz <= ICICLE_DROP_RADIUS; dz++) {
+                for (int dy = 0; dy <= ICICLE_DROP_HEIGHT; dy++) {
+                    pos.set(center.getX() + dx, center.getY() + dy, center.getZ() + dz);
+                    BlockState state = world.getBlockState(pos);
+                    if (!isHangingIcicle(state)) {
+                        continue;
+                    }
+                    if (isHangingIcicle(world.getBlockState(pos.up()))) {
+                        continue; // not the segment attached to the ceiling
+                    }
+                    world.scheduleBlockTick(pos.toImmutable(), state.getBlock(), 1);
+                }
+            }
+        }
+    }
+
+    private static boolean isHangingIcicle(BlockState state) {
+        return state.getBlock() instanceof IcicleBlock && state.get(IcicleBlock.VERTICAL_DIRECTION) == Direction.DOWN;
     }
 
 
