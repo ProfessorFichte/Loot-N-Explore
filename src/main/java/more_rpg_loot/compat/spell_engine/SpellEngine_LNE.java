@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.spell_engine.api.config.ConfigFile;
+import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.rpg_series.loot.LootConfig;
 import net.spell_engine.rpg_series.loot.LootHelper;
 import net.tiny_config.ConfigManager;
@@ -66,8 +66,8 @@ public class SpellEngine_LNE {
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootEquipmentConfig.value, new HashMap<>());
-            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootScrollsConfig.value, new HashMap<>());
+            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootEquipmentConfig.value, new HashMap<>());
+            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootScrollsConfig.value, new HashMap<>());
         });
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);

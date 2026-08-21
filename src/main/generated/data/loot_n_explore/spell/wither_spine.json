@@ -8,16 +8,21 @@
     "animation": {
       "id": "spell_engine:one_handed_projectile_release"
     },
-    "particles": [
-      {
-        "particle_id": "smoke",
-        "origin": "CENTER",
-        "shape": "SPHERE",
-        "count": 40.0,
-        "min_speed": 0.6,
-        "max_speed": 0.8
-      }
-    ]
+    "visuals": {
+      "particles": [
+        {
+          "id": "smoke",
+          "appearance": {},
+          "batch": {
+            "count": 40.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.6,
+            "max_speed": 0.8
+          }
+        }
+      ]
+    }
   },
   "target": {
     "type": "AIM",
@@ -40,16 +45,21 @@
           "spell_power_coefficient": 0.25
         }
       },
-      "particles": [
-        {
-          "particle_id": "smoke",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 20.0,
-          "min_speed": 0.6,
-          "max_speed": 0.8
-        }
-      ],
+      "visuals": {
+        "particles": [
+          {
+            "id": "smoke",
+            "appearance": {},
+            "batch": {
+              "count": 20.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.6,
+              "max_speed": 0.8
+            }
+          }
+        ]
+      },
       "sound": {
         "id": "minecraft:entity.generic.explode"
       }

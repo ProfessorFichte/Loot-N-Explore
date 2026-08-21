@@ -7,24 +7,32 @@
     "animation": {
       "id": "spell_engine:dual_handed_weapon_charge"
     },
-    "particles": [
-      {
-        "particle_id": "end_rod",
-        "origin": "CENTER",
-        "shape": "CIRCLE",
-        "count": 40.0,
-        "min_speed": 0.6,
-        "max_speed": 0.8
-      },
-      {
-        "particle_id": "dragon_breath",
-        "origin": "CENTER",
-        "shape": "CIRCLE",
-        "count": 40.0,
-        "min_speed": 0.6,
-        "max_speed": 0.8
-      }
-    ],
+    "visuals": {
+      "particles": [
+        {
+          "id": "end_rod",
+          "appearance": {},
+          "batch": {
+            "count": 40.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "min_speed": 0.6,
+            "max_speed": 0.8
+          }
+        },
+        {
+          "id": "dragon_breath",
+          "appearance": {},
+          "batch": {
+            "count": 40.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "min_speed": 0.6,
+            "max_speed": 0.8
+          }
+        }
+      ]
+    },
     "sound": {
       "id": "spell_engine:generic_healing_impact_3"
     }

@@ -1,6 +1,6 @@
-// 1.21.1	2026-04-04T10:14:18.1282524	Loot & Explore/Tags for minecraft:block
-22dc4575e962af0574c969f9a36f1a2845859108 data\minecraft\tags\block\mineable\pickaxe.json
-a42e2311064184d4e7781f36d82d1368ec9b231d data\minecraft\tags\block\ice.json
-7331c3c3d21361ac34c16f93618eebeeb7b74be1 data\minecraft\tags\block\mineable\axe.json
-9dc25d779e7bd7b9ed4148ae59e213a020e96272 data\minecraft\tags\block\walls.json
-d49871f3b598f3da7deb0584cace0373f8720ff5 data\minecraft\tags\block\needs_stone_tool.json
+// 1.21.1	2026-08-21T20:22:14.200637	Loot & Explore/Tags for minecraft:block
+9dc25d779e7bd7b9ed4148ae59e213a020e96272 data/minecraft/tags/block/walls.json
+d49871f3b598f3da7deb0584cace0373f8720ff5 data/minecraft/tags/block/needs_stone_tool.json
+22dc4575e962af0574c969f9a36f1a2845859108 data/minecraft/tags/block/mineable/pickaxe.json
+a42e2311064184d4e7781f36d82d1368ec9b231d data/minecraft/tags/block/ice.json
+7331c3c3d21361ac34c16f93618eebeeb7b74be1 data/minecraft/tags/block/mineable/axe.json
