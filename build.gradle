@@ -101,7 +101,16 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		// Dependency version properties in this repo carry the Modrinth artifact suffix
+		// (e.g. `1.10.2+1.21.1-fabric`), which must not leak into a version constraint.
+		// Expand from a cleaned copy keeping only the part before the first `+` -- the
+		// same rule the multi-platform repos apply to `neoforge.mods.toml`. `version`
+		// itself contains no `+`, so the mod's own version string is unaffected.
+		def cleanedProps = project.properties.collectEntries { k, v ->
+			def s = v?.toString()
+			[(k.toString()): (s?.contains('+') ? s.substring(0, s.indexOf('+')) : s)]
+		}
+		expand(cleanedProps)
 	}
 }
 
