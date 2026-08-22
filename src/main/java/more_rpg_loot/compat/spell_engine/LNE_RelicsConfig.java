@@ -2,7 +2,7 @@ package more_rpg_loot.compat.spell_engine;
 
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.loader.api.FabricLoader;
-import net.spell_engine.api.config.AttributeModifier;
+import net.spell_engine.rpg_series.config.AttributeModifier;
 
 import java.util.LinkedHashMap;
 import java.util.List;
