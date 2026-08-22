@@ -1,3 +1,5 @@
+### 1.1.0 - 1.21.1
+- Adopt Spell Engine 1.10
 ### 1.0.21 - 1.21.1
 - Fixed a crash with Spell Engine but no More RPG Library installed
 - Fixed the "Freezing Glaze" & "Winter is coming" Advancement being triggered with every Mob-Kill #8
