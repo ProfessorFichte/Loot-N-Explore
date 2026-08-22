@@ -90,7 +90,7 @@ dependencies {
 	modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim_version}")
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}")
-	modImplementation("net.spell_engine:spell_engine-fabric:${project.spell_engine_version}") { transitive = false }
+	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}")
 	modImplementation("net.more_rpg_classes:more_rpg_library-fabric:${project.more_rpg_library_version}") { transitive = false }
 	modCompileOnly("net.witcher_class:witcher-class-mod-fabric:${project.witcher_version}") { transitive = false }
 	modCompileOnly("net.rpg_series:relics-fabric:${project.relics_version}") { transitive = false }
