@@ -1,4 +1,5 @@
 plugins {
+	id "me.modmuss50.mod-publish-plugin" version "2.1.1"
 	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
 }
@@ -145,4 +146,70 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+// Function to read the last section from CHANGELOG.md
+def changelog_last_section() {
+	def changelogFile = rootProject.file('CHANGELOG.md')
+	if (!changelogFile.exists()) {
+		return "No changelog available"
+	}
+
+	def content = changelogFile.text
+	def sections = content.split(/(?m)(?=^# )/)
+	def recentSection = sections.find { it.trim().startsWith('#') }
+	return recentSection ?: "No changelog available"
+}
+
+// Publishing configuration -- single-module, Fabric only, so there is no loader suffix.
+def releaseTypeName = (project.findProperty('release_type') ?: 'beta').toString()
+
+// Local convenience alias -- CI invokes the per-destination publish tasks directly.
+tasks.register("publishMod") {
+	dependsOn(build)
+	finalizedBy(tasks.named("publishMods"))
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	changelog = providers.provider { changelog_last_section() }
+	type = releaseTypeName == "release" ? me.modmuss50.mpp.ReleaseType.STABLE
+			: releaseTypeName == "alpha" ? me.modmuss50.mpp.ReleaseType.ALPHA
+			: me.modmuss50.mpp.ReleaseType.BETA
+	version = "${project.version}"
+	displayName = "${project.version}"
+	modLoaders.add("fabric")
+
+	curseforge {
+		projectId = providers.environmentVariable("CURSEFORGE_PROJECT_ID")
+		accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+		minecraftVersions.add(project.minecraft_version)
+		client = true
+		server = true
+		changelogType = "markdown"
+		requires("fabric-api", "structure-pool-api")
+	}
+
+	modrinth {
+		environment = me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment.CLIENT_AND_SERVER
+		projectId = providers.environmentVariable("MODRINTH_PROJECT_ID")
+		accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+		minecraftVersions.add(project.minecraft_version)
+		requires { slug = "fabric-api" }
+		requires { slug = "structure-pool-api" }
+	}
+
+	github {
+		repository = providers.environmentVariable("GH_OWNER")
+				.zip(providers.environmentVariable("GH_REPO")) { owner, repo -> "$owner/$repo" }
+		accessToken = providers.environmentVariable("GH_API_KEY")
+		tagName = "${project.version}"
+		commitish = providers.environmentVariable("GITHUB_SHA")
+	}
+}
+
+// GitHub release last: a failed mod upload aborts the build before the release exists.
+// Ordering only -- unselected tasks are ignored. Must sit after the publishMods block.
+tasks.named("publishGithub") {
+	mustRunAfter(tasks.named("publishCurseforge"), tasks.named("publishModrinth"))
 }
