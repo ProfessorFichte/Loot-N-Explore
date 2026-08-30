@@ -39,7 +39,7 @@ public class FrostbloomBlock extends FlowerBlock {
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.DIRT) || floor.isOf(Blocks.COARSE_DIRT) || floor.isOf(Blocks.ROOTED_DIRT);
+        return super.canPlantOnTop(floor, world, pos) || floor.isOf(Blocks.DIRT) || floor.isOf(Blocks.COARSE_DIRT) || floor.isOf(Blocks.ROOTED_DIRT) || floor.isOf(Blocks.SNOW_BLOCK);
     }
 
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {

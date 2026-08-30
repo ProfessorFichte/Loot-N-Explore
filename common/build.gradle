@@ -29,7 +29,6 @@ repositories {
         name = "Ladysnake Libs"
         url = 'https://maven.ladysnake.org/releases'
     }
-    maven { url 'https://maven.wispforest.io/releases' }
     maven { url 'https://maven.su5ed.dev/releases' }
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://jitpack.io' }
@@ -57,7 +56,4 @@ dependencies {
     modCompileOnly("maven.modrinth:trinkets:${project.trinkets_version}")
     modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3"
     modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3"
-
-    modCompileOnly "io.wispforest:owo-lib:${project.owo_version}"
-    modImplementation("io.wispforest:accessories-common:${project.accessories_version}")
 }

@@ -1,9 +1,10 @@
 package more_rpg_loot.compat.spell_engine;
 
+import more_rpg_loot.platform.LNEEvents;
+
 import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.RelicItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -12,8 +13,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.spell_engine.api.config.AttributeModifier;
-import net.spell_engine.api.config.ConfigUtil;
+import net.spell_engine.rpg_series.config.AttributeModifier;
+import net.spell_engine.rpg_series.config.ConfigUtil;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.api.spell.container.SpellContainer;
 import net.spell_engine.api.spell.container.SpellContainers;
@@ -45,7 +46,6 @@ public class LNE_Relics {
         }
         return new RelicItem(settings);
     };
-    private static Function<ItemArgs, Item> getFactory() { return factory; }
 
     public static final class Entry {
         private final int tier;
@@ -85,7 +85,7 @@ public class LNE_Relics {
                 if (rarity != Rarity.COMMON) {
                     settings = settings.rarity(rarity);
                 }
-                return getFactory().apply(new ItemArgs(settings, attributes));
+                return factory.apply(new ItemArgs(settings, attributes));
             });
         }
 
@@ -329,7 +329,7 @@ public class LNE_Relics {
                 Registry.register(Registries.ITEM, entry.id(), entry.item().get());
             }
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for(var entry: entries) {
                 if (entry.isEnabled()) {
                     content.add(entry.item().get());

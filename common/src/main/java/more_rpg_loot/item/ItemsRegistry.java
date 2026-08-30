@@ -4,7 +4,6 @@ public class ItemsRegistry {
 
     public static void registerModItems() {
         ModPotions.registerPotions();
-        ModPotions.registerPotionsRecipes();
         CommonItems.registerCommonItems();
     }
 

@@ -85,7 +85,9 @@
   },
   "block.frozen_soul_block.ambient": {
     "sounds": [
-      "loot_n_explore:frozen_depths/block/frozen_soul/ambient"
+      "loot_n_explore:frozen_depths/block/frozen_soul/ambient_1",
+      "loot_n_explore:frozen_depths/block/frozen_soul/ambient_2",
+      "loot_n_explore:frozen_depths/block/frozen_soul/ambient_3"
     ]
   }
 }

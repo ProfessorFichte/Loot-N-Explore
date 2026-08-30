@@ -1,11 +1,10 @@
 package more_rpg_loot.compat.spell_engine;
 
+import more_rpg_loot.platform.LNEEvents;
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.Group;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
 import net.minecraft.item.SmithingTemplateItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -65,29 +64,29 @@ public class SmithingTemplates {
             identifiers -> {
                 identifiers.add(Identifier.of("item/empty_slot_axe"));
                 identifiers.add(Identifier.of("item/empty_slot_sword"));
-                if(FabricLoader.getInstance().isModLoaded("archers")){
+                if(LNEPlatform.isModLoaded("archers")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_bow"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_crossbow"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_spear"));
                 }
-                if(FabricLoader.getInstance().isModLoaded("paladins")){
+                if(LNEPlatform.isModLoaded("paladins")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_hammer"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_holy"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_mace"));
                 }
-                if(FabricLoader.getInstance().isModLoaded("rogues")){
+                if(LNEPlatform.isModLoaded("rogues")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_dagger"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_sickle"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_glaive"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_double_axe"));
                 }
-                if(FabricLoader.getInstance().isModLoaded("wizards")){
+                if(LNEPlatform.isModLoaded("wizards")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wand"));
                 }
-                if(FabricLoader.getInstance().isModLoaded("forcemaster")){
+                if(LNEPlatform.isModLoaded("forcemaster")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_knuckle"));
                 }
-                if(FabricLoader.getInstance().isModLoaded("berserker_axe")){
+                if(LNEPlatform.isModLoaded("berserker_axe")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_berserker_axe"));
                 }
 
@@ -215,15 +214,7 @@ public class SmithingTemplates {
             Registry.register(Registries.ITEM, entry.id(), item);
         }
 
-        // Add templates to vanilla INGREDIENTS item group
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
-            for (var entry : ENTRIES) {
-                content.addAfter(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, entry.item());
-            }
-        });
-
-        // Add templates to custom RPG_LOOT item group
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register((content) -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, (content) -> {
             for (var entry : ENTRIES) {
                 content.add(entry.item());
             }

@@ -1,8 +1,9 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -33,7 +34,7 @@ public class FrozenArrowEntity extends ArrowEntity {
 
         stackFreezeStacks(target, 20);
 
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
             target.addStatusEffect(new StatusEffectInstance(MRPGCEffects.FROSTED.entry, 60, 0, false, true, true));
         } else {
             target.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.registryEntry, 60, 0, false, true, true));

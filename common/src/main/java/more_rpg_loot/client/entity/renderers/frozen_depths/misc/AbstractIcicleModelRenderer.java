@@ -7,6 +7,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import more_rpg_loot.client.platform.LNEClientModels;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -54,7 +55,7 @@ public abstract class AbstractIcicleModelRenderer<T extends Entity> extends Enti
         float yOffset = -MODEL_HEIGHT + (MODEL_HEIGHT * emergeProgress);
         matrices.translate(0.0, yOffset, 0.0);
 
-        BakedModel model = MinecraftClient.getInstance().getBakedModelManager().getModel(MODEL_ID);
+        BakedModel model = LNEClientModels.lookup.apply(MODEL_ID);
         if (model != null) {
             matrices.scale(1.5F, 1.5F, 1.5F);
             matrices.translate(-0.5, -0.5, -0.5);

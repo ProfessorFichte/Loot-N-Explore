@@ -2,7 +2,8 @@ package more_rpg_loot.item;
 
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import more_rpg_loot.platform.LNEEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -16,48 +17,44 @@ import java.util.function.Supplier;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class Group {
-    public static Identifier ID = Identifier.of(MOD_ID, "loot.general");
-    public static RegistryKey<ItemGroup> RPG_LOOT_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "loot.general"));
-    public static String lootTranslationKey = "itemGroup." + ID.getNamespace() + "." + ID.getPath();
+    public static final RegistryKey<ItemGroup> RPG_LOOT_KEY = key("loot.general");
+    public static final String lootTranslationKey = translationKey("loot.general");
     public static ItemGroup RPG_LOOT;
 
-    public static Identifier FOOD_ID = Identifier.of(MOD_ID, "food.general");
-    public static RegistryKey<ItemGroup> RPG_FOOD_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "food.general"));
-    public static String foodTranslationKey = "itemGroup." + MOD_ID + "." + FOOD_ID.getPath();
+    public static final RegistryKey<ItemGroup> RPG_FOOD_KEY = key("food.general");
+    public static final String foodTranslationKey = translationKey("food.general");
     public static ItemGroup RPG_FOOD;
 
-    public static Identifier BLOCK_ID = Identifier.of(MOD_ID, "blocks.general");
-    public static RegistryKey<ItemGroup> RPG_BLOCK_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "blocks.general"));
-    public static String blocksTranslationKey = "itemGroup." + MOD_ID + "." + BLOCK_ID.getPath();
-    public static ItemGroup RPG_BLOCKS;
+    public static final RegistryKey<ItemGroup> RPG_GENERIC_KEY = key("generic");
+    public static final String genericTranslationKey = translationKey("generic");
+    public static ItemGroup RPG_GENERIC;
 
-    public static void registerLootItemGroup(Supplier<net.minecraft.item.Item> iconItem) {
-        RPG_LOOT = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(iconItem.get()))
-                .displayName(Text.translatable("itemGroup." + MOD_ID + ".loot.general"))
-                .build();
-        Registry.register(Registries.ITEM_GROUP, RPG_LOOT_KEY, RPG_LOOT);
+    public static final RegistryKey<ItemGroup> RPG_FROZEN_DEPTHS_KEY = key("frozen_depths");
+    public static final String frozenDepthsTranslationKey = translationKey("frozen_depths");
+    public static ItemGroup RPG_FROZEN_DEPTHS;
+
+    private static RegistryKey<ItemGroup> key(String path) {
+        return RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, path));
     }
 
-    private static void registerFoodItemGroup() {
-        RPG_FOOD = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(ModBlocks.INNKEEPER_SHELF.block()))
-                .displayName(Text.translatable("itemGroup." + MOD_ID + ".food.general"))
-                .build();
-        Registry.register(Registries.ITEM_GROUP, RPG_FOOD_KEY, RPG_FOOD);
+    private static String translationKey(String path) {
+        return "itemGroup." + MOD_ID + "." + path;
     }
 
-    private static void registerBlockItemGroup() {
-        RPG_BLOCKS = FabricItemGroup.builder()
-                .icon(() -> new ItemStack(ModBlocks.BLUE_ICE_BRICKS.block()))
-                .displayName(Text.translatable("itemGroup." + MOD_ID + ".blocks.general"))
-                .build();
-        Registry.register(Registries.ITEM_GROUP, RPG_BLOCK_KEY, RPG_BLOCKS);
+    public static void registerLootItemGroup(Supplier<Item> iconItem) {
+        RPG_LOOT = create(RPG_LOOT_KEY, lootTranslationKey, () -> new ItemStack(iconItem.get()));
     }
 
     public static void registerItemGroups() {
-        registerFoodItemGroup();
-        registerBlockItemGroup();
+        RPG_FOOD = create(RPG_FOOD_KEY, foodTranslationKey, () -> new ItemStack(CommonItems.MALT_EXTRACT.item()));
+        RPG_GENERIC = create(RPG_GENERIC_KEY, genericTranslationKey, () -> new ItemStack(ModBlocks.INNKEEPER_SHELF.block()));
+        RPG_FROZEN_DEPTHS = create(RPG_FROZEN_DEPTHS_KEY, frozenDepthsTranslationKey, () -> new ItemStack(CommonItems.MONARCHS_KEY.item()));
         RPGLoot.LOGGER.info("Registering Item Groups for " + MOD_ID);
+    }
+
+    private static ItemGroup create(RegistryKey<ItemGroup> groupKey, String translationKey, Supplier<ItemStack> icon) {
+        ItemGroup group = LNEEvents.get().createItemGroup(icon, Text.translatable(translationKey));
+        Registry.register(Registries.ITEM_GROUP, groupKey, group);
+        return group;
     }
 }

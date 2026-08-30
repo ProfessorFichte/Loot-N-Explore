@@ -1,6 +1,5 @@
 package more_rpg_loot.client.models;
 
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -13,11 +12,7 @@ public class CustomModelHelper {
         MODEL_IDS.addAll(ids);
     }
 
-    public static void initialize() {
-        ModelLoadingPlugin.register(pluginContext -> {
-            for (Identifier modelId : MODEL_IDS) {
-                pluginContext.addModels(modelId);
-            }
-        });
+    public static List<Identifier> modelIds() {
+        return MODEL_IDS;
     }
 }

@@ -2,8 +2,8 @@ package more_rpg_loot.blocks.frozen_depths;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -37,6 +37,6 @@ public class FragileIceBlock extends Block {
     }
 
     private static boolean canBreakUnder(Entity entity) {
-        return entity instanceof LivingEntity living && !living.canWalkOnPowderSnow();
+        return !PowderSnowBlock.canWalkOnPowderSnow(entity);
     }
 }

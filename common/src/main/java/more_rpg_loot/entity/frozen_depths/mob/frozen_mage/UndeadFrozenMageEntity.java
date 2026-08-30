@@ -1,10 +1,11 @@
 package more_rpg_loot.entity.frozen_depths.mob.frozen_mage;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.entity.frozen_depths.projectile.StraightIcicleEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.TrackingIcicleEntity;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -94,7 +95,7 @@ public class UndeadFrozenMageEntity extends SkeletonEntity {
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
-        if (FabricLoader.getInstance().isModLoaded("thermoo")) {
+        if (LNEPlatform.isModLoaded("thermoo")) {
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
         }

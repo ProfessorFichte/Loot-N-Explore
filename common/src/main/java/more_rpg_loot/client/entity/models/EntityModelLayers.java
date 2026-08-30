@@ -12,7 +12,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
@@ -57,9 +56,5 @@ public class EntityModelLayers {
         register.accept(MONARCHS_SOLDIER, MonarchsSoldierModel::createBodyLayer);
         register.accept(MONARCHS_GUARD, MonarchsGuardModel::createBodyLayer);
         register.accept(GLAZE, GlazeModel::createBodyLayer);
-    }
-
-    public static void registerModelLayers() {
-        registerAll((layer, supplier) -> EntityModelLayerRegistry.registerModelLayer(layer, supplier::get));
     }
 }

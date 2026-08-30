@@ -1,10 +1,11 @@
 package more_rpg_loot.item.relics;
 
+import more_rpg_loot.platform.LNEEvents;
+
 import com.google.common.base.Suppliers;
 import more_rpg_loot.compat.spell_engine.ISpellRelicEnhancer;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.RelicItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -171,7 +172,7 @@ public class LNE_RelicItems {
         for (var entry : entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item().get());
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for (var entry : entries) {
                 content.add(entry.item().get());
             }

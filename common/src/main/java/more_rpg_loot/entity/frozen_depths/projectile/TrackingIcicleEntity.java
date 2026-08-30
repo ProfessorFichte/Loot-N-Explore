@@ -1,7 +1,8 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.entity.ModEntities;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -128,7 +129,7 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
     private float calculateDamage(@Nullable LivingEntity owner) {
         if (owner == null) return 5.0F;
         float base = (float) (owner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5);
-        if (FabricLoader.getInstance().isModLoaded("spell_power")) {
+        if (LNEPlatform.isModLoaded("spell_power")) {
             try {
                 base += (float) (owner.getAttributeValue(SpellSchools.FROST.attributeEntry) * 0.5);
             } catch (Exception ignored) {}

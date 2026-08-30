@@ -1,11 +1,11 @@
 package more_rpg_loot.effects;
+import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.config.EffectsConfig;
 import more_rpg_loot.effects.frozen_depths.FrostResistanceEffect;
 import more_rpg_loot.effects.generic.EnderDragonScalesEffect;
 import more_rpg_loot.effects.generic.WithersCurseEffect;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
@@ -126,7 +126,7 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, ELDER_GUARDIANS_CURSE.modifierId(),
                         -0.25, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+        if (LNEPlatform.isModLoaded("spell_engine")) {
             ENDER_DRAGON_SCALES.effect
                     .addAttributeModifier(
                     SpellEngineAttributes.DAMAGE_TAKEN.entry, ENDER_DRAGON_SCALES.modifierId(),
@@ -197,7 +197,7 @@ public class Effects {
 
 
 
-        if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+        if (LNEPlatform.isModLoaded("spell_engine")) {
             Synchronized.configure(FROST_RESISTANCE.effect,true);
             Synchronized.configure(FREEZING.effect,true);
             Synchronized.configure(ELDER_GUARDIANS_CURSE.effect,true);

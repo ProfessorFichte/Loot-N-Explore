@@ -1,7 +1,7 @@
-// 1.21.1	2026-07-29T10:26:13.374391	Loot N Explore/Tags for minecraft:item
+// 1.21.1	2026-08-30T12:09:39.7049334	Loot N Explore/Tags for minecraft:item
 5b356f519004341948d0e961982cd377d0a2c221 data\loot_n_explore\tags\item\weapon_themes\glacial.json
-7f9cdf1d9829c8b29ad703a7a0558a52f583e39d data\loot_n_explore\tags\item\weapon_themes\wither.json
 502689bfb994e619d48d032117c80fc3d222b1f7 data\loot_n_explore\tags\item\weapon_themes\ender_dragon.json
+7f9cdf1d9829c8b29ad703a7a0558a52f583e39d data\loot_n_explore\tags\item\weapon_themes\wither.json
 39a4da4e73532f21e660209c1dffafdfc466e638 data\rpg_series\tags\item\weapon_type\sword.json
 9d40c3ec8f910ae792886c96a85bc3485f8c2d7e data\loot_n_explore\tags\item\weapon_themes\elder_guardian.json
 713d1469310cf02ac8221e7fb64f045602a2dd1e data\loot_n_explore\tags\item\relics.json

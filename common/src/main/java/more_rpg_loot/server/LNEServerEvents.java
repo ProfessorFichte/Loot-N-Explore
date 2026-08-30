@@ -1,8 +1,7 @@
 package more_rpg_loot.server;
 
 import more_rpg_loot.network.FrozenDepthsMusicPayload;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import more_rpg_loot.platform.LNEEvents;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,7 +23,7 @@ public class LNEServerEvents {
     private static int tickCounter = 0;
 
     public static void register() {
-        ServerTickEvents.END_WORLD_TICK.register(LNEServerEvents::onWorldTick);
+        LNEEvents.get().registerServerWorldTick(LNEServerEvents::onWorldTick);
     }
 
     private static void onWorldTick(ServerWorld world) {
@@ -38,10 +37,10 @@ public class LNEServerEvents {
 
             if (inStructure && !wasInStructure) {
                 playersInFrozenDepths.add(player.getUuid());
-                ServerPlayNetworking.send(player, new FrozenDepthsMusicPayload(true));
+                LNEEvents.get().sendToClient(player, new FrozenDepthsMusicPayload(true));
             } else if (!inStructure && wasInStructure) {
                 playersInFrozenDepths.remove(player.getUuid());
-                ServerPlayNetworking.send(player, new FrozenDepthsMusicPayload(false));
+                LNEEvents.get().sendToClient(player, new FrozenDepthsMusicPayload(false));
             }
         }
     }

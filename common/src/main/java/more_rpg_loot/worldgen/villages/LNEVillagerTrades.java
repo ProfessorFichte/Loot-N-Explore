@@ -1,9 +1,10 @@
 package more_rpg_loot.worldgen.villages;
 
+import more_rpg_loot.platform.LNEEvents;
+
 import more_rpg_loot.worldgen.map.ModMapDecorations;
 import more_rpg_loot.util.LneItemTags;
 import more_rpg_loot.worldgen.structures.LNESellMapFactory;
-import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
@@ -26,6 +27,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class LNEVillagerTrades {
     public static final String ALWAYS_WORK = "always_work";
     public static final Schedule ALWAYS_WORK_SCHEDULE = new Schedule();
+    private static boolean tradesRegistered = false;
 
         public static void registerSchedule() {
             new ScheduleBuilder(ALWAYS_WORK_SCHEDULE).withActivity(50, Activity.WORK).withActivity(23950, Activity.REST).build();
@@ -33,6 +35,8 @@ public class LNEVillagerTrades {
         }
 
         public static void registerTrades() {
+            if (tradesRegistered) return;
+            tradesRegistered = true;
             VillagerProfession innkeeper = LNEVillagerProfessions.INNKEEPER;
 
             int level_1_innkeeper_price_sell = 4;
@@ -61,7 +65,7 @@ public class LNEVillagerTrades {
             int level_5_innkeeper_experience = 30;
             float level_5_innkeeper_priceMultiplier = 0.15F;
 
-            TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
+            LNEEvents.get().registerVillagerTrades(innkeeper, 1,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
                                 new TradedItem(Items.GLASS_BOTTLE, level_1_innkeeper_price_buy),
@@ -97,7 +101,7 @@ public class LNEVillagerTrades {
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                     });
 
-            TradeOfferHelper.registerVillagerOffers(innkeeper, 2, factories -> {
+            LNEEvents.get().registerVillagerTrades(innkeeper, 2, factories -> {
                 factories.add((entity, random) -> {
                     var registryAccess = entity.getWorld().getRegistryManager();
                     var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
@@ -135,7 +139,7 @@ public class LNEVillagerTrades {
                     );
                 });
             });
-            TradeOfferHelper.registerVillagerOffers(innkeeper, 3, factories -> {
+            LNEEvents.get().registerVillagerTrades(innkeeper, 3, factories -> {
                 factories.add((entity, random) -> {
                     var registryAccess = entity.getWorld().getRegistryManager();
                     var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
@@ -173,7 +177,7 @@ public class LNEVillagerTrades {
                     );
                 });
             });
-            TradeOfferHelper.registerVillagerOffers(innkeeper, 4, factories -> {
+            LNEEvents.get().registerVillagerTrades(innkeeper, 4, factories -> {
                 factories.add((entity, random) -> {
                     var registryAccess = entity.getWorld().getRegistryManager();
                     var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
@@ -211,7 +215,7 @@ public class LNEVillagerTrades {
                     );
                 });
             });
-            TradeOfferHelper.registerVillagerOffers(innkeeper, 5, factories -> {
+            LNEEvents.get().registerVillagerTrades(innkeeper, 5, factories -> {
                 factories.add((entity, random) -> {
                     var registryAccess = entity.getWorld().getRegistryManager();
                     var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
@@ -252,7 +256,7 @@ public class LNEVillagerTrades {
 
             ///CARTOGRAPHER TRADES
         TagKey<Structure> frostmonarchTempleTag = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("loot_n_explore", "frostmonarch_temple"));
-        TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 4, factories -> {
+        LNEEvents.get().registerVillagerTrades(VillagerProfession.CARTOGRAPHER, 4, factories -> {
             factories.add((entity, random) -> new LNESellMapFactory(
                     12,
                     frostmonarchTempleTag,

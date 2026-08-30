@@ -1,99 +1,56 @@
 package more_rpg_loot.compat.items;
 
-import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.CustomStatusEffect;
 import more_rpg_loot.effects.SpecialStatusEffect;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
 import net.witcher_rpg.entity.attribute.WitcherAttributes;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
 
 public class Witcher_Effects {
-    private static final ArrayList<WitcherEntry> entries = new ArrayList<WitcherEntry>();
+    private static final List<CompatEffectEntry> entries = new ArrayList<>();
 
-    // Entry class for Witcher RPG compatible effects with datagen support
-    public static class WitcherEntry {
-        public final Identifier id;
-        public final String title;
-        public final String description;
-        public final StatusEffect effect;
-        public RegistryEntry<StatusEffect> registryEntry;
-
-        public WitcherEntry(String name, String title, String description, StatusEffect effect) {
-            this.id = Identifier.of(MOD_ID, name);
-            this.title = title;
-            this.description = description;
-            this.effect = effect;
-            entries.add(this);
-        }
-
-        public void register() {
-            registryEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
-        }
-
-        public Identifier modifierId() {
-            return Identifier.of(MOD_ID, "effect." + id.getPath());
-        }
-    }
-
-    // Getter to access all registered entries (used by datagen)
-    public static ArrayList<WitcherEntry> getEntries() {
+    public static List<CompatEffectEntry> getEntries() {
         return entries;
     }
-    /// T0 BUFF EFFECTS
-    public static final WitcherEntry BEAUCLAIR_WHITE =  new WitcherEntry("beauclair_white",
-            "Beauclair White",
-            "Increases Sign Intensity.",
+
+    private static CompatEffectEntry entry(String name, String title, String description, StatusEffect effect) {
+        return CompatEffectEntry.add(entries, name, title, description, effect);
+    }
+
+    public static final CompatEffectEntry BEAUCLAIR_WHITE = entry("beauclair_white",
+            "Beauclair White", "Increases Sign Intensity.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T1 BUFF EFFECTS
-    public static final WitcherEntry RIVIAN_KRIEK =  new WitcherEntry("rivian_kriek",
-            "Rivian Kriek",
-            "Increases Adrenaline.",
+    public static final CompatEffectEntry RIVIAN_KRIEK = entry("rivian_kriek",
+            "Rivian Kriek", "Increases Adrenaline.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T2 BUFF EFFECTS
-    public static final WitcherEntry BUTCHER_OF_BLAVIKEN =  new WitcherEntry("butcher_of_blaviken",
-            "Butcher of Blaviken",
-            "Increases Sign Intensity and Adrenaline.",
+    public static final CompatEffectEntry BUTCHER_OF_BLAVIKEN = entry("butcher_of_blaviken",
+            "Butcher of Blaviken", "Increases Sign Intensity and Adrenaline.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T3 BUFF EFFECTS
-    public static final WitcherEntry WHITE_WOLF =  new WitcherEntry("white_wolf",
-            "White Wolf",
-            "Increases Sign Intensity, Adrenaline and Attack Damage.",
+    public static final CompatEffectEntry WHITE_WOLF = entry("white_wolf",
+            "White Wolf", "Increases Sign Intensity, Adrenaline and Attack Damage.",
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
-    public static void register(){
-        RPGLoot.LOGGER.info("Registering Witcher Compat Effects for " + MOD_ID);
-        /// T0 BUFF EFFECTS
-        BEAUCLAIR_WHITE.effect
-                .addAttributeModifier(
-                    WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
-                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        /// T1 BUFF EFFECTS
-        RIVIAN_KRIEK.effect
-                .addAttributeModifier(
-                        WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        /// T2 BUFF EFFECTS
-        BUTCHER_OF_BLAVIKEN.effect
-                .addAttributeModifier(
+    public static void register() {
+        BEAUCLAIR_WHITE.effect.addAttributeModifier(
+                WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
+                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        RIVIAN_KRIEK.effect.addAttributeModifier(
+                WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
+                effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        BUTCHER_OF_BLAVIKEN.effect.addAttributeModifier(
                         WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierId(),
                         effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
                         WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierId(),
                         effectsConfig.value.drinks_special_attribute_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        /// T3 BUFF EFFECTS
-        WHITE_WOLF.effect
-                .addAttributeModifier(
+        WHITE_WOLF.effect.addAttributeModifier(
                         WitcherAttributes.SIGN_INTENSITY, WHITE_WOLF.modifierId(),
                         effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                 .addAttributeModifier(
@@ -103,8 +60,6 @@ public class Witcher_Effects {
                         WitcherAttributes.ADRENALINE_MODIFIER, WHITE_WOLF.modifierId(),
                         effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
-        for (WitcherEntry entry: entries) {
-            entry.register();
-        }
+        CompatEffectEntry.registerAll("Witcher", entries);
     }
 }

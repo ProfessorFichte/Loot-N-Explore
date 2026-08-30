@@ -1,7 +1,6 @@
 package more_rpg_loot.client;
 
 import more_rpg_loot.blocks.ModBlocks;
-import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.renderers.ModMobRenderers;
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.BarrierIcicleRenderer;
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.StraightIcicleRenderer;
@@ -11,28 +10,20 @@ import more_rpg_loot.client.entity.renderers.generic.CustomCloudRenderer;
 import more_rpg_loot.client.models.CustomModelHelper;
 import more_rpg_loot.client.hud.FrostMonarchSpawnOverlay;
 import more_rpg_loot.client.music.LNEMusicManager;
-import more_rpg_loot.client.particle.DragonClawParticle;
-import more_rpg_loot.client.particle.Particles;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
-import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
-import more_rpg_loot.network.FrozenDepthsMusicPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.particle.SnowflakeParticle;
+import net.minecraft.block.Block;
+import more_rpg_loot.mixin.ModelPredicateProviderRegistryInvoker;
 import net.minecraft.client.render.entity.ArrowEntityRenderer;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.Item;
@@ -41,30 +32,26 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class RPGLootClient {
 
-    public static void registerModelLayers() {
-        EntityModelLayers.registerModelLayers();
+    public interface EntityRendererSink {
+        <T extends Entity> void register(EntityType<? extends T> type, EntityRendererFactory<T> factory);
     }
 
-    public static void registerEntityRenderers() {
-        EntityRendererRegistry.register(ModEntities.STRAIGHT_ICICLE, StraightIcicleRenderer::new);
-        EntityRendererRegistry.register(ModEntities.BARRIER_ICICLE, BarrierIcicleRenderer::new);
-        EntityRendererRegistry.register(ModEntities.CUSTOM_CLOUD, CustomCloudRenderer::new);
-        EntityRendererRegistry.register(ModEntities.LNE_ABILITY_ARROW, ArrowEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.FROZEN_ARROW, ArrowEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.THROWN_LANCE, ThrownLanceEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.TRACKING_ICICLE, TrackingIcicleRenderer::new);
-        ModMobRenderers.register();
-    }
-
-    public static void registerParticleFactories() {
-        ParticleFactoryRegistry.getInstance().register(Particles.DRAGON_CLAW, DragonClawParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(Particles.FREEZING_SNOWFLAKE, SnowflakeParticle.Factory::new);
+    public static void registerEntityRenderers(EntityRendererSink sink) {
+        sink.register(ModEntities.STRAIGHT_ICICLE, StraightIcicleRenderer::new);
+        sink.register(ModEntities.BARRIER_ICICLE, BarrierIcicleRenderer::new);
+        sink.register(ModEntities.CUSTOM_CLOUD, CustomCloudRenderer::new);
+        sink.register(ModEntities.LNE_ABILITY_ARROW, ArrowEntityRenderer::new);
+        sink.register(ModEntities.FROZEN_ARROW, ArrowEntityRenderer::new);
+        sink.register(ModEntities.THROWN_LANCE, ThrownLanceEntityRenderer::new);
+        sink.register(ModEntities.TRACKING_ICICLE, TrackingIcicleRenderer::new);
+        ModMobRenderers.register(sink);
     }
 
     public static void registerModelPredicates() {
@@ -76,29 +63,29 @@ public class RPGLootClient {
 
     private static void registerBowOrCrossbowPredicates(Item item) {
         if (item instanceof BowItem) {
-            ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("pulling"),
                 (stack, world, entity, seed) ->
                     entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
-            ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("pull"),
                 (stack, world, entity, seed) -> {
                     if (entity == null || !entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
                     return BowItem.getPullProgress(entity.getItemUseTime());
                 });
         } else if (item instanceof CrossbowItem) {
-            ModelPredicateProviderRegistry.register(item, Identifier.of("pulling"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("pulling"),
                 (stack, world, entity, seed) -> {
                     if (entity == null) return 0.0F;
                     return CrossbowItem.isCharged(stack) ? 0.0F : (entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F);
                 });
-            ModelPredicateProviderRegistry.register(item, Identifier.of("pull"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("pull"),
                 (stack, world, entity, seed) -> {
                     if (entity == null || CrossbowItem.isCharged(stack)) return 0.0F;
                     if (!entity.isUsingItem() || entity.getActiveItem() != stack) return 0.0F;
                     return (float)(stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / (float)CrossbowItem.getPullTime(stack, entity);
                 });
-            ModelPredicateProviderRegistry.register(item, Identifier.of("charged"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("charged"),
                 (stack, world, entity, seed) -> CrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-            ModelPredicateProviderRegistry.register(item, Identifier.of("firework"),
+            ModelPredicateProviderRegistryInvoker.lne$register(item, Identifier.of("firework"),
                 (stack, world, entity, seed) -> {
                     ChargedProjectilesComponent charged = stack.get(DataComponentTypes.CHARGED_PROJECTILES);
                     if (!CrossbowItem.isCharged(stack) || charged == null) return 0.0F;
@@ -110,48 +97,45 @@ public class RPGLootClient {
         }
     }
 
-    public static void registerMusicEvents() {
-        ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> {
-            if (entity instanceof FrostMonarchEntity monarch && !monarch.isFakeDeath()) {
-                LNEMusicManager.startBossMusic(monarch);
-            }
-        });
-
-        ClientPlayNetworking.registerGlobalReceiver(FrozenDepthsMusicPayload.ID, (payload, context) -> {
-            if (payload.start()) {
-                LNEMusicManager.startAmbientMusic();
-            } else {
-                LNEMusicManager.stopAmbientMusic();
-            }
-        });
-
-        ClientPlayNetworking.registerGlobalReceiver(FrostMonarchSpawnOverlayPayload.ID, (payload, context) ->
-                FrostMonarchSpawnOverlay.start());
-        HudRenderCallback.EVENT.register(FrostMonarchSpawnOverlay::render);
+    public static void onBossEntityLoad(Entity entity) {
+        if (entity instanceof FrostMonarchEntity monarch && !monarch.isFakeDeath()) {
+            LNEMusicManager.startBossMusic(monarch);
+        }
     }
 
-    public static void init() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_CHAIN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SOULFROST_LANTERN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROST_BLOOM.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_FROST_BLOOM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MONARCHS_CROWN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_TRIAL_SPAWNER.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_VAULT.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_BONES.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_TORCH.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_ADVENTURER.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.OAK_HANGING_INN_SIGN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ACACIA_HANGING_INN_SIGN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SPRUCE_HANGING_INN_SIGN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ICICLE_BAR.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ICICLE.block(), RenderLayer.getCutout());
+    public static void onFrozenDepthsMusic(boolean start) {
+        if (start) {
+            LNEMusicManager.startAmbientMusic();
+        } else {
+            LNEMusicManager.stopAmbientMusic();
+        }
+    }
 
+    public static void onFrostMonarchSpawnOverlay() {
+        FrostMonarchSpawnOverlay.start();
+    }
 
-        List<Identifier> customModels = List.of(
+    public static void registerBlockRenderLayers(Consumer<Block> cutout) {
+        cutout.accept(ModBlocks.FROZEN_CHAIN.block());
+        cutout.accept(ModBlocks.SOULFROST_LANTERN.block());
+        cutout.accept(ModBlocks.FROST_BLOOM.block());
+        cutout.accept(ModBlocks.POTTED_FROST_BLOOM);
+        cutout.accept(ModBlocks.MONARCHS_CROWN.block());
+        cutout.accept(ModBlocks.FROZEN_TRIAL_SPAWNER.block());
+        cutout.accept(ModBlocks.FROZEN_VAULT.block());
+        cutout.accept(ModBlocks.FROZEN_BONES.block());
+        cutout.accept(ModBlocks.FROZEN_TORCH.block());
+        cutout.accept(ModBlocks.FROZEN_ADVENTURER.block());
+        cutout.accept(ModBlocks.OAK_HANGING_INN_SIGN.block());
+        cutout.accept(ModBlocks.ACACIA_HANGING_INN_SIGN.block());
+        cutout.accept(ModBlocks.SPRUCE_HANGING_INN_SIGN.block());
+        cutout.accept(ModBlocks.ICICLE_BAR.block());
+        cutout.accept(ModBlocks.ICICLE.block());
+    }
+
+    public static void registerModelIds() {
+        CustomModelHelper.registerModelIds(List.of(
                 Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight")
-        );
-        CustomModelHelper.registerModelIds(customModels);
-        CustomModelHelper.initialize();
+        ));
     }
 }

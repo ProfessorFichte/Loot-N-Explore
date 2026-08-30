@@ -15,158 +15,99 @@ import more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier.MonarchsSoldierEn
 import more_rpg_loot.entity.frozen_depths.projectile.*;
 import more_rpg_loot.entity.generic.entity.CustomCloudEntity;
 import more_rpg_loot.entity.generic.projectile.LNEAbilityArrowEntity;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
+import java.util.function.BiConsumer;
+
 public class ModEntities {
-    public static final EntityType<FrosthauntEntity> FROST_HAUNT = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    FrosthauntEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrostMonarchEntity> FROST_MONARCH = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    FrostMonarchEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.8f, 3.3f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<GlazeEntity> GLAZE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    GlazeEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.95f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrostballEntity> FROSTBALL = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<FrostballEntity>) FrostballEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.8f, 0.8f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrostballLocatorEntity> FROSTBALL_LOCATOR = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<FrostballLocatorEntity>) FrostballLocatorEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<StraightIcicleEntity> STRAIGHT_ICICLE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<StraightIcicleEntity>) StraightIcicleEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(1.2f, 0.8f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<BarrierIcicleEntity> BARRIER_ICICLE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<BarrierIcicleEntity>) BarrierIcicleEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.5f, 0.8f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<LNEAbilityArrowEntity> LNE_ABILITY_ARROW = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<LNEAbilityArrowEntity>) LNEAbilityArrowEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<CustomCloudEntity> CUSTOM_CLOUD = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<CustomCloudEntity>) CustomCloudEntity::new
-            )
-            .dimensions(EntityDimensions.changing(6.0f, 0.5f))
-            .trackRangeChunks(8)
-            .build();
+    public static final EntityType<FrosthauntEntity> FROST_HAUNT = EntityType.Builder.create(FrosthauntEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.99f)
+            .maxTrackingRange(8)
+            .build("frost_haunt");
+    public static final EntityType<FrostMonarchEntity> FROST_MONARCH = EntityType.Builder.create(FrostMonarchEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.8f, 3.3f)
+            .maxTrackingRange(8)
+            .build("frost_monarch");
+    public static final EntityType<GlazeEntity> GLAZE = EntityType.Builder.create(GlazeEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.95f)
+            .maxTrackingRange(8)
+            .build("glaze");
+    public static final EntityType<FrostballEntity> FROSTBALL = EntityType.Builder.<FrostballEntity>create(FrostballEntity::new, SpawnGroup.MISC)
+            .dimensions(0.8f, 0.8f)
+            .maxTrackingRange(8)
+            .build("frostball");
+    public static final EntityType<FrostballLocatorEntity> FROSTBALL_LOCATOR = EntityType.Builder.<FrostballLocatorEntity>create(FrostballLocatorEntity::new, SpawnGroup.MISC)
+            .dimensions(0.5f, 0.5f)
+            .maxTrackingRange(8)
+            .build("frostball_locator");
+    public static final EntityType<StraightIcicleEntity> STRAIGHT_ICICLE = EntityType.Builder.<StraightIcicleEntity>create(StraightIcicleEntity::new, SpawnGroup.MISC)
+            .dimensions(1.2f, 0.8f)
+            .maxTrackingRange(8)
+            .build("straight_icicle");
+    public static final EntityType<BarrierIcicleEntity> BARRIER_ICICLE = EntityType.Builder.<BarrierIcicleEntity>create(BarrierIcicleEntity::new, SpawnGroup.MISC)
+            .dimensions(0.5f, 0.8f)
+            .maxTrackingRange(8)
+            .build("barrier_icicle");
+    public static final EntityType<LNEAbilityArrowEntity> LNE_ABILITY_ARROW = EntityType.Builder.<LNEAbilityArrowEntity>create(LNEAbilityArrowEntity::new, SpawnGroup.MISC)
+            .dimensions(0.5f, 0.5f)
+            .maxTrackingRange(8)
+            .build("lne_ability_arrow");
+    public static final EntityType<CustomCloudEntity> CUSTOM_CLOUD = EntityType.Builder.<CustomCloudEntity>create(CustomCloudEntity::new, SpawnGroup.MISC)
+            .dimensions(6.0f, 0.5f)
+            .maxTrackingRange(8)
+            .build("custom_cloud");
 
-    public static final EntityType<TrackingIcicleEntity> TRACKING_ICICLE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<TrackingIcicleEntity>) TrackingIcicleEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.3f, 0.3f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<ThrownLanceEntity> THROWN_LANCE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<ThrownLanceEntity>) ThrownLanceEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrozenArrowEntity> FROZEN_ARROW = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MISC,
-                    (EntityType.EntityFactory<FrozenArrowEntity>) FrozenArrowEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
-            .trackRangeChunks(8)
-            .build();
+    public static final EntityType<TrackingIcicleEntity> TRACKING_ICICLE = EntityType.Builder.<TrackingIcicleEntity>create(TrackingIcicleEntity::new, SpawnGroup.MISC)
+            .dimensions(0.3f, 0.3f)
+            .maxTrackingRange(8)
+            .build("tracking_icicle");
+    public static final EntityType<ThrownLanceEntity> THROWN_LANCE = EntityType.Builder.<ThrownLanceEntity>create(ThrownLanceEntity::new, SpawnGroup.MISC)
+            .dimensions(0.5f, 0.5f)
+            .maxTrackingRange(8)
+            .build("thrown_lance");
+    public static final EntityType<FrozenArrowEntity> FROZEN_ARROW = EntityType.Builder.<FrozenArrowEntity>create(FrozenArrowEntity::new, SpawnGroup.MISC)
+            .dimensions(0.5f, 0.5f)
+            .maxTrackingRange(8)
+            .build("frozen_arrow");
 
-    public static final EntityType<UndeadFrozenMageEntity> UNDEAD_FROZEN_MAGE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    UndeadFrozenMageEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<GeneralUndeadFrozenMageEntity> GENERAL_UNDEAD_FROZEN_MAGE = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    GeneralUndeadFrozenMageEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.9f, 2.985f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrostedRangerEntity> FROSTED_RANGER = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    FrostedRangerEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<GeneralFrostedRangerEntity> GENERAL_FROSTED_RANGER = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    GeneralFrostedRangerEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.9f, 2.985f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<FrostHoundEntity> FROST_HOUND = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    FrostHoundEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.65f, 0.80f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<MonarchsSoldierEntity> MONARCHS_SOLDIER = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    MonarchsSoldierEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<GeneralMonarchsSoldierEntity> GENERAL_MONARCHS_SOLDIER = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    GeneralMonarchsSoldierEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.9f, 2.985f))
-            .trackRangeChunks(8)
-            .build();
-    public static final EntityType<MonarchsGuardEntity> MONARCHS_GUARD = FabricEntityTypeBuilder.create(
-                    SpawnGroup.MONSTER,
-                    MonarchsGuardEntity::new
-            )
-            .dimensions(EntityDimensions.fixed(0.6f, 1.99f))
-            .trackRangeChunks(8)
-            .build();
+    public static final EntityType<UndeadFrozenMageEntity> UNDEAD_FROZEN_MAGE = EntityType.Builder.create(UndeadFrozenMageEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.99f)
+            .maxTrackingRange(8)
+            .build("undead_frozen_mage");
+    public static final EntityType<GeneralUndeadFrozenMageEntity> GENERAL_UNDEAD_FROZEN_MAGE = EntityType.Builder.create(GeneralUndeadFrozenMageEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.9f, 2.985f)
+            .maxTrackingRange(8)
+            .build("general_undead_frozen_mage");
+    public static final EntityType<FrostedRangerEntity> FROSTED_RANGER = EntityType.Builder.create(FrostedRangerEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.99f)
+            .maxTrackingRange(8)
+            .build("frosted_ranger");
+    public static final EntityType<GeneralFrostedRangerEntity> GENERAL_FROSTED_RANGER = EntityType.Builder.create(GeneralFrostedRangerEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.9f, 2.985f)
+            .maxTrackingRange(8)
+            .build("general_frosted_ranger");
+    public static final EntityType<FrostHoundEntity> FROST_HOUND = EntityType.Builder.create(FrostHoundEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.65f, 0.80f)
+            .maxTrackingRange(8)
+            .build("frost_hound");
+    public static final EntityType<MonarchsSoldierEntity> MONARCHS_SOLDIER = EntityType.Builder.create(MonarchsSoldierEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.99f)
+            .maxTrackingRange(8)
+            .build("monarchs_soldier");
+    public static final EntityType<GeneralMonarchsSoldierEntity> GENERAL_MONARCHS_SOLDIER = EntityType.Builder.create(GeneralMonarchsSoldierEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.9f, 2.985f)
+            .maxTrackingRange(8)
+            .build("general_monarchs_soldier");
+    public static final EntityType<MonarchsGuardEntity> MONARCHS_GUARD = EntityType.Builder.create(MonarchsGuardEntity::new, SpawnGroup.MONSTER)
+            .dimensions(0.6f, 1.99f)
+            .maxTrackingRange(8)
+            .build("monarchs_guard");
 
     public static void register(){
         register("frost_haunt", FROST_HAUNT);
@@ -189,18 +130,20 @@ public class ModEntities {
         register("monarchs_soldier", MONARCHS_SOLDIER);
         register("general_monarchs_soldier", GENERAL_MONARCHS_SOLDIER);
         register("monarchs_guard", MONARCHS_GUARD);
+    }
 
-        FabricDefaultAttributeRegistry.register(FROST_HAUNT, FrosthauntEntity.createFrosthauntSkeletonAttributes());
-        FabricDefaultAttributeRegistry.register(FROST_MONARCH, FrostMonarchEntity.createFrostmonarchAttributes());
-        FabricDefaultAttributeRegistry.register(GLAZE, GlazeEntity.createGlazeAttributes());
-        FabricDefaultAttributeRegistry.register(UNDEAD_FROZEN_MAGE, UndeadFrozenMageEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(GENERAL_UNDEAD_FROZEN_MAGE, GeneralUndeadFrozenMageEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(FROSTED_RANGER, FrostedRangerEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(GENERAL_FROSTED_RANGER, GeneralFrostedRangerEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(FROST_HOUND, FrostHoundEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(MONARCHS_SOLDIER, MonarchsSoldierEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(GENERAL_MONARCHS_SOLDIER, GeneralMonarchsSoldierEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(MONARCHS_GUARD, MonarchsGuardEntity.createAttributes());
+    public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, DefaultAttributeContainer.Builder> sink) {
+        sink.accept(FROST_HAUNT, FrosthauntEntity.createFrosthauntSkeletonAttributes());
+        sink.accept(FROST_MONARCH, FrostMonarchEntity.createFrostmonarchAttributes());
+        sink.accept(GLAZE, GlazeEntity.createGlazeAttributes());
+        sink.accept(UNDEAD_FROZEN_MAGE, UndeadFrozenMageEntity.createAttributes());
+        sink.accept(GENERAL_UNDEAD_FROZEN_MAGE, GeneralUndeadFrozenMageEntity.createAttributes());
+        sink.accept(FROSTED_RANGER, FrostedRangerEntity.createAttributes());
+        sink.accept(GENERAL_FROSTED_RANGER, GeneralFrostedRangerEntity.createAttributes());
+        sink.accept(FROST_HOUND, FrostHoundEntity.createAttributes());
+        sink.accept(MONARCHS_SOLDIER, MonarchsSoldierEntity.createAttributes());
+        sink.accept(GENERAL_MONARCHS_SOLDIER, GeneralMonarchsSoldierEntity.createAttributes());
+        sink.accept(MONARCHS_GUARD, MonarchsGuardEntity.createAttributes());
     }
 
     private static <T extends Entity> void register(String id, EntityType<T> type) {

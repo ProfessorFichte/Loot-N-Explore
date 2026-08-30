@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": ["minecraft:taiga", "minecraft:snowy_taiga"],
+  "features": "loot_n_explore:frostbloom_placed_key",
+  "step": "vegetal_decoration"
+}

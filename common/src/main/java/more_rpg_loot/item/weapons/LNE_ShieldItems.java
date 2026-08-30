@@ -1,12 +1,14 @@
 package more_rpg_loot.item.weapons;
 
+import more_rpg_loot.platform.LNEEvents;
+
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.weapons.frozen_depths.GlacialShieldItem;
 import more_rpg_loot.item.weapons.generic.ElderGuardianShieldItem;
 import more_rpg_loot.item.weapons.generic.EnderDragonShieldItem;
 import more_rpg_loot.item.weapons.generic.WitherShieldItem;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -46,7 +48,7 @@ public class LNE_ShieldItems {
                         AttributeModifierSlot.ANY)
                 .build();
         var settings = new Item.Settings().rarity(Rarity.RARE).maxDamage(504).attributeModifiers(attributes);
-        if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+        if (LNEPlatform.isModLoaded("spell_engine")) {
             settings = settings.component(SpellDataComponents.SPELL_CONTAINER, SpellContainers.forShield(List.of(relicSpellId)));
         }
         return settings;
@@ -65,7 +67,7 @@ public class LNE_ShieldItems {
         for (var entry : entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for (var entry : entries) content.add(entry.item());
         });
     }

@@ -1,11 +1,12 @@
 package more_rpg_loot.item;
 
+import more_rpg_loot.platform.LNEEvents;
+
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
@@ -110,22 +111,25 @@ public class CommonItems {
     public static final Entry GLAZE_ROD = entry("glaze_rod",
             new Item(new Item.Settings()),
             "Glaze Rod", new ItemModelType.Handheld("item/misc/frozen_depths/"));
-    public static final Entry FROZEN_KEY = entry("frozen_key",
-            new Item(new Item.Settings()),
-            "Frozen Key", new ItemModelType.Generated("item/misc/frozen_depths/"));
-    public static final Entry MONARCHS_KEY = entry("monarchs_key",
-            new Item(new Item.Settings()),
-            "Monarch's Key", new ItemModelType.Generated("item/misc/frozen_depths/"));
+    public static final Entry FROZEN_KEY = entryWithLore("frozen_key",
+            new LoreItem(new Item.Settings()),
+            "Frozen Key", "This Key can only open a Frozen Vault.",
+            new ItemModelType.Generated("item/misc/frozen_depths/"));
+    public static final Entry MONARCHS_KEY = entryWithLore("monarchs_key",
+            new LoreItem(new Item.Settings()),
+            "Monarch's Key", "This Key can only open a Frozen Vault.",
+            new ItemModelType.Generated("item/misc/frozen_depths/"));
 
     public static final Entry FROZEN_DEPTHS_DISC = entry("frozen_depths_disc",
-            new Item(new Item.Settings()
+            new MusicDiscItem(new Item.Settings()
                     .maxCount(1)
                     .rarity(Rarity.RARE)
                     .component(DataComponentTypes.JUKEBOX_PLAYABLE,
                             new JukeboxPlayableComponent(new RegistryPair<>(
                                     RegistryKey.of(RegistryKeys.JUKEBOX_SONG, Identifier.of(MOD_ID, "frozen_depths"))),
-                                    true))),
-            "Frozen Depths", new ItemModelType.Generated("item/misc/frozen_depths/"));
+                                    false)),
+                    "Frozen Depths"),
+            "Music Disc", new ItemModelType.Generated("item/misc/frozen_depths/"));
 
     public static final Entry FROST_HAUNTS_AXE = entry("frost_haunt_axe",
             new AxeItem(ToolMaterials.STONE, new Item.Settings()
@@ -150,7 +154,7 @@ public class CommonItems {
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name()), entry.item());
         }
 
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_FOOD_KEY, (content) -> {
             /// T0 BUFF ITEMS
             content.add(SWEET_BERRY_PUNCH.item());
             content.add(HOT_CHOCOLATE.item());
@@ -166,24 +170,16 @@ public class CommonItems {
             content.add(THE_UNSHAKABLE.item());
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((content) -> {
-            content.addAfter(Items.SNOWBALL, FROSTBALL.item());
-            content.add(FROST_HAUNTS_AXE.item());
-            content.add(MONARCHS_FROST_STAFF.item());
-            content.add(GUARDS_FROST_LANCE.item());
-            content.add(FROZEN_BOW.item());
-        });
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((content) -> {
-            content.addAfter(Items.BLAZE_ROD, GLAZE_ROD.item());
-            content.addAfter(Items.TRIAL_KEY, FROZEN_KEY.item());
-            content.addAfter(Items.OMINOUS_TRIAL_KEY, MONARCHS_KEY.item());
-        });
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_BLOCK_KEY).register((content) -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_FROZEN_DEPTHS_KEY, (content) -> {
             content.add(FROSTBALL.item());
             content.add(GLAZE_ROD.item());
             content.addAfter(ModBlocks.FROZEN_VAULT.block(), FROZEN_KEY.item());
             content.addAfter(ModBlocks.FROZEN_VAULT.block(), MONARCHS_KEY.item());
             content.add(FROZEN_DEPTHS_DISC.item());
+            content.add(FROST_HAUNTS_AXE.item());
+            content.add(MONARCHS_FROST_STAFF.item());
+            content.add(GUARDS_FROST_LANCE.item());
+            content.add(FROZEN_BOW.item());
         });
     }
 }

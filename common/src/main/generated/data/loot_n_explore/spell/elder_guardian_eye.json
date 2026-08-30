@@ -24,17 +24,22 @@
       "texture_id": "minecraft:textures/entity/guardian_beam.png",
       "width": 0.08,
       "flow": 2.0,
-      "block_hit_particles": [
-        {
-          "particle_id": "bubble",
-          "origin": "CENTER",
-          "shape": "CIRCLE",
-          "rotation": "LOOK",
-          "count": 1.5,
-          "min_speed": 0.1,
-          "max_speed": 0.2
-        }
-      ]
+      "block_hit": {
+        "particles": [
+          {
+            "id": "bubble",
+            "appearance": {},
+            "batch": {
+              "count": 1.5,
+              "shape": "CIRCLE",
+              "anchor": "ENTITY",
+              "alignment": "LOOK",
+              "min_speed": 0.1,
+              "max_speed": 0.2
+            }
+          }
+        ]
+      }
     }
   },
   "impacts": [

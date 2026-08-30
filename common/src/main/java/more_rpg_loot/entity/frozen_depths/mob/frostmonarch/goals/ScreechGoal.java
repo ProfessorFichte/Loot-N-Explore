@@ -1,9 +1,9 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
+import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.blocks.frozen_depths.IcicleBlock;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.sounds.ModSounds;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -118,7 +118,7 @@ public class ScreechGoal extends Goal {
                                     x, y, z, 1, 0, 0, 0, 0);
                         }
                     }
-                    if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
+                    if (LNEPlatform.isModLoaded("spell_engine")) {
                         living.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.entry, 40, 0));
                     } else {
                         living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 80, 1));

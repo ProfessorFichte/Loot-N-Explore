@@ -1,14 +1,13 @@
 package more_rpg_loot.compat.spell_engine;
 
+import more_rpg_loot.platform.LNEEvents;
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
-import net.spell_engine.api.config.ConfigFile;
+import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.api.spell.SpellDataComponents;
 import net.spell_engine.api.spell.container.SpellContainer;
 import net.spell_engine.api.spell.container.SpellContainers;
@@ -56,26 +55,21 @@ public class SpellEngine_LNE {
         itemConfig.refresh();
         relicsConfig.refresh();
         lootScrollsConfig.refresh();
-        LootInjection.modifyChestLootTables();
         Group.registerLootItemGroup(() -> LNE_WeaponItems.ENDER_DRAGON_SWORD.item());
         configureWeaponSpells();
         itemConfig.save();
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootEquipmentConfig.value, new HashMap<>());
-            LootHelper.configureV2(registries, key.getValue(), tableBuilder, lootScrollsConfig.value, new HashMap<>());
+        LNEEvents.get().onLootTableModify(ctx -> {
+            LootHelper.configure(ctx.registries(), ctx.tableId(), ctx::addPool, lootEquipmentConfig.value, new HashMap<>());
+            LootHelper.configure(ctx.registries(), ctx.tableId(), ctx::addPool, lootScrollsConfig.value, new HashMap<>());
         });
-        ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-            LootHelper.updateTagCache(lootEquipmentConfig.value);
-        });
-        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, serverResourceManager, success) -> {
-            LootHelper.updateTagCache(lootEquipmentConfig.value);
-        });
+        LNEEvents.get().onServerStarted(server -> LootHelper.updateTagCache(lootEquipmentConfig.value));
+        LNEEvents.get().onDataPackReload(() -> LootHelper.updateTagCache(lootEquipmentConfig.value));
     }
 
     private static void configureWeaponSpells() {
-        DefaultItemComponentEvents.MODIFY.register(context -> {
+        LNEEvents.get().modifyItemComponents(context -> {
             setContainer(context, LNE_WeaponItems.ENDER_DRAGON_SWORD,
                     SpellContainers.forMeleeWeapon()
                             .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
@@ -103,7 +97,7 @@ public class SpellEngine_LNE {
                             .withSpellId(WeaponSkills.CLEAVE.id())
                             .withAdditionalSpell(List.of(LNE_Abilities.avalanche.id().toString())));
 
-            if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+            if (LNEPlatform.isModLoaded("more_rpg_classes")) {
                 setContainer(context, LNE_WeaponItems.ELDER_GUARDIAN_SWORD,
                         SpellContainers.forMeleeWeapon()
                                 .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
@@ -114,7 +108,7 @@ public class SpellEngine_LNE {
                                 .withAdditionalSpell(List.of(LNE_Abilities.waterbomb.id().toString())));
             }
 
-            if (!FabricLoader.getInstance().isModLoaded("lne_paladins") && LNE_WeaponItems.ENDER_DRAGON_MACE != null) {
+            if (!LNEPlatform.isModLoaded("lne_paladins") && LNE_WeaponItems.ENDER_DRAGON_MACE != null) {
                 setContainer(context, LNE_WeaponItems.ENDER_DRAGON_MACE,
                         SpellContainers.forMeleeWeapon()
                                 .withSpellId(WeaponSkills.SMASH.id())
@@ -127,7 +121,7 @@ public class SpellEngine_LNE {
                         SpellContainers.forMeleeWeapon()
                                 .withSpellId(WeaponSkills.SMASH.id())
                                 .withAdditionalSpell(List.of(LNE_Abilities.avalanche.id().toString())));
-                if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+                if (LNEPlatform.isModLoaded("more_rpg_classes")) {
                     setContainer(context, LNE_WeaponItems.ELDER_GUARDIAN_MACE,
                             SpellContainers.forMeleeWeapon()
                                     .withSpellId(WeaponSkills.SMASH.id())
@@ -142,7 +136,7 @@ public class SpellEngine_LNE {
         });
     }
 
-    private static void setContainer(DefaultItemComponentEvents.ModifyContext context,
+    private static void setContainer(LNEEvents.ItemComponentContext context,
                                       LNE_WeaponItems.Entry entry, SpellContainer container) {
         if (entry != null) {
             context.modify(entry.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER, container));

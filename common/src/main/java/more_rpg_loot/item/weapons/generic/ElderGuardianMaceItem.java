@@ -1,7 +1,8 @@
 package more_rpg_loot.item.weapons.generic;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,8 +18,8 @@ public class ElderGuardianMaceItem extends MaceItem {
     public ElderGuardianMaceItem(float bonus, float speed) { super(LNE_WeaponItems.maceSettings(bonus, speed)); }
     @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.getWorld().isClient
-                && !FabricLoader.getInstance().isModLoaded("spell_engine")
-                && !FabricLoader.getInstance().isModLoaded("more_rpg_classes")
+                && !LNEPlatform.isModLoaded("spell_engine")
+                && !LNEPlatform.isModLoaded("more_rpg_classes")
                 && attacker instanceof PlayerEntity player
                 && !player.getItemCooldownManager().isCoolingDown(this)
                 && attacker.getRandom().nextFloat() < 0.20f) {

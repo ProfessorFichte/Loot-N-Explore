@@ -25,7 +25,8 @@ public class ModLanguageProvider extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
         builder.add(Group.lootTranslationKey, "LNE Equipment");
         builder.add(Group.foodTranslationKey, "LNE Drinks & Food");
-        builder.add(Group.blocksTranslationKey, "LNE Items & Blocks");
+        builder.add(Group.genericTranslationKey, "LNE - Generic Items & Blocks");
+        builder.add(Group.frozenDepthsTranslationKey, "LNE Frozen Depths Items & Blocks");
         // BLOCKS
         for (var entry : ModBlocks.all) {
             builder.add(entry.block().getTranslationKey(), entry.translation());
@@ -190,6 +191,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         builder.add("block.loot_n_explore.frozen_soul_block.lore", "It seems powerful magic compressed this block. The souls constantly call for something.");
         builder.add("block.loot_n_explore.monarchs_crown.lore", "This crown once belonged to a king who lost everything to his obsession with power and the freezing cold.");
         builder.add("block.loot_n_explore.monarchs_crown.ability_hint", "[Shift + Right Click] Listen to the soul's voices.");
+        builder.add("block.loot_n_explore.frozen_adventurer.hint", "Right Click to change the Model variation.");
 
         // MAPS
         builder.add("filled_map.loot_n_explore.frostmonarch_temple", "Frost Monarch Temple Map");

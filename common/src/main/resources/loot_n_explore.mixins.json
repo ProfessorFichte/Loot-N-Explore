@@ -3,11 +3,13 @@
   "package": "more_rpg_loot.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BlockEntityTypeAccessor",
     "LivingEntityMixin",
     "VillagerMixin"
   ],
   "client": [
-    "BossBarHudMixin"
+    "BossBarHudMixin",
+    "ModelPredicateProviderRegistryInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -45,16 +45,21 @@
           "apply_mode": "ADD"
         }
       },
-      "particles": [
-        {
-          "particle_id": "loot_n_explore:freezing_snowflake",
-          "origin": "CENTER",
-          "shape": "SPHERE",
-          "count": 25.0,
-          "min_speed": 0.2,
-          "max_speed": 0.25
-        }
-      ]
+      "visuals": {
+        "particles": [
+          {
+            "id": "loot_n_explore:freezing_snowflake",
+            "appearance": {},
+            "batch": {
+              "count": 25.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.25
+            }
+          }
+        ]
+      }
     }
   ],
   "cost": {

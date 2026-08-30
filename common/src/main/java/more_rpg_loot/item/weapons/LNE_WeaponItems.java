@@ -1,5 +1,9 @@
 package more_rpg_loot.item.weapons;
 
+import more_rpg_loot.platform.LNEEvents;
+
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import more_rpg_loot.entity.generic.projectile.LNEAbilityArrowEntity;
 import more_rpg_loot.item.Group;
@@ -16,8 +20,6 @@ import more_rpg_loot.item.weapons.generic.WitherAxeItem;
 import more_rpg_loot.item.weapons.generic.WitherMaceItem;
 import more_rpg_loot.item.weapons.generic.WitherSwordItem;
 import more_rpg_loot.util.HelperMethods;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -137,7 +139,7 @@ public class LNE_WeaponItems {
     }
 
     public static void addAbilityTooltip(Item item, List<Text> tooltip) {
-        if (!FabricLoader.getInstance().isModLoaded("spell_engine")) {
+        if (!LNEPlatform.isModLoaded("spell_engine")) {
             tooltip.add(ScreenTexts.EMPTY);
             tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
                     .formatted(Formatting.GRAY, Formatting.ITALIC));
@@ -145,8 +147,8 @@ public class LNE_WeaponItems {
     }
 
     public static void addElderGuardianTooltip(Item item, List<Text> tooltip) {
-        if (!FabricLoader.getInstance().isModLoaded("spell_engine")
-                && !FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+        if (!LNEPlatform.isModLoaded("spell_engine")
+                && !LNEPlatform.isModLoaded("more_rpg_classes")) {
             tooltip.add(ScreenTexts.EMPTY);
             tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
                     .formatted(Formatting.GRAY, Formatting.ITALIC));
@@ -284,7 +286,7 @@ public class LNE_WeaponItems {
         for (var entry : entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for (var entry : entries) content.add(entry.item());
         });
     }
@@ -297,7 +299,7 @@ public class LNE_WeaponItems {
         for (var entry : maceEntries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for (var entry : maceEntries) content.add(entry.item());
         });
     }
@@ -314,7 +316,7 @@ public class LNE_WeaponItems {
         for (var entry : rangedEntries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_LOOT_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_LOOT_KEY, content -> {
             for (var entry : rangedEntries) content.add(entry.item());
         });
     }

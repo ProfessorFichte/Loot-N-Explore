@@ -1,4 +1,5 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch;
+import more_rpg_loot.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.client.particle.Particles;
@@ -6,10 +7,9 @@ import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals.*;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
+import more_rpg_loot.platform.LNEEvents;
 import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.util.LongReachMeleeAttackGoal;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -419,7 +419,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
                         livingEntity -> livingEntity.isAlive() && livingEntity.squaredDistanceTo(this.getPos()) <= radius * radius
                 );
                 RegistryEntry<StatusEffect> effectEntry = Effects.FREEZING.registryEntry;
-                if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+                if (LNEPlatform.isModLoaded("more_rpg_classes")) {
                     effectEntry = MRPGCEffects.FROZEN_SOLID.entry;
                 }
                 for (LivingEntity livingEntity : livingEntities) {
@@ -479,11 +479,11 @@ public class FrostMonarchEntity extends SkeletonEntity {
         double baseArmor = this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).getBaseValue();
         this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(baseArmor * difficultyMultiplier);
 
-        if(FabricLoader.getInstance().isModLoaded("thermoo")){
+        if(LNEPlatform.isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
         }
-        if(FabricLoader.getInstance().isModLoaded("spell_power")){
+        if(LNEPlatform.isModLoaded("spell_power")){
             double baseFrostPower = 7.0;
             this.getAttributeInstance(SpellSchools.FROST.attributeEntry).setBaseValue(baseFrostPower * difficultyMultiplier);
         }
@@ -835,7 +835,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.setInvulTimer(220);
         if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
             for (ServerPlayerEntity player : serverWorld.getPlayers()) {
-                ServerPlayNetworking.send(player, new FrostMonarchSpawnOverlayPayload());
+                LNEEvents.get().sendToClient(player, new FrostMonarchSpawnOverlayPayload());
             }
         }
         this.getWorld().playSound(

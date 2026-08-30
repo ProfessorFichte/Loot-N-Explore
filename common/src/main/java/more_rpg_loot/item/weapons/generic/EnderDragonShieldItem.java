@@ -1,9 +1,10 @@
 package more_rpg_loot.item.weapons.generic;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.weapons.LNE_ShieldItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import more_rpg_loot.item.weapons.ShieldBlockAbility;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,7 @@ public class EnderDragonShieldItem extends ShieldItem implements ShieldBlockAbil
     public EnderDragonShieldItem() { super(LNE_ShieldItems.shieldSettings(Identifier.of(MOD_ID, "ender_dragon_scales"))); }
     @Override public boolean canRepair(ItemStack stack, ItemStack ingredient) { return ingredient.isOf(Items.AMETHYST_SHARD); }
     @Override public void onShieldBlock(PlayerEntity blocker, LivingEntity attacker) {
-        if (FabricLoader.getInstance().isModLoaded("spell_engine")
+        if (LNEPlatform.isModLoaded("spell_engine")
                 || blocker.getItemCooldownManager().isCoolingDown(this)
                 || blocker.getRandom().nextFloat() >= 0.20f) {
             return;

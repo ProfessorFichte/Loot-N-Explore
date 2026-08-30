@@ -1,8 +1,8 @@
 package more_rpg_loot.util;
+import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.generic.entity.CustomCloudEntity;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,7 +18,7 @@ public class HelperMethods {
 
     /** The Frozen Depths freezing effect, swapped for More RPG Classes' Frosted effect when that mod is present. */
     public static RegistryEntry<StatusEffect> getFreezingEffect() {
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
             return MRPGCEffects.FROSTED.entry;
         }
         return Effects.FREEZING.registryEntry;

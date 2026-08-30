@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import java.util.function.BiFunction;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.sounds.ModSounds;
-import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -42,11 +41,7 @@ public class LNEVillagerProfessions {
 
 
     private static PointOfInterestType registerPoi(String name, Block block) {
-        var id = Identifier.of(MOD_ID, name);
-        if (poiRegistrar != null) {
-            return poiRegistrar.apply(id, block);
-        }
-        return PointOfInterestHelper.register(id, 1, 1, block);
+        return poiRegistrar.apply(Identifier.of(MOD_ID, name), block);
     }
 
     public static RegistryKey<PointOfInterestType> registerKey(String name) {

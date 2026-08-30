@@ -3,8 +3,8 @@ package more_rpg_loot.item;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.effects.Effects;
-import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class ModPotions {
-    // Potions don't need item models - they use vanilla potion bottle models
-    // But they do need translations
+    public interface BrewingSink {
+        void potionRecipe(RegistryEntry<Potion> input, Item ingredient, RegistryEntry<Potion> output);
+    }
+
     public record Entry(String name, RegistryEntry<Potion> potion, String translation) {
     }
 
@@ -49,13 +51,10 @@ public class ModPotions {
         RPGLoot.LOGGER.info("Registering Potions for " + MOD_ID);
     }
 
-
-    public static void registerPotionsRecipes(){
-        FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
-            builder.registerPotionRecipe(Potions.AWKWARD, ModBlocks.FROST_BLOOM.item(), ModPotions.FROST_RESISTANCE_POTION.potion());
-            builder.registerPotionRecipe(ModPotions.FROST_RESISTANCE_POTION.potion(), Items.REDSTONE, ModPotions.LONG_FROST_RESISTANCE_POTION.potion());
-            builder.registerPotionRecipe(Potions.AWKWARD, CommonItems.GLAZE_ROD.item(), ModPotions.FROSTED_POTION.potion());
-            builder.registerPotionRecipe(FROSTED_POTION.potion(), Items.REDSTONE, ModPotions.LONG_FROSTED_POTION.potion());
-        });
+    public static void registerRecipes(BrewingSink sink) {
+        sink.potionRecipe(Potions.AWKWARD, ModBlocks.FROST_BLOOM.item(), FROST_RESISTANCE_POTION.potion());
+        sink.potionRecipe(FROST_RESISTANCE_POTION.potion(), Items.REDSTONE, LONG_FROST_RESISTANCE_POTION.potion());
+        sink.potionRecipe(Potions.AWKWARD, CommonItems.GLAZE_ROD.item(), FROSTED_POTION.potion());
+        sink.potionRecipe(FROSTED_POTION.potion(), Items.REDSTONE, LONG_FROSTED_POTION.potion());
     }
 }

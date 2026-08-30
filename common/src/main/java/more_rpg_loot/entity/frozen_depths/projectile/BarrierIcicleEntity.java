@@ -1,6 +1,6 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
+import more_rpg_loot.platform.LNEPlatform;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -136,7 +136,7 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
     private float calculateDamage(LivingEntity owner) {
         float damage = (float) (owner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5);
 
-        if (FabricLoader.getInstance().isModLoaded("spell_power")) {
+        if (LNEPlatform.isModLoaded("spell_power")) {
             try {
                 double frostPower = owner.getAttributeValue(SpellSchools.FROST.attributeEntry);
                 damage += (float) (frostPower * 0.3);

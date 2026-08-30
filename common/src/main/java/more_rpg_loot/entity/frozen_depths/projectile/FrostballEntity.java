@@ -1,10 +1,10 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
+import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
 import more_rpg_loot.util.HelperMethods;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FlyingItemEntity;
@@ -72,7 +72,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                         stackFreezeStacks(livingEntity,20);
                         applyStatusEffect(livingEntity,0,10,Effects.FREEZING.registryEntry,0,
                                 false,true,false,0);
-                        if(owner instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
+                        if(owner instanceof PlayerEntity playerEntity && LNEPlatform.isModLoaded("spell_power")){
                             double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attributeEntry) * 0.25F;
                             livingEntity.damage(livingEntity.getDamageSources().magic(), (float) (d + frostPower));
                         }else{
@@ -148,7 +148,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
             if(owner instanceof LivingEntity livingOwner){
                 float frostDamageOwner = 0.0F;
                 float atkDamageOwner = (float) (livingOwner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.2F);
-                if(FabricLoader.getInstance().isModLoaded("spell_power")){
+                if(LNEPlatform.isModLoaded("spell_power")){
                     frostDamageOwner = (float) (livingOwner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.3F);
                 }
                 cloudDamageAmount = frostDamageOwner + atkDamageOwner;

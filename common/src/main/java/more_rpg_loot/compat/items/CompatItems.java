@@ -1,13 +1,14 @@
 package more_rpg_loot.compat.items;
 
+import more_rpg_loot.platform.LNEEvents;
+import more_rpg_loot.platform.LNEPlatform;
+
 import more_rpg_loot.item.Group;
 import more_rpg_loot.item.ItemModelType;
 import more_rpg_loot.item.consumables.InnkeeperBowlItem;
 import more_rpg_loot.item.consumables.InnkeeperDrinkItem;
 import more_rpg_loot.item.consumables.InnkeeperFoodItem;
 import more_rpg_loot.item.consumables.ModFoodComponents;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -62,7 +63,7 @@ public class CompatItems {
         public int getQuality() { return quality; }
 
         public boolean shouldRegister() {
-            return FabricLoader.getInstance().isModLoaded(requiredMod);
+            return LNEPlatform.isModLoaded(requiredMod);
         }
 
         public Item getItem() {
@@ -231,7 +232,7 @@ public class CompatItems {
         }
 
         // Add to item groups
-        ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register(content -> {
+        LNEEvents.get().modifyItemGroup(Group.RPG_FOOD_KEY, content -> {
             for (Entry entry : ALL) {
                 Item item = entry.getItem();
                 if (item instanceof InnkeeperDrinkItem || item instanceof InnkeeperBowlItem || item instanceof InnkeeperFoodItem) {
@@ -241,18 +242,7 @@ public class CompatItems {
         });
     }
 
-    /**
-     * ALL entries, ALL items (even for unloaded mods).
-     * Datagen uses this to generate models/translations.
-     */
     public static List<Entry> getAllEntries() {
         return ALL;
-    }
-
-    /**
-     * Only items that are actually registered.
-     */
-    public static List<Entry> getRegisteredEntries() {
-        return ALL.stream().filter(e -> e.getItem() != null).toList();
     }
 }

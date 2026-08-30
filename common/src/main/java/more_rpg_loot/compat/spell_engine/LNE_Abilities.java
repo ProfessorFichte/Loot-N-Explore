@@ -9,7 +9,9 @@ import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.fx.ParticleBatch;
+import net.spell_engine.api.spell.fx.Fx;
+import net.spell_engine.api.spell.fx.ParticleGroup;
+import net.spell_engine.api.spell.fx.ParticleGroupBuilder;
 import net.spell_engine.api.spell.fx.PlayerAnimation;
 import net.spell_engine.api.spell.fx.Sound;
 import net.spell_engine.api.util.TriState;
@@ -33,6 +35,11 @@ public class LNE_Abilities {
     private static Entry add(Entry entry) {
         entries.add(entry);
         return entry;
+    }
+
+    private static ParticleGroup pg(String id, ParticleGroup.Shape shape, float verticalOrigin, float count, float minSpeed, float maxSpeed) {
+        return ParticleGroupBuilder.of(id).batch(b -> b.shape(shape)
+                .verticalOrigin(verticalOrigin).count(count).speed(minSpeed, maxSpeed));
     }
 
     // ===== HELPER METHODS =====
@@ -85,29 +92,19 @@ public class LNE_Abilities {
 
         var damage = SpellBuilder.Impacts.damage(0.6F, 0F);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "spell_engine:magic_arcane_impact_burst",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        30, 0.2F, 0.7F),
-                new ParticleBatch(
-                        "loot_n_explore:dragon_claw",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        2, 0.2F, 0.5F)
-        };
+        damage.visuals = Fx.Visuals.of(
+                pg("spell_engine:magic_arcane_impact_burst", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 30, 0.2F, 0.7F),
+                pg("loot_n_explore:dragon_claw", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 2, 0.2F, 0.5F));
 
         var heal = SpellBuilder.Impacts.heal(0.025F);
         heal.attribute_from_target = true;
         heal.attribute = EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString();
-        heal.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.ARCANE,
-                                SpellEngineParticles.MagicParticles.Motion.ASCEND
-                        ).id().toString(),
-                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
-                        1, 0.05F, 0.1F).color(Color.ARCANE.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_arcane, ParticleGroup.Motion.ASCEND)
+                        .color(Color.ARCANE.toRGBA())
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
+                                .count(1).speed(0.05F, 0.1F)));
 
         spell.impacts = List.of(damage, heal);
         SpellBuilder.Cost.cooldown(spell, 5.0F);
@@ -132,16 +129,9 @@ public class LNE_Abilities {
         trigger.chance = 0.4F;
         spell.passive.triggers = List.of(trigger);
 
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        30, 0.5F, 0.75F),
-                new ParticleBatch(
-                        "more_rpg_classes:water_circle",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        1, 0.2F, 1.0F)
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                pg("more_rpg_classes:big_splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 30, 0.5F, 0.75F),
+                pg("more_rpg_classes:water_circle", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 1, 0.2F, 1.0F));
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -152,20 +142,10 @@ public class LNE_Abilities {
         var damage = SpellBuilder.Impacts.damage( 0.4F,0);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
         damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "more_rpg_classes:big_splash",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        20, 0.05F, 0.2F),
-                new ParticleBatch(
-                        "more_rpg_classes:splash",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        15, 0.05F, 0.2F),
-                new ParticleBatch(
-                        "more_rpg_classes:splash",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 1.0F, 1.2F)
-        };
+        damage.visuals = Fx.Visuals.of(
+                pg("more_rpg_classes:big_splash", ParticleGroup.Shape.PILLAR, ParticleGroupBuilder.Batches.FEET, 20, 0.05F, 0.2F),
+                pg("more_rpg_classes:splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 15, 0.05F, 0.2F),
+                pg("more_rpg_classes:splash", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 25, 1.0F, 1.2F));
 
         spell.impacts = List.of(damage);
         SpellBuilder.Cost.cooldown(spell, 5.0F);
@@ -195,26 +175,18 @@ public class LNE_Abilities {
         spell.target.area.angle_degrees = 90.0F; // 90 degree cone
         spell.target.area.horizontal_range_multiplier = 1.0F;
 
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "smoke",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.FEET,
-                        15, 0.05F, 0.5F)
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                pg("smoke", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 15, 0.05F, 0.5F));
 
         var damage = SpellBuilder.Impacts.damage(0.5F,0);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
         damage.sound = new Sound(Identifier.of("spell_engine:generic_soul_impact"));
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.SKULL,
-                                SpellEngineParticles.MagicParticles.Motion.DECELERATE
-                        ).id().toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.2F, 0.5F)
-                        .color(858993663)
-        };
+        damage.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_skull, ParticleGroup.Motion.DECELERATE)
+                        .color(858993663L)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(25).speed(0.2F, 0.5F)));
 
         var witherEffect = SpellBuilder.Impacts.effectSet("wither",8.0F,1);
         witherEffect.action.status_effect.amplifier_cap = 10;
@@ -247,16 +219,12 @@ public class LNE_Abilities {
 
         var witherEffect = SpellBuilder.Impacts.effectSet("wither", 10.0F,1);
         witherEffect.action.status_effect.show_particles = true;
-        witherEffect.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.SKULL,
-                                SpellEngineParticles.MagicParticles.Motion.DECELERATE
-                        ).id().toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.2F, 0.25F)
-                        .color(858993663)
-        };
+        witherEffect.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_skull, ParticleGroup.Motion.DECELERATE)
+                        .color(858993663L)
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(25).speed(0.2F, 0.25F)));
 
         spell.impacts = List.of(witherEffect);
         SpellBuilder.Cost.cooldown(spell, 20.0F);
@@ -285,12 +253,8 @@ public class LNE_Abilities {
         freezingEffect.target_modifiers = List.of(
                 createDenyModifier("#minecraft:freeze_immune_entity_types")
         );
-        freezingEffect.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "loot_n_explore:freezing_snowflake",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        25, 0.2F, 0.25F)
-        };
+        freezingEffect.visuals = Fx.Visuals.of(
+                pg("loot_n_explore:freezing_snowflake", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 25, 0.2F, 0.25F));
 
         spell.impacts = List.of(freezingEffect);
         SpellBuilder.Cost.cooldown(spell, 20.0F);
@@ -309,16 +273,9 @@ public class LNE_Abilities {
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
 
         spell.release.animation = PlayerAnimation.of("spell_engine:dual_handed_weapon_charge");
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "end_rod",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        40, 0.6F, 0.8F),
-                new ParticleBatch(
-                        "dragon_breath",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        40, 0.6F, 0.8F)
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                pg("end_rod", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.CENTER, 40, 0.6F, 0.8F),
+                pg("dragon_breath", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.CENTER, 40, 0.6F, 0.8F));
         spell.release.sound = new Sound(Identifier.of("spell_engine", "generic_healing_impact_3"));
 
         spell.target.type = Spell.Target.Type.CASTER;
@@ -357,15 +314,12 @@ public class LNE_Abilities {
 
         var heal = SpellBuilder.Impacts.heal(0.05F);
         heal.attribute = EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString();
-        heal.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.ARCANE,
-                                SpellEngineParticles.MagicParticles.Motion.ASCEND
-                        ).id().toString(),
-                        ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
-                        1, 0.05F, 0.1F).color(Color.BLUE.toRGBA())
-        };
+        heal.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_arcane, ParticleGroup.Motion.ASCEND)
+                        .color(Color.BLUE.toRGBA())
+                        .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
+                                .count(1).speed(0.05F, 0.1F)));
 
         spell.impacts = List.of(heal);
         SpellBuilder.Cost.cooldown(spell, 5.0F);
@@ -393,22 +347,17 @@ public class LNE_Abilities {
         teleportImpact.action.teleport.forward = new Spell.Impact.Action.Teleport.Forward();
         teleportImpact.action.teleport.forward.distance = 30.0F;
 
-        teleportImpact.action.teleport.depart_particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "minecraft:portal",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        20, 0.3F, 0.5F)
-                        .preSpawnTravel(1)
-        };
+        teleportImpact.action.teleport.depart = Fx.Visuals.of(
+                ParticleGroupBuilder.of("minecraft:portal")
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(20).speed(0.3F, 0.5F).preTravel(1)));
 
-        teleportImpact.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "minecraft:portal",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        40, 0.1F, 0.3F)
-                        .invert()
-                        .preSpawnTravel(4)
-        };
+        teleportImpact.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.of("minecraft:portal")
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(40).speed(0.1F, 0.3F).invert(true).preTravel(4)));
 
         spell.impacts = List.of(teleportImpact);
         SpellBuilder.Cost.cooldown(spell, 120.0F);
@@ -441,13 +390,12 @@ public class LNE_Abilities {
         spell.target.beam.texture_id = "minecraft:textures/entity/guardian_beam.png";
         spell.target.beam.width = 0.08F;
         spell.target.beam.flow = 2.0F;
-        spell.target.beam.block_hit_particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "bubble",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        1.5F, 0.1F, 0.2F)
-                        .rotate(ParticleBatch.Rotation.LOOK)
-        };
+        spell.target.beam.block_hit = Fx.Visuals.of(
+                ParticleGroupBuilder.of("bubble")
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .alignment(ParticleGroup.Alignment.LOOK)
+                                .count(1.5F).speed(0.1F, 0.2F)));
 
         var damage = new Spell.Impact();
         damage.action = new Spell.Impact.Action();
@@ -477,12 +425,8 @@ public class LNE_Abilities {
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
 
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "smoke",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        40, 0.6F, 0.8F)
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                pg("smoke", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 40, 0.6F, 0.8F));
 
         spell.target.type = Spell.Target.Type.AIM;
         spell.target.aim = new Spell.Target.Aim();
@@ -500,22 +444,17 @@ public class LNE_Abilities {
         var witherSkullModel = SpellBuilder.ProjectileModels.model("loot_n_explore:spell_projectile/wither_skull", 1.5F, LightEmission.RADIATE);
         witherSkullModel.rotate_degrees_per_tick = 0.0F;
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(witherSkullModel);
-        projectile.client_data.travel_particles= new ParticleBatch[]{
-                new ParticleBatch(
-                        "smoke",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        2, 0.6F, 0.9F)
-                        .rotate(ParticleBatch.Rotation.LOOK)
-        };
+        projectile.client_data.travel_particles = List.of(
+                ParticleGroupBuilder.of("smoke")
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .alignment(ParticleGroup.Alignment.LOOK)
+                                .count(2).speed(0.6F, 0.9F)));
 
         var damage = SpellBuilder.Impacts.damage(0.25F);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "smoke",
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        20, 0.6F, 0.8F)
-        };
+        damage.visuals = Fx.Visuals.of(
+                pg("smoke", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 20, 0.6F, 0.8F));
         damage.sound = new Sound(Identifier.of("entity.generic.explode"));
 
         var witherEffect = SpellBuilder.Impacts.effectSet("wither", 5.0F,1);
@@ -568,13 +507,12 @@ public class LNE_Abilities {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.light_level = 12;
-        projectile.client_data.travel_particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "snowflake",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        3, 0.0F, 0.1F)
-                        .rotate(ParticleBatch.Rotation.LOOK)
-        };
+        projectile.client_data.travel_particles = List.of(
+                ParticleGroupBuilder.of("snowflake")
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .alignment(ParticleGroup.Alignment.LOOK)
+                                .count(3).speed(0.0F, 0.1F)));
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.single("loot_n_explore:spell_projectile/small_avalanche");
         spell.deliver.meteor.projectile = projectile;
 
@@ -586,15 +524,12 @@ public class LNE_Abilities {
         );
         var damage = SpellBuilder.Impacts.damage(0.3F);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.FROST,
-                                SpellEngineParticles.MagicParticles.Motion.BURST
-                        ).id().toString(),
-                        ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER,
-                        15, 0.2F, 0.4F).color(Color.FROST.toRGBA())
-        };
+        damage.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_frost, ParticleGroup.Motion.BURST)
+                        .color(Color.FROST.toRGBA())
+                        .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(15).speed(0.2F, 0.4F)));
         damage.sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));
 
         spell.impacts = List.of(freezingEffect, damage);
@@ -603,12 +538,8 @@ public class LNE_Abilities {
         spell.area_impact.radius = 2.0F;
         spell.area_impact.area = new Spell.Target.Area();
         spell.area_impact.area.distance_dropoff = Spell.Target.Area.DropoffCurve.SQUARED;
-        spell.area_impact.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "snowflake",
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        10, 0.5F, 2.0F)
-        };
+        spell.area_impact.visuals = Fx.Visuals.of(
+                pg("snowflake", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.CENTER, 10, 0.5F, 2.0F));
 
         SpellBuilder.Cost.cooldown(spell, 8.0F);
 
@@ -627,15 +558,12 @@ public class LNE_Abilities {
         spell.school = SpellSchools.FROST;
 
         spell.release.animation = PlayerAnimation.of("spell_engine:dual_handed_weapon_charge");
-        spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        SpellEngineParticles.MagicParticles.get(
-                                SpellEngineParticles.MagicParticles.Shape.FROST,
-                                SpellEngineParticles.MagicParticles.Motion.DECELERATE
-                        ).id().toString(),
-                        ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER,
-                        40, 0.6F, 0.8F).color(Color.FROST.toRGBA())
-        };
+        spell.release.visuals = Fx.Visuals.of(
+                ParticleGroupBuilder.magic(SpellEngineParticles.magic_frost, ParticleGroup.Motion.DECELERATE)
+                        .color(Color.FROST.toRGBA())
+                        .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
+                                .verticalOrigin(ParticleGroupBuilder.Batches.CENTER)
+                                .count(40).speed(0.6F, 0.8F)));
         spell.release.sound = new Sound(Identifier.of("spell_engine", "generic_frost_casting"));
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
@@ -644,12 +572,8 @@ public class LNE_Abilities {
         cloud.time_to_live_seconds = 15.0F;
         cloud.presence_sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
-        cloud.client_data.particles = new ParticleBatch[]{
-                new ParticleBatch(
-                        "loot_n_explore:freezing_snowflake",
-                        ParticleBatch.Shape.PILLAR, ParticleBatch.Origin.FEET,
-                        20, 0.1F, 0.3F)
-        };
+        cloud.client_data.particles = List.of(
+                pg("loot_n_explore:freezing_snowflake", ParticleGroup.Shape.PILLAR, ParticleGroupBuilder.Batches.FEET, 20, 0.1F, 0.3F));
         spell.deliver.clouds = List.of(cloud);
 
         var freezingEffect = SpellBuilder.Impacts.effectAdd("loot_n_explore:freezing", 2.0F,1,4);

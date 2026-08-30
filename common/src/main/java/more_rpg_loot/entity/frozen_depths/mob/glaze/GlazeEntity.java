@@ -1,12 +1,13 @@
 package more_rpg_loot.entity.frozen_depths.mob.glaze;
 
+import more_rpg_loot.platform.LNEPlatform;
+
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.RPGLoot;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
 import more_rpg_loot.util.HelperMethods;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -61,7 +62,7 @@ public class GlazeEntity extends HostileEntity {
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
         EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
-        if(FabricLoader.getInstance().isModLoaded("thermoo")){
+        if(LNEPlatform.isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
         }
