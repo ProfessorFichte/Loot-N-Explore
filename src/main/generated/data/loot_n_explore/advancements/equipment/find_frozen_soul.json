@@ -1,0 +1,38 @@
+{
+  "parent": "loot_n_explore:equipment/craft_frostmonarch_upgrade_smithing_template",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:frozen_soul"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_frozen_soul.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:frozen_soul"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_frozen_soul.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

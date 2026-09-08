@@ -84,7 +84,7 @@ public class ScreechGoal extends Goal {
                         }
                     }
                     if (FabricLoader.getInstance().isModLoaded("spell_engine")) {
-                        living.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.entry, 40, 0));
+                        living.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.effect, 40, 0));
                     } else {
                         living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 80, 1));
                         living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 80, 1));

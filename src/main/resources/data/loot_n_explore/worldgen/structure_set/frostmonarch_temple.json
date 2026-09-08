@@ -8,7 +8,7 @@
   "placement": {
     "exclusion_zone": {
       "chunk_count": 10,
-      "other_set": "minecraft:trial_chambers"
+      "other_set": "minecraft:ancient_cities"
     },
     "type": "minecraft:random_spread",
     "separation": 15,

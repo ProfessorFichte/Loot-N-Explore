@@ -59,7 +59,7 @@ public class GlazeEntity extends HostileEntity {
 
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
+        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
@@ -252,7 +252,7 @@ public class GlazeEntity extends HostileEntity {
                     if (this.frostStormCooldown <= 0) {
                         if (!glaze.getWorld().isClient) {
                             HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE, glaze, glaze,1,2.0F, 5, 4.0F,
-                                    Effects.FREEZING.registryEntry, 3, 1);
+                                    Effects.FREEZING.effect, 3, 1);
                             this.frostStormCooldown = 600;
                         }
                     }

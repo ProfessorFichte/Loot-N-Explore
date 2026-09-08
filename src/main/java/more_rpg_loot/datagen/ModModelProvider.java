@@ -106,7 +106,7 @@ public class ModModelProvider extends FabricModelProvider {
             for (var entry : LNE_Relics.entries) {
                 Item item = entry.item().get();
                 Identifier itemId = Registries.ITEM.getId(item);
-                Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
+                Identifier modelId = new Identifier(itemId.getNamespace(), "item/" + itemId.getPath());
 
                 // Create JSON model with "item/generated" parent
                 JsonObject json = new JsonObject();
@@ -122,7 +122,7 @@ public class ModModelProvider extends FabricModelProvider {
             for (var entry : LNE_Weapons.entries) {
                 Item item = entry.item();
                 Identifier itemId = Registries.ITEM.getId(item);
-                Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
+                Identifier modelId = new Identifier(itemId.getNamespace(), "item/" + itemId.getPath());
                 JsonObject json = new JsonObject();
                 json.addProperty("parent", "item/handheld");
                 JsonObject textures = new JsonObject();
@@ -136,7 +136,7 @@ public class ModModelProvider extends FabricModelProvider {
             for (var entry : SmithingTemplates.ENTRIES) {
                 Item item = entry.item();
                 Identifier itemId = Registries.ITEM.getId(item);
-                Identifier modelId = Identifier.of(itemId.getNamespace(), "item/" + itemId.getPath());
+                Identifier modelId = new Identifier(itemId.getNamespace(), "item/" + itemId.getPath());
 
                 JsonObject json = new JsonObject();
                 json.addProperty("parent", "item/generated");

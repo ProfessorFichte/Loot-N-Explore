@@ -31,8 +31,6 @@ public class RPGLootClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROST_BLOOM.block(), RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POTTED_FROST_BLOOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MONARCHS_CROWN.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_TRIAL_SPAWNER.block(), RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FROZEN_VAULT.block(), RenderLayer.getCutout());
 
     }
 

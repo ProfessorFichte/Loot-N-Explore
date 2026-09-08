@@ -9,15 +9,15 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class EntityModelLayers {
     public static final EntityModelLayer FROST_MONARCH = new EntityModelLayer(
-            Identifier.of("loot_n_explore", "frost_monarch"),
+            new Identifier("loot_n_explore", "frost_monarch"),
             "main"
     );
     public static final EntityModelLayer FROST_MONARCH_INNER_ARMOR =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "inner_armor");
+            new EntityModelLayer(new Identifier("loot_n_explore", "frost_monarch"), "inner_armor");
     public static final EntityModelLayer FROST_MONARCH_OUTER_ARMOR =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "outer_armor");
+            new EntityModelLayer(new Identifier("loot_n_explore", "frost_monarch"), "outer_armor");
     public static final EntityModelLayer FROST_MONARCH_OUTER =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "outer");
+            new EntityModelLayer(new Identifier("loot_n_explore", "frost_monarch"), "outer");
 
 
     public static void registerModelLayers() {

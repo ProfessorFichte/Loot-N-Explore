@@ -29,10 +29,10 @@
 	],
 	"depends": {
 		"fabricloader": ">=${fabric_loader_compat_version}",
-		"minecraft": "~1.21",
+		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*",
-		"structure_pool_api": ">=${structure_pool_api_version}"
+		"structure_pool_api": "*"
 	},
 	"suggests": {
 		"spell_engine": "*",

@@ -1,0 +1,40 @@
+{
+  "parent": "loot_n_explore:exploration/root",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:glaze"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.glaze.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:frostball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.glaze.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

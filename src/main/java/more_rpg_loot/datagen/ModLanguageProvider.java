@@ -10,18 +10,17 @@ import more_rpg_loot.effects.Effects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.registry.RegistryWrapper;
-
-import java.util.concurrent.CompletableFuture;
 
 public class ModLanguageProvider extends FabricLanguageProvider {
 
-    public ModLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput, "en_us", registryLookup);
+    // 1.20.1: FabricLanguageProvider takes (output, languageCode) only; no registry lookup future.
+    public ModLanguageProvider(FabricDataOutput dataOutput) {
+        super(dataOutput, "en_us");
     }
 
+    // 1.20.1: generateTranslations receives only the TranslationBuilder.
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder builder) {
+    public void generateTranslations(TranslationBuilder builder) {
         builder.add("itemGroup.loot_n_explore.loot.general", "LNE Equipment");
         builder.add("itemGroup.loot_n_explore.food.general", "LNE Drinks & Food");
         builder.add("itemGroup.loot_n_explore.blocks.general", "LNE Items & Blocks");
@@ -143,8 +142,14 @@ public class ModLanguageProvider extends FabricLanguageProvider {
             // Generate template-specific translations
             for (var entry : SmithingTemplates.ENTRIES) {
                 String key = entry.templateKey();
-                // Item name (e.g., "item.loot_n_explore.dragon_upgrade_smithing_template": "Smithing Template")
-                builder.add(entry.item().getTranslationKey(), "Smithing Template");
+                // 1.20.1: `SmithingTemplateItem#getTranslationKey` is hardcoded to the vanilla
+                // `item.minecraft.smithing_template`, so all four templates share one key. Emitting it
+                // per template would be a duplicate (and would only restate vanilla's own string), so
+                // the per-item name line is skipped for keys outside this mod's namespace.
+                var itemKey = entry.item().getTranslationKey();
+                if (itemKey.startsWith("item." + more_rpg_loot.RPGLoot.MOD_ID + ".")) {
+                    builder.add(itemKey, "Smithing Template");
+                }
 
                 // Template-specific keys
                 builder.add("smithing_template.loot_n_explore." + key + ".ingredients", entry.ingredientText());

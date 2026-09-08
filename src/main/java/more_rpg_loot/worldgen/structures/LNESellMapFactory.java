@@ -1,14 +1,12 @@
 package more_rpg_loot.worldgen.structures;
 
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.map.MapDecorationType;
+import net.minecraft.item.map.MapIcon;
 import net.minecraft.item.map.MapState;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -16,20 +14,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
 import net.minecraft.world.gen.structure.Structure;
-
-import java.util.Optional;
 
 public class LNESellMapFactory implements TradeOffers.Factory {
     private final int price;
     private final TagKey<Structure> structure;
     private final String nameKey;
-    private final RegistryEntry<MapDecorationType> decoration;
+    // 1.20.1: map decorations are the MapIcon.Type enum; the registry-backed MapDecorationType
+    // (and its RegistryEntry) only exists from 1.20.5 onwards.
+    private final MapIcon.Type decoration;
     private final int maxUses;
     private final int experience;
 
-    public LNESellMapFactory(int price, TagKey<Structure> structure, String nameKey, RegistryEntry<MapDecorationType> decoration, int maxUses, int experience) {
+    public LNESellMapFactory(int price, TagKey<Structure> structure, String nameKey, MapIcon.Type decoration, int maxUses, int experience) {
         this.price = price;
         this.structure = structure;
         this.decoration = decoration;
@@ -52,8 +49,12 @@ public class LNESellMapFactory implements TradeOffers.Factory {
             ItemStack itemStack = FilledMapItem.createMap(serverWorld, blockPos.getX(), blockPos.getZ(), (byte)2, true, true);
             FilledMapItem.fillExplorationMap(serverWorld, itemStack);
             MapState.addDecorationsNbt(itemStack, blockPos, "+", this.decoration);
-            itemStack.set(DataComponentTypes.ITEM_NAME, Text.translatable(this.nameKey));
-            return new TradeOffer(new TradedItem(Items.EMERALD, this.price), Optional.of(new TradedItem(Items.PAPER)), itemStack, this.maxUses, this.experience, 0.2F);
+            // 1.20.1: no data components - the display name lives in the stack's NBT, exactly as
+            // vanilla's own TradeOffers.SellMapFactory does it on this version.
+            itemStack.setCustomName(Text.translatable(this.nameKey));
+            // 1.20.1: TradeOffer takes plain ItemStacks; the second buy item is mandatory rather
+            // than an Optional<TradedItem>, so the (previously optional) paper stack is passed directly.
+            return new TradeOffer(new ItemStack(Items.EMERALD, this.price), new ItemStack(Items.PAPER), itemStack, this.maxUses, this.experience, 0.2F);
         }
         return null;
     }

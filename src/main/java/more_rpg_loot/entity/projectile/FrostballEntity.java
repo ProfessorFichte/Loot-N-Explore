@@ -58,7 +58,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
                     EntityType<?> type = entity2.getType();
                     if(!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)){
                         stackFreezeStacks(livingEntity,20);
-                        applyStatusEffect(livingEntity,0,10,Effects.FREEZING.registryEntry,0,
+                        applyStatusEffect(livingEntity,0,10,Effects.FREEZING.effect,0,
                                 false,true,false,0);
                         if(entity2 instanceof PlayerEntity playerEntity && FabricLoader.getInstance().isModLoaded("spell_power")){
                             double frostPower = playerEntity.getAttributeValue(SpellSchools.FROST.attributeEntry) * 0.25F;
@@ -115,7 +115,7 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
             }
             HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE,this,target,1,1.0F,2,2.0F,
                     Effects.FREEZING
-                            .registryEntry,5,0);
+                            .effect,5,0);
             this.discard();
         }
     }

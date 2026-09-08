@@ -63,50 +63,50 @@ public class SmithingTemplates {
     //UPGRADES
     public static final List<Identifier> BASE_ITEMS = Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of("item/empty_slot_axe"));
-                identifiers.add(Identifier.of("item/empty_slot_sword"));
+                identifiers.add(new Identifier("item/empty_slot_axe"));
+                identifiers.add(new Identifier("item/empty_slot_sword"));
                 if(FabricLoader.getInstance().isModLoaded("archers")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_bow"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_crossbow"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_spear"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_bow"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_crossbow"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_spear"));
                 }
                 if(FabricLoader.getInstance().isModLoaded("paladins")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_hammer"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_holy"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_mace"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_hammer"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_holy"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_mace"));
                 }
                 if(FabricLoader.getInstance().isModLoaded("rogues")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_dagger"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_sickle"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_glaive"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_double_axe"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_dagger"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_sickle"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_glaive"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_double_axe"));
                 }
                 if(FabricLoader.getInstance().isModLoaded("wizards")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wand"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_wand"));
                 }
                 if(FabricLoader.getInstance().isModLoaded("forcemaster")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_knuckle"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_knuckle"));
                 }
                 if(FabricLoader.getInstance().isModLoaded("berserker_axe")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_berserker_axe"));
+                    identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_berserker_axe"));
                 }
 
             });
     public static final List<Identifier> INGREDIENT_ITEMS_DRAGON= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_ender_dragon_scales"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_ender_dragon_scales"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_WITHER= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wither_spine"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_wither_spine"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_GUARDIAN = Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_elder_guardian_eye"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_elder_guardian_eye"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_FROSTMONARCH= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_frozen_soul"));
+                identifiers.add(new Identifier(MOD_ID,"item/template/empty_slot_frozen_soul"));
             });
 
     // Smithing template entries with translation data for datagen
@@ -114,7 +114,7 @@ public class SmithingTemplates {
     static {
         // Ender Dragon Upgrade Template
         add(new Entry(
-                Identifier.of(MOD_ID, "dragon_upgrade_smithing_template"),
+                new Identifier(MOD_ID, "dragon_upgrade_smithing_template"),
                 "ender_dragon",
                 "Netherite Weapons.",
                 "Ender Dragon Scales",
@@ -137,7 +137,7 @@ public class SmithingTemplates {
 
         // Elder Guardian Upgrade Template
         add(new Entry(
-                Identifier.of(MOD_ID, "guardian_upgrade_smithing_template"),
+                new Identifier(MOD_ID, "guardian_upgrade_smithing_template"),
                 "elder_guardian",
                 "Netherite Weapons.",
                 "Elder Guardian Eye",
@@ -160,7 +160,7 @@ public class SmithingTemplates {
 
         // Wither Upgrade Template
         add(new Entry(
-                Identifier.of(MOD_ID, "wither_upgrade_smithing_template"),
+                new Identifier(MOD_ID, "wither_upgrade_smithing_template"),
                 "wither",
                 "Netherite Weapons.",
                 "Wither Spine",
@@ -183,7 +183,7 @@ public class SmithingTemplates {
 
         // Frost Monarch Upgrade Template
         add(new Entry(
-                Identifier.of(MOD_ID, "frostmonarch_upgrade_smithing_template"),
+                new Identifier(MOD_ID, "frostmonarch_upgrade_smithing_template"),
                 "frostmonarch",
                 "Netherite Weapons.",
                 "Frozen Soul",

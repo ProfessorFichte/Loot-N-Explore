@@ -19,44 +19,44 @@ public class SpellPower_Items {
     // TO DO: LIGHTNING AND SOUL SPELL POWER BOOSTING ITEMS
     /// T0 BUFF ITEMS
     public static Item ORANGE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
-            SpellPower_Effects.ORANGE_JUICE.registryEntry, 0);
+            SpellPower_Effects.ORANGE_JUICE.effect, 0);
     /// T1 BUFF ITEMS
     public static Item SWEET_CHILLI= new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.SWEET_CHILLI.registryEntry,1);
+            SpellPower_Effects.SWEET_CHILLI.effect,1);
     public static Item FRUIT_ICEWATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.FRUIT_ICEWATER.registryEntry, 1);
+            SpellPower_Effects.FRUIT_ICEWATER.effect, 1);
     public static Item CHORUS_EXTRACT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.CHORUS_EXTRACT.registryEntry, 1);
+            SpellPower_Effects.CHORUS_EXTRACT.effect, 1);
     public static Item HOT_CHILLI = new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.HOT_CHILLI.registryEntry,1);
+            SpellPower_Effects.HOT_CHILLI.effect,1);
     public static Item HOLY_WATER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.HOLY_WATER.registryEntry, 1);
+            SpellPower_Effects.HOLY_WATER.effect, 1);
     public static Item ENCHANTED_ALE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            SpellPower_Effects.ENCHANTED_ALE.registryEntry,1);
+            SpellPower_Effects.ENCHANTED_ALE.effect,1);
     /// T2 BUFF ITEMS
     public static Item WIZARDS_ELIXIR = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
-            SpellPower_Effects.WIZARDS_ELIXIR.registryEntry, 2);
+            SpellPower_Effects.WIZARDS_ELIXIR.effect, 2);
     /// T3 BUFF ITEMS
     public static Item MERLINS_FLASK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
-            SpellPower_Effects.MERLINS_FLASK.registryEntry, 3);
+            SpellPower_Effects.MERLINS_FLASK.effect, 3);
     public static Item CRUSADERS_REST = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
-            SpellPower_Effects.CRUSADERS_REST.registryEntry, 3);
+            SpellPower_Effects.CRUSADERS_REST.effect, 3);
 
     public static void registerSpellPowerItems() {
         /// T0 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"orange_juice"),ORANGE_JUICE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"orange_juice"),ORANGE_JUICE);
         /// T1 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"fruit_icewater"),FRUIT_ICEWATER);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"chorus_extract"),CHORUS_EXTRACT);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"hot_chilli"),HOT_CHILLI);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"sweet_chilli"),SWEET_CHILLI);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"holy_water"),HOLY_WATER);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"enchanted_ale"),ENCHANTED_ALE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"fruit_icewater"),FRUIT_ICEWATER);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"chorus_extract"),CHORUS_EXTRACT);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"hot_chilli"),HOT_CHILLI);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"sweet_chilli"),SWEET_CHILLI);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"holy_water"),HOLY_WATER);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"enchanted_ale"),ENCHANTED_ALE);
         /// T2 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"wizards_elixir"),WIZARDS_ELIXIR);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"wizards_elixir"),WIZARDS_ELIXIR);
         /// T3 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"merlins_flask"),MERLINS_FLASK);
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"crusaders_rest"),CRUSADERS_REST);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"merlins_flask"),MERLINS_FLASK);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"crusaders_rest"),CRUSADERS_REST);
 
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {

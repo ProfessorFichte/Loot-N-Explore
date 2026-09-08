@@ -16,26 +16,26 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class RWA_Items {
     /// T0 BUFF ITEMS
     public static Item APPLE_JUICE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
-            RWA_Effects.APPLE_JUICE.registryEntry, 0);
+            RWA_Effects.APPLE_JUICE.effect, 0);
     /// T1 BUFF ITEMS
     public static Item WALDMEISTER = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            RWA_Effects.WALDMEISTER.registryEntry, 1);
+            RWA_Effects.WALDMEISTER.effect, 1);
     /// T2 BUFF ITEMS
     public static Item FORREST_SPIRIT = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
-            RWA_Effects.FORREST_SPIRIT.registryEntry, 2);
+            RWA_Effects.FORREST_SPIRIT.effect, 2);
     /// T3 BUFF ITEMS
     public static Item WOODSNAKE_POTION = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
-            RWA_Effects.WOODSNAKE_POTION.registryEntry, 3);
+            RWA_Effects.WOODSNAKE_POTION.effect, 3);
 
     public static void registerRangedWeaponAPIItems(){
         /// T0 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"apple_juice"),APPLE_JUICE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"apple_juice"),APPLE_JUICE);
         /// T1 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"waldmeister"),WALDMEISTER);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"waldmeister"),WALDMEISTER);
         /// T2 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"forrest_spirit"),FORREST_SPIRIT);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"forrest_spirit"),FORREST_SPIRIT);
         /// T3 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"woodsnake_potion"),WOODSNAKE_POTION);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"woodsnake_potion"),WOODSNAKE_POTION);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             /// T0 BUFF ITEMS

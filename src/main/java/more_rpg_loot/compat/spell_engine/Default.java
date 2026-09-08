@@ -89,23 +89,14 @@ public class Default {
                             .add(B2)
                     );
                 });
+        // 1.20.1: the `minecraft:chests/trial_chambers/**` tables are 1.21 content and do not exist.
         List.of("minecraft:chests/ancient_city",
-                        "minecraft:chests/end_city_treasure",
-                        "minecraft:chests/trial_chambers/reward_ominous_rare",
-                        "minecraft:chests/trial_chambers/reward_rare")
+                        "minecraft:chests/end_city_treasure")
                 .forEach(id -> items.put(id, new LootConfig.Pool()
                         .rolls(0.5)
                         .add(B2).weight(2)
                         .add(B3)
                 ));
-        List.of("minecraft:chests/trial_chambers/reward_ominous_unique",
-                        "minecraft:chests/trial_chambers/reward_unique")
-                .forEach(id -> {
-                    items.put(id, new LootConfig.Pool()
-                            .rolls(0.7)
-                            .add(B3)
-                    );
-                });
 
         //LOOT&EXPLORE CHESTS
         List.of("loot_n_explore:chests/inns/desert",
@@ -135,9 +126,11 @@ public class Default {
                 .add(B0)
                 .add(B1)
         ));
-        List.of("loot_n_explore:chests/dungeons/reward_glacial_tomb",
-                "loot_n_explore:spawners/frozen/normal/reward",
-                "loot_n_explore:spawners/frozen/ominous/reward"
+        // 1.20.1: the frozen trial spawner / frozen vault reward tables (`spawners/frozen/**`,
+        // `chests/trials/frozen/**`) are gone with the blocks that generated them. The glaze tower
+        // and the glacial tomb keep their ordinary chests, which take over the same reward slots.
+        List.of("loot_n_explore:chests/glaze_tower",
+                "loot_n_explore:chests/dungeons/glacial_tomb/common"
                 )                .forEach(id -> {
             items.put(id, new LootConfig.Pool()
                     .rolls(0.75)
@@ -147,33 +140,6 @@ public class Default {
                     .rolls(0.2)
                     .scroll(2, 3));
         });
-
-        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_common",
-                        "loot_n_explore:chests/trials/frozen/trial_chambers/reward_common")
-                .forEach(id -> {
-                    items.put(id, new LootConfig.Pool()
-                            .rolls(0.5)
-                            .add(W1).weight(2)
-                            .add(A1).weight(2)
-                            .add(R1)
-                    );
-                    scrolls.put(id, new LootConfig.Pool()
-                            .rolls(0.25)
-                            .scroll(2, 3)
-                    );
-                });
-        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_unique",
-                        "loot_n_explore:chests/trials/frozen/reward_unique")
-                .forEach(id -> {
-                    items.put(id, new LootConfig.Pool()
-                            .rolls(1)
-                            .add(W3, true).weight(2)
-                            .add(X4).weight(2)
-                            .add(R3)
-                            .add(A4, true)
-                            .add(B3)
-                    );
-                });
 
         //LOOT&EXPLORE ENTITIES
         items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()

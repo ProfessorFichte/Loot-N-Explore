@@ -29,9 +29,9 @@ public sealed interface ItemModelType {
         @Override
         public void generate(ItemModelGenerator generator, Item item, String itemName) {
             Models.GENERATED.upload(
-                Identifier.of(MOD_ID, "item/" + itemName),
+                new Identifier(MOD_ID, "item/" + itemName),
                 net.minecraft.data.client.TextureMap.layer0(
-                    Identifier.of(MOD_ID, texturePath + itemName)
+                    new Identifier(MOD_ID, texturePath + itemName)
                 ),
                 generator.writer
             );
@@ -50,9 +50,9 @@ public sealed interface ItemModelType {
         @Override
         public void generate(ItemModelGenerator generator, Item item, String itemName) {
             Models.HANDHELD.upload(
-                Identifier.of(MOD_ID, "item/" + itemName),
+                new Identifier(MOD_ID, "item/" + itemName),
                 net.minecraft.data.client.TextureMap.layer0(
-                    Identifier.of(MOD_ID, texturePath + itemName)
+                    new Identifier(MOD_ID, texturePath + itemName)
                 ),
                 generator.writer
             );

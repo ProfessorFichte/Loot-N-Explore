@@ -16,9 +16,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class FrostmonarchEntityRenderer extends MobEntityRenderer<FrostMonarchEntity, FrostMonarchEntityModel> {
-    private static final Identifier TEXTURE = Identifier.of("loot_n_explore", "textures/entity/mobs/frostmonarch.png");
-    private static final Identifier EYES = Identifier.of("loot_n_explore", "textures/entity/mobs/frostmonarch_eyes.png");
-    private static final Identifier OVERLAY = Identifier.of("loot_n_explore", "textures/entity/mobs/frostmonarch_overlay.png");
+    private static final Identifier TEXTURE = new Identifier("loot_n_explore", "textures/entity/mobs/frostmonarch.png");
+    private static final Identifier EYES = new Identifier("loot_n_explore", "textures/entity/mobs/frostmonarch_eyes.png");
+    private static final Identifier OVERLAY = new Identifier("loot_n_explore", "textures/entity/mobs/frostmonarch_overlay.png");
 
     public FrostmonarchEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new FrostMonarchEntityModel(context.getPart(EntityModelLayers.FROST_MONARCH)), 0.6f);

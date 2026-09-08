@@ -5,8 +5,7 @@ import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.enums.Instrument;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -47,7 +46,7 @@ public class ModBlocks {
     public static final Entry INNKEEPER_SHELF = entry("innkeeper_shelf", new InnkeeperShelfBlock(
             FabricBlockSettings.create()
                     .mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS)
+                    .instrument(Instrument.BASS)
                     .strength(2.5F)
                     .sounds(BlockSoundGroup.WOOD)
                     .nonOpaque()), "Innkeeper Shelf", new ModelType.CubeBottomTop());
@@ -71,7 +70,7 @@ public class ModBlocks {
     public static final Entry FROZEN_SOULS = entry("frozen_soul_block", new Block(
             FabricBlockSettings.create()
                     .mapColor(MapColor.PALE_PURPLE)
-                    .instrument(NoteBlockInstrument.BASS)
+                    .instrument(Instrument.BASS)
                     .strength(-1.0F,3600000.0F)
                     .sounds(BlockSoundGroup.GLASS)
                     .luminance(5)
@@ -85,26 +84,21 @@ public class ModBlocks {
             FabricBlockSettings.copyOf(Blocks.SOUL_LANTERN).nonOpaque()), "Soulfrost Lantern", new ModelType.Custom());
 
     // Initialize FROST_BLOOM first without model type, then add POTTED variant, then set model type
-    private static final Block FROST_BLOOM_BLOCK = new FrostbloomBlock(Effects.FROST_RESISTANCE.registryEntry, 5,
+    private static final Block FROST_BLOOM_BLOCK = new FrostbloomBlock(Effects.FROST_RESISTANCE.effect, 5,
             FabricBlockSettings.copyOf(Blocks.ALLIUM).nonOpaque().noCollision());
-    public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),
+    public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM_BLOCK, FabricBlockSettings.copyOf(Blocks.POTTED_ALLIUM).nonOpaque()));
     public static final Entry FROST_BLOOM = entry("frostbloom", FROST_BLOOM_BLOCK, "Frostbloom",
             new ModelType.FlowerPot(POTTED_FROST_BLOOM, BlockStateModelGenerator.TintType.NOT_TINTED));
 
-    public static final Entry FROZEN_TRIAL_SPAWNER = entry("frozen_trial_spawner", new TrialSpawnerBlock(
-            FabricBlockSettings.copyOf(Blocks.TRIAL_SPAWNER).nonOpaque()), "Frozen Trial Spawner", new ModelType.Custom());
-    public static final Entry FROZEN_VAULT = entry("frozen_vault", new VaultBlock(
-            FabricBlockSettings.copyOf(Blocks.VAULT).nonOpaque()), "Frozen Vault", new ModelType.Custom());
-
+    // 1.20.1: `frozen_trial_spawner` and `frozen_vault` are gone. Both wrapped 1.20.5+ vanilla
+    // (`TrialSpawnerBlock` / `VaultBlock` and the matching block entity types), which do not exist
+    // on this game version, and Fichte never backported the feature to the legacy 1.20.1 branch.
 
     public static void register(){
-        BlockEntityType.TRIAL_SPAWNER.addSupportedBlock(FROZEN_TRIAL_SPAWNER.block);
-        BlockEntityType.VAULT.addSupportedBlock(FROZEN_VAULT.block);
-
         for (var entry : all) {
-            Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
-            Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
+            Registry.register(Registries.BLOCK, new Identifier(MOD_ID, entry.name), entry.block);
+            Registry.register(Registries.ITEM, new Identifier(MOD_ID, entry.name), entry.item());
         }
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_BLOCK_KEY).register((content) -> {
             for (var entry : all) {

@@ -17,7 +17,7 @@ public class HelperMethods {
 
     public static void spawnCloudEntity(
             ParticleEffect particleType, Entity owner, Entity target, int waitTime, float radiusCloud, int durationSecondsCloud, float radiusGrowthCloud
-            , RegistryEntry<StatusEffect> statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
+            , StatusEffect statusEffect, int durationSecondsStatusEffect, int amplifierStatusEffect) {
         if (!target.getWorld().isClient) {
             List<LivingEntity> list = target.getWorld().getNonSpectatingEntities(LivingEntity.class, target.getBoundingBox().expand(4.0, 2.0, 4.0));
             AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(target.getWorld(), target.getX(), target.getY(), target.getZ());
@@ -54,7 +54,7 @@ public class HelperMethods {
 
 
 
-    public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,RegistryEntry<StatusEffect> statusEffect,
+    public static void applyStatusEffect(LivingEntity target,int effectAmplifier,int effectDurationSeconds,StatusEffect statusEffect,
                                          int maxStackAmplifier, boolean canStackAmplifier, boolean showIcon, boolean increaseDuration,
                                          int increaseEffectDurationSeconds){
 
@@ -95,7 +95,7 @@ public class HelperMethods {
         for (StatusEffectInstance statusEffectInstance : list) {
             StatusEffect statusEffect = (StatusEffect) statusEffectInstance.getEffectType();
             if (!statusEffect.isBeneficial()) {
-                entity.removeStatusEffect((RegistryEntry<StatusEffect>) statusEffect);
+                entity.removeStatusEffect((StatusEffect) statusEffect);
             }
             if(removeOne){
                 return true;

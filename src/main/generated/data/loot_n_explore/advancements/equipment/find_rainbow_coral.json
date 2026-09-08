@@ -1,0 +1,38 @@
+{
+  "parent": "loot_n_explore:equipment/find_amphitrite_diadem",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:rainbow_coral"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_rainbow_coral.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:rainbow_coral"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_rainbow_coral.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

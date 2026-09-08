@@ -2,6 +2,7 @@ package more_rpg_loot.effects;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.registry.tag.EntityTypeTags;
@@ -12,19 +13,22 @@ public class FreezingEffect extends StatusEffect {
     protected FreezingEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
-    public boolean applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
+    // 1.20.1: `applyUpdateEffect` returns void.
+    @Override
+    public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
         stackFreezeStacks(livingEntity,2);
         super.applyUpdateEffect(livingEntity, amplifier);
-        return true;
     }
 
-    public void onApplied(LivingEntity livingEntity, int amplifier) {
-        super.onApplied(livingEntity, amplifier);
+    // 1.20.1: `onApplied` also receives the entity's AttributeContainer.
+    @Override
+    public void onApplied(LivingEntity livingEntity, AttributeContainer attributes, int amplifier) {
+        super.onApplied(livingEntity, attributes, amplifier);
         EntityType<?> type = livingEntity.getType();
         if(type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
-            livingEntity.removeStatusEffect(Effects.FREEZING.registryEntry);
+            livingEntity.removeStatusEffect(Effects.FREEZING.effect);
         } else{
-            if(livingEntity.hasStatusEffect(Effects.FREEZING.registryEntry)){
+            if(livingEntity.hasStatusEffect(Effects.FREEZING.effect)){
                 stackFreezeStacks(livingEntity,10);
             }else{
                 stackFreezeStacks(livingEntity,20*(amplifier+1));

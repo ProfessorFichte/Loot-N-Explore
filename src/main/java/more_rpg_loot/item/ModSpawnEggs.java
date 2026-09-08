@@ -41,7 +41,7 @@ public class ModSpawnEggs {
     public static void register(){
         // Register all spawn eggs
         for (var entry : all) {
-            Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name()), entry.item());
+            Registry.register(Registries.ITEM, new Identifier(MOD_ID, entry.name()), entry.item());
         }
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register((content) -> {

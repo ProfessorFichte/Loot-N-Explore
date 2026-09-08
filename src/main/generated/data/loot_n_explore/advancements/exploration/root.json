@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "criterion": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/mossy_stone_bricks.png",
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:filled_map"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

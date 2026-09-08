@@ -14,8 +14,8 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class FrostMonarchServantEntityRenderer extends SkeletonEntityRenderer {
-    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/entity/mobs/frostmonarch_servant.png");
-    private static final Identifier EYES = Identifier.of(MOD_ID, "textures/entity/mobs/frostmonarch_servant_overlay.png");
+    private static final Identifier TEXTURE = new Identifier(MOD_ID, "textures/entity/mobs/frostmonarch_servant.png");
+    private static final Identifier EYES = new Identifier(MOD_ID, "textures/entity/mobs/frostmonarch_servant_overlay.png");
 
     public FrostMonarchServantEntityRenderer(EntityRendererFactory.Context context) {
         super(context, EntityModelLayers.SKELETON, EntityModelLayers.STRAY_INNER_ARMOR, EntityModelLayers.STRAY_OUTER_ARMOR);

@@ -3,6 +3,7 @@ package more_rpg_loot.compat.spell_engine;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.more_rpg_classes.custom.MoreSpellSchools;
@@ -79,7 +80,7 @@ public class LNE_Abilities {
 
     public static Entry dragonclaw = add(dragonclaw());
     private static Entry dragonclaw() {
-        var id = Identifier.of(MOD_ID, "dragonclaw");
+        var id = new Identifier(MOD_ID, "dragonclaw");
         var title = "Dragonclaw";
         var description = "On melee hit: {trigger_chance} chance to deal extra {damage} to the target damage and heals the user for {heal} hearts.";
 
@@ -97,7 +98,7 @@ public class LNE_Abilities {
         spell.target.type = Spell.Target.Type.FROM_TRIGGER;
 
         var damage = SpellBuilder.Impacts.damage(0.6F, 0F);
-        damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
+        damage.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_arcane, ParticleGroup.Motion.BURST)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
@@ -108,7 +109,7 @@ public class LNE_Abilities {
 
         var heal = SpellBuilder.Impacts.heal(0.025F);
         heal.attribute_from_target = true;
-        heal.attribute = EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString();
+        heal.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_MAX_HEALTH).toString();
         heal.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_arcane, ParticleGroup.Motion.ASCEND, Color.ARCANE)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
@@ -123,7 +124,7 @@ public class LNE_Abilities {
 
     public static Entry waterbomb = add(waterbomb());
     private static Entry waterbomb() {
-        var id = Identifier.of(MOD_ID, "waterbomb");
+        var id = new Identifier(MOD_ID, "waterbomb");
         var title = "Waterbomb";
         var description = "On melee hit: {trigger_chance} chance to deal {damage} damage around the target.";
 
@@ -159,8 +160,8 @@ public class LNE_Abilities {
         spell.target.area.horizontal_range_multiplier = 1.0F;
 
         var damage = SpellBuilder.Impacts.damage( 0.4F,0);
-        damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
+        damage.sound = Sound.withVolume(new Identifier("more_rpg_classes:water_magic_impact1"), 0.4F);
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.of("more_rpg_classes:big_splash")
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
@@ -182,7 +183,7 @@ public class LNE_Abilities {
 
     public static Entry wither_pulse = add(wither_pulse());
     private static Entry wither_pulse() {
-        var id = Identifier.of(MOD_ID, "wither_pulse");
+        var id = new Identifier(MOD_ID, "wither_pulse");
         var title = "Wither Pulse";
         var description = "On melee hit: {trigger_chance} inflicts targets in a 90 degree radius with Wither and dealing {damage} damage.";
 
@@ -209,8 +210,8 @@ public class LNE_Abilities {
                                 .verticalOrigin(Batches.FEET)));
 
         var damage = SpellBuilder.Impacts.damage(0.5F,0);
-        damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.sound = new Sound(Identifier.of("spell_engine:generic_soul_impact"));
+        damage.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
+        damage.sound = new Sound(new Identifier("spell_engine:generic_soul_impact"));
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_skull, ParticleGroup.Motion.DECELERATE)
                         .color(858993663L)
@@ -231,7 +232,7 @@ public class LNE_Abilities {
     // ===== PASSIVE SPELLS =====
     public static Entry wither_touch = add(wither_touch());
     private static Entry wither_touch() {
-        var id = Identifier.of(MOD_ID, "wither_touch");
+        var id = new Identifier(MOD_ID, "wither_touch");
         var title = "Wither's Touch";
         var description = "On Taking damage {trigger_chance} chance, to inflict wither on the attacker for {effect_duration} seconds.";
 
@@ -262,7 +263,7 @@ public class LNE_Abilities {
 
     public static Entry frozen_touch = add(frozen_touch());
     private static Entry frozen_touch() {
-        var id = Identifier.of(MOD_ID, "frozen_touch");
+        var id = new Identifier(MOD_ID, "frozen_touch");
         var title = "Frozen Touch";
         var description = "On Taking damage {trigger_chance} chance, to inflict freezing on the attacker for {effect_duration} seconds.";
 
@@ -295,7 +296,7 @@ public class LNE_Abilities {
     // ===== ACTIVE BUFF SPELLS =====
     public static Entry ender_dragon_scales = add(ender_dragon_scales());
     private static Entry ender_dragon_scales() {
-        var id = Identifier.of(MOD_ID, "ender_dragon_scales");
+        var id = new Identifier(MOD_ID, "ender_dragon_scales");
         var title = "Ender Dragon's Regeneration";
         var description = "Use: Regenerates your health for {effect_duration} seconds and reducing incoming damage for 20%%.";
 
@@ -310,7 +311,7 @@ public class LNE_Abilities {
                 ParticleGroupBuilder.of("dragon_breath")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(40F).speed(0.6F, 0.8F)));
-        spell.release.sound = new Sound(Identifier.of("spell_engine", "generic_healing_impact_3"));
+        spell.release.sound = new Sound(new Identifier("spell_engine", "generic_healing_impact_3"));
 
         spell.target.type = Spell.Target.Type.CASTER;
 
@@ -326,7 +327,7 @@ public class LNE_Abilities {
     // ===== CONDITIONAL HEAL SPELL =====
     public static Entry poseidons_grace = add(poseidons_grace());
     private static Entry poseidons_grace() {
-        var id = Identifier.of(MOD_ID, "poseidons_grace");
+        var id = new Identifier(MOD_ID, "poseidons_grace");
         var title = "Poseidons Grace";
         var description = "On taking damage: {trigger_chance} chance to heal the player for {heal} hearts, if the player is below 50%% health.";
 
@@ -347,7 +348,7 @@ public class LNE_Abilities {
         spell.target.type = Spell.Target.Type.FROM_TRIGGER;
 
         var heal = SpellBuilder.Impacts.heal(0.05F);
-        heal.attribute = EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString();
+        heal.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_MAX_HEALTH).toString();
         heal.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_arcane, ParticleGroup.Motion.ASCEND, Color.BLUE)
                         .batch(b -> b.shape(ParticleGroup.Shape.PIPE).widthFactor(2F)
@@ -362,7 +363,7 @@ public class LNE_Abilities {
 
     public static Entry enderman_teleport = add(enderman_teleport());
     private static Entry enderman_teleport() {
-        var id = Identifier.of(MOD_ID, "enderman_teleport");
+        var id = new Identifier(MOD_ID, "enderman_teleport");
         var title = "Corrupted Teleport";
         var description = "Use: Teleports you forwards for {teleport_distance} blocks.";
 
@@ -370,7 +371,7 @@ public class LNE_Abilities {
         spell.school = ExternalSpellSchools.PHYSICAL_MELEE;
 
         spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_area_release");
-        spell.release.sound = new Sound(Identifier.of("minecraft", "entity.enderman.teleport"));
+        spell.release.sound = new Sound(new Identifier("minecraft", "entity.enderman.teleport"));
 
         var teleportImpact = new Spell.Impact();
         teleportImpact.action = new Spell.Impact.Action();
@@ -403,7 +404,7 @@ public class LNE_Abilities {
 
     public static Entry elder_guardian_eye = add(elder_guardian_eye());
     private static Entry elder_guardian_eye() {
-        var id = Identifier.of(MOD_ID, "elder_guardian_eye");
+        var id = new Identifier(MOD_ID, "elder_guardian_eye");
         var title = "Elder Guardian's Beam";
         var description = "Use: Cast a Guardian Beam dealing {damage} damage and lowering the attack damage for {effect_duration} seconds.";
 
@@ -414,7 +415,7 @@ public class LNE_Abilities {
         spell.active.cast = new Spell.Active.Cast();
         spell.active.cast.duration = 4;
         spell.active.cast.animation = PlayerAnimation.of("spell_engine:two_handed_channeling");
-        spell.active.cast.sound = new Sound(Identifier.of("entity.guardian.attack"));
+        spell.active.cast.sound = new Sound(new Identifier("entity.guardian.attack"));
         spell.active.cast.type = Spell.Active.Cast.Type.CHANNEL;
         spell.active.cast.channel = new Spell.Active.Cast.Channel();
         spell.active.cast.channel.ticks = 4;
@@ -436,7 +437,7 @@ public class LNE_Abilities {
         damage.action.type = Spell.Impact.Action.Type.DAMAGE;
         damage.action.damage = new Spell.Impact.Action.Damage();
         damage.action.damage.spell_power_coefficient = 1.0F;
-        damage.sound = Sound.withVolume(Identifier.of("entity.guardian.attack"), 0.4F);
+        damage.sound = Sound.withVolume(new Identifier("entity.guardian.attack"), 0.4F);
 
         var curseEffect = SpellBuilder.Impacts.effectSet("loot_n_explore:elder_guardians_curse", 8.0F,0);
         spell.impacts = List.of(damage, curseEffect);
@@ -449,7 +450,7 @@ public class LNE_Abilities {
 
     public static Entry wither_spine = add(wither_spine());
     private static Entry wither_spine() {
-        var id = Identifier.of(MOD_ID, "wither_spine");
+        var id = new Identifier(MOD_ID, "wither_spine");
         var title = "Wither's Skull";
         var description = "Use: Shoots a Wither Skull dealing {damage} damage and inflicting wither for {effect_duration} seconds.";
 
@@ -487,15 +488,15 @@ public class LNE_Abilities {
         projectile.client_data.composite_model.models.get(0).rotate_degrees_per_tick = 0.0F;
 
         var damage = SpellBuilder.Impacts.damage(0.25F);
-        damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
+        damage.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.of("smoke")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(20F).speed(0.6F, 0.8F)));
-        damage.sound = new Sound(Identifier.of("entity.generic.explode"));
+        damage.sound = new Sound(new Identifier("entity.generic.explode"));
 
         var witherEffect = SpellBuilder.Impacts.effectSet("wither", 5.0F,1);
-        witherEffect.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
+        witherEffect.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
         witherEffect.action.status_effect.amplifier_power_multiplier = 0.25F;
         witherEffect.action.status_effect.show_particles = true;
 
@@ -516,7 +517,7 @@ public class LNE_Abilities {
 
     public static Entry avalanche = add(avalanche());
     private static Entry avalanche() {
-        var id = Identifier.of(MOD_ID, "avalanche");
+        var id = new Identifier(MOD_ID, "avalanche");
         var title = "Avalanche";
         var description = "On melee hit: {trigger_chance} chance to spawn a small avalanche, dealing {damage} damage and inflicting freezing for {effect_duration}.";
 
@@ -560,12 +561,12 @@ public class LNE_Abilities {
                 createDenyModifier("#minecraft:freeze_immune_entity_types")
         );
         var damage = SpellBuilder.Impacts.damage(0.3F);
-        damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
+        damage.attribute = Registries.ATTRIBUTE.getId(EntityAttributes.GENERIC_ATTACK_DAMAGE).toString();
         damage.visuals = Fx.Visuals.of(
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_frost, ParticleGroup.Motion.BURST, Color.FROST)
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(15F).speed(0.2F, 0.4F)));
-        damage.sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));
+        damage.sound = new Sound(new Identifier("spell_engine", "generic_frost_impact"));
 
         spell.impacts = List.of(freezingEffect, damage);
 
@@ -587,7 +588,7 @@ public class LNE_Abilities {
 
     public static Entry frozen_soul = add(frozen_soul());
     private static Entry frozen_soul() {
-        var id = Identifier.of(MOD_ID, "frozen_soul");
+        var id = new Identifier(MOD_ID, "frozen_soul");
         var title = "Monarch's Freezing Storm";
         var description = "Use: Creates a powerful freezing storm for {cloud_duration} seconds, freezing the targets.";
 
@@ -599,13 +600,13 @@ public class LNE_Abilities {
                 ParticleGroupBuilder.magic(SpellEngineParticles.magic_frost, ParticleGroup.Motion.DECELERATE, Color.FROST)
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(40F).speed(0.6F, 0.8F)));
-        spell.release.sound = new Sound(Identifier.of("spell_engine", "generic_frost_casting"));
+        spell.release.sound = new Sound(new Identifier("spell_engine", "generic_frost_casting"));
 
         spell.deliver.type = Spell.Delivery.Type.CLOUD;
         var cloud = new Spell.Delivery.Cloud();
         cloud.volume.radius = 6.0F;
         cloud.time_to_live_seconds = 15.0F;
-        cloud.presence_sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));
+        cloud.presence_sound = new Sound(new Identifier("spell_engine", "generic_frost_impact"));
         cloud.client_data = new Spell.Delivery.Cloud.ClientData();
         cloud.client_data.particles = List.of(
                 ParticleGroupBuilder.of("loot_n_explore:freezing_snowflake")

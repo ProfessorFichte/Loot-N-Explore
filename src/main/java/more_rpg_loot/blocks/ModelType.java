@@ -121,9 +121,9 @@ public sealed interface ModelType {
             if (generateItemModel) {
                 // Generate item model with texture from item/blocks/ directory
                 Models.GENERATED.upload(
-                    Identifier.of(MOD_ID, "item/" + blockName),
+                    new Identifier(MOD_ID, "item/" + blockName),
                     net.minecraft.data.client.TextureMap.layer0(
-                        Identifier.of(MOD_ID, "item/blocks/" + blockName)
+                        new Identifier(MOD_ID, "item/blocks/" + blockName)
                     ),
                     generator.writer
                 );

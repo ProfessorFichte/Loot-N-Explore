@@ -14,7 +14,9 @@ import net.minecraft.util.Identifier;
 import net.spell_power.api.SpellPowerMechanics;
 import net.spell_power.api.SpellSchools;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
@@ -28,10 +30,9 @@ public class SpellPower_Effects {
         public final String title;
         public final String description;
         public final StatusEffect effect;
-        public RegistryEntry<StatusEffect> registryEntry;
 
         public SPEntry(String name, String title, String description, StatusEffect effect) {
-            this.id = Identifier.of(MOD_ID, name);
+            this.id = new Identifier(MOD_ID, name);
             this.title = title;
             this.description = description;
             this.effect = effect;
@@ -39,11 +40,19 @@ public class SpellPower_Effects {
         }
 
         public void register() {
-            registryEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
+            // 1.20.1: every status-effect API takes the raw StatusEffect, so there is no
+            // RegistryEntry to hold on to.
+            Registry.register(Registries.STATUS_EFFECT, id, effect);
         }
 
         public Identifier modifierId() {
-            return Identifier.of(MOD_ID, "effect." + id.getPath());
+            return new Identifier(MOD_ID, "effect." + id.getPath());
+        }
+
+        /// 1.20.1: attribute modifiers are UUID-keyed, not Identifier-keyed. Derived from the same
+        /// Identifier so the value is stable across runs.
+        public String modifierUuid() {
+            return UUID.nameUUIDFromBytes(modifierId().toString().getBytes(StandardCharsets.UTF_8)).toString();
         }
     }
 
@@ -102,61 +111,61 @@ public class SpellPower_Effects {
         RPGLoot.LOGGER.info("Registering Spell Power Compat Effects for " + MOD_ID);
         /// T0 BUFF EFFECTS
         ORANGE_JUICE.effect.addAttributeModifier(
-                SpellPowerMechanics.HASTE.attributeEntry, ORANGE_JUICE.modifierId(),
-                effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                SpellPowerMechanics.HASTE.attribute, ORANGE_JUICE.modifierUuid(),
+                effectsConfig.value.drinks_haste_t0_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T1 BUFF EFFECTS
         SWEET_CHILLI.effect.addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, SWEET_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellPowerMechanics.CRITICAL_DAMAGE.attribute, SWEET_CHILLI.modifierUuid(),
+                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         FRUIT_ICEWATER.effect
                 .addAttributeModifier(
-                        SpellSchools.FROST.attributeEntry, FRUIT_ICEWATER.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellSchools.FROST.attributeEntry.value(), FRUIT_ICEWATER.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         CHORUS_EXTRACT.effect
                 .addAttributeModifier(
-                        SpellSchools.ARCANE.attributeEntry, CHORUS_EXTRACT.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellSchools.ARCANE.attributeEntry.value(), CHORUS_EXTRACT.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         HOT_CHILLI.effect
                 .addAttributeModifier(
-                        SpellSchools.FIRE.attributeEntry, HOT_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellSchools.FIRE.attributeEntry.value(), HOT_CHILLI.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         HOLY_WATER.effect
                 .addAttributeModifier(
-                        SpellSchools.HEALING.attributeEntry, HOLY_WATER.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellSchools.HEALING.attributeEntry.value(), HOLY_WATER.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         ENCHANTED_ALE.effect
                 .addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_CHANCE.attributeEntry, ENCHANTED_ALE.modifierId(),
-                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellPowerMechanics.CRITICAL_CHANCE.attribute, ENCHANTED_ALE.modifierUuid(),
+                        effectsConfig.value.drinks_crit_rate_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T2 BUFF EFFECTS
         WIZARDS_ELIXIR.effect
                 .addAttributeModifier(
-                        SpellSchools.GENERIC.attributeEntry, WIZARDS_ELIXIR.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        SpellSchools.GENERIC.attributeEntry.value(), WIZARDS_ELIXIR.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        SpellPowerMechanics.HASTE.attributeEntry, WIZARDS_ELIXIR.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellPowerMechanics.HASTE.attribute, WIZARDS_ELIXIR.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T3 BUFF EFFECTS
         MERLINS_FLASK.effect
                 .addAttributeModifier(
-                        SpellSchools.GENERIC.attributeEntry, MERLINS_FLASK.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        SpellSchools.GENERIC.attributeEntry.value(), MERLINS_FLASK.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        SpellPowerMechanics.HASTE.attributeEntry, MERLINS_FLASK.modifierId(),
-                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        SpellPowerMechanics.HASTE.attribute, MERLINS_FLASK.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        SpellPowerMechanics.CRITICAL_DAMAGE.attributeEntry, MERLINS_FLASK.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellPowerMechanics.CRITICAL_DAMAGE.attribute, MERLINS_FLASK.modifierUuid(),
+                        effectsConfig.value.drinks_crit_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         CRUSADERS_REST.effect
                 .addAttributeModifier(
-                        SpellSchools.HEALING.attributeEntry, CRUSADERS_REST.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        SpellSchools.HEALING.attributeEntry.value(), CRUSADERS_REST.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, CRUSADERS_REST.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, CRUSADERS_REST.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_MAX_HEALTH, CRUSADERS_REST.modifierId(),
-                        effectsConfig.value.drinks_health_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        EntityAttributes.GENERIC_MAX_HEALTH, CRUSADERS_REST.modifierUuid(),
+                        effectsConfig.value.drinks_health_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 
         for (SpellPower_Effects.SPEntry entry: entries) {
             entry.register();

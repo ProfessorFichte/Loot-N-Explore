@@ -24,7 +24,7 @@ public class LNEVillagerProfessions {
 
 
     private static VillagerProfession registerProfession(String name, RegistryKey<PointOfInterestType> type, SoundEvent sound) {
-        return Registry.register(Registries.VILLAGER_PROFESSION, Identifier.of(MOD_ID, name),
+        return Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(MOD_ID, name),
                 new VillagerProfession(name,
                         entry -> entry.matchesKey(type),
                         entry -> entry.matchesKey(type),
@@ -34,11 +34,11 @@ public class LNEVillagerProfessions {
 
 
     private static PointOfInterestType registerPoi(String name, Block block) {
-        return PointOfInterestHelper.register(Identifier.of(MOD_ID, name), 1, 1, block);
+        return PointOfInterestHelper.register(new Identifier(MOD_ID, name), 1, 1, block);
     }
 
     public static RegistryKey<PointOfInterestType> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, Identifier.of(MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(MOD_ID, name));
     }
 
     public static void registerVillagers() {

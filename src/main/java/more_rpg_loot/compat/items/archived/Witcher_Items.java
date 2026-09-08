@@ -16,26 +16,26 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class Witcher_Items {
     /// T0 BUFF ITEMS
     public static Item BEAUCLAIR_WHITE = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON),
-            Witcher_Effects.BEAUCLAIR_WHITE.registryEntry, 0);
+            Witcher_Effects.BEAUCLAIR_WHITE.effect, 0);
     /// T1 BUFF ITEMS
     public static Item RIVIAN_KRIEK = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON),
-            Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1);
+            Witcher_Effects.RIVIAN_KRIEK.effect, 1);
     /// T2 BUFF ITEMS
     public static Item BUTCHER_OF_BLAVIKEN = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE),
-            Witcher_Effects.BUTCHER_OF_BLAVIKEN.registryEntry, 2);
+            Witcher_Effects.BUTCHER_OF_BLAVIKEN.effect, 2);
     /// T3 BUFF ITEMS
     public static Item WHITE_WOLF = new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC),
-            Witcher_Effects.WHITE_WOLF.registryEntry, 3);
+            Witcher_Effects.WHITE_WOLF.effect, 3);
 
     public static void registerWitcherItems() {
         /// T0 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"beauclair_white"),BEAUCLAIR_WHITE);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"beauclair_white"),BEAUCLAIR_WHITE);
         /// T1 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"rivian_kriek"),RIVIAN_KRIEK);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"rivian_kriek"),RIVIAN_KRIEK);
         /// T2 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"butcher_of_blaviken"),BUTCHER_OF_BLAVIKEN);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"butcher_of_blaviken"),BUTCHER_OF_BLAVIKEN);
         /// T3 BUFF ITEMS
-        Registry.register(Registries.ITEM,Identifier.of(MOD_ID,"white_wolf"),WHITE_WOLF);
+        Registry.register(Registries.ITEM,new Identifier(MOD_ID,"white_wolf"),WHITE_WOLF);
 
         ItemGroupEvents.modifyEntriesEvent(Group.RPG_FOOD_KEY).register((content) -> {
             /// T0 BUFF ITEMS

@@ -70,6 +70,6 @@ public class RPGLoot implements ModInitializer {
 		effectsConfig.save();
 	}
 	public static Identifier id(String path) {
-		return Identifier.of(MOD_ID, path);
+		return new Identifier(MOD_ID, path);
 	}
 }
