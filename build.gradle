@@ -32,7 +32,6 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-	mavenLocal()
 	maven { url = 'https://maven.kosmx.dev/' }
 	maven { url = 'https://maven.shedaniel.me/' }
 	maven {
@@ -101,10 +100,10 @@ dependencies {
 	modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric") { transitive = false }
 	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric") { transitive = false }
-	// Still mavenLocal: Fichte has not published a modern More-RPG-Library build to Modrinth's 1.20.1
-	// channel. Becomes maven.modrinth:more-rpg-library:<version>-fabric once they do.
-	modImplementation("net.more_rpg_classes:more_rpg_library-${platform}:${project.more_rpg_library_version}") { transitive = false }
-	modCompileOnly("net.witcher_class:witcher-class-mod-${platform}:${project.witcher_version}") { transitive = false }
+	// Resolves once More RPG Library's 1.20.1 release (release tier 1) is published.
+	modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-fabric") { transitive = false }
+	// Resolves once Witcher's 1.20.1 release is published (it must ship before this mod).
+	modCompileOnly("maven.modrinth:witcher-rpg-class:${project.witcher_version}-fabric") { transitive = false }
 	// Modrinth's project slug is `relics-rpg`, not `relics`.
 	modCompileOnly("maven.modrinth:relics-rpg:${project.relics_version}-fabric") { transitive = false }
 	// Dev runtime only: More-RPG-Library ships `runes:crafting` recipes that fail to parse without it.

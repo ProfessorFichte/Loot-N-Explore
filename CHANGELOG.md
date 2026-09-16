@@ -1,5 +1,16 @@
 # 1.0.22+1.20.1
 
+> ### ⚠️ Read this before updating
+>
+> This release is a **major technical overhaul and is not backwards compatible.**
+>
+> - **Requires the matching Spell Engine and More RPG Library releases.** This version will not run on
+>   Spell Engine **0.9.x**, and mods built against 0.9.x will not work alongside it.
+> - **Update the whole set together.** Spell Engine, More RPG Library and every RPG Series mod must be on
+>   matching versions. Mixing in an older add-on will break at startup or misbehave in play.
+>
+> **Back up your world before updating.**
+
 - Ported to Minecraft 1.20.1 (Fabric). This line is Fabric-only, like the 1.21.1 branch.
 - Requires Structure Pool API 1.2.1 and Fabric API 0.92; works with the matching 1.20.1 releases of
   Spell Engine (1.10.5), Spell Power (1.6.0), RangedWeaponAPI (2.3.4) and More RPG Library (2.7.2).
