@@ -40,11 +40,11 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
                 .add(ModEntities.GLAZE)
         ;
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("c", "bosses")))
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier("c", "bosses")))
                 .add(ModEntities.FROST_MONARCH)
         ;
 
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("frostiful", "benefits_from_cold")))
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier("frostiful", "benefits_from_cold")))
                 .add(ModEntities.FROST_MONARCH)
                 .add(ModEntities.FROST_HAUNT)
                 .add(ModEntities.GLAZE)

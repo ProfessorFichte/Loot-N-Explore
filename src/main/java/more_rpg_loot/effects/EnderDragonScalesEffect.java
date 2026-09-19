@@ -9,12 +9,12 @@ public class EnderDragonScalesEffect extends StatusEffect {
         super(category, color);
     }
 
-    public boolean applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
+    // 1.20.1: `applyUpdateEffect` returns void.
+    @Override
+    public void applyUpdateEffect(LivingEntity pLivingEntity, int pAmplifier) {
         if (pLivingEntity.getHealth() < pLivingEntity.getMaxHealth()) {
             pLivingEntity.heal(1.0F);
         }
-
-        return true;
     }
 
     @Override

@@ -17,7 +17,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class FrostmonarchOverlayFeatureRenderer<T extends MobEntity & RangedAttackMob, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private static final Identifier TEXTURE =
-            Identifier.of(MOD_ID, "textures/entity/mobs/frostmonarch_overlay.png");
+            new Identifier(MOD_ID, "textures/entity/mobs/frostmonarch_overlay.png");
     private final SkeletonEntityModel<T> model;
     private final Identifier texture;
 
@@ -28,6 +28,8 @@ public class FrostmonarchOverlayFeatureRenderer<T extends MobEntity & RangedAtta
     }
 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T mobEntity, float f, float g, float h, float j, float k, float l) {
-        render(this.getContextModel(), this.model, this.texture, matrixStack, vertexConsumerProvider, i, mobEntity, f, g, j, k, l, h, -1);
+        // 1.20.1: FeatureRenderer.render takes three float colour components (red, green, blue)
+        // instead of 1.21's packed ARGB int; -1 (0xFFFFFFFF, opaque white) becomes 1.0F/1.0F/1.0F.
+        render(this.getContextModel(), this.model, this.texture, matrixStack, vertexConsumerProvider, i, mobEntity, f, g, j, k, l, h, 1.0F, 1.0F, 1.0F);
     }
 }

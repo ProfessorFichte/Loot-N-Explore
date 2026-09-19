@@ -15,7 +15,9 @@ import net.more_rpg_classes.custom.MoreSpellSchools;
 import net.more_rpg_classes.entity.attribute.MRPGCEntityAttributes;
 import net.spell_power.api.SpellSchools;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
@@ -29,10 +31,9 @@ public class MRPGC_Effects {
         public final String title;
         public final String description;
         public final StatusEffect effect;
-        public RegistryEntry<StatusEffect> registryEntry;
 
         public MRPGCEntry(String name, String title, String description, StatusEffect effect) {
-            this.id = Identifier.of(MOD_ID, name);
+            this.id = new Identifier(MOD_ID, name);
             this.title = title;
             this.description = description;
             this.effect = effect;
@@ -40,11 +41,19 @@ public class MRPGC_Effects {
         }
 
         public void register() {
-            registryEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
+            // 1.20.1: every status-effect API takes the raw StatusEffect, so there is no
+            // RegistryEntry to hold on to.
+            Registry.register(Registries.STATUS_EFFECT, id, effect);
         }
 
         public Identifier modifierId() {
-            return Identifier.of(MOD_ID, "effect." + id.getPath());
+            return new Identifier(MOD_ID, "effect." + id.getPath());
+        }
+
+        /// 1.20.1: attribute modifiers are UUID-keyed, not Identifier-keyed. Derived from the same
+        /// Identifier so the value is stable across runs.
+        public String modifierUuid() {
+            return UUID.nameUUIDFromBytes(modifierId().toString().getBytes(StandardCharsets.UTF_8)).toString();
         }
     }
 
@@ -93,49 +102,49 @@ public class MRPGC_Effects {
         /// T1 BUFF EFFECTS
         WATERMELON_DRINK.effect
                 .addAttributeModifier(
-                        MoreSpellSchools.WATER.attributeEntry, WATERMELON_DRINK.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MoreSpellSchools.WATER.attributeEntry.value(), WATERMELON_DRINK.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         BLUE_BERRY_PUNCH.effect
                 .addAttributeModifier(
-                        MoreSpellSchools.AIR.attributeEntry, BLUE_BERRY_PUNCH.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MoreSpellSchools.AIR.attributeEntry.value(), BLUE_BERRY_PUNCH.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         GREEN_CHILLI.effect
                 .addAttributeModifier(
-                        MoreSpellSchools.EARTH.attributeEntry, GREEN_CHILLI.modifierId(),
-                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MoreSpellSchools.EARTH.attributeEntry.value(), GREEN_CHILLI.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         HONEY_MET.effect
                 .addAttributeModifier(
-                        MRPGCEntityAttributes.RAGE_MODIFIER, HONEY_MET.modifierId(),
-                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MRPGCEntityAttributes.RAGE_MODIFIER, HONEY_MET.modifierUuid(),
+                        effectsConfig.value.drinks_crit_damage_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         CACTUS_JUICE.effect
                 .addAttributeModifier(
-                        MRPGCEntityAttributes.DAMAGE_REFLECT_MODIFIER, CACTUS_JUICE.modifierId(),
-                        effectsConfig.value.drinks_reflect_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MRPGCEntityAttributes.DAMAGE_REFLECT_MODIFIER, CACTUS_JUICE.modifierUuid(),
+                        effectsConfig.value.drinks_reflect_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T3 BUFF EFFECTS
         DETTLAFFS_BLOOD.effect
                 .addAttributeModifier(
-                        MRPGCEntityAttributes.LIFESTEAL_MODIFIER, DETTLAFFS_BLOOD.modifierId(),
-                        effectsConfig.value.drinks_lifesteal_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        MRPGCEntityAttributes.LIFESTEAL_MODIFIER, DETTLAFFS_BLOOD.modifierUuid(),
+                        effectsConfig.value.drinks_lifesteal_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, DETTLAFFS_BLOOD.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, DETTLAFFS_BLOOD.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         SCARLET_ESSENCE.effect
                 .addAttributeModifier(
-                        MRPGCEntityAttributes.SPELL_VAMPIRE, SCARLET_ESSENCE.modifierId(),
-                        effectsConfig.value.drinks_lifesteal_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        MRPGCEntityAttributes.SPELL_VAMPIRE, SCARLET_ESSENCE.modifierUuid(),
+                        effectsConfig.value.drinks_lifesteal_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        SpellSchools.GENERIC.attributeEntry, SCARLET_ESSENCE.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        SpellSchools.GENERIC.attributeEntry.value(), SCARLET_ESSENCE.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         SVABLODS_BREW.effect
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_SPEED, SVABLODS_BREW.modifierId(),
-                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes.GENERIC_ATTACK_SPEED, SVABLODS_BREW.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, SVABLODS_BREW.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, SVABLODS_BREW.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        MRPGCEntityAttributes.RAGE_MODIFIER, SVABLODS_BREW.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        MRPGCEntityAttributes.RAGE_MODIFIER, SVABLODS_BREW.modifierUuid(),
+                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 
         for (MRPGCEntry entry: entries) {
             entry.register();

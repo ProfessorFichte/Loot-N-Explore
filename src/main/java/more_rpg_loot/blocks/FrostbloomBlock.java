@@ -1,17 +1,13 @@
 package more_rpg_loot.blocks;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import more_rpg_loot.effects.Effects;
 import net.minecraft.block.*;
-import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -22,20 +18,16 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class FrostbloomBlock extends FlowerBlock {
-    public static final MapCodec<FrostbloomBlock> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(STEW_EFFECT_CODEC.forGetter(FlowerBlock::getStewEffects), createSettingsCodec()).apply(instance, FrostbloomBlock::new);
-    });
-
-    public MapCodec<FrostbloomBlock> getCodec() {
-        return CODEC;
-    }
-
-    public FrostbloomBlock(RegistryEntry<StatusEffect> registryEntry, float f, AbstractBlock.Settings settings) {
-        this(createStewEffectList(registryEntry, f), settings);
-    }
-
-    public FrostbloomBlock(SuspiciousStewEffectsComponent suspiciousStewEffectsComponent, AbstractBlock.Settings settings) {
-        super(suspiciousStewEffectsComponent, settings);
+    // 1.20.1: blocks have no MapCodec (no block codecs before 1.20.5), so there is no CODEC field
+    // and no getCodec() override. FlowerBlock also has no SuspiciousStewEffectsComponent - the
+    // suspicious-stew effect is a single (StatusEffect, duration) pair passed straight to super.
+    //
+    // 1.20.1: `effectDuration` is in SECONDS, same unit as the float 1.21 passes: FlowerBlock's
+    // constructor itself does `effectDuration * 20` for non-instant effects (and leaves instant
+    // effects alone), which is what 1.21's createStewEffectList(effect, seconds) did. So the value
+    // from the call site carries over unchanged - do NOT pre-multiply by 20 here.
+    public FrostbloomBlock(StatusEffect suspiciousStewEffect, int effectDuration, AbstractBlock.Settings settings) {
+        super(suspiciousStewEffect, effectDuration, settings);
     }
 
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
@@ -61,7 +53,7 @@ public class FrostbloomBlock extends FlowerBlock {
             if (entity instanceof LivingEntity livingEntity) {
                 EntityType<?> type = entity.getType();
                 if (!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {
-                    livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.registryEntry, 40));
+                    livingEntity.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.effect, 40));
                 }
             }
 

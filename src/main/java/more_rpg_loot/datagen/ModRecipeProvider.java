@@ -3,8 +3,8 @@ package more_rpg_loot.datagen;
 import more_rpg_loot.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
-import net.minecraft.data.server.recipe.RecipeExporter;
+import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
@@ -13,21 +13,24 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+    // 1.20.1: FabricRecipeProvider takes only the FabricDataOutput (no registry lookup future).
+    public ModRecipeProvider(FabricDataOutput output) {
+        super(output);
     }
 
+    // 1.20.1: RecipeExporter does not exist yet - recipes are emitted through a
+    // Consumer<RecipeJsonProvider>. Fabric's withConditions(...) wraps such a consumer the same way,
+    // and the resource-condition factories still live on DefaultResourceConditions.
     @Override
-    public void generate(RecipeExporter exporter) {
+    public void generate(Consumer<RecipeJsonProvider> exporter) {
         // Create a conditional exporter that requires spell_engine mod
-        RecipeExporter spellengineConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("spell_engine"));
-        RecipeExporter mrpgcConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("more_rpg_classes"));
+        Consumer<RecipeJsonProvider> spellengineConditionalExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded("spell_engine"));
+        Consumer<RecipeJsonProvider> mrpgcConditionalExporter = withConditions(exporter, DefaultResourceConditions.allModsLoaded("more_rpg_classes"));
 
         // === SIMPLE RECIPES (no conditions) ===
 
@@ -74,7 +77,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', dragonTemplate)
                 .criterion(hasItem(dragonTemplate), conditionsFromItem(dragonTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "dragon_upgrade_smithing_template_multiply"));
+                .offerTo(spellengineConditionalExporter, new Identifier("loot_n_explore", "dragon_upgrade_smithing_template_multiply"));
 
         // Guardian Upgrade Smithing Template - Crafting
         Item guardianTemplate = getItem("loot_n_explore:guardian_upgrade_smithing_template");
@@ -102,7 +105,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', guardianTemplate)
                 .criterion(hasItem(guardianTemplate), conditionsFromItem(guardianTemplate))
-                .offerTo(mrpgcConditionalExporter, Identifier.of("loot_n_explore", "guardian_upgrade_smithing_template_multiply"));
+                .offerTo(mrpgcConditionalExporter, new Identifier("loot_n_explore", "guardian_upgrade_smithing_template_multiply"));
 
         // Wither Upgrade Smithing Template - Crafting
         Item witherTemplate = getItem("loot_n_explore:wither_upgrade_smithing_template");
@@ -130,7 +133,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', witherTemplate)
                 .criterion(hasItem(witherTemplate), conditionsFromItem(witherTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "wither_upgrade_smithing_template_multiply"));
+                .offerTo(spellengineConditionalExporter, new Identifier("loot_n_explore", "wither_upgrade_smithing_template_multiply"));
 
         // Frostmonarch Upgrade Smithing Template - Crafting
         Item frostTemplate = getItem("loot_n_explore:frostmonarch_upgrade_smithing_template");
@@ -158,7 +161,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('A', Items.NETHERITE_INGOT)
                 .input('B', frostTemplate)
                 .criterion(hasItem(frostTemplate), conditionsFromItem(frostTemplate))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "frostmonarch_upgrade_smithing_template_multiply"));
+                .offerTo(spellengineConditionalExporter, new Identifier("loot_n_explore", "frostmonarch_upgrade_smithing_template_multiply"));
 
         // === UNCRAFTING RECIPES (with spell_engine condition) ===
 
@@ -166,13 +169,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.AMETHYST_SHARD, 5)
                 .input(chargedAmethyst)
                 .criterion(hasItem(chargedAmethyst), conditionsFromItem(chargedAmethyst))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "uncraft_charged_amethyst"));
+                .offerTo(spellengineConditionalExporter, new Identifier("loot_n_explore", "uncraft_charged_amethyst"));
 
         // Uncraft Unknown Remains
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BONE, 8)
                 .input(unknownRemains)
                 .criterion(hasItem(unknownRemains), conditionsFromItem(unknownRemains))
-                .offerTo(spellengineConditionalExporter, Identifier.of("loot_n_explore", "uncraft_unknown_remains"));
+                .offerTo(spellengineConditionalExporter, new Identifier("loot_n_explore", "uncraft_unknown_remains"));
 
         // === SMITHING TRANSFORM RECIPES (with spell_engine condition) ===
 
@@ -240,7 +243,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     /**
      * Helper method to create smithing transform recipes with proper criteria
      */
-    private void createSmithingTransformRecipe(RecipeExporter exporter, Item template, Item base, Item addition, Item result, String recipeName) {
+    private void createSmithingTransformRecipe(Consumer<RecipeJsonProvider> exporter, Item template, Item base, Item addition, Item result, String recipeName) {
         SmithingTransformRecipeJsonBuilder.create(
                 Ingredient.ofItems(template),
                 Ingredient.ofItems(base),
@@ -249,7 +252,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 result
         )
         .criterion(hasItem(addition), conditionsFromItem(addition))
-        .offerTo(exporter, Identifier.of("loot_n_explore", recipeName));
+        .offerTo(exporter, new Identifier("loot_n_explore", recipeName));
     }
 
     /**

@@ -12,7 +12,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
@@ -26,10 +28,9 @@ public class RWA_Effects {
         public final String title;
         public final String description;
         public final StatusEffect effect;
-        public RegistryEntry<StatusEffect> registryEntry;
 
         public RWAEntry(String name, String title, String description, StatusEffect effect) {
-            this.id = Identifier.of(MOD_ID, name);
+            this.id = new Identifier(MOD_ID, name);
             this.title = title;
             this.description = description;
             this.effect = effect;
@@ -37,11 +38,19 @@ public class RWA_Effects {
         }
 
         public void register() {
-            registryEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
+            // 1.20.1: every status-effect API takes the raw StatusEffect, so there is no
+            // RegistryEntry to hold on to.
+            Registry.register(Registries.STATUS_EFFECT, id, effect);
         }
 
         public Identifier modifierId() {
-            return Identifier.of(MOD_ID, "effect." + id.getPath());
+            return new Identifier(MOD_ID, "effect." + id.getPath());
+        }
+
+        /// 1.20.1: attribute modifiers are UUID-keyed, not Identifier-keyed. Derived from the same
+        /// Identifier so the value is stable across runs.
+        public String modifierUuid() {
+            return UUID.nameUUIDFromBytes(modifierId().toString().getBytes(StandardCharsets.UTF_8)).toString();
         }
     }
 
@@ -76,32 +85,32 @@ public class RWA_Effects {
         /// T0 BUFF EFFECTS
         APPLE_JUICE.effect
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry, APPLE_JUICE.modifierId(),
-                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        EntityAttributes_RangedWeapon.DAMAGE.attribute, APPLE_JUICE.modifierUuid(),
+                effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T1 BUFF EFFECTS
         WALDMEISTER.effect
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, WALDMEISTER.modifierId(),
-                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        EntityAttributes_RangedWeapon.HASTE.attribute, WALDMEISTER.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T2 BUFF EFFECTS
         FORREST_SPIRIT.effect
                 .addAttributeModifier(
-                EntityAttributes_RangedWeapon.DAMAGE.entry, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                EntityAttributes_RangedWeapon.DAMAGE.attribute, FORREST_SPIRIT.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, FORREST_SPIRIT.modifierId(),
-                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        EntityAttributes_RangedWeapon.HASTE.attribute, FORREST_SPIRIT.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T3 BUFF EFFECTS
         WOODSNAKE_POTION.effect
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.DAMAGE.entry, WOODSNAKE_POTION.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes_RangedWeapon.DAMAGE.attribute, WOODSNAKE_POTION.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.HASTE.entry, WOODSNAKE_POTION.modifierId(),
-                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes_RangedWeapon.HASTE.attribute, WOODSNAKE_POTION.modifierUuid(),
+                        effectsConfig.value.drinks_haste_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes_RangedWeapon.VELOCITY.entry, WOODSNAKE_POTION.modifierId(),
-                effectsConfig.value.drinks_arrow_velocity_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE);
+                        EntityAttributes_RangedWeapon.VELOCITY.attribute, WOODSNAKE_POTION.modifierUuid(),
+                effectsConfig.value.drinks_arrow_velocity_t3_boost, EntityAttributeModifier.Operation.ADDITION);
 
 
         for (RWAEntry entry: entries) {

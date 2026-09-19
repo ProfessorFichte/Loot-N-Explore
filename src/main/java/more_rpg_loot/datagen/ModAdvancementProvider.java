@@ -14,15 +14,15 @@ import net.minecraft.predicate.entity.EntityTypePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class ModAdvancementProvider extends FabricAdvancementProvider {
@@ -40,7 +40,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         boolean announceToChat,
         boolean hidden,
         @Nullable String background,  // Only for root advancements
-        AdvancementCriterion<?> criterion,
+        // 1.20.1: AdvancementCriterion is not generic yet.
+        AdvancementCriterion criterion,
         @Nullable Integer experienceReward
     ) {
         // Helper methods to generate translation keys from the advancement ID
@@ -71,11 +72,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     // Helper to create identifier
     private static Identifier id(String path) {
-        return Identifier.of("loot_n_explore", path);
+        return new Identifier("loot_n_explore", path);
     }
 
     // Helper to create advancement criterion for inventory change (single item name)
-    private static AdvancementCriterion<?> hasItem(String itemName) {
+    private static AdvancementCriterion hasItem(String itemName) {
         // Add namespace if not present
         String fullName = itemName.contains(":") ? itemName : "loot_n_explore:" + itemName;
         var itemId = Identifier.tryParse(fullName);
@@ -87,35 +88,37 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             item = Items.DIAMOND;
         }
 
-        return InventoryChangedCriterion.Conditions.items(item);
+        // 1.20.1: criteria conditions have to be wrapped into an AdvancementCriterion by hand.
+        return new AdvancementCriterion(InventoryChangedCriterion.Conditions.items(item));
     }
 
     // Helper to create advancement criterion for inventory change (item tag)
-    private static AdvancementCriterion<?> hasItemTag(TagKey<Item> tag) {
-        return InventoryChangedCriterion.Conditions.items(
+    private static AdvancementCriterion hasItemTag(TagKey<Item> tag) {
+        return new AdvancementCriterion(InventoryChangedCriterion.Conditions.items(
             ItemPredicate.Builder.create().tag(tag).build()
-        );
+        ));
     }
 
     // Helper to create advancement criterion for location (structures)
-    private static AdvancementCriterion<?> atStructures(String... structureIds) {
+    private static AdvancementCriterion atStructures(String... structureIds) {
         var locationBuilder = LocationPredicate.Builder.create();
 
         // For structure-based location, use a simple tick criterion
         // The actual structure check will be done via location predicate
-        return TickCriterion.Conditions.createLocation(locationBuilder);
+        // 1.20.1: createLocation takes a built LocationPredicate, not its builder.
+        return new AdvancementCriterion(TickCriterion.Conditions.createLocation(locationBuilder.build()));
     }
 
     // Helper to create advancement criterion for killing entity
-    private static AdvancementCriterion<?> killedEntity(String entityType) {
-        EntityType<?> type = (EntityType<?>) Registries.ENTITY_TYPE.get(Identifier.of(entityType));
+    private static AdvancementCriterion killedEntity(String entityType) {
+        EntityType<?> type = (EntityType<?>) Registries.ENTITY_TYPE.get(new Identifier(entityType));
         var entityPredicate = EntityPredicate.Builder.create().type(EntityTypePredicate.create(type));
-        return OnKilledCriterion.Conditions.createPlayerKilledEntity(entityPredicate);
+        return new AdvancementCriterion(OnKilledCriterion.Conditions.createPlayerKilledEntity(entityPredicate));
     }
 
     // Helper to create tick criterion (always true)
-    private static AdvancementCriterion<?> tick() {
-        return TickCriterion.Conditions.createTick();
+    private static AdvancementCriterion tick() {
+        return new AdvancementCriterion(TickCriterion.Conditions.createTick());
     }
 
     // Static initialization block to register all advancements
@@ -132,7 +135,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             "loot_n_explore:ender_dragon_axe",
             AdvancementFrame.TASK,
             false, false, false,
-            "minecraft:textures/block/vault_bottom.png",
+            "minecraft:textures/block/blue_ice.png",
             tick(),
             null
         ));
@@ -372,7 +375,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addEquipment(new Entry(
             id("equipment/find_glacier_shard"),
             "Glacier Shard",
-            "Glacial Shards are protected by Glaze's in their tower spawners.",
+            "Glacial Shards are guarded by the Glaze in its tower.",
             id("equipment/find_eternal_snowflake"),
             "glacier_shard",
             AdvancementFrame.TASK,
@@ -384,7 +387,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addEquipment(new Entry(
             id("equipment/find_frozen_rib"),
             "Frozen Rib",
-            "Master the obstacles in the glacial tomb to obtain the frozen ribs of Frosthaunt's from their frozen vaults.",
+            "Master the obstacles in the glacial tomb to obtain the frozen ribs of the Frosthaunts.",
             id("equipment/find_glacier_shard"),
             "frozen_rib",
             AdvancementFrame.TASK,
@@ -473,42 +476,20 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             "Cold depths",
             "Find and explore the glacial tomb",
             id("exploration/glaze"),
-            "frozen_key",
+            "frozen_chain",
             AdvancementFrame.TASK,
             false, false, false, null,
             atStructures("glacial_tomb"),
             null
         ));
 
-        addExploration(new Entry(
-            id("exploration/frozen_key"),
-            "Too cold to handle",
-            "Unlock a Frozen Vault with a Frozen Key",
-            id("exploration/glacial_tomb"),
-            "frozen_key",
-            AdvancementFrame.TASK,
-            true, true, false, null,
-            hasItem("frozen_key"),
-            null
-        ));
-
-        addExploration(new Entry(
-            id("exploration/monarchs_key"),
-            "Freezing trial",
-            "Unlock an Ominous Frozen Vault with a Monarch's Key",
-            id("exploration/frozen_key"),
-            "monarchs_key",
-            AdvancementFrame.TASK,
-            true, true, false, null,
-            hasItem("monarchs_key"),
-            null
-        ));
-
+        // 1.20.1: `exploration/frozen_key` and `exploration/monarchs_key` are gone with the keys and
+        // the frozen vault they unlocked; `frost_monarch` hangs off `glacial_tomb` instead.
         addExploration(new Entry(
             id("exploration/frost_monarch"),
             "Winter is coming",
             "Kill the Frost Monarch in his temple. Summon him by placing his crown on the frozensouls block.",
-            id("exploration/monarchs_key"),
+            id("exploration/glacial_tomb"),
             "monarchs_crown",
             AdvancementFrame.CHALLENGE,
             false, true, false, null,
@@ -518,24 +499,32 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
     }
 
 
-    public ModAdvancementProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(output, registryLookup);
+    // 1.20.1: FabricAdvancementProvider takes only the FabricDataOutput (no registry lookup future).
+    public ModAdvancementProvider(FabricDataOutput output) {
+        super(output);
     }
 
+    // 1.20.1: there is no AdvancementEntry - advancements are consumed as Advancement itself,
+    // and the generator method takes no registry lookup.
     @Override
-    public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
+    public void generateAdvancement(Consumer<Advancement> consumer) {
+        // 1.20.1: `Advancement.Builder#build` resolves the parent eagerly and refuses to build when a
+        // parent *id* has no matching Advancement object, so built advancements are kept here and
+        // handed to their children. Both lists are already parent-before-child.
+        Map<Identifier, Advancement> built = new HashMap<>();
+
         // Generate all equipment advancements
         for (Entry entry : equipmentEntries) {
-            generateAdvancementEntry(entry, consumer);
+            generateAdvancementEntry(entry, consumer, built);
         }
 
         // Generate all exploration advancements
         for (Entry entry : explorationEntries) {
-            generateAdvancementEntry(entry, consumer);
+            generateAdvancementEntry(entry, consumer, built);
         }
     }
 
-    private void generateAdvancementEntry(Entry entry, Consumer<AdvancementEntry> consumer) {
+    private void generateAdvancementEntry(Entry entry, Consumer<Advancement> consumer, Map<Identifier, Advancement> built) {
         // Resolve item icon during generation (not static init)
         // Add namespace if not present
         String fullItemName = entry.iconItemName().contains(":") ? entry.iconItemName() : "loot_n_explore:" + entry.iconItemName();
@@ -561,11 +550,15 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             )
             .criterion("criterion", entry.criterion());
 
-        // Add parent if present (using deprecated Identifier method for now)
+        // Add parent if present
+        // 1.20.1: the parent must be the already-built Advancement, not just its id.
         if (entry.parent() != null) {
-            @SuppressWarnings("deprecation")
-            var builderWithParent = builder.parent(entry.parent());
-            builder = builderWithParent;
+            var parent = built.get(entry.parent());
+            if (parent == null) {
+                throw new IllegalStateException("Advancement " + entry.id() + " declares parent " + entry.parent()
+                        + ", which has not been generated yet.");
+            }
+            builder = builder.parent(parent);
         }
 
         // Add experience reward if present
@@ -573,7 +566,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             builder.rewards(AdvancementRewards.Builder.experience(entry.experienceReward()));
         }
 
-        consumer.accept(builder.build(consumer, entry.id().toString()));
+        // `build(Consumer, String)` already feeds the exporter, so it is not accepted a second time.
+        built.put(entry.id(), builder.build(consumer, entry.id().toString()));
     }
 
     // Getter methods to access entries (for language provider)

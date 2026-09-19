@@ -2,7 +2,6 @@ package more_rpg_loot.item.consumables;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -11,9 +10,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.*;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
@@ -21,13 +20,15 @@ import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 
 public class InnkeeperBowlItem extends Item {
-    private final RegistryEntry<StatusEffect> boost_effect_0;
+    private final StatusEffect boost_effect_0;
     private final int quality;
 
-    public InnkeeperBowlItem(Item.Settings settings,RegistryEntry<StatusEffect>  boostEffect, int quality) {
+    public InnkeeperBowlItem(Item.Settings settings,StatusEffect  boostEffect, int quality) {
         super(settings);
         boost_effect_0 = boostEffect;
         this.quality = quality;
@@ -59,7 +60,9 @@ public class InnkeeperBowlItem extends Item {
         return resultStack;
     }
 
-    public int getMaxUseTime(ItemStack stack, LivingEntity user) {
+    // 1.20.1: getMaxUseTime(ItemStack)
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
         return 32;
     }
 
@@ -90,8 +93,9 @@ public class InnkeeperBowlItem extends Item {
 
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
+    // 1.20.1: appendTooltip(stack, @Nullable World, tooltip, net.minecraft.client.item.TooltipContext)
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        super.appendTooltip(stack, world, tooltip, context);
         Formatting formatting = null;
         if(quality == 0){
             formatting = Formatting.BLUE;
@@ -106,7 +110,7 @@ public class InnkeeperBowlItem extends Item {
             formatting = Formatting.WHITE;
         }
 
-        String z = "item." + boost_effect_0.getIdAsString() + ".lore";
+        String z = "item." + Registries.STATUS_EFFECT.getId(boost_effect_0).toString() + ".lore";
         z = z.replace(":",".");
 
         if(quality == 3) {
@@ -118,13 +122,14 @@ public class InnkeeperBowlItem extends Item {
         if (effects.isEmpty()) {
             return;
         }
-        List<Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier>> modifiers = new ArrayList<>();
+        // 1.20.1: attribute modifiers are keyed by the raw EntityAttribute, not a RegistryEntry.
+        List<Pair<EntityAttribute, EntityAttributeModifier>> modifiers = new ArrayList<>();
         boolean hasEffect = false;
         for (StatusEffectInstance instance : effects) {
             if (instance == null || instance.getEffectType() == null) continue;
 
-            RegistryEntry<StatusEffect> effectEntry = instance.getEffectType();
-            StatusEffect effect = effectEntry.value();
+            StatusEffect effectEntry = instance.getEffectType();
+            StatusEffect effect = effectEntry;
             hasEffect = true;
 
             MutableText effectText = Text.translatable(instance.getTranslationKey());
@@ -133,13 +138,17 @@ public class InnkeeperBowlItem extends Item {
                 effectText = Text.translatable("potion.withAmplifier", effectText, Text.translatable("potion.potency." + amplifier));
             }
             if (!instance.isDurationBelow(20)) {
-                effectText = Text.translatable("potion.withDuration", effectText, StatusEffectUtil.getDurationText(instance, 1.0f, 1.0f));
+                effectText = Text.translatable("potion.withDuration", effectText, StatusEffectUtil.getDurationText(instance, 1.0f));
             }
             tooltip.add(effectText.formatted(effect.getCategory().getFormatting()));
 
-            effect.forEachAttributeModifier(amplifier, (attribute, modifier) -> {
-                modifiers.add(Pair.of(attribute, modifier));
-            });
+            // 1.20.1: no forEachAttributeModifier -- read the map and scale by amplifier the way
+            // vanilla's own PotionUtil#buildTooltip does.
+            for (var attributeEntry : effect.getAttributeModifiers().entrySet()) {
+                EntityAttributeModifier base = attributeEntry.getValue();
+                modifiers.add(Pair.of(attributeEntry.getKey(),
+                        new EntityAttributeModifier(base.getName(), effect.adjustModifierAmount(amplifier, base), base.getOperation())));
+            }
         }
         if (!hasEffect) {
             tooltip.add(Text.translatable("effect.none").formatted(Formatting.GRAY));
@@ -148,19 +157,19 @@ public class InnkeeperBowlItem extends Item {
             tooltip.add(Text.literal(""));
             tooltip.add(Text.translatable("potion.whenDrank").formatted(Formatting.DARK_PURPLE));
 
-            for (Pair<RegistryEntry<EntityAttribute>, EntityAttributeModifier> pair : modifiers) {
-                RegistryEntry<EntityAttribute> attrEntry = pair.getFirst();
+            for (Pair<EntityAttribute, EntityAttributeModifier> pair : modifiers) {
+                EntityAttribute attrEntry = pair.getFirst();
                 EntityAttributeModifier modifier = pair.getSecond();
 
-                double value = modifier.value();
-                double displayValue = switch (modifier.operation()) {
-                    case ADD_MULTIPLIED_BASE, ADD_MULTIPLIED_TOTAL -> value * 100.0;
-                    case ADD_VALUE -> value;
+                double value = modifier.getValue();
+                double displayValue = switch (modifier.getOperation()) {
+                    case MULTIPLY_BASE, MULTIPLY_TOTAL -> value * 100.0;
+                    case ADDITION -> value;
                 };
-                Text attrText = Text.translatable(attrEntry.value().getTranslationKey());
+                Text attrText = Text.translatable(attrEntry.getTranslationKey());
                 Text line = value > 0
-                        ? Text.translatable("attribute.modifier.plus." + modifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(displayValue), attrText).formatted(Formatting.BLUE)
-                        : Text.translatable("attribute.modifier.take." + modifier.operation().getId(), AttributeModifiersComponent.DECIMAL_FORMAT.format(-displayValue), attrText).formatted(Formatting.RED);
+                        ? Text.translatable("attribute.modifier.plus." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(displayValue), attrText).formatted(Formatting.BLUE)
+                        : Text.translatable("attribute.modifier.take." + modifier.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(-displayValue), attrText).formatted(Formatting.RED);
                 tooltip.add(line);
             }
         }

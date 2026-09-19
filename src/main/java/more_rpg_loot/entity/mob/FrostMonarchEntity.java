@@ -133,10 +133,12 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.targetSelector.add(3, new ConditionalGoal(this, new ActiveTargetGoal<>(this, IronGolemEntity.class, true)));
     }
 
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
-        builder.add(INVUL_TIMER, 0);
-        builder.add(SCREECHING,false);
+    // 1.20.1: `initDataTracker()` takes no builder; entries are started on the tracker itself.
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(INVUL_TIMER, 0);
+        this.dataTracker.startTracking(SCREECHING, false);
     }
     public boolean isScreeching() {
         return this.dataTracker.get(SCREECHING);
@@ -298,9 +300,9 @@ public class FrostMonarchEntity extends SkeletonEntity {
                         ),
                         livingEntity -> livingEntity.isAlive() && livingEntity.squaredDistanceTo(this.getPos()) <= radius * radius
                 );
-                RegistryEntry<StatusEffect> effectEntry = Effects.FREEZING.registryEntry;
+                StatusEffect effectEntry = Effects.FREEZING.effect;
                 if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-                    effectEntry = MRPGCEffects.FROZEN_SOLID.entry;
+                    effectEntry = MRPGCEffects.FROZEN_SOLID.effect;
                 }
                 for (LivingEntity livingEntity : livingEntities) {
                     livingEntity.addStatusEffect(new StatusEffectInstance(
@@ -328,8 +330,10 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
     }
 
-    protected void dropEquipment(ServerWorld world, DamageSource source, boolean causedByPlayer) {
-        super.dropEquipment(world, source, causedByPlayer);
+    // 1.20.1: `dropEquipment(DamageSource, int lootingMultiplier, boolean allowDrops)`.
+    @Override
+    protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
+        super.dropEquipment(source, lootingMultiplier, allowDrops);
     }
 
     protected void initEquipment(Random random, LocalDifficulty localDifficulty) {
@@ -348,7 +352,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
 
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
+        EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
         if(FabricLoader.getInstance().isModLoaded("thermoo")){
             this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
             this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
@@ -384,7 +388,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
             if(!source.isIn(DamageTypeTags.AVOIDS_GUARDIAN_THORNS) && !source.isOf(DamageTypes.THORNS)){
                 Entity attacker = source.getSource();
                 if (attacker instanceof LivingEntity livingEntity) {
-                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.registryEntry,1,
+                    applyStatusEffect(livingEntity,0,4, Effects.FREEZING.effect,1,
                             true,true,true,1);
                 }
             }

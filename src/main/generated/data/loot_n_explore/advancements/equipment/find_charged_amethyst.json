@@ -1,0 +1,38 @@
+{
+  "parent": "loot_n_explore:equipment/find_ender_dragon_tooth",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:charged_amethyst"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_charged_amethyst.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:charged_amethyst"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_charged_amethyst.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

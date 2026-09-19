@@ -16,9 +16,9 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 @Environment(EnvType.CLIENT)
 public class FrosthauntEntityRenderer extends SkeletonEntityRenderer {
-    private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/entity/mobs/frosthaunt.png");
-    private static final Identifier EYES = Identifier.of(MOD_ID, "textures/entity/mobs/frosthaunt_eyes.png");
-    private static final Identifier OVERLAY = Identifier.of(MOD_ID, "textures/entity/mobs/frosthaunt_overlay.png");
+    private static final Identifier TEXTURE = new Identifier(MOD_ID, "textures/entity/mobs/frosthaunt.png");
+    private static final Identifier EYES = new Identifier(MOD_ID, "textures/entity/mobs/frosthaunt_eyes.png");
+    private static final Identifier OVERLAY = new Identifier(MOD_ID, "textures/entity/mobs/frosthaunt_overlay.png");
 
     public FrosthauntEntityRenderer(EntityRendererFactory.Context context) {
         super(context, EntityModelLayers.SKELETON, EntityModelLayers.STRAY_INNER_ARMOR, EntityModelLayers.STRAY_OUTER_ARMOR);

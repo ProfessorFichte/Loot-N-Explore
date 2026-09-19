@@ -1,20 +1,18 @@
 package more_rpg_loot.compat.spell_engine;
 
 
+import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
+import net.spell_engine.PlatformEvents;
 import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.rpg_series.loot.LootConfig;
 import net.spell_engine.rpg_series.loot.LootHelper;
 import net.tiny_config.ConfigManager;
-
-import java.util.HashMap;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.compat.spell_engine.LNE_Weapons.*;
@@ -26,14 +24,15 @@ public class SpellEngine_LNE {
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(LootConfig::constrainValues)
+            // 1.20.1 SpellEngine: `constrainValues` takes the defaults as a second argument.
+            .constrain(config -> LootConfig.constrainValues(config, Default.itemLootConfig))
             .build();
     public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
             ("loot_scrolls", Default.scrollLootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(LootConfig::constrainValues)
+            .constrain(config -> LootConfig.constrainValues(config, Default.scrollLootConfig))
             .build();
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
             ("equipment_v1", new ConfigFile.Equipment())
@@ -65,14 +64,18 @@ public class SpellEngine_LNE {
         itemConfig.save();
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootEquipmentConfig.value, new HashMap<>());
-            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootScrollsConfig.value, new HashMap<>());
+        // 1.20.1: Fabric's loot API v3 and the dynamic-registry lookup are gone; Spell Engine's own
+        // platform event carries the table id, its existing pools and a pool sink, and `LootHelper`
+        // takes a report label instead of a scratch map.
+        PlatformEvents.onLootTableModify(context -> {
+            var existingPools = Suppliers.memoize(context::existingPools);
+            LootHelper.configure(context.tableId(), existingPools, context::addPool, lootEquipmentConfig.value, "equipment");
+            LootHelper.configure(context.tableId(), existingPools, context::addPool, lootScrollsConfig.value, "scrolls");
         });
-        ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
+        PlatformEvents.onServerStarted((server) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);
         });
-        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, serverResourceManager, success) -> {
+        PlatformEvents.onDataPackReloadComplete(() -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);
         });
 

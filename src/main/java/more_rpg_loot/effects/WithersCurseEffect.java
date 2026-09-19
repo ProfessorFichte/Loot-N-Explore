@@ -13,23 +13,25 @@ public class WithersCurseEffect extends StatusEffect {
         super(category, color);
     }
 
-    public boolean applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
+    // 1.20.1: `applyUpdateEffect` returns void; `StatusEffectInstance#getEffectType()` already
+    // hands back the raw StatusEffect, so there is no `.value()` to unwrap.
+    @Override
+    public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
         List<StatusEffectInstance> list = livingEntity.getStatusEffects().stream().toList();
         int amount_negative = -1;
         if (!list.isEmpty()) {
             for (StatusEffectInstance statusEffectInstance : list) {
-                StatusEffect statusEffect = statusEffectInstance.getEffectType().value();
+                StatusEffect statusEffect = statusEffectInstance.getEffectType();
                 if (!statusEffect.isBeneficial()) {
                 }
                 amount_negative++;
             }
             if(amplifier < amount_negative){
                 RPGLoot.LOGGER.info("zahl:" + amount_negative);
-                livingEntity.addStatusEffect(new StatusEffectInstance(Effects.WITHERS_CURSE.registryEntry,
-                        livingEntity.getStatusEffect(Effects.WITHERS_CURSE.registryEntry).getDuration()+40, amount_negative, false, false, true));
+                livingEntity.addStatusEffect(new StatusEffectInstance(Effects.WITHERS_CURSE.effect,
+                        livingEntity.getStatusEffect(Effects.WITHERS_CURSE.effect).getDuration()+40, amount_negative, false, false, true));
             }
         }
-        return true;
     }
 
 

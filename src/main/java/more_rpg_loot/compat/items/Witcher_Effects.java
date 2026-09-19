@@ -13,7 +13,9 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.witcher_rpg.entity.attribute.WitcherAttributes;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.RPGLoot.effectsConfig;
@@ -27,10 +29,9 @@ public class Witcher_Effects {
         public final String title;
         public final String description;
         public final StatusEffect effect;
-        public RegistryEntry<StatusEffect> registryEntry;
 
         public WitcherEntry(String name, String title, String description, StatusEffect effect) {
-            this.id = Identifier.of(MOD_ID, name);
+            this.id = new Identifier(MOD_ID, name);
             this.title = title;
             this.description = description;
             this.effect = effect;
@@ -38,11 +39,19 @@ public class Witcher_Effects {
         }
 
         public void register() {
-            registryEntry = Registry.registerReference(Registries.STATUS_EFFECT, id, effect);
+            // 1.20.1: every status-effect API takes the raw StatusEffect, so there is no
+            // RegistryEntry to hold on to.
+            Registry.register(Registries.STATUS_EFFECT, id, effect);
         }
 
         public Identifier modifierId() {
-            return Identifier.of(MOD_ID, "effect." + id.getPath());
+            return new Identifier(MOD_ID, "effect." + id.getPath());
+        }
+
+        /// 1.20.1: attribute modifiers are UUID-keyed, not Identifier-keyed. Derived from the same
+        /// Identifier so the value is stable across runs.
+        public String modifierUuid() {
+            return UUID.nameUUIDFromBytes(modifierId().toString().getBytes(StandardCharsets.UTF_8)).toString();
         }
     }
 
@@ -76,32 +85,32 @@ public class Witcher_Effects {
         /// T0 BUFF EFFECTS
         BEAUCLAIR_WHITE.effect
                 .addAttributeModifier(
-                    WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierId(),
-                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                    WitcherAttributes.SIGN_INTENSITY, BEAUCLAIR_WHITE.modifierUuid(),
+                    effectsConfig.value.drinks_damage_t0_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T1 BUFF EFFECTS
         RIVIAN_KRIEK.effect
                 .addAttributeModifier(
-                        WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        WitcherAttributes.ADRENALINE_MODIFIER, RIVIAN_KRIEK.modifierUuid(),
+                        effectsConfig.value.drinks_special_attribute_t1_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T2 BUFF EFFECTS
         BUTCHER_OF_BLAVIKEN.effect
                 .addAttributeModifier(
-                        WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        WitcherAttributes.SIGN_INTENSITY, BUTCHER_OF_BLAVIKEN.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        WitcherAttributes.ADRENALINE_MODIFIER, BUTCHER_OF_BLAVIKEN.modifierUuid(),
+                        effectsConfig.value.drinks_special_attribute_t2_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
         /// T3 BUFF EFFECTS
         WHITE_WOLF.effect
                 .addAttributeModifier(
-                        WitcherAttributes.SIGN_INTENSITY, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        WitcherAttributes.SIGN_INTENSITY, WHITE_WOLF.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        EntityAttributes.GENERIC_ATTACK_DAMAGE, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
+                        EntityAttributes.GENERIC_ATTACK_DAMAGE, WHITE_WOLF.modifierUuid(),
+                        effectsConfig.value.drinks_damage_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE)
                 .addAttributeModifier(
-                        WitcherAttributes.ADRENALINE_MODIFIER, WHITE_WOLF.modifierId(),
-                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                        WitcherAttributes.ADRENALINE_MODIFIER, WHITE_WOLF.modifierUuid(),
+                        effectsConfig.value.drinks_special_attribute_t3_boost, EntityAttributeModifier.Operation.MULTIPLY_BASE);
 
         for (WitcherEntry entry: entries) {
             entry.register();

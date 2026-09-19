@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "criterion": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/blue_ice.png",
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:ender_dragon_axe",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

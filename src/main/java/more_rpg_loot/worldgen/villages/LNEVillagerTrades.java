@@ -14,7 +14,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradedItem;
+// 1.20.1: no TradedItem record (added in 1.21) - TradeOffer takes plain ItemStack buy items.
 import net.minecraft.village.VillagerProfession;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
@@ -27,7 +27,7 @@ public class LNEVillagerTrades {
         public static void register() {
 
             var scheduleBuilder = new ScheduleBuilder(ALWAYS_WORK_SCHEDULE).withActivity(50, Activity.WORK).withActivity(23950, Activity.REST).build();
-            Registry.register(Registries.SCHEDULE, Identifier.of(MOD_ID, ALWAYS_WORK), ALWAYS_WORK_SCHEDULE);
+            Registry.register(Registries.SCHEDULE, new Identifier(MOD_ID, ALWAYS_WORK), ALWAYS_WORK_SCHEDULE);
 
             VillagerProfession innkeeper = LNEVillagerProfessions.INNKEEPER;
 
@@ -60,35 +60,35 @@ public class LNEVillagerTrades {
             TradeOfferHelper.registerVillagerOffers(innkeeper, 1,
                     factories -> {
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.GLASS_BOTTLE, level_1_innkeeper_price_buy),
+                                new ItemStack(Items.GLASS_BOTTLE, level_1_innkeeper_price_buy),
                                 new ItemStack(Items.EMERALD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.BOWL, level_1_innkeeper_price_buy),
+                                new ItemStack(Items.BOWL, level_1_innkeeper_price_buy),
                                 new ItemStack(Items.EMERALD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.BREAD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.COOKED_BEEF, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.COOKED_CHICKEN, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.COOKED_MUTTON, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.COOKED_PORKCHOP, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
-                                new TradedItem(Items.EMERALD, level_1_innkeeper_price_sell),
+                                new ItemStack(Items.EMERALD, level_1_innkeeper_price_sell),
                                 new ItemStack(Items.COOKED_RABBIT, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                     });
@@ -105,7 +105,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_2_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_2_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_2_innkeeper_maxUses,
                             level_2_innkeeper_experience,
@@ -123,7 +123,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_2_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_2_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_2_innkeeper_maxUses,
                             level_2_innkeeper_experience,
@@ -143,7 +143,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_3_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_3_innkeeper_maxUses,
                             level_3_innkeeper_experience,
@@ -161,7 +161,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_3_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_3_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_3_innkeeper_maxUses,
                             level_3_innkeeper_experience,
@@ -181,7 +181,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_4_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_4_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_4_innkeeper_maxUses,
                             level_4_innkeeper_experience,
@@ -199,7 +199,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_4_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_4_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_4_innkeeper_maxUses,
                             level_4_innkeeper_experience,
@@ -219,7 +219,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_5_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_5_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_5_innkeeper_maxUses,
                             level_5_innkeeper_experience,
@@ -237,7 +237,7 @@ public class LNEVillagerTrades {
                     var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
                     Item randomItem = randomItemEntry.value();
                     return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_5_innkeeper_price),
+                            new ItemStack(Items.EMERALD, level_5_innkeeper_price),
                             new ItemStack(randomItem, 1),
                             level_5_innkeeper_maxUses,
                             level_5_innkeeper_experience,

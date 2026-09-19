@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "loot_n_explore:glaze_rod"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "loot_n_explore:frostball"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "loot_n_explore:equipment/find_lost_soul",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "loot_n_explore:withered_obsidian_shard"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.loot_n_explore.equipment.find_withered_obsidian_shard.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "loot_n_explore:withered_obsidian_shard"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.loot_n_explore.equipment.find_withered_obsidian_shard.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
