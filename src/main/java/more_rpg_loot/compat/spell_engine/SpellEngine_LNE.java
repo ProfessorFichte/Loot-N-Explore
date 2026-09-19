@@ -4,17 +4,15 @@ package more_rpg_loot.compat.spell_engine;
 import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
+import net.spell_engine.PlatformEvents;
 import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.rpg_series.loot.LootConfig;
 import net.spell_engine.rpg_series.loot.LootHelper;
 import net.tiny_config.ConfigManager;
-
-import java.util.HashMap;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 import static more_rpg_loot.compat.spell_engine.LNE_Weapons.*;
@@ -26,14 +24,14 @@ public class SpellEngine_LNE {
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(LootConfig::constrainValues)
+            .constrain(config -> LootConfig.constrainValues(config, Default.itemLootConfig))
             .build();
     public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
             ("loot_scrolls", Default.scrollLootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(LootConfig::constrainValues)
+            .constrain(config -> LootConfig.constrainValues(config, Default.scrollLootConfig))
             .build();
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
             ("equipment_v1", new ConfigFile.Equipment())
@@ -65,9 +63,9 @@ public class SpellEngine_LNE {
         itemConfig.save();
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootEquipmentConfig.value, new HashMap<>());
-            LootHelper.configure(registries, key.getValue(), tableBuilder::pool, lootScrollsConfig.value, new HashMap<>());
+        PlatformEvents.onLootTableModify(context -> {
+            LootHelper.configure(context.registries(), context.tableId(), context::existingPools, context::addPool, lootEquipmentConfig.value, MOD_ID);
+            LootHelper.configure(context.registries(), context.tableId(), context::existingPools, context::addPool, lootScrollsConfig.value, MOD_ID);
         });
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);

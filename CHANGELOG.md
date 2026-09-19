@@ -1,3 +1,6 @@
+# 1.0.23 - 1.21.1
+- Fixed crash due to Spell Engine API Changes
+
 # 1.0.22 - 1.21.1
 - Adopt Spell Engine 1.10 - Thanks Daedelus for the PR!
 
