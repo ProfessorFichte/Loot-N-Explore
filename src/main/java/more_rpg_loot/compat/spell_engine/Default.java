@@ -89,7 +89,6 @@ public class Default {
                             .add(B2)
                     );
                 });
-        // 1.20.1: the `minecraft:chests/trial_chambers/**` tables are 1.21 content and do not exist.
         List.of("minecraft:chests/ancient_city",
                         "minecraft:chests/end_city_treasure")
                 .forEach(id -> items.put(id, new LootConfig.Pool()
@@ -126,9 +125,6 @@ public class Default {
                 .add(B0)
                 .add(B1)
         ));
-        // 1.20.1: the frozen trial spawner / frozen vault reward tables (`spawners/frozen/**`,
-        // `chests/trials/frozen/**`) are gone with the blocks that generated them. The glaze tower
-        // and the glacial tomb keep their ordinary chests, which take over the same reward slots.
         List.of("loot_n_explore:chests/glaze_tower",
                 "loot_n_explore:chests/dungeons/glacial_tomb/common"
                 )                .forEach(id -> {

@@ -40,7 +40,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         boolean announceToChat,
         boolean hidden,
         @Nullable String background,  // Only for root advancements
-        // 1.20.1: AdvancementCriterion is not generic yet.
         AdvancementCriterion criterion,
         @Nullable Integer experienceReward
     ) {
@@ -88,7 +87,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             item = Items.DIAMOND;
         }
 
-        // 1.20.1: criteria conditions have to be wrapped into an AdvancementCriterion by hand.
         return new AdvancementCriterion(InventoryChangedCriterion.Conditions.items(item));
     }
 
@@ -105,7 +103,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
         // For structure-based location, use a simple tick criterion
         // The actual structure check will be done via location predicate
-        // 1.20.1: createLocation takes a built LocationPredicate, not its builder.
         return new AdvancementCriterion(TickCriterion.Conditions.createLocation(locationBuilder.build()));
     }
 
@@ -483,8 +480,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // 1.20.1: `exploration/frozen_key` and `exploration/monarchs_key` are gone with the keys and
-        // the frozen vault they unlocked; `frost_monarch` hangs off `glacial_tomb` instead.
         addExploration(new Entry(
             id("exploration/frost_monarch"),
             "Winter is coming",
@@ -499,18 +494,12 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
     }
 
 
-    // 1.20.1: FabricAdvancementProvider takes only the FabricDataOutput (no registry lookup future).
     public ModAdvancementProvider(FabricDataOutput output) {
         super(output);
     }
 
-    // 1.20.1: there is no AdvancementEntry - advancements are consumed as Advancement itself,
-    // and the generator method takes no registry lookup.
     @Override
     public void generateAdvancement(Consumer<Advancement> consumer) {
-        // 1.20.1: `Advancement.Builder#build` resolves the parent eagerly and refuses to build when a
-        // parent *id* has no matching Advancement object, so built advancements are kept here and
-        // handed to their children. Both lists are already parent-before-child.
         Map<Identifier, Advancement> built = new HashMap<>();
 
         // Generate all equipment advancements
@@ -550,8 +539,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             )
             .criterion("criterion", entry.criterion());
 
-        // Add parent if present
-        // 1.20.1: the parent must be the already-built Advancement, not just its id.
         if (entry.parent() != null) {
             var parent = built.get(entry.parent());
             if (parent == null) {
@@ -566,7 +553,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             builder.rewards(AdvancementRewards.Builder.experience(entry.experienceReward()));
         }
 
-        // `build(Consumer, String)` already feeds the exporter, so it is not accepted a second time.
         built.put(entry.id(), builder.build(consumer, entry.id().toString()));
     }
 

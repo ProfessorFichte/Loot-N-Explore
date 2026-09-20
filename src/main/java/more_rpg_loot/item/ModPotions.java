@@ -25,7 +25,6 @@ public class ModPotions {
     public static final ArrayList<Entry> all = new ArrayList<>();
 
     private static Entry entry(String name, Potion potion, String translation) {
-        // 1.20.1: potions are plain registry values, there is no RegistryEntry to carry around.
         Registry.register(Registries.POTION, new Identifier(MOD_ID, name), potion);
         var entry = new Entry(name, potion, translation);
         all.add(entry);
@@ -51,7 +50,6 @@ public class ModPotions {
 
 
     public static void registerPotionsRecipes(){
-        // 1.20.1: brewing recipes are registered eagerly through the invoker mixin.
         BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, ModBlocks.FROST_BLOOM.item(), ModPotions.FROST_RESISTANCE_POTION.potion());
         BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(ModPotions.FROST_RESISTANCE_POTION.potion(), Items.REDSTONE, ModPotions.LONG_FROST_RESISTANCE_POTION.potion());
         BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(Potions.AWKWARD, CommonItems.GLAZE_ROD.item(), ModPotions.FROSTED_POTION.potion());

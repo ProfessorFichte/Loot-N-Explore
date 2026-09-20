@@ -37,14 +37,11 @@ public class LNE_Relics {
         return entry;
     }
 
-    /// 1.20.1: `attributes` is SpellEngine's stand-in for the 1.21 `AttributeModifiersComponent`.
     public record ItemArgs(Item.Settings settings, @Nullable ItemAttributeModifiers attributes) { }
 
     public static Function<ItemArgs, Item> factory = args -> {
         var item = new RelicItem(args.settings());
         if (args.attributes() != null) {
-            // 1.20.1 has no `Item.Settings#attributeModifiers`; SpellEngine keeps a per-item map that
-            // its own mixin serves from `ItemStack#getAttributeModifiers`.
             AttributeModifierUtil.setItemModifiers(item, args.attributes());
         }
         return item;
@@ -79,8 +76,6 @@ public class LNE_Relics {
                         : null;
                 var spellContainer = spellContainer();
                 if (spellContainer != null) {
-                    // 1.20.1: no data components -- item-level defaults go through SpellEngine's
-                    // `SpellItemData` NBT facade.
                     SpellItemData.defaults(settings).spellContainer(spellContainer);
                 }
                 if (config().durability > 0) {

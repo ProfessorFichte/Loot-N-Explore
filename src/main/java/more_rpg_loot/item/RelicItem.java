@@ -17,7 +17,6 @@ public class RelicItem extends Item {
         super(settings);
     }
 
-    // 1.20.1: appendTooltip(stack, @Nullable World, tooltip, net.minecraft.client.item.TooltipContext)
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);

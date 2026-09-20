@@ -8,8 +8,6 @@ pluginManagement {
 			name = 'Architectury'
 			url = 'https://maven.architectury.dev/'
 		}
-		// Architectury Loom's own dependency graph pulls a couple of Forge-hosted artifacts
-		// (mcinjector, DiffPatch) even for a Fabric-only build.
 		maven {
 			name = 'MinecraftForge'
 			url = 'https://files.minecraftforge.net/maven/'

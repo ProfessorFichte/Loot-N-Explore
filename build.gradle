@@ -1,16 +1,9 @@
 plugins {
 	id "me.modmuss50.mod-publish-plugin" version "2.1.1"
-	// Architectury Loom, not plain fabric-loom: the 1.20.1 ecosystem artifacts in mavenLocal are
-	// built with Loom 1.17, and fabric-loom's newest release refuses to consume them
-	// ("Mod was built with a newer version of Loom"). Still a single-module, Fabric-only build --
-	// no architectury-plugin, no common/forge split.
 	id 'dev.architectury.loom' version '1.17-SNAPSHOT'
 	id 'maven-publish'
 }
 
-// The 1.21.1 branch baked the game version into `mod_version` (`1.0.22-1.21.1`).
-// This branch keeps a bare semver in `mod_version` and appends the game version here,
-// matching the rest of the workspace: 1.0.22+1.20.1
 version = project.mod_version + "+" + project.minecraft_version
 group = project.maven_group
 
@@ -84,9 +77,6 @@ dependencies {
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${project.mixin_extras_version}")))
 
 	//DEPENDENCIES
-	// Ecosystem libraries come from the Modrinth maven. This is a single-module build, so there is no
-	// `${platform}` to interpolate into the classifier the way the multi-module repos do it: Modrinth
-	// serves per-loader jars and this mod is Fabric-only, so the `-fabric` flavour is spelled out.
 	modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}-fabric") { transitive = false }
 	include(modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-fabric")) { transitive = false }
 
@@ -95,18 +85,13 @@ dependencies {
 	modImplementation("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}-fabric") { transitive = false }
 	modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${project.player_anim_version}")
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
-	// Trinkets 3.7.2 does not bring its own Cardinal Components on this line.
 	modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cardinal_components_version}")
 	modLocalRuntime("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_version}")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric") { transitive = false }
 	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric") { transitive = false }
-	// Resolves once More RPG Library's 1.20.1 release (release tier 1) is published.
 	modImplementation("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-fabric") { transitive = false }
-	// Resolves once Witcher's 1.20.1 release is published (it must ship before this mod).
 	modCompileOnly("maven.modrinth:witcher-rpg-class:${project.witcher_version}-fabric") { transitive = false }
-	// Modrinth's project slug is `relics-rpg`, not `relics`.
 	modCompileOnly("maven.modrinth:relics-rpg:${project.relics_version}-fabric") { transitive = false }
-	// Dev runtime only: More-RPG-Library ships `runes:crafting` recipes that fail to parse without it.
 	modLocalRuntime("maven.modrinth:runes:${project.runes_version}-fabric") { transitive = false }
 
 }
@@ -115,8 +100,6 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		// Explicit map, not `project.properties`: the map form drags the whole Project into the
-		// task and trips Gradle 9's configuration checks.
 		expand version: project.version,
 				fabric_loader_compat_version: project.fabric_loader_compat_version
 	}

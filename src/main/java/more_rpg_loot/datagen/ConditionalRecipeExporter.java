@@ -9,11 +9,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Wrapper for the recipe exporter that adds Fabric and NeoForge conditional loading to recipes.
  * This allows recipes to only load when specific mods are present.
  */
-// 1.20.1: there is no RecipeExporter interface (and no AdvancementEntry); recipes are handed to a
-// plain Consumer<RecipeJsonProvider>, so this wrapper implements that instead.
 public class ConditionalRecipeExporter implements Consumer<RecipeJsonProvider> {
     private final Consumer<RecipeJsonProvider> baseExporter;
     private final List<String> requiredMods;

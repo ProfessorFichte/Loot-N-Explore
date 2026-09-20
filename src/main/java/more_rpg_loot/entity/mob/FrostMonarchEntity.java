@@ -133,7 +133,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
         this.targetSelector.add(3, new ConditionalGoal(this, new ActiveTargetGoal<>(this, IronGolemEntity.class, true)));
     }
 
-    // 1.20.1: `initDataTracker()` takes no builder; entries are started on the tracker itself.
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
@@ -330,7 +329,6 @@ public class FrostMonarchEntity extends SkeletonEntity {
         }
     }
 
-    // 1.20.1: `dropEquipment(DamageSource, int lootingMultiplier, boolean allowDrops)`.
     @Override
     protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {
         super.dropEquipment(source, lootingMultiplier, allowDrops);

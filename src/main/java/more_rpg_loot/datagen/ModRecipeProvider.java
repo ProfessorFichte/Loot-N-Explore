@@ -18,14 +18,10 @@ import net.minecraft.util.Identifier;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    // 1.20.1: FabricRecipeProvider takes only the FabricDataOutput (no registry lookup future).
     public ModRecipeProvider(FabricDataOutput output) {
         super(output);
     }
 
-    // 1.20.1: RecipeExporter does not exist yet - recipes are emitted through a
-    // Consumer<RecipeJsonProvider>. Fabric's withConditions(...) wraps such a consumer the same way,
-    // and the resource-condition factories still live on DefaultResourceConditions.
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         // Create a conditional exporter that requires spell_engine mod

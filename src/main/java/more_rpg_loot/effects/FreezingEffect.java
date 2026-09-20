@@ -13,14 +13,12 @@ public class FreezingEffect extends StatusEffect {
     protected FreezingEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
-    // 1.20.1: `applyUpdateEffect` returns void.
     @Override
     public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
         stackFreezeStacks(livingEntity,2);
         super.applyUpdateEffect(livingEntity, amplifier);
     }
 
-    // 1.20.1: `onApplied` also receives the entity's AttributeContainer.
     @Override
     public void onApplied(LivingEntity livingEntity, AttributeContainer attributes, int amplifier) {
         super.onApplied(livingEntity, attributes, amplifier);

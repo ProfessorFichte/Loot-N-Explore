@@ -38,8 +38,6 @@ public class RWA_Effects {
         }
 
         public void register() {
-            // 1.20.1: every status-effect API takes the raw StatusEffect, so there is no
-            // RegistryEntry to hold on to.
             Registry.register(Registries.STATUS_EFFECT, id, effect);
         }
 
@@ -47,8 +45,6 @@ public class RWA_Effects {
             return new Identifier(MOD_ID, "effect." + id.getPath());
         }
 
-        /// 1.20.1: attribute modifiers are UUID-keyed, not Identifier-keyed. Derived from the same
-        /// Identifier so the value is stable across runs.
         public String modifierUuid() {
             return UUID.nameUUIDFromBytes(modifierId().toString().getBytes(StandardCharsets.UTF_8)).toString();
         }

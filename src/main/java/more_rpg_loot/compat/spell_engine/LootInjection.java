@@ -26,9 +26,6 @@ public class LootInjection {
     public static final Identifier END_CITY_TREASURE = END_CITY_TREASURE_ID.withPrefixedPath("chests/");
     private static final Identifier IGLOO_ID = new Identifier("minecraft", "igloo_chest");
     public static final Identifier IGLOO = IGLOO_ID.withPrefixedPath("chests/");
-    // 1.20.1: the frozen trial spawner and the frozen vault do not exist, so their reward tables
-    // (`spawners/frozen/**`, `chests/trials/frozen/**`) are gone. The two relics they carried move
-    // to the ordinary chest tables of the same two structures.
     private static final Identifier GLAZE_TOWER_ID = new Identifier("loot_n_explore", "glaze_tower");
     public static final Identifier GLAZE_TOWER = GLAZE_TOWER_ID.withPrefixedPath("chests/");
     private static final Identifier GLACIAL_TOMB_COMMON_ID = new Identifier("loot_n_explore", "common");
@@ -46,9 +43,6 @@ public class LootInjection {
 
     public static void modifyChestLootTables(){
 
-        // 1.20.1: Fabric's loot API v3 does not exist. Spell Engine's platform event carries the
-        // table id and a pool sink; it has no `LootTableSource`, so the `source.isBuiltin()` guard
-        // that skipped datapack-overridden tables is gone (same sacrifice as the sibling ports).
         PlatformEvents.onLootTableModify(context -> {
             {
                 Identifier key = context.tableId();
@@ -169,7 +163,6 @@ public class LootInjection {
                             .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1.0f, 1.0f)).build());
                     context.addPool(poolBuilder.build());
                 }
-                ///FROZEN DEPTHS STRUCTURE CHEST INJECTION
                 if (GLAZE_TOWER.equals(key)) {
                     LootPool.Builder poolBuilder = LootPool.builder()
                             .rolls(ConstantLootNumberProvider.create(1))

@@ -9,7 +9,6 @@ public class FrostResistanceEffect extends StatusEffect {
     protected FrostResistanceEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
-    // 1.20.1: `applyUpdateEffect` returns void.
     @Override
     public void applyUpdateEffect(LivingEntity livingEntity, int pAmplifier) {
         livingEntity.setFrozenTicks(0);

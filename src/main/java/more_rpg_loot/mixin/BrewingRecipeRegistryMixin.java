@@ -6,9 +6,6 @@ import net.minecraft.recipe.BrewingRecipeRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-/// 1.20.1: there is no `FabricBrewingRecipeRegistryBuilder`, and
-/// `BrewingRecipeRegistry#registerPotionRecipe` is private. Reach it with an invoker, exactly as
-/// this mod's own legacy 1.20.1 branch did.
 @Mixin(BrewingRecipeRegistry.class)
 public interface BrewingRecipeRegistryMixin {
 

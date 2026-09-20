@@ -99,8 +99,6 @@ public class CommonItems {
     public static final Entry GLAZE_ROD = entry("glaze_rod",
             new Item(new Item.Settings()),
             "Glaze Rod", new ItemModelType.Handheld("item/misc/"));
-    // 1.20.1: `frozen_key` / `monarchs_key` are gone -- their only purpose was unlocking the
-    // frozen vault, which does not exist on this game version (see ModBlocks).
 
 
     public static void registerCommonItems(){

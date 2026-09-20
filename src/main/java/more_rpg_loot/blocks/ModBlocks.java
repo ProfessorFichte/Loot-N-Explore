@@ -91,10 +91,6 @@ public class ModBlocks {
     public static final Entry FROST_BLOOM = entry("frostbloom", FROST_BLOOM_BLOCK, "Frostbloom",
             new ModelType.FlowerPot(POTTED_FROST_BLOOM, BlockStateModelGenerator.TintType.NOT_TINTED));
 
-    // 1.20.1: `frozen_trial_spawner` and `frozen_vault` are gone. Both wrapped 1.20.5+ vanilla
-    // (`TrialSpawnerBlock` / `VaultBlock` and the matching block entity types), which do not exist
-    // on this game version, and Fichte never backported the feature to the legacy 1.20.1 branch.
-
     public static void register(){
         for (var entry : all) {
             Registry.register(Registries.BLOCK, new Identifier(MOD_ID, entry.name), entry.block);

@@ -66,7 +66,6 @@ public class InnkeeperDrinkItem extends Item {
         return resultStack;
     }
 
-    // 1.20.1: getMaxUseTime(ItemStack)
     @Override
     public int getMaxUseTime(ItemStack stack) {
         return 32;
@@ -98,7 +97,6 @@ public class InnkeeperDrinkItem extends Item {
     }
 
     @Override
-    // 1.20.1: appendTooltip(stack, @Nullable World, tooltip, net.minecraft.client.item.TooltipContext)
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
         Formatting formatting = null;
@@ -127,7 +125,6 @@ public class InnkeeperDrinkItem extends Item {
         if (effects.isEmpty()) {
             return;
         }
-        // 1.20.1: attribute modifiers are keyed by the raw EntityAttribute, not a RegistryEntry.
         List<com.mojang.datafixers.util.Pair<EntityAttribute, EntityAttributeModifier>> modifiers = new ArrayList<>();
         boolean hasEffect = false;
         for (StatusEffectInstance instance : effects) {
@@ -147,8 +144,6 @@ public class InnkeeperDrinkItem extends Item {
             }
             tooltip.add(effectText.formatted(effect.getCategory().getFormatting()));
 
-            // 1.20.1: no forEachAttributeModifier -- read the map and scale by amplifier the way
-            // vanilla's own PotionUtil#buildTooltip does.
             for (var attributeEntry : effect.getAttributeModifiers().entrySet()) {
                 EntityAttributeModifier base = attributeEntry.getValue();
                 modifiers.add(com.mojang.datafixers.util.Pair.of(attributeEntry.getKey(),

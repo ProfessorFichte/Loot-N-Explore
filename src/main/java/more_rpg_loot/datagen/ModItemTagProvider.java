@@ -16,31 +16,5 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        /*getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("c", "axes")))
-                .add(WeaponRegister.ELDER_GUARDIAN_AXE)
-                .add(WeaponRegister.ENDER_DRAGON_AXE)
-                .add(WeaponRegister.WITHER_AXE)
-                .add(WeaponRegister.GLACIAL_AXE)
-        ;
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("c", "swords")))
-                .add(WeaponRegister.ELDER_GUARDIAN_SWORD)
-                .add(WeaponRegister.ENDER_DRAGON_SWORD)
-                .add(WeaponRegister.WITHER_SWORD)
-                .add(WeaponRegister.GLACIAL_SWORD)
-        ;*/
-        /*
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("dehydration", "hydrating_drinks")))
-                .add(CommonItems.BEET_ROOTBEER)
-                .add(CommonItems.HOT_CHOCOLATE)
-                .add(CommonItems.MALT_EXTRACT)
-                .add(CommonItems.SWEET_BERRY_PUNCH);
-        ;
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("dehydration", "stronger_hydrating_drinks")))
-                .add(CommonItems.ESPRESSO)
-                .add(CommonItems.VITAL_DRINK)
-        ;
-        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, new Identifier("dehydration", "hydrating_stew")))
-                .add(CommonItems.POTATO_SOUP)
-        ;*/
     }
 }

@@ -18,14 +18,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 
 public class FrostbloomBlock extends FlowerBlock {
-    // 1.20.1: blocks have no MapCodec (no block codecs before 1.20.5), so there is no CODEC field
-    // and no getCodec() override. FlowerBlock also has no SuspiciousStewEffectsComponent - the
-    // suspicious-stew effect is a single (StatusEffect, duration) pair passed straight to super.
-    //
-    // 1.20.1: `effectDuration` is in SECONDS, same unit as the float 1.21 passes: FlowerBlock's
-    // constructor itself does `effectDuration * 20` for non-instant effects (and leaves instant
-    // effects alone), which is what 1.21's createStewEffectList(effect, seconds) did. So the value
-    // from the call site carries over unchanged - do NOT pre-multiply by 20 here.
     public FrostbloomBlock(StatusEffect suspiciousStewEffect, int effectDuration, AbstractBlock.Settings settings) {
         super(suspiciousStewEffect, effectDuration, settings);
     }

@@ -13,8 +13,6 @@ public class WithersCurseEffect extends StatusEffect {
         super(category, color);
     }
 
-    // 1.20.1: `applyUpdateEffect` returns void; `StatusEffectInstance#getEffectType()` already
-    // hands back the raw StatusEffect, so there is no `.value()` to unwrap.
     @Override
     public void applyUpdateEffect(LivingEntity livingEntity, int amplifier) {
         List<StatusEffectInstance> list = livingEntity.getStatusEffects().stream().toList();

@@ -14,7 +14,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.TradeOffer;
-// 1.20.1: no TradedItem record (added in 1.21) - TradeOffer takes plain ItemStack buy items.
 import net.minecraft.village.VillagerProfession;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;

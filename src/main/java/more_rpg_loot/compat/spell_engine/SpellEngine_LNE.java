@@ -24,7 +24,6 @@ public class SpellEngine_LNE {
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            // 1.20.1 SpellEngine: `constrainValues` takes the defaults as a second argument.
             .constrain(config -> LootConfig.constrainValues(config, Default.itemLootConfig))
             .build();
     public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
@@ -64,9 +63,6 @@ public class SpellEngine_LNE {
         itemConfig.save();
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
-        // 1.20.1: Fabric's loot API v3 and the dynamic-registry lookup are gone; Spell Engine's own
-        // platform event carries the table id, its existing pools and a pool sink, and `LootHelper`
-        // takes a report label instead of a scratch map.
         PlatformEvents.onLootTableModify(context -> {
             var existingPools = Suppliers.memoize(context::existingPools);
             LootHelper.configure(context.tableId(), existingPools, context::addPool, lootEquipmentConfig.value, "equipment");

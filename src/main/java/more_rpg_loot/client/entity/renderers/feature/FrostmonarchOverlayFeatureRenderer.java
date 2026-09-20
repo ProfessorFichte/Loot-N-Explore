@@ -28,8 +28,6 @@ public class FrostmonarchOverlayFeatureRenderer<T extends MobEntity & RangedAtta
     }
 
     public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T mobEntity, float f, float g, float h, float j, float k, float l) {
-        // 1.20.1: FeatureRenderer.render takes three float colour components (red, green, blue)
-        // instead of 1.21's packed ARGB int; -1 (0xFFFFFFFF, opaque white) becomes 1.0F/1.0F/1.0F.
         render(this.getContextModel(), this.model, this.texture, matrixStack, vertexConsumerProvider, i, mobEntity, f, g, j, k, l, h, 1.0F, 1.0F, 1.0F);
     }
 }

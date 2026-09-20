@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import more_rpg_loot.blocks.ModBlocks;
 
 public class ModLootTableProvider extends FabricBlockLootTableProvider {
-    // 1.20.1: FabricBlockLootTableProvider takes only the FabricDataOutput (no registry lookup future).
     public ModLootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
