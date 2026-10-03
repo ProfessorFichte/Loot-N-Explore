@@ -307,7 +307,7 @@ public class LNEVillagerTrades {
 
 
             //MORE RPG CLASSES MOD SPECIFIC TRADES
-            if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+            if(FabricLoader.getInstance().isModLoaded("mrpg_lib")) {
 
                 TradeOfferHelper.registerVillagerOffers(innkeeper, 4,
                         factories -> {

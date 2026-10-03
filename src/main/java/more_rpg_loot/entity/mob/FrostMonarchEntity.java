@@ -45,7 +45,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
+import com.mrpg_lib.effect.MRPGCEffects;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -299,7 +299,7 @@ public class FrostMonarchEntity extends SkeletonEntity {
                         livingEntity -> livingEntity.isAlive() && livingEntity.squaredDistanceTo(this.getPos()) <= radius * radius
                 );
                 RegistryEntry<StatusEffect> effectEntry = Effects.FREEZING.registryEntry;
-                if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+                if (FabricLoader.getInstance().isModLoaded("mrpg_lib")) {
                     effectEntry = MRPGCEffects.FROZEN_SOLID.entry;
                 }
                 for (LivingEntity livingEntity : livingEntities) {

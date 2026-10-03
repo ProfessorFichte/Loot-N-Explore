@@ -64,7 +64,7 @@ public class ModLanguageProvider extends FabricLanguageProvider {
 
         // CONDITIONAL STATUS EFFECTS (Loaded only when compatible mods are present)
         // More RPG Classes compatible effects
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
+        if (FabricLoader.getInstance().isModLoaded("mrpg_lib")) {
             for (var entry : MRPGC_Effects.getEntries()) {
                 builder.add(entry.effect.getTranslationKey(), entry.title);
                 builder.add(entry.effect.getTranslationKey() + ".description", entry.description);

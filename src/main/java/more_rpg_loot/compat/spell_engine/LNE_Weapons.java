@@ -9,7 +9,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.more_rpg_classes.custom.MoreSpellSchools;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.spell_engine.rpg_series.config.AttributeModifier;
 import net.spell_engine.rpg_series.config.WeaponConfig;
 import net.spell_engine.api.spell.container.SpellContainers;
@@ -99,9 +99,9 @@ public class LNE_Weapons {
 
 
     public static void register(Map<String, WeaponConfig> configs) {
-        // Conditional Elder Guardian weapons (only loaded when more_rpg_classes mod is present)
-        if (FabricLoader.getInstance().isModLoaded("more_rpg_classes")) {
-            var repair_elder_guardian = ingredient("minecraft:prismarine_shard", FabricLoader.getInstance().isModLoaded("more_rpg_classes"), Items.NETHERITE_INGOT);
+        // Conditional Elder Guardian weapons (only loaded when mrpg_lib mod is present)
+        if (FabricLoader.getInstance().isModLoaded("mrpg_lib")) {
+            var repair_elder_guardian = ingredient("minecraft:prismarine_shard", FabricLoader.getInstance().isModLoaded("mrpg_lib"), Items.NETHERITE_INGOT);
             var elderGuardianSword = sword("elder_guardian_sword",
                     Weapon.CustomMaterial.matching(ToolMaterials.NETHERITE, repair_elder_guardian), sword_damage)
                     .withAdditionalSpell(LNE_Abilities.waterbomb.id().toString())

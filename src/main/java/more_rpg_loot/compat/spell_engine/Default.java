@@ -57,10 +57,12 @@ public class Default {
         var R4 = relics(4);
 
         itemLootConfig = new LootConfig();
+        itemLootConfig.behavior = new LootConfig.Behavior();
         var items = itemLootConfig.injectors;
         var items_regex = itemLootConfig.regex_injectors;
 
         scrollLootConfig = new LootConfig();
+        scrollLootConfig.behavior = new LootConfig.Behavior();
         var scrolls = scrollLootConfig.injectors;
         var scrolls_regex = scrollLootConfig.regex_injectors;
 

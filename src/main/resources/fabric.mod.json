@@ -37,7 +37,7 @@
 	"suggests": {
 		"spell_engine": "*",
 		"spell_power": "*",
-		"more_rpg_classes": "*"
+		"mrpg_lib": "*"
 	},
 	"custom": {
 		"modmenu": {

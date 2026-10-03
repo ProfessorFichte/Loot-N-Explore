@@ -64,8 +64,8 @@ public class SpellEngine_LNE {
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
         PlatformEvents.onLootTableModify(context -> {
-            LootHelper.configure(context.registries(), context.tableId(), context::existingPools, context::addPool, lootEquipmentConfig.value, MOD_ID);
-            LootHelper.configure(context.registries(), context.tableId(), context::existingPools, context::addPool, lootScrollsConfig.value, MOD_ID);
+            LootHelper.configure(context.registries(), context.tableId(), context.existingPools(), context::addPool, lootEquipmentConfig.value, MOD_ID);
+            LootHelper.configure(context.registries(), context.tableId(), context.existingPools(), context::addPool, lootScrollsConfig.value, MOD_ID);
         });
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             LootHelper.updateTagCache(lootEquipmentConfig.value);

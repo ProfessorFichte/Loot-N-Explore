@@ -14,7 +14,7 @@ public class CompatRegistry {
         if(FabricLoader.getInstance().isModLoaded("spell_power")){
             SpellPower_Effects.register();
         }
-        if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+        if(FabricLoader.getInstance().isModLoaded("mrpg_lib")){
             MRPGC_Effects.register();
         }
         if(FabricLoader.getInstance().isModLoaded("ranged_weapon_api")){

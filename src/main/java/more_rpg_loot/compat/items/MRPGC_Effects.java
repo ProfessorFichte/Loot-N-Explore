@@ -11,8 +11,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.more_rpg_classes.entity.attribute.MRPGCEntityAttributes;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
+import com.mrpg_lib.entity.attribute.MRPGCEntityAttributes;
 import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;

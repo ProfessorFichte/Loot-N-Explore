@@ -106,29 +106,29 @@ public class CompatItems {
     /// T1 BUFF ITEMS
     public static final Entry WATERMELON_DRINK = entry("watermelon_drink",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.WATERMELON_DRINK.registryEntry, 1),
-            "Watermelon Drink", "more_rpg_classes");
+            "Watermelon Drink", "mrpg_lib");
     public static final Entry BLUE_BERRY_PUNCH = entry("blue_berry_punch",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.BLUE_BERRY_PUNCH.registryEntry, 1),
-            "Blueberry Punch", "more_rpg_classes");
+            "Blueberry Punch", "mrpg_lib");
     public static final Entry GREEN_CHILLI = entry("green_chilli",
             () -> new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.UNCOMMON), MRPGC_Effects.GREEN_CHILLI.registryEntry, 1),
-            "Green Chilli", "more_rpg_classes");
+            "Green Chilli", "mrpg_lib");
     public static final Entry HONEY_MET = entry("honey_met",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.HONEY_MET.registryEntry, 1),
-            "Honey Mead", "more_rpg_classes");
+            "Honey Mead", "mrpg_lib");
     public static final Entry CACTUS_JUICE = entry("cactus_juice",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.CACTUS_JUICE.registryEntry, 1),
-            "Cactus Juice", "more_rpg_classes");
+            "Cactus Juice", "mrpg_lib");
     /// T3 BUFF ITEMS
     public static final Entry DETTLAFFS_BLOOD = entryWithLore("dettlaffs_blood",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), MRPGC_Effects.DETTLAFFS_BLOOD.registryEntry, 3),
-            "Dettlaff's Blood", "A crimson draught that ignites bloodlust and grants lifesteal with every furious blow.", "more_rpg_classes");
+            "Dettlaff's Blood", "A crimson draught that ignites bloodlust and grants lifesteal with every furious blow.", "mrpg_lib");
     public static final Entry SCARLET_ESSENCE = entryWithLore("scarlet_essence",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), MRPGC_Effects.SCARLET_ESSENCE.registryEntry, 3),
-            "Scarlet Essence", "A rare, almost sacred substance that blesses spells with magical blood steal.", "more_rpg_classes");
+            "Scarlet Essence", "A rare, almost sacred substance that blesses spells with magical blood steal.", "mrpg_lib");
     public static final Entry SVABLODS_BREW = entryWithLore("svablods_brew",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.EPIC), MRPGC_Effects.SVABLODS_BREW.registryEntry, 3),
-            "Svablod's Brew", "Brewed by Northern Cultists with Mardroeme.", "more_rpg_classes");
+            "Svablod's Brew", "Brewed by Northern Cultists with Mardroeme.", "mrpg_lib");
 
     // ==================== RANGED_WEAPON_API ITEMS ====================
     /// T0 BUFF ITEMS

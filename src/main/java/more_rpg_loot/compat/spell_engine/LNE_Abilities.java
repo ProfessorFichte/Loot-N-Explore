@@ -5,7 +5,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.custom.MoreSpellSchools;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
@@ -69,7 +69,7 @@ public class LNE_Abilities {
     }
     // MRPGLIB SAFETY SPELL SCHOOL
     public static SpellSchool waterSpellSchool() {
-        if(FabricLoader.getInstance().isModLoaded("more_rpg_classes")){
+        if(FabricLoader.getInstance().isModLoaded("mrpg_lib")){
             return MoreSpellSchools.WATER;
         } else{
             return SpellSchools.GENERIC;
@@ -138,16 +138,16 @@ public class LNE_Abilities {
         trigger.chance = 0.4F;
         spell.passive.triggers = List.of(trigger);
 
-        // `more_rpg_classes` is an optional dependency (see `waterSpellSchool` above), so these stay
+        // `mrpg_lib` is an optional dependency (see `waterSpellSchool` above), so these stay
         // raw ids rather than `MoreParticles.*` constants: a static reference would break this class'
         // initializer when the library is absent. The library registers them as SpellEngine entries,
         // so their own appearance defaults still apply - and no site here overrides any of them.
         spell.release.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of("more_rpg_classes:big_splash")
+                ParticleGroupBuilder.of("mrpg_lib:big_splash")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(30F).speed(0.5F, 0.75F)
                                 .verticalOrigin(Batches.FEET)),
-                ParticleGroupBuilder.of("more_rpg_classes:water_circle")
+                ParticleGroupBuilder.of("mrpg_lib:water_circle")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(1F).speed(0.2F, 1.0F)
                                 .verticalOrigin(Batches.FEET)));
@@ -160,17 +160,17 @@ public class LNE_Abilities {
 
         var damage = SpellBuilder.Impacts.damage( 0.4F,0);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:water_magic_impact1"), 0.4F);
         damage.visuals = Fx.Visuals.of(
-                ParticleGroupBuilder.of("more_rpg_classes:big_splash")
+                ParticleGroupBuilder.of("mrpg_lib:big_splash")
                         .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
                                 .count(20F).speed(0.05F, 0.2F)
                                 .verticalOrigin(Batches.FEET)),
-                ParticleGroupBuilder.of("more_rpg_classes:splash")
+                ParticleGroupBuilder.of("mrpg_lib:splash")
                         .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
                                 .count(15F).speed(0.05F, 0.2F)
                                 .verticalOrigin(Batches.FEET)),
-                ParticleGroupBuilder.of("more_rpg_classes:splash")
+                ParticleGroupBuilder.of("mrpg_lib:splash")
                         .batch(b -> b.shape(ParticleGroup.Shape.SPHERE)
                                 .count(25F).speed(1.0F, 1.2F)));
 

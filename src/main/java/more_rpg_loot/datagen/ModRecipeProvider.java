@@ -27,7 +27,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     public void generate(RecipeExporter exporter) {
         // Create a conditional exporter that requires spell_engine mod
         RecipeExporter spellengineConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("spell_engine"));
-        RecipeExporter mrpgcConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("more_rpg_classes"));
+        RecipeExporter mrpgcConditionalExporter = withConditions(exporter, ResourceConditions.allModsLoaded("mrpg_lib"));
 
         // === SIMPLE RECIPES (no conditions) ===
 
