@@ -1,7 +1,6 @@
 package more_rpg_loot.compat.spell_engine;
 
 
-import com.google.common.base.Suppliers;
 import more_rpg_loot.item.Group;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemStack;
@@ -64,7 +63,7 @@ public class SpellEngine_LNE {
         relicsConfig.save();
         LootHelper.TAG_CACHE.refresh();
         PlatformEvents.onLootTableModify(context -> {
-            var existingPools = Suppliers.memoize(context::existingPools);
+            var existingPools = context.existingPools();
             LootHelper.configure(context.tableId(), existingPools, context::addPool, lootEquipmentConfig.value, "equipment");
             LootHelper.configure(context.tableId(), existingPools, context::addPool, lootScrollsConfig.value, "scrolls");
         });

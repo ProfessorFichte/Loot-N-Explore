@@ -1,3 +1,6 @@
+# 1.0.23+1.20.1
+- fixed a crash due to Spell Engine Changes
+
 # 1.0.22+1.20.1
 
 > ### ⚠️ Read this before updating
