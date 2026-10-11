@@ -1,3 +1,12 @@
+# 1.0.24 - 1.21.1
+- Adopt Spell Engine 1.10.9 & More RPG Library 2.8.0
+- **BREAKING for modpack/datapack developers:** More RPG Library's namespace was renamed `more_rpg_classes` -> `mrpg_lib` (and its advancement root moved to `mrpg_lib:root`). If you have any data files, loot tables, tags or advancements that reference the old `more_rpg_classes:`/`more_rpg_content:` ids from this mod or MRPGL, update them to `mrpg_lib:`
+- Updated internal advancement parents, mod dependency declarations (fabric.mod.json, neoforge.mods.toml)
+- Ranged Weapon API 3.0 compatibility
+- Fixed a crash with More RPG Library installed but without Spell Power
+- Fixed the "Deep Sea Arsenal" & "Monarch's Weaponry" advancements not being obtainable
+- Elder Guardian weapon recipes now also require Spell Engine (fixes recipe errors in the log without it)
+
 # 1.0.23 - 1.21.1
 - Fixed crash due to Spell Engine API Changes
 

@@ -25,7 +25,11 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-	mavenLocal()
+	mavenLocal {
+		content {
+			excludeModule('maven.modrinth', 'more-rpg-library')
+		}
+	}
 	maven { url = 'https://maven.kosmx.dev/' }
 	maven { url = 'https://maven.shedaniel.me/' }
 	maven {
@@ -188,6 +192,7 @@ publishMods {
 		server = true
 		changelogType = "markdown"
 		requires("fabric-api", "structure-pool-api")
+		optional("spell-engine", "spell-power", "more-rpg-classes")
 	}
 
 	modrinth {
@@ -197,6 +202,9 @@ publishMods {
 		minecraftVersions.add(project.minecraft_version)
 		requires { slug = "fabric-api" }
 		requires { slug = "structure-pool-api" }
+		optional { slug = "spell-engine" }
+		optional { slug = "spell-power" }
+		optional { slug = "more-rpg-library" }
 	}
 
 	github {
