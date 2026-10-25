@@ -41,9 +41,43 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.loot_n_explore]]
-modId = "more_rpg_classes"
-type = "optional"
+modId = "mrpg_lib"
+type = "required"
 versionRange = "[${more_rpg_library_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "spell_power"
+type = "optional"
+versionRange = "[${spell_power_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "ranged_weapon_api"
+type = "optional"
+versionRange = "[${ranged_weapon_api_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "witcher_rpg"
+type = "optional"
+versionRange = "[${witcher_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "critical_strike"
+type = "optional"
+versionRange = "[${critical_strike_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.loot_n_explore]]
+modId = "lithostitched"
+type = "optional"
 ordering = "NONE"
 side = "BOTH"
 

@@ -1,5 +1,20 @@
 {
   "values": [
-    "loot_n_explore:innkeeper_shelf"
+    {
+      "id": "loot_n_explore:innkeeper_shelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:oak_hanging_inn_sign",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:acacia_hanging_inn_sign",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:spruce_hanging_inn_sign",
+      "required": false
+    }
   ]
 }

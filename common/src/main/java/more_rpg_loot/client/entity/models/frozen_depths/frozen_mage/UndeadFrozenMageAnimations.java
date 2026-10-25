@@ -5,12 +5,8 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-/**
- * Made with Blockbench 5.1.4
- * Exported for Minecraft version 1.17 or later with Mojang mappings
- * Converted for Fabric 1.21.1 with Yarn mappings
- */
 public class UndeadFrozenMageAnimations {
+
     public static final Animation idle = Animation.Builder.create(5.4546F).looping()
         .addBoneAnimation("Body", new Transformation(Transformation.Targets.ROTATE,
             new Keyframe(0.0F, AnimationHelper.createRotationalVector(-2.5081F, 5.4976F, -0.1095F), Transformation.Interpolations.CUBIC),
@@ -168,7 +164,7 @@ public class UndeadFrozenMageAnimations {
         ))
         .build();
 
-    public static final Animation cast = Animation.Builder.create(1.2083F).looping()
+    public static final Animation cast = Animation.Builder.create(1.2083F)
         .addBoneAnimation("Body", new Transformation(Transformation.Targets.ROTATE,
             new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
             new Keyframe(0.3333F, AnimationHelper.createRotationalVector(2.5F, -12.5F, 0.0F), Transformation.Interpolations.CUBIC),

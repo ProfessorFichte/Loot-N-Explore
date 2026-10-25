@@ -8,9 +8,6 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePartEntityModel<T> implements ModelWithArms {
     private final ModelPart group;
     private final ModelPart waist;
@@ -79,7 +76,6 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
     public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        // Play animations based on entity state
         this.animateMovement(FrostedRangerAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.updateAnimation(entity.idleAnimationState, FrostedRangerAnimations.idle, ageInTicks);
         this.updateAnimation(entity.normalShootAnimationState, FrostedRangerAnimations.attack, ageInTicks);
@@ -94,7 +90,7 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
     @Override
     public void setArmAngle(Arm arm, MatrixStack matrices) {
         ModelPart armPart = arm == Arm.RIGHT ? this.RightArm : this.LeftArm;
-        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null; // only the left arm has an item part defined
+        ModelPart handPart = arm == Arm.LEFT ? this.leftItem : null;
 
         this.applyPartTransform(matrices, this.group);
         this.applyPartTransform(matrices, this.waist);
@@ -104,12 +100,12 @@ public class FrostedRangerModel<T extends FrostedRangerEntity> extends SinglePar
         if (handPart != null) {
             this.applyPartTransform(matrices, handPart);
         } else {
-            // right arm has no item part, so the hand offset is applied manually: mirror of leftItem's pivot (2.0, 8, 1)
+            // no item part on the right arm, so mirror leftItem's pivot (2.0, 8, 1)
             matrices.translate(-0.125F, 0.5F, 0.0625F);
         }
     }
 
-    // rotate() also applies the part's pivot translation, so this is the whole parent-chain transform
+    // rotate() already applies the pivot translation
     private void applyPartTransform(MatrixStack matrices, ModelPart part) {
         part.rotate(matrices);
     }

@@ -70,7 +70,6 @@ public class CommonItems {
                 .build();
     }
 
-    /// T0 BUFF ITEMS
     public static final Entry HOT_CHOCOLATE = entry("hot_chocolate",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Effects.HOT_CHOCOLATE.registryEntry, 0),
             "Hot Chocolate", new ItemModelType.Generated("item/consumables/generic/"));
@@ -81,7 +80,6 @@ public class CommonItems {
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Effects.SWEET_BERRY_PUNCH.registryEntry, 0),
             "Sweet Berry Punch", new ItemModelType.Generated("item/consumables/generic/"));
 
-    /// T1 BUFF ITEMS
     public static final Entry BEET_ROOTBEER = entry("beet_rootbeer",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.BEET_ROOTBEER.registryEntry, 1),
             "Beet Rootbeer", new ItemModelType.Generated("item/consumables/generic/"));
@@ -89,7 +87,6 @@ public class CommonItems {
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.MALT_EXTRACT.registryEntry, 1),
             "Malt Extract", new ItemModelType.Generated("item/consumables/generic/"));
 
-    /// T2 BUFF ITEMS
     public static final Entry VITAL_DRINK = entry("vital_drink",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), Effects.VITAL_DRINK.registryEntry, 2),
             "Vital Drink", new ItemModelType.Generated("item/consumables/generic/"));
@@ -97,7 +94,6 @@ public class CommonItems {
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), Effects.ESPRESSO.registryEntry, 2),
             "Espresso", new ItemModelType.Generated("item/consumables/generic/"));
 
-    /// T3 BUFF ITEMS (with lore text)
     public static final Entry KNIGHTS_FAVOURITE = entryWithLore("knights_favourite",
             new InnkeeperBowlItem(new Item.Settings().maxCount(16).food(ModFoodComponents.INN_BOWL).rarity(Rarity.EPIC), Effects.KNIGHTS_FAVOURITE.registryEntry, 3),
             "Knight's Favourite", "A special dish with which no knight has ever lost.", new ItemModelType.Generated("item/consumables/generic/"));
@@ -149,23 +145,18 @@ public class CommonItems {
 
 
     public static void registerCommonItems(){
-        // Register all items
         for (var entry : all) {
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name()), entry.item());
         }
 
         LNEEvents.get().modifyItemGroup(Group.RPG_FOOD_KEY, (content) -> {
-            /// T0 BUFF ITEMS
             content.add(SWEET_BERRY_PUNCH.item());
             content.add(HOT_CHOCOLATE.item());
             content.add(POTATO_SOUP.item());
-            /// T1 BUFF ITEMS
             content.add(MALT_EXTRACT.item());
             content.add(BEET_ROOTBEER.item());
-            /// T2 BUFF ITEMS
             content.add(VITAL_DRINK.item());
             content.add(ESPRESSO.item());
-            /// T3 BUFF ITEMS
             content.add(KNIGHTS_FAVOURITE.item());
             content.add(THE_UNSHAKABLE.item());
         });
@@ -173,8 +164,8 @@ public class CommonItems {
         LNEEvents.get().modifyItemGroup(Group.RPG_FROZEN_DEPTHS_KEY, (content) -> {
             content.add(FROSTBALL.item());
             content.add(GLAZE_ROD.item());
-            content.addAfter(ModBlocks.FROZEN_VAULT.block(), FROZEN_KEY.item());
             content.addAfter(ModBlocks.FROZEN_VAULT.block(), MONARCHS_KEY.item());
+            content.addAfter(ModBlocks.FROZEN_VAULT.block(), FROZEN_KEY.item());
             content.add(FROZEN_DEPTHS_DISC.item());
             content.add(FROST_HAUNTS_AXE.item());
             content.add(MONARCHS_FROST_STAFF.item());

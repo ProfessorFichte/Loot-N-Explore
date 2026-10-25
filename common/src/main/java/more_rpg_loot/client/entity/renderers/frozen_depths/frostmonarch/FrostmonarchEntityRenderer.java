@@ -2,7 +2,7 @@ package more_rpg_loot.client.entity.renderers.frozen_depths.frostmonarch;
 
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.models.frozen_depths.frostmonarch.FrostMonarchModel;
-import more_rpg_loot.client.entity.renderers.generic.GenericEyesFeatureRenderer;
+import com.mrpg_lib.client.render.GenericEyesFeatureRenderer;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -38,14 +38,11 @@ public class FrostmonarchEntityRenderer extends MobEntityRenderer<FrostMonarchEn
     @Override
     protected void setupTransforms(FrostMonarchEntity entity, MatrixStack matrices, float animationProgress, float bodyYaw, float tickDelta, float scale) {
         if (entity.deathTime > 0 || entity.isFakeDeath()) {
-            float floatAmount = this.getAnimationProgress(entity, tickDelta);
-            this.scale(entity, matrices, tickDelta);
             matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F - entity.bodyYaw));
         } else {
             super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta, scale);
         }
 
-        // Push entity down initially during spawn to match animation start position
         int invulTime = entity.getInvulnerableTimer();
         if (invulTime > 0) {
             float animationTicks = Math.min(40.0f, 220 - invulTime + tickDelta);

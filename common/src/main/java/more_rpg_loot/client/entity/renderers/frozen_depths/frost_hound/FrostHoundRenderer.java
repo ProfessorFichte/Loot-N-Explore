@@ -1,5 +1,6 @@
 package more_rpg_loot.client.entity.renderers.frozen_depths.frost_hound;
 
+import com.mrpg_lib.client.render.GenericEyesFeatureRenderer;
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.models.frozen_depths.frost_hound.FrostHoundModel;
 import more_rpg_loot.entity.frozen_depths.mob.frost_hound.FrostHoundEntity;
@@ -12,8 +13,11 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 public class FrostHoundRenderer extends MobEntityRenderer<FrostHoundEntity, FrostHoundModel> {
     private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/entity/frozen_depths/mobs/frost_hound.png");
 
+    private static final Identifier EYES_TEXTURE = Identifier.of(MOD_ID, "textures/entity/frozen_depths/mobs/frost_hound_eyes.png");
+
     public FrostHoundRenderer(EntityRendererFactory.Context context) {
         super(context, new FrostHoundModel(context.getPart(EntityModelLayers.FROST_HOUND)), 0.5f);
+        this.addFeature(new GenericEyesFeatureRenderer<>(this, EYES_TEXTURE));
     }
 
     @Override

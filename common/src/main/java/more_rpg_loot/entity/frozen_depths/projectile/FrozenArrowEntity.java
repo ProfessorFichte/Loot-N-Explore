@@ -4,15 +4,17 @@ import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.ModEntities;
+import com.mrpg_lib.util.AllyHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
-import net.more_rpg_classes.effect.MRPGCEffects;
+import com.mrpg_lib.effect.MRPGCEffects;
 
-import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
+import static com.mrpg_lib.util.FreezeMethods.addFrozenTicksCapped;
 
 public class FrozenArrowEntity extends ArrowEntity {
 
@@ -32,12 +34,17 @@ public class FrozenArrowEntity extends ArrowEntity {
         if (getWorld().isClient) return;
         if (!(hitResult.getEntity() instanceof LivingEntity target)) return;
 
-        stackFreezeStacks(target, 20);
+        addFrozenTicksCapped(target, 20);
 
-        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
+        if (LNEPlatform.isModLoaded("mrpg_lib")) {
             target.addStatusEffect(new StatusEffectInstance(MRPGCEffects.FROSTED.entry, 60, 0, false, true, true));
         } else {
             target.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.registryEntry, 60, 0, false, true, true));
         }
+    }
+
+    @Override
+    protected boolean canHit(Entity entity) {
+        return super.canHit(entity) && AllyHelper.canHurt(this.getOwner(), entity);
     }
 }

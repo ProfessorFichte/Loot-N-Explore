@@ -4,7 +4,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.more_rpg_classes.custom.MoreSpellSchools;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.spell_engine.api.datagen.SpellBuilder;
 import net.spell_engine.api.render.LightEmission;
 import net.spell_engine.api.spell.ExternalSpellSchools;
@@ -42,7 +42,6 @@ public class LNE_Abilities {
                 .verticalOrigin(verticalOrigin).count(count).speed(minSpeed, maxSpeed));
     }
 
-    // ===== HELPER METHODS =====
     private static Spell passiveSpellBase() {
         var spell = new Spell();
         spell.range = 0;
@@ -69,7 +68,6 @@ public class LNE_Abilities {
         modifier.execute = TriState.DENY;
         return modifier;
     }
-    // ===== SPELL DEFINITIONS =====
 
     public static Entry dragonclaw = add(dragonclaw());
     private static Entry dragonclaw() {
@@ -130,8 +128,8 @@ public class LNE_Abilities {
         spell.passive.triggers = List.of(trigger);
 
         spell.release.visuals = Fx.Visuals.of(
-                pg("more_rpg_classes:big_splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 30, 0.5F, 0.75F),
-                pg("more_rpg_classes:water_circle", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 1, 0.2F, 1.0F));
+                pg("mrpg_lib:big_splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 30, 0.5F, 0.75F),
+                pg("mrpg_lib:water_circle", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 1, 0.2F, 1.0F));
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
@@ -141,11 +139,11 @@ public class LNE_Abilities {
 
         var damage = SpellBuilder.Impacts.damage( 0.4F,0);
         damage.attribute = EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString();
-        damage.sound = Sound.withVolume(Identifier.of("more_rpg_classes:water_magic_impact1"), 0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("mrpg_lib:water_magic_impact1"), 0.4F);
         damage.visuals = Fx.Visuals.of(
-                pg("more_rpg_classes:big_splash", ParticleGroup.Shape.PILLAR, ParticleGroupBuilder.Batches.FEET, 20, 0.05F, 0.2F),
-                pg("more_rpg_classes:splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 15, 0.05F, 0.2F),
-                pg("more_rpg_classes:splash", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 25, 1.0F, 1.2F));
+                pg("mrpg_lib:big_splash", ParticleGroup.Shape.PILLAR, ParticleGroupBuilder.Batches.FEET, 20, 0.05F, 0.2F),
+                pg("mrpg_lib:splash", ParticleGroup.Shape.CIRCLE, ParticleGroupBuilder.Batches.FEET, 15, 0.05F, 0.2F),
+                pg("mrpg_lib:splash", ParticleGroup.Shape.SPHERE, ParticleGroupBuilder.Batches.CENTER, 25, 1.0F, 1.2F));
 
         spell.impacts = List.of(damage);
         SpellBuilder.Cost.cooldown(spell, 5.0F);
@@ -172,7 +170,7 @@ public class LNE_Abilities {
 
         spell.target.type = Spell.Target.Type.AREA;
         spell.target.area = new Spell.Target.Area();
-        spell.target.area.angle_degrees = 90.0F; // 90 degree cone
+        spell.target.area.angle_degrees = 90.0F;
         spell.target.area.horizontal_range_multiplier = 1.0F;
 
         spell.release.visuals = Fx.Visuals.of(
@@ -199,7 +197,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== PASSIVE SPELLS =====
     public static Entry wither_touch = add(wither_touch());
     private static Entry wither_touch() {
         var id = Identifier.of(MOD_ID, "wither_touch");
@@ -262,7 +259,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== ACTIVE BUFF SPELLS =====
     public static Entry ender_dragon_scales = add(ender_dragon_scales());
     private static Entry ender_dragon_scales() {
         var id = Identifier.of(MOD_ID, "ender_dragon_scales");
@@ -289,7 +285,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== CONDITIONAL HEAL SPELL =====
     public static Entry poseidons_grace = add(poseidons_grace());
     private static Entry poseidons_grace() {
         var id = Identifier.of(MOD_ID, "poseidons_grace");
@@ -365,8 +360,6 @@ public class LNE_Abilities {
         return new Entry(id, spell, title, description, null);
     }
 
-    // ===== BEAM SPELL =====
-
     public static Entry elder_guardian_eye = add(elder_guardian_eye());
     private static Entry elder_guardian_eye() {
         var id = Identifier.of(MOD_ID, "elder_guardian_eye");
@@ -410,8 +403,6 @@ public class LNE_Abilities {
 
         return new Entry(id, spell, title, description, null);
     }
-
-    // ===== PROJECTILE SPELL =====
 
     public static Entry wither_spine = add(wither_spine());
     private static Entry wither_spine() {
@@ -464,7 +455,6 @@ public class LNE_Abilities {
 
         spell.impacts = List.of(damage, witherEffect);
 
-        // Area impact on hit
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.radius = 2.0F;
         spell.area_impact.area = new Spell.Target.Area();
@@ -474,8 +464,6 @@ public class LNE_Abilities {
 
         return new Entry(id, spell, title, description, null);
     }
-
-    // ===== METEOR SPELL =====
 
     public static Entry avalanche = add(avalanche());
     private static Entry avalanche() {
@@ -495,7 +483,6 @@ public class LNE_Abilities {
 
         spell.target.type = Spell.Target.Type.FROM_TRIGGER;
 
-        // Meteor delivery
         spell.deliver = new Spell.Delivery();
         spell.deliver.type = Spell.Delivery.Type.METEOR;
         spell.deliver.meteor = new Spell.Delivery.Meteor();
@@ -545,8 +532,6 @@ public class LNE_Abilities {
 
         return new Entry(id, spell, title, description, null);
     }
-
-    // ===== CLOUD SPELL =====
 
     public static Entry frozen_soul = add(frozen_soul());
     private static Entry frozen_soul() {

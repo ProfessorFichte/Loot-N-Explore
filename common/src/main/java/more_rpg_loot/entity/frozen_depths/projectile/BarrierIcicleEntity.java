@@ -1,25 +1,24 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
-import more_rpg_loot.platform.LNEPlatform;
+
+import more_rpg_loot.util.damage.FrostDamageProfiles;
+import com.mrpg_lib.util.damage.SpellDamage;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Ownable;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.spell_power.api.SpellSchools;
 
 import java.util.UUID;
 
 import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
-import static more_rpg_loot.util.HelperMethods.spawnCloudEntity;
+import static com.mrpg_lib.util.CloudMethods.spawnCustomCloud;
 
 public class BarrierIcicleEntity extends Entity implements Ownable {
-    // Animation phases
     public static final int RISE_DURATION = 10;
     public static final int RETRACT_DURATION = 10;
 
@@ -114,11 +113,10 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
 
         float damageAmount = calculateDamage(owner);
 
-        // Calculate cloud duration based on remaining icicle lifetime
         int cloudDurationTicks = (maxLifetime - RISE_DURATION - RETRACT_DURATION);
         int cloudDurationSeconds = cloudDurationTicks / 20;
 
-        spawnCloudEntity(
+        spawnCustomCloud(
             ParticleTypes.SNOWFLAKE, owner, this, 0, 1.8F,
             cloudDurationSeconds, 1.8F, getFreezingEffect(), 1, 0,
             false, 0, true, damageAmount, this.getDamageSources().freeze()
@@ -134,17 +132,7 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
     }
 
     private float calculateDamage(LivingEntity owner) {
-        float damage = (float) (owner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.5);
-
-        if (LNEPlatform.isModLoaded("spell_power")) {
-            try {
-                double frostPower = owner.getAttributeValue(SpellSchools.FROST.attributeEntry);
-                damage += (float) (frostPower * 0.3);
-            } catch (Exception e) {
-            }
-        }
-
-        return Math.max(4.0F, damage);
+        return SpellDamage.calculate(owner, FrostDamageProfiles.BARRIER_CLOUD);
     }
 
     public float getAnimationProgress(float tickDelta) {

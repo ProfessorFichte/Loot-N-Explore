@@ -4,6 +4,12 @@ import more_rpg_loot.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.RPGLoot;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
+import com.mrpg_lib.entity.config.CustomValues;
+import com.mrpg_lib.entity.config.EntityAttributeApplier;
+import com.mrpg_lib.entity.config.EntityAttributeConfig;
+import com.mrpg_lib.util.combat.MeleeArcStrike;
+import com.mrpg_lib.entity.goal.WindupMeleeAttackGoal;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -17,12 +23,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -31,7 +32,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MonarchsSoldierEntity extends SkeletonEntity {
     private static final TrackedData<Boolean> BLOCKING = DataTracker.registerData(MonarchsSoldierEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -42,13 +44,14 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
     public final AnimationState blockWalkAnimationState = new AnimationState();
     public final AnimationState normalHitAnimationState = new AnimationState();
     public final AnimationState aoeSwingAnimationState = new AnimationState();
-    private int idleAnimationTimeout = 0;
+    private int movingGraceTicks = 0;
     private int normalHitAnimTicksRemaining = 0;
 
     private int aoeCooldown = 0;
     private int blockTimer = 0;
     private int blockCooldown = 0;
     private int postActionCooldown = 0;
+    private EntityAttributeConfig.Entry tuningFallback;
 
     public MonarchsSoldierEntity(EntityType<? extends SkeletonEntity> entityType, World world) {
         super(entityType, world);
@@ -57,13 +60,18 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return HostileEntity.createHostileAttributes()
+        DefaultAttributeContainer.Builder builder = HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 20.0)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0)
                 .add(EntityAttributes.GENERIC_ARMOR, 4.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.3);
+        if (LNEPlatform.isModLoaded("thermoo")) {
+            builder = builder.add(ThermooAttributes.MIN_TEMPERATURE, 0.0)
+                    .add(ThermooAttributes.FROST_RESISTANCE, 0.0);
+        }
+        return builder;
     }
 
     @Override
@@ -78,7 +86,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new AoeSwordSwingGoal(this));
         this.goalSelector.add(2, new ShieldBlockGoal(this));
-        MeleeAttackGoal ownMeleeGoal = new MeleeAttackGoal(this, 1.0, false);
+        MeleeAttackGoal ownMeleeGoal = new WindupMeleeAttackGoal(this, 1.0, false, 0.0, new int[]{MonarchsSoldierAnimationTimes.ATTACK_IMPACT_TICK});
         this.goalSelector.add(3, ownMeleeGoal);
         this.goalSelector.add(4, new WanderAroundFarGoal(this, 0.8));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
@@ -89,8 +97,6 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, IronGolemEntity.class, true));
 
-        // Defensive: strip any duplicate melee goal that slipped in before updateAttackType() was
-        // neutralized below (excludes our own tracked instance).
         this.goalSelector.getGoals().stream()
                 .filter(g -> g.getGoal().getClass() == MeleeAttackGoal.class && g.getGoal() != ownMeleeGoal)
                 .toList()
@@ -99,29 +105,36 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
 
     @Override
     public void updateAttackType() {
-        // AbstractSkeletonEntity re-adds its own internal meleeAttackGoal here whenever equipment
-        // changes, since getMainHandStack().isOf(Items.BOW) is always false for the sword/shield -
-        // that runs after initGoals() (during equip), so a one-time goal filter can't catch it.
-        // Stop the vanilla swap entirely; this entity's own MeleeAttackGoal is already in initGoals().
+        // Vanilla re-adds its own melee goal on equip (isOf(BOW) is false for our weapon); block it.
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         EntityData data = super.initialize(world, difficulty, spawnReason, entityData);
-        if (LNEPlatform.isModLoaded("thermoo")) {
-            this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
-            this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
-        }
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(5.0);
+        EntityAttributeApplier.apply(this, RPGLoot.entityAttributeConfig != null ? RPGLoot.entityAttributeConfig.value : null, attributeFallback());
         return data;
+    }
+
+    protected EntityAttributeConfig.Entry attributeFallback() {
+        EntityAttributeConfig.Entry fallback = new EntityAttributeConfig.Entry()
+                .set(EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString(), 40.0)
+                .set(EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString(), 5.0)
+                .set(EntityAttributes.GENERIC_ARMOR.getIdAsString(), 4.0);
+        if (LNEPlatform.isModLoaded("thermoo")) {
+            fallback.set(ThermooAttributes.MIN_TEMPERATURE.getIdAsString(), 5.0)
+                    .set(ThermooAttributes.FROST_RESISTANCE.getIdAsString(), 10.0);
+        }
+        return FrozenDepthsTuning.monarchsSoldier(fallback);
+    }
+
+    protected CustomValues tuning() {
+        if (tuningFallback == null) tuningFallback = attributeFallback();
+        return EntityAttributeApplier.custom(this, RPGLoot.entityAttributeConfig != null ? RPGLoot.entityAttributeConfig.value : null, tuningFallback);
     }
 
     @Override
     protected void initEquipment(net.minecraft.util.math.random.Random random, LocalDifficulty localDifficulty) {
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.STONE_SWORD));
-        this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-        this.updateDropChances(EquipmentSlot.MAINHAND);
-        this.updateDropChances(EquipmentSlot.OFFHAND);
     }
 
     @Override
@@ -159,11 +172,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
                 boolean fromBehind = attackDir.dotProduct(facing) < -0.3;
                 boolean isProjectile = source.isIn(DamageTypeTags.IS_PROJECTILE);
                 if (!(fromBehind && isProjectile)) {
-                    RPGLoot.LOGGER.info("[MonarchsSoldier] Blocked {} damage from {} (fromBehind={}, isProjectile={})",
-                            amount, origin, fromBehind, isProjectile);
                     return false;
                 }
-                RPGLoot.LOGGER.info("[MonarchsSoldier] Block bypassed by projectile from behind: {} damage from {}", amount, origin);
             }
         }
         return super.damage(source, amount);
@@ -193,7 +203,16 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         // (only knockback sends a velocity packet), so detect movement from the actual position delta instead
         double dx = this.getX() - this.prevX;
         double dz = this.getZ() - this.prevZ;
-        boolean moving = (dx * dx + dz * dz) > 0.0001;
+        if (dx * dx + dz * dz > 0.0001) {
+            this.movingGraceTicks = 6;
+        } else if (this.movingGraceTicks > 0) {
+            this.movingGraceTicks--;
+        }
+        boolean moving = this.movingGraceTicks > 0;
+
+        if (!this.isPerformingAoe()) {
+            this.aoeSwingAnimationState.stop();
+        }
 
         if (this.isPerformingAoe()) {
             this.aoeSwingAnimationState.startIfNotRunning(this.age);
@@ -217,12 +236,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         } else {
             this.walkAnimationState.stop();
             this.blockWalkAnimationState.stop();
-            if (idleAnimationTimeout <= 0) {
-                idleAnimationTimeout = this.random.nextInt(40) + 80;
-                this.idleAnimationState.start(this.age);
-            } else {
-                --idleAnimationTimeout;
-            }
+            this.idleAnimationState.startIfNotRunning(this.age);
         }
 
         if (this.normalHitAnimTicksRemaining > 0 && --this.normalHitAnimTicksRemaining <= 0) {
@@ -230,21 +244,27 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         }
     }
 
-    protected int getAoeSwingRange() {
-        return 3;
+    protected double getAoeSwingRange() {
+        return tuning().getDouble(FrozenDepthsTuning.AOE_SWING_RANGE, 3.0);
     }
 
     private class AoeSwordSwingGoal extends Goal {
+        private static final float AOE_FIRST_SWING_CENTER = -25.0F;
+        private static final float AOE_HALF_ARC = 60.0F;
+        private final Set<LivingEntity> aoeHitEntities = new HashSet<>();
         private final MonarchsSoldierEntity soldier;
         private LivingEntity target;
-        private int windupTimer = 0;
-        private int recoverTimer = 0;
-        private boolean hasSwung = false;
+        private int aoeTimer = 0;
         private boolean active = false;
 
         AoeSwordSwingGoal(MonarchsSoldierEntity soldier) {
             this.soldier = soldier;
             this.setControls(EnumSet.of(Control.MOVE, Control.LOOK));
+        }
+
+        @Override
+        public boolean shouldRunEveryTick() {
+            return true;
         }
 
         @Override
@@ -265,10 +285,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         @Override
         public void start() {
             active = true;
-            // attack_aoe (18.33 ticks total) swings the weapon arm through its widest sweep
-            // between roughly tick 3 and tick 11 - land the hit mid-sweep, not near the end.
-            windupTimer = 7;
-            hasSwung = false;
+            aoeTimer = 0;
+            aoeHitEntities.clear();
             soldier.setPerformingAoe(true);
             soldier.getNavigation().stop();
         }
@@ -276,48 +294,25 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         @Override
         public void tick() {
             if (target != null) soldier.getLookControl().lookAt(target, 30.0F, 30.0F);
-            if (!hasSwung) {
-                if (--windupTimer <= 0) {
-                    performAoeSwing();
-                    hasSwung = true;
-                    recoverTimer = 11;
-                }
-            } else if (--recoverTimer <= 0) {
+            if (aoeTimer == MonarchsSoldierAnimationTimes.AOE_FIRST_IMPACT_TICK) {
+                performAoeSwing(AOE_FIRST_SWING_CENTER);
+            } else if (aoeTimer == MonarchsSoldierAnimationTimes.AOE_SECOND_IMPACT_TICK) {
+                performAoeSwing(-AOE_FIRST_SWING_CENTER);
+            }
+            if (++aoeTimer >= MonarchsSoldierAnimationTimes.AOE_LENGTH_TICKS) {
                 stop();
             }
         }
 
-        private void performAoeSwing() {
-            float radius = soldier.getAoeSwingRange();
-            Vec3d forward = Vec3d.fromPolar(0, soldier.getYaw());
-            Box aoeBox = Box.of(soldier.getPos().add(forward.multiply(radius * 0.5)), radius * 2.5, 3.0, radius * 2.5);
-
-            List<LivingEntity> targets = soldier.getWorld().getNonSpectatingEntities(LivingEntity.class, aoeBox);
-            int hitCount = 0;
-            for (LivingEntity entity : targets) {
-                if (entity == soldier) continue;
-                if (entity.isTeammate(soldier)) continue;
-
-                Vec3d toEntity = entity.getPos().subtract(soldier.getPos());
-                // atan2 gives a raw math angle; Minecraft yaw is offset by -90 from that convention
-                double angle = Math.abs(MathHelper.wrapDegrees((float) (Math.atan2(toEntity.z, toEntity.x) * (180.0 / Math.PI)) - 90.0F - soldier.getYaw()));
-                if (angle <= 60.0) {
-                    soldier.tryAttack(entity);
-                    hitCount++;
-                }
-            }
-            if (hitCount == 0) {
-                RPGLoot.LOGGER.info("[MonarchsSoldier] AoE swing hit nobody ({} candidates in box)", targets.size());
-            } else {
-                RPGLoot.LOGGER.info("[MonarchsSoldier] AoE swing hit {} entities", hitCount);
-            }
+        private void performAoeSwing(float centerDegrees) {
+            MeleeArcStrike.strike(soldier, soldier.getAoeSwingRange() + 1.5, centerDegrees, AOE_HALF_ARC, aoeHitEntities);
         }
 
         @Override
         public void stop() {
             active = false;
             soldier.setPerformingAoe(false);
-            soldier.aoeCooldown = 80 + soldier.random.nextInt(40);
+            soldier.aoeCooldown = soldier.tuning().getInt(FrozenDepthsTuning.AOE_SWING_COOLDOWN, 80) + soldier.random.nextInt(40);
             soldier.postActionCooldown = 10;
         }
     }
@@ -332,6 +327,11 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         }
 
         @Override
+        public boolean shouldRunEveryTick() {
+            return true;
+        }
+
+        @Override
         public boolean canStart() {
             this.target = soldier.getTarget();
             if (target == null || !target.isAlive()) return false;
@@ -339,7 +339,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             return dist <= 7.0 * 7.0 && dist > 1.0 * 1.0
                     && !soldier.isBlocking() && !soldier.isPerformingAoe()
                     && soldier.blockCooldown <= 0
-                    && soldier.random.nextFloat() < 0.08F;
+                    && soldier.random.nextFloat() < soldier.tuning().getDouble(FrozenDepthsTuning.SHIELD_RAISE_CHANCE, 0.08);
         }
 
         @Override
@@ -350,8 +350,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         @Override
         public void start() {
             soldier.setBlocking(true);
-            soldier.blockTimer = 40 + soldier.random.nextInt(20);
-            RPGLoot.LOGGER.info("[MonarchsSoldier] ShieldBlockGoal started against {} for {} ticks", target, soldier.blockTimer);
+            soldier.blockTimer = soldier.tuning().getInt(FrozenDepthsTuning.SHIELD_BLOCK_DURATION, 40) + soldier.random.nextInt(20);
         }
 
         @Override
@@ -374,7 +373,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         public void stop() {
             soldier.setBlocking(false);
             soldier.blockTimer = 0;
-            soldier.blockCooldown = 60 + soldier.random.nextInt(40);
+            soldier.blockCooldown = soldier.tuning().getInt(FrozenDepthsTuning.SHIELD_BLOCK_COOLDOWN, 60) + soldier.random.nextInt(40);
             soldier.postActionCooldown = 10;
         }
     }
@@ -385,6 +384,11 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
         FocusAttackerGoal(MonarchsSoldierEntity soldier) {
             this.soldier = soldier;
             this.setControls(EnumSet.noneOf(Control.class));
+        }
+
+        @Override
+        public boolean shouldRunEveryTick() {
+            return true;
         }
 
         @Override
@@ -407,7 +411,6 @@ public class MonarchsSoldierEntity extends SkeletonEntity {
             LivingEntity current = soldier.getTarget();
             PlayerEntity attacker = findCloserAttacker(current);
             if (attacker != null) {
-                RPGLoot.LOGGER.info("[MonarchsSoldier] Switching target from fleeing {} to closer {}", current, attacker);
                 soldier.setTarget(attacker);
             }
         }

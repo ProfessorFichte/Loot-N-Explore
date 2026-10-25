@@ -1,8 +1,9 @@
 package more_rpg_loot.entity.generic.projectile;
 
 import more_rpg_loot.entity.ModEntities;
+import com.mrpg_lib.util.AllyHelper;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
-import more_rpg_loot.util.HelperMethods;
+import com.mrpg_lib.util.CloudMethods;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +16,10 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.UUID;
 
 public class LNEAbilityArrowEntity extends ArrowEntity {
@@ -26,17 +30,14 @@ public class LNEAbilityArrowEntity extends ArrowEntity {
 
     private static final int[] COOLDOWN_TICKS = {300, 240, 360, 200};
 
-    // Per-shooter cooldown: UUID -> long[4] (last trigger world-time per ability)
-    private static final HashMap<UUID, long[]> cooldowns = new HashMap<>();
+    private static final Map<World, Map<UUID, long[]>> COOLDOWNS = Collections.synchronizedMap(new WeakHashMap<>());
 
     private byte abilityId = -1;
 
-    // Required by EntityType.EntityFactory
     public LNEAbilityArrowEntity(EntityType<? extends ArrowEntity> type, World world) {
         super(type, world);
     }
 
-    // Used when firing from a bow/crossbow
     public LNEAbilityArrowEntity(World world, LivingEntity owner, byte abilityId) {
         super(ModEntities.LNE_ABILITY_ARROW, world);
         this.setOwner(owner);
@@ -55,7 +56,9 @@ public class LNEAbilityArrowEntity extends ArrowEntity {
 
         UUID uid = attacker.getUuid();
         long now = getWorld().getTime();
-        long[] times = cooldowns.computeIfAbsent(uid, k -> new long[4]);
+        Map<UUID, long[]> worldCooldowns = COOLDOWNS.computeIfAbsent(getWorld(), k -> new ConcurrentHashMap<>());
+        worldCooldowns.values().removeIf(t -> isExpired(t, now));
+        long[] times = worldCooldowns.computeIfAbsent(uid, k -> new long[4]);
         if (now - times[abilityId] < COOLDOWN_TICKS[abilityId]) return;
         times[abilityId] = now;
 
@@ -68,7 +71,7 @@ public class LNEAbilityArrowEntity extends ArrowEntity {
                 if (attacker instanceof PlayerEntity p) p.heal(dmg);
             }
             case WITHER -> {
-                HelperMethods.spawnCloudEntity(
+                CloudMethods.spawnCustomCloud(
                         ParticleTypes.SMOKE, attacker, target, 1,
                         6.0f, 5, 6.0f,
                         StatusEffects.WITHER, 5, 1,
@@ -83,11 +86,12 @@ public class LNEAbilityArrowEntity extends ArrowEntity {
                     FrostballEntity ball = new FrostballEntity(getWorld(),
                             bx + r * Math.cos(angle), by, bz + r * Math.sin(angle));
                     ball.setVelocity(0, -1, 0);
+                    ball.setOwner(attacker);
                     getWorld().spawnEntity(ball);
                 }
             }
             case ELDER_GUARDIAN -> {
-                HelperMethods.spawnCloudEntity(
+                CloudMethods.spawnCustomCloud(
                         ParticleTypes.RAIN, attacker, target, 1,
                         5.0f, 5, 5.0f,
                         null, 0, 0, false, 0,
@@ -106,5 +110,19 @@ public class LNEAbilityArrowEntity extends ArrowEntity {
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         abilityId = nbt.getByte("AbilityId");
+    }
+
+    @Override
+    protected boolean canHit(Entity entity) {
+        return super.canHit(entity) && AllyHelper.canHurt(this.getOwner(), entity);
+    }
+
+    private static boolean isExpired(long[] times, long now) {
+        for (int i = 0; i < times.length; i++) {
+            if (now - times[i] < COOLDOWN_TICKS[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

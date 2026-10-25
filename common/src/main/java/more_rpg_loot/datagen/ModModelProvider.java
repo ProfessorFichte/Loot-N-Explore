@@ -74,8 +74,8 @@ public class ModModelProvider extends FabricModelProvider {
         }
     }
 
-    // registerCubeAllModelTexturePool always derives the texture id from the block's own registry name with
-    // no override, so a nested (theme-sorted) texture path needs a manually built pool instead.
+    // registerCubeAllModelTexturePool always uses the block's registry name as the texture id,
+    // so nested texture paths need a hand-built pool
     private BlockStateModelGenerator.BlockTexturePool createCubeAllTexturePool(BlockStateModelGenerator generator, Block block, String textureId) {
         return generator.new BlockTexturePool(TextureMap.all(Identifier.of(MOD_ID, textureId)))
                 .base(block, Models.CUBE_ALL);
@@ -149,7 +149,7 @@ public class ModModelProvider extends FabricModelProvider {
         }
     }
 
-    // Only "glacial" weapons belong to the Frozen Depths theme - matches the ModItemTagProvider weapon-theme tag convention.
+    // only glacial weapons are Frozen Depths themed, same as the ModItemTagProvider tags
     private static String weaponTheme(String name) {
         return name.contains("glacial") || name.equals("frozen_bow") ? "frozen_depths" : "generic";
     }
@@ -182,11 +182,12 @@ public class ModModelProvider extends FabricModelProvider {
         pullingOverride.addProperty("model", MOD_ID + ":item/" + name + "_pulling_0");
         overrides.add(pullingOverride);
 
-        for (int i = 0; i <= 2; i++) {
+        double[] pullThresholds = {0.0, 0.58, 1.0};
+        for (int i = 1; i <= 2; i++) {
             JsonObject pullOverride = new JsonObject();
             JsonObject pullPredicate = new JsonObject();
             pullPredicate.addProperty("pulling", 1);
-            pullPredicate.addProperty("pull", (i + 1) * 0.333);
+            pullPredicate.addProperty("pull", pullThresholds[i]);
             pullOverride.add("predicate", pullPredicate);
             pullOverride.addProperty("model", MOD_ID + ":item/" + name + "_pulling_" + i);
             overrides.add(pullOverride);

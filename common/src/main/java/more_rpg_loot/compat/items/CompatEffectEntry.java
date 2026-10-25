@@ -1,6 +1,5 @@
 package more_rpg_loot.compat.items;
 
-import more_rpg_loot.RPGLoot;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -40,7 +39,6 @@ public final class CompatEffectEntry {
     }
 
     public static void registerAll(String label, List<CompatEffectEntry> entries) {
-        RPGLoot.LOGGER.info("Registering " + label + " compat effects for " + MOD_ID);
         for (CompatEffectEntry entry : entries) {
             entry.register();
         }

@@ -19,14 +19,13 @@ import more_rpg_loot.item.weapons.generic.EnderDragonSwordItem;
 import more_rpg_loot.item.weapons.generic.WitherAxeItem;
 import more_rpg_loot.item.weapons.generic.WitherMaceItem;
 import more_rpg_loot.item.weapons.generic.WitherSwordItem;
-import more_rpg_loot.util.HelperMethods;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ChargedProjectilesComponent;
-import net.minecraft.entity.EquipmentSlot;
+import com.mrpg_lib.util.CloudMethods;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.item.*;
 import net.minecraft.item.MaceItem;
@@ -38,12 +37,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -86,7 +81,7 @@ public class LNE_WeaponItems {
                         ToolMaterials.NETHERITE, (int) bonusDamage, attackSpeed));
     }
 
-    // MaceItem(Settings) does not call ToolMaterial.applySettings, so maxDamage must be set explicitly
+    // MaceItem(Settings) skips applySettings, so maxDamage has to be set by hand
     public static Item.Settings maceSettings(float bonusDamage, float attackSpeed) {
         return new Item.Settings()
                 .rarity(Rarity.RARE)
@@ -133,13 +128,17 @@ public class LNE_WeaponItems {
 
     public static void spawnRainCloud(LivingEntity attacker, LivingEntity target) {
         float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.25f);
-        HelperMethods.spawnCloudEntity(ParticleTypes.RAIN, attacker, target, 1,
+        CloudMethods.spawnCustomCloud(ParticleTypes.RAIN, attacker, target, 1,
                 5.0f, 5, 5.0f, null, 0, 0, false, 0,
                 true, dmg, target.getDamageSources().magic());
     }
 
+    public static boolean vanillaAbilitiesActive() {
+        return !LNEPlatform.isModLoaded("spell_engine");
+    }
+
     public static void addAbilityTooltip(Item item, List<Text> tooltip) {
-        if (!LNEPlatform.isModLoaded("spell_engine")) {
+        if (vanillaAbilitiesActive()) {
             tooltip.add(ScreenTexts.EMPTY);
             tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
                     .formatted(Formatting.GRAY, Formatting.ITALIC));
@@ -147,12 +146,16 @@ public class LNE_WeaponItems {
     }
 
     public static void addElderGuardianTooltip(Item item, List<Text> tooltip) {
-        if (!LNEPlatform.isModLoaded("spell_engine")
-                && !LNEPlatform.isModLoaded("more_rpg_classes")) {
-            tooltip.add(ScreenTexts.EMPTY);
-            tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
-                    .formatted(Formatting.GRAY, Formatting.ITALIC));
-        }
+        addAbilityTooltip(item, tooltip);
+    }
+
+    private static ProjectileEntity toAbilityArrow(World world, LivingEntity shooter, byte abilityId, ProjectileEntity vanilla) {
+        if (!(vanilla instanceof PersistentProjectileEntity)) return vanilla;
+        NbtCompound nbt = vanilla.writeNbt(new NbtCompound());
+        nbt.putByte("AbilityId", abilityId);
+        LNEAbilityArrowEntity arrow = new LNEAbilityArrowEntity(world, shooter, abilityId);
+        arrow.readNbt(nbt);
+        return arrow;
     }
 
     public static class AbilityBowItem extends BowItem {
@@ -164,40 +167,15 @@ public class LNE_WeaponItems {
         }
 
         @Override
-        public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-            if (!(user instanceof PlayerEntity player)) return;
-            int charge = getMaxUseTime(stack, user) - remainingUseTicks;
-            float power = BowItem.getPullProgress(charge);
-            if (power < 0.1f) return;
-
-            ItemStack arrowStack = player.getProjectileType(stack);
-            boolean creative = player.getAbilities().creativeMode;
-            if (arrowStack.isEmpty() && !creative) return;
-
-            if (!world.isClient) {
-                LNEAbilityArrowEntity arrow = new LNEAbilityArrowEntity(world, player, abilityId);
-                arrow.setVelocity(player, player.getPitch(), player.getYaw(), 0.0f, power * 3.0f, 1.0f);
-                if (power == 1.0f) arrow.setCritical(true);
-                world.spawnEntity(arrow);
-
-                if (!creative && !arrowStack.isEmpty()) {
-                    arrowStack.decrement(1);
-                    if (arrowStack.isEmpty()) player.getInventory().removeOne(arrowStack);
-                }
-            }
-
-            world.playSound(null, player.getX(), player.getY(), player.getZ(),
-                    SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS,
-                    1.0f, 1.0f / (world.getRandom().nextFloat() * 0.4f + 1.2f) + power * 0.5f);
-            stack.damage(1, player,
-                    player.getActiveHand() == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+        protected ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
+            ProjectileEntity vanilla = super.createArrowEntity(world, shooter, weaponStack, projectileStack, critical);
+            return vanillaAbilitiesActive() ? toAbilityArrow(world, shooter, abilityId, vanilla) : vanilla;
         }
+
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
             super.appendTooltip(stack, context, tooltip, type);
-            tooltip.add(ScreenTexts.EMPTY);
-            tooltip.add(Text.translatable(this.getTranslationKey() + ".lore")
-                    .formatted(Formatting.GRAY, Formatting.ITALIC));
+            addAbilityTooltip(this, tooltip);
         }
     }
 
@@ -210,30 +188,15 @@ public class LNE_WeaponItems {
         }
 
         @Override
-        public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-            ItemStack stack = user.getStackInHand(hand);
-            ChargedProjectilesComponent charged = stack.get(DataComponentTypes.CHARGED_PROJECTILES);
-            if (charged != null && !charged.isEmpty()) {
-                if (!world.isClient) {
-                    LNEAbilityArrowEntity arrow = new LNEAbilityArrowEntity(world, user, abilityId);
-                    arrow.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 3.15f, 1.0f);
-                    world.spawnEntity(arrow);
-                    world.playSound(null, user.getX(), user.getY(), user.getZ(),
-                            SoundEvents.ITEM_CROSSBOW_SHOOT, SoundCategory.PLAYERS, 1.0f, 1.0f);
-                }
-                stack.remove(DataComponentTypes.CHARGED_PROJECTILES);
-                stack.damage(3, user,
-                        hand == Hand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-                return TypedActionResult.consume(stack);
-            }
-            return super.use(world, user, hand);
+        protected ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
+            ProjectileEntity vanilla = super.createArrowEntity(world, shooter, weaponStack, projectileStack, critical);
+            return vanillaAbilitiesActive() ? toAbilityArrow(world, shooter, abilityId, vanilla) : vanilla;
         }
+
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
             super.appendTooltip(stack, context, tooltip, type);
-            tooltip.add(ScreenTexts.EMPTY);
-            tooltip.add(Text.translatable(this.getTranslationKey() + ".lore")
-                    .formatted(Formatting.GRAY, Formatting.ITALIC));
+            addAbilityTooltip(this, tooltip);
         }
     }
 

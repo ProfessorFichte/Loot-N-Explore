@@ -1,113 +1,53 @@
-# 1.1.0 - 1.21.1
-
-# 1.0.16 - 1.21.1
-- fix crash without the trinkets mod
-
-# 1.0.15 - 1.21.1
-- Fix Missing Dettlaffs Blood Effect Texture 
-- Spell Engine & Optional Dependencies Update
-
-# 1.0.14 - 1.21.1
-- Removed Dehydration Compat (Extra Datapack will be released)
-- fix crash with Frost Monarchs Screech Goal
-- nerf LNE-Swords & Axe's Damage
-
-# 1.0.13 - 1.21.1
-- Spell Engine 1.7
-- hide tooltip of weapon passives
-- forgot to add tier3 buff items to item tag
-- internal changes with villager trading code
-- changed Villager Trades
-- nerf lifesteal potion
-
-# 1.0.12 - 1.21.1
-- fix trinkets not giving attribute modifiers
-- Compatibility with Lithostitched 1.4
-- reduce weight of Inn injection via structure pool api
-
-# 1.0.11 - 1.21.1
-- Update Loot Injection Config
-- Fix Glaze Tower Trial Spawner Loot Table
-
-# 1.0.10- 1.21.1
-- fix issue with fabric-mod.json
-
-# 1.0.9 - 1.21.1
-- Update License
-- Update Mod Icon
-
-# 1.0.8 - 1.21.1
-- The Frost Monarch now has its own Java Model with custom animations
-- Some internal technical changes for his special effects
-- When the Frost Monarch is not on fire, does not have full hp and his servants are around, he heals and is invulnerable to damage
-- In his Off-Hand is a Frozen Soul, indicating he sucks out the life of his servants
-- removed Rainbow Coral From Archeology Loot table (Injection Does not Work, only one item can drop from a brush-able block)
-- you can now find the Rainbow Coral from Buried Treasure Chests
-
-# 1.0.7 - 1.21.1
-- improve glaze snowflake particles
-- improve Frostmonarch Freezing Snowflake particles, there is now a small soul particle beam to his servants, indicating they heal the boss
-- Removed the Quest Maps from the Innkeeper, these will be reintroduced with a new Villager Type
-- fix Issue with map pricing that causes server crashing #5
-- The Innkeeper now Sells cooked Meat on Level 3
-- Fix Glacier Shard not being loot-able
-
-# 1.0.6 - 1.21.1
-- fix Tier 1 Damage foods give 50% Bonus
-- Rebalance some passive spell damage modifiers
-
-# 1.0.5 - 1.21.1
-- fixed weird eye rendering for frostmonarch & frosthaunt
-
-# 1.0.4 - 1.21.1
-- fix status effect multiplication
-- fix and tweak passive spells
-
-# 1.0.3 - 1.21.1
-# BUG FIXES & CHANGES
-- fix Glacial Tomb Advancement
-- Update some passives for the newest Spell Engine API
-- fix some target modifiers in Passive Spell Impact
-- Nerf Dragonclaw passive Heal
-- fix frozen vaults not accepting any keys (unfortunately only works with new generated structures)
-- nerfed and changed some Buf Consumables Attribute Values
-- nerf effect duration
-# NEW CONTENT
-- separating exploring and equipment advancements
-- Inject Loot & Explore Buff Drinks & Soups in other Loot Tables
-- Add new T1 Drink -> Cactus Juice, giving the Damage Reflect Attribute
-- LNE Buff Items now show the Attribute Modifiers in the tooltip
-- added 9x new T3 Buff Consumables
-- These epic Consumables give great buffs and absorption like an enchanted golden apple, they also heal you completely when consumed
-- You can only have one of these buffs active
-- These Consumables can only be looted
-
-# 1.0.2 - 1.21.1
-- fix waterbomb passive lang formatting
-- fix Frost Resistance Status Effect
-- add Wither's Curse Status Effect
-
-# 1.0.1 - 1.21.1
-- tweak some passive spells
-- fix -> GlazeEntity (ClassCastException with FreezingEffect on 1.21.1) #3
-
-# 1.0.0 - 1.21.1
-# Official 1.21.1 Release!
-# NEW STUFF
-- Added Status Effects for each Boosting Drink & Bowl
-- Added Honey Met, T3-Drink giving the Rage Attribute for the Berserker
-- Added More Loot Items, which you'll need to craft the special weapons
-- Added advancements, that guide you through the crafting progression
-- All Loot Items give Attributes and some give passives or active spells
-- Added Frosthaunt & Frostmonarch themed Vaults & Trial Spawners
-- Passive Spells For the Weapons are now handled with the new Spell Engine Passive API
-- they're all configurable with datapacks
-# CHANGES
-- Changed the boosting Soups & Drinks, you cant stack the effect amplifier anymore
-- But you can combine all the effects freely
-- Removed the status effect innkeepers proviant
-- Drinks with a higher quality have a higher status effect duration and are stronger
-- All Attribute Modifiers are configurable via Effects Config file
-- Rebalanced Trading Costs
-- Glacial Tomb, Cold Monster Rooms, Monarchs Temple & Glaze Tower received some Trial Spawners
-# Even More Will come soon!
+# 1.21.1 Rewrite - What's New
+## NeoForge Support
+- Loot & Explore now runs on **NeoForge** as well as Fabric
+- Relic trinkets use **Curios** on NeoForge and **Trinkets** on Fabric
+## New Weapons
+- Every themed weapon set is now a full arsenal - **Sword, Axe, Mace, Shield, Bow and Crossbow**
+  - Ender Dragon, Elder Guardian (Deep Sea), Wither and Glacial (Monarch's) themes
+  - Maces & Shields are not added if LNE Paladins is installed, Bows & Crossbows are not added if LNE Archers is installed - those mods bring their own
+- New Frozen Depths weapons, wielded by the Frozen Depths mobs: **Frost Haunt Axe**, **Frozen Bow**, **Guard's Frost Lance** and **Monarch's Frost Staff**
+## The Frozen Depths
+- New enemies: **Undead Frozen Mage**, **Frosted Ranger**, **Monarch's Soldier**, **Monarch's Guard** and the **Frost Hound**, each with its own model, animations and abilities
+- The Frosted Ranger turns to face its target while drawing and its bow visibly draws back before each shot
+- The Undead Frozen Mage keeps its distance: it closes in when its target is far away and backs off when approached
+- The Undead Frozen Mage's main attack is a single icicle shot straight at its target
+- The Undead Frozen Mage's long-range spell conjures a formation of floating icicles around it (8 for the General) that launch one after another at the target
+- The Undead Frozen Mage, Frosted Ranger and Monarch's Soldier have a tougher "**General**" elite variant
+- Melee attacks of the Frozen Depths mobs wind up first and deal damage on the animation's impact frame - a target that steps away in time is missed
+- The **Frost Monarch** and **Frosthaunt** have been fully remodeled with new animations and reworked behavior
+  - New Frost Monarch abilities: Icicle attacks, Hailstorm and a limited-use **Ice Barrier** (2 / 3 / 4 uses per fight on Easy / Normal / Hard)
+  - The Frost Monarch does not despawn when players leave, keeps its health and remaining Ice Barrier uses, and only one can be summoned at a time
+  - A spawn overlay announces the Frost Monarch's awakening
+- **Glacial Tomb** generation reworked - larger, adapts to the terrain and is decorated with icicles
+- Buy a **Frost Monarch Temple map** from an Expert Cartographer villager
+- New **Frozen Depths Music Disc**, plus ambient music that plays while you are inside the Glacial Tomb, and dedicated Frost Monarch battle music
+- Frozen Depths mobs are immune to freezing and can walk on powder snow
+## New Blocks
+- Decorative frozen set: **Frozen Torch**, **Frozen Bones**, **Frozen Adventurer**, **Pointed Icicles**, **Icicle Bars** and **Fragile Ice**
+- Pointed Icicles fall as a chain when disturbed
+- **Oak / Spruce / Acacia Hanging Inn Signs**
+- **Monarch's Crown** and **Frozen Soul Block** - lore blocks for the Frost Monarch questline (Shift + Right Click the Crown to listen to the souls); the Frozen Soul Block is craftable
+## New Consumables
+- **Critical Strike** mod support - Blackpepper Bread, Inferno Chilli Oil, Grilled Eel Sushi and the Phantomstrike Tonic
+- **Mossflower Tea** - boosts Nature Spell Power (More RPG Library)
+## Creative Menu
+- Loot & Explore content is now organised into the mod's own tabs
+- The old "LNE Items & Blocks" tab is split in two:
+  - **LNE - Generic Items & Blocks** - the Innkeeper Shelf and Hanging Inn Signs
+  - **LNE Frozen Depths Items & Blocks** - all the frozen blocks, keys, spawn eggs, the music disc and the Frozen Depths weapons
+- **LNE Equipment** and **LNE Drinks & Food** are unchanged
+## Config
+- Relic drops are now fully data-driven in **`config/loot_n_explore/relic_loot.json`**
+  - Every entry is a loot table with its own drop chance (`rolls`) and item list, so you can retune drop rates, point relics at different loot tables, add your own drops, or disable them completely
+  - This replaces the relic drop-chance values that used to live in `tweaks_v1.json` (that file is no longer used - defaults are generated on first launch)
+- Frozen Depths mobs can be rebalanced in **`config/loot_n_explore/entity_attributes_v1.json`**
+  - `attributes`: health, damage, armor, spell power and more, with separate Normal / Hard multipliers
+  - `custom`: ability values such as cooldowns (in ticks), arrow / icicle / hailstone counts, ranges, damage multipliers, the Frost Monarch's Ice Barrier uses and the mob it summons
+  - `equipment`: the items each mob spawns with (main hand, off hand, helmet, chestplate, leggings, boots), as an item or a random pick from an item tag, with spawn, enchant and drop chances
+  - Changes apply to newly spawned mobs (ability values also to mobs already in the world). Keys that are missing from an older file use the built-in defaults - delete the file to regenerate it with every key
+## Compatibility
+- Relics also work as standalone items without Spell Engine / More RPG Library, with identical loot injection
+- Built for Spell Engine 1.10.9, More RPG Library 2.8.0 and Ranged Weapon API 3.0
+- More RPG Library's mod id changed from `more_rpg_classes` to `mrpg_lib` in 2.8.0 - if you maintain a modpack override or datapack that references the old `more_rpg_classes:` namespace (spells, particles, tags), update it to `mrpg_lib:`
+- Frozen Depths mobs are tagged for **Frostiful** (benefits from cold)

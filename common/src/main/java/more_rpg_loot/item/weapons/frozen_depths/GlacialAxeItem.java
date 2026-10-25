@@ -15,7 +15,7 @@ public class GlacialAxeItem extends AxeItem {
     private static final int COOLDOWN = 360;
     public GlacialAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, LNE_WeaponItems.meleeSettings(bonus, speed)); }
     @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (!attacker.getWorld().isClient && attacker instanceof PlayerEntity player
+        if (!attacker.getWorld().isClient && LNE_WeaponItems.vanillaAbilitiesActive() && attacker instanceof PlayerEntity player
                 && !player.getItemCooldownManager().isCoolingDown(this)
                 && attacker.getRandom().nextFloat() < 0.20f) {
             LNE_WeaponItems.spawnFrostballs(attacker.getWorld(), attacker);

@@ -114,8 +114,7 @@ public class InnkeeperBowlItem extends Item {
         if(quality == 3) {
             tooltip.add(Text.translatable(z).formatted(formatting));
         }
-        /// SHOW Attribute Modifiers
-        int effectDuration = (60) * (quality +1);
+        int effectDuration = (60 * 20) * (quality + 1);
         List<StatusEffectInstance> effects = List.of(new StatusEffectInstance(boost_effect_0, effectDuration, 0));
         if (effects.isEmpty()) {
             return;

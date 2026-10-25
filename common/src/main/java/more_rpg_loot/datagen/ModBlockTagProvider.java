@@ -3,6 +3,7 @@ package more_rpg_loot.datagen;
 import more_rpg_loot.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 
@@ -15,64 +16,63 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        // PICKAXE_MINEABLE: All ice-related blocks and decorative stone/metal blocks
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .add(ModBlocks.SOULFROST_LANTERN.block())
-                .add(ModBlocks.FROZEN_CHAIN.block())
-                .add(ModBlocks.MONARCHS_CROWN.block())
-                .add(ModBlocks.BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block())
-                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.POLISHED_ICE_BLOCK.block())
-                .add(ModBlocks.POLISHED_ICE_BRICKS.block())
-                .add(ModBlocks.FROZEN_SOULS.block())
-                .add(ModBlocks.FROZEN_TRIAL_SPAWNER.block())
-                .add(ModBlocks.FROZEN_VAULT.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SOULFROST_LANTERN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROZEN_CHAIN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.MONARCHS_CROWN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_SLAB.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_STAIRS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_WALL.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BLOCK.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROZEN_SOULS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROZEN_TRIAL_SPAWNER.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROZEN_VAULT.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.ICICLE.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.ICICLE_BAR.block()))
         ;
 
-        // ICE: All ice variant blocks
         getOrCreateTagBuilder(BlockTags.ICE)
-                .add(ModBlocks.BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block())
-                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.POLISHED_ICE_BLOCK.block())
-                .add(ModBlocks.POLISHED_ICE_BRICKS.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_SLAB.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_STAIRS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_WALL.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BLOCK.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BRICKS.block()))
         ;
 
-        // AXE_MINEABLE: Wooden blocks
         getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
-                .add(ModBlocks.INNKEEPER_SHELF.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.INNKEEPER_SHELF.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.OAK_HANGING_INN_SIGN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.ACACIA_HANGING_INN_SIGN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SPRUCE_HANGING_INN_SIGN.block()))
         ;
 
-        // NEEDS_STONE_TOOL: Most ice and frozen blocks require at least stone tool
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-                .add(ModBlocks.SOULFROST_LANTERN.block())
-                .add(ModBlocks.FROZEN_CHAIN.block())
-                .add(ModBlocks.MONARCHS_CROWN.block())
-                .add(ModBlocks.BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_SLAB.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_STAIRS.block())
-                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block())
-                .add(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block())
-                .add(ModBlocks.POLISHED_ICE_BLOCK.block())
-                .add(ModBlocks.POLISHED_ICE_BRICKS.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SOULFROST_LANTERN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROZEN_CHAIN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.MONARCHS_CROWN.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_SLAB.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_STAIRS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_WALL.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.CRACKED_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.SNOWY_BLUE_ICE_BRICKS.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BLOCK.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.POLISHED_ICE_BRICKS.block()))
         ;
 
-        // WALLS: Wall variant blocks
         getOrCreateTagBuilder(BlockTags.WALLS)
-                .add(ModBlocks.BLUE_ICE_BRICK_WALL.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.BLUE_ICE_BRICK_WALL.block()))
         ;
 
-        // SMALL_FLOWERS: Decorative flowers
         getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS)
-                .add(ModBlocks.FROST_BLOOM.block())
+                .addOptional(Registries.BLOCK.getId(ModBlocks.FROST_BLOOM.block()))
         ;
     }
 

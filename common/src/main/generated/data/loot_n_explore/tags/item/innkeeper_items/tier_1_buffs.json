@@ -1,7 +1,13 @@
 {
   "values": [
-    "loot_n_explore:beet_rootbeer",
-    "loot_n_explore:malt_extract",
+    {
+      "id": "loot_n_explore:beet_rootbeer",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:malt_extract",
+      "required": false
+    },
     {
       "id": "loot_n_explore:watermelon_drink",
       "required": false

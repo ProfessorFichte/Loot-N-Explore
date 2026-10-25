@@ -4,10 +4,14 @@ import more_rpg_loot.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import more_rpg_loot.RPGLoot;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
 import more_rpg_loot.effects.Effects;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import more_rpg_loot.sounds.ModSounds;
-import more_rpg_loot.util.HelperMethods;
+import com.mrpg_lib.entity.config.CustomValues;
+import com.mrpg_lib.entity.config.EntityAttributeApplier;
+import com.mrpg_lib.entity.config.EntityAttributeConfig;
+import com.mrpg_lib.util.CloudMethods;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -16,7 +20,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -27,12 +30,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-import static more_rpg_loot.util.HelperMethods.stackFreezeStacks;
+import static com.mrpg_lib.util.FreezeMethods.addFrozenTicksCapped;
 
 public class GlazeEntity extends HostileEntity {
     public final AnimationState idleAnimationState = new AnimationState();
     private float eyeOffset = 0.5F;
     private int eyeOffsetCooldown;
+    private EntityAttributeConfig.Entry tuningFallback;
 
     public GlazeEntity(EntityType<? extends GlazeEntity> entityType, World world) {
         super(entityType, world);
@@ -53,20 +57,39 @@ public class GlazeEntity extends HostileEntity {
     }
 
     public static DefaultAttributeContainer.Builder createGlazeAttributes() {
-        return HostileEntity.createHostileAttributes()
+        DefaultAttributeContainer.Builder builder = HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.23000000417232513)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 48.0);
+        if (LNEPlatform.isModLoaded("thermoo")) {
+            builder = builder.add(ThermooAttributes.MIN_TEMPERATURE, 0.0)
+                    .add(ThermooAttributes.FROST_RESISTANCE, 0.0);
+        }
+        return builder;
     }
 
     @Nullable
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         EntityData entityData2 = super.initialize(world, difficulty, spawnReason, entityData);
-        if(LNEPlatform.isModLoaded("thermoo")){
-            this.getAttributeInstance(ThermooAttributes.MIN_TEMPERATURE).setBaseValue(5.0);
-            this.getAttributeInstance(ThermooAttributes.FROST_RESISTANCE).setBaseValue(10.0);
-        }
+        EntityAttributeApplier.apply(this, RPGLoot.entityAttributeConfig != null ? RPGLoot.entityAttributeConfig.value : null, attributeFallback());
         return entityData2;
+    }
+
+    protected EntityAttributeConfig.Entry attributeFallback() {
+        EntityAttributeConfig.Entry fallback = new EntityAttributeConfig.Entry()
+                .set(EntityAttributes.GENERIC_MAX_HEALTH.getIdAsString(), 20.0)
+                .set(EntityAttributes.GENERIC_ATTACK_DAMAGE.getIdAsString(), 6.0);
+        if (LNEPlatform.isModLoaded("thermoo")) {
+            fallback.set(ThermooAttributes.MIN_TEMPERATURE.getIdAsString(), 5.0)
+                    .set(ThermooAttributes.FROST_RESISTANCE.getIdAsString(), 10.0);
+        }
+        return FrozenDepthsTuning.glaze(fallback);
+    }
+
+    protected CustomValues tuning() {
+        if (tuningFallback == null) tuningFallback = attributeFallback();
+        return EntityAttributeApplier.custom(this, RPGLoot.entityAttributeConfig != null ? RPGLoot.entityAttributeConfig.value : null, tuningFallback);
     }
 
 
@@ -142,7 +165,7 @@ public class GlazeEntity extends HostileEntity {
     public boolean tryAttack(Entity target) {
         if (super.tryAttack(target)) {
             if (target instanceof LivingEntity entity) {
-                stackFreezeStacks(entity,20);
+                addFrozenTicksCapped(entity, tuning().getInt(FrozenDepthsTuning.FREEZE_TICKS_ON_HIT, 20));
             }
             return true;
         } else {
@@ -219,7 +242,6 @@ public class GlazeEntity extends HostileEntity {
                 }
 
                 else if(d < followRangeSquare && d > frostStormRange && bl){
-                    //FROSTBALL HAIL
                     this.glaze.getNavigation().stop();
                     if (this.frostballHailCooldown <= 0) {
                         ++this.frostballsHailFired;
@@ -228,7 +250,7 @@ public class GlazeEntity extends HostileEntity {
                         } else if (this.frostballsHailFired <= 3) {
                             this.frostballHailCooldown = 6;
                         } else {
-                            this.frostballHailCooldown = 100;
+                            this.frostballHailCooldown = this.glaze.tuning().getInt(FrozenDepthsTuning.FROSTBALL_VOLLEY_COOLDOWN, 100);
                             this.frostballsHailFired = 0;
                         }
 
@@ -243,7 +265,6 @@ public class GlazeEntity extends HostileEntity {
                                 frostballEntity.setPosition(livingEntity.getX() + random, livingEntity.getBodyY(randomHeight) + 0.5, livingEntity.getZ() + random);
                                 frostballEntity.setVelocity(frostballEntity, frostballEntity.getPitch(), frostballEntity.getYaw(), random, random, randomDivergence);
                                 this.glaze.getWorld().spawnEntity(frostballEntity);
-                                RPGLoot.LOGGER.info("[Glaze] Frostball hail projectile #{} spawned at {}", this.frostballsHailFired, livingEntity);
                             }
                         }
                     }
@@ -251,16 +272,14 @@ public class GlazeEntity extends HostileEntity {
                     this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
                 }
                 else if(d< frostStormRange && bl){
-                    //FROSTSTORM
                     this.glaze.getLookControl().lookAt(livingEntity, 10.0F, 10.0F);
                     this.glaze.getNavigation().stop();
                     if (this.frostStormCooldown <= 0) {
                         if (!glaze.getWorld().isClient) {
-                            HelperMethods.spawnCloudEntity(ParticleTypes.SNOWFLAKE, glaze, glaze,1,2.0F, 5, 4.0F,
-                                    Effects.FREEZING.registryEntry, 3, 1,false,0,true,(float) glaze.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) *0.3F,
+                            CloudMethods.spawnCustomCloud(ParticleTypes.SNOWFLAKE, glaze, glaze,1,2.0F, 5, 4.0F,
+                                    Effects.FREEZING.registryEntry, 3, 1,false,0,true,(float) (glaze.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * glaze.tuning().getDouble(FrozenDepthsTuning.FROST_STORM_DAMAGE_MULTIPLIER, 0.3)),
                                     new DamageSource(glaze.getTarget().getDamageSources().freeze().getTypeRegistryEntry()));
-                            this.frostStormCooldown = 600;
-                            RPGLoot.LOGGER.info("[Glaze] Froststorm cast on {}", livingEntity);
+                            this.frostStormCooldown = this.glaze.tuning().getInt(FrozenDepthsTuning.FROST_STORM_COOLDOWN, 600);
                         }
                     }
                 }

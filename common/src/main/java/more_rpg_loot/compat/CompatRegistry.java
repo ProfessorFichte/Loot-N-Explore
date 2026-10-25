@@ -19,10 +19,8 @@ public class CompatRegistry {
     public static void registerModCompat() {
         if (LNEPlatform.isModLoaded("spell_power")) {
             SpellPower_Effects.register();
-            SpellPower_Effects.applyMonarchsFrostStaffPower();
-        }
-        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
             MRPGC_Effects.register();
+            SpellPower_Effects.applyMonarchsFrostStaffPower();
         }
         if (LNEPlatform.isModLoaded("ranged_weapon_api")) {
             RWA_Effects.register();
@@ -46,8 +44,9 @@ public class CompatRegistry {
 
         SmithingTemplates.registerSmithingUpgrades();
 
-        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
+        if (LNEPlatform.isModLoaded("spell_engine")) {
             LNE_Relics.register(SpellEngine_LNE.relicsConfig.value.entries);
+            SpellEngine_LNE.relicsConfig.save();
         } else {
             LNE_RelicItems.spellEnhancer = new VanillaRelicAbilities();
             LNE_RelicItems.register();

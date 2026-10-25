@@ -15,12 +15,14 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -102,13 +104,16 @@ public class MonarchsCrownBlock extends Block{
         super.onPlaced(world, pos, state, placer, itemStack);
         BlockState blockState = world.getBlockState(pos);
         if(blockState.isOf(ModBlocks.MONARCHS_CROWN.block())){
+            if (!(world instanceof ServerWorld serverWorld) || hasLivingMonarch(serverWorld)) {
+                return;
+            }
             BlockPattern.Result result = getWitherBossPattern().searchAround(world, pos);
             if (result != null) {
                 if (pos.getY() >= world.getBottomY() && world.getDifficulty() != Difficulty.PEACEFUL) {
                     FrostMonarchEntity frostMonarchEntity = (FrostMonarchEntity) ModEntities.FROST_MONARCH.create(world);
                     if (frostMonarchEntity != null) {
                         CarvedPumpkinBlock.breakPatternBlocks(world, result);
-                        BlockPos blockPos = result.translate(1, 2, 0).getBlockPos();
+                        BlockPos blockPos = result.translate(0, 2, 0).getBlockPos();
                         frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, blockPos.getY() + 1.0 , (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
                         frostMonarchEntity.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
                         frostMonarchEntity.onSummoned();
@@ -124,13 +129,15 @@ public class MonarchsCrownBlock extends Block{
 
     }
 
+    private static boolean hasLivingMonarch(ServerWorld world) {
+        return !world.getEntitiesByType(TypeFilter.instanceOf(FrostMonarchEntity.class), LivingEntity::isAlive).isEmpty();
+    }
+
     private static BlockPattern getWitherBossPattern() {
         if (monarchBossPattern == null) {
-            monarchBossPattern = BlockPatternBuilder.start().aisle(new String[]{"~^~", "~#~"}).where('#', (pos) -> {
+            monarchBossPattern = BlockPatternBuilder.start().aisle(new String[]{"^", "#"}).where('#', (pos) -> {
                 return pos.getBlockState().isOf(ModBlocks.FROZEN_SOULS.block());
-            }).where('^', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(ModBlocks.MONARCHS_CROWN.block()))).where('~', (pos) -> {
-                return pos.getBlockState().isAir();
-            }).build();
+            }).where('^', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(ModBlocks.MONARCHS_CROWN.block()))).build();
         }
 
         return monarchBossPattern;

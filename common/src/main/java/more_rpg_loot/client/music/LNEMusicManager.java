@@ -13,14 +13,24 @@ public class LNEMusicManager {
     @Nullable private static FrostMonarchBattleMusic bossMusic;
     @Nullable private static FrozenDepthsAmbientMusic ambientMusic;
 
+    public static boolean isPlaying() {
+        return (bossMusic != null && !bossMusic.isDone()) || (ambientMusic != null && !ambientMusic.isDone());
+    }
+
+    public static void silenceVanillaMusic() {
+        MinecraftClient.getInstance().getMusicTracker().stop();
+    }
+
     public static void startBossMusic(FrostMonarchEntity entity) {
         if (bossMusic != null && !bossMusic.isDone()) return;
+        MinecraftClient.getInstance().getMusicTracker().stop();
         bossMusic = new FrostMonarchBattleMusic(entity);
         MinecraftClient.getInstance().getSoundManager().play(bossMusic);
     }
 
     public static void startAmbientMusic() {
         if (ambientMusic != null && !ambientMusic.isDone()) return;
+        MinecraftClient.getInstance().getMusicTracker().stop();
         ambientMusic = new FrozenDepthsAmbientMusic();
         MinecraftClient.getInstance().getSoundManager().play(ambientMusic);
     }

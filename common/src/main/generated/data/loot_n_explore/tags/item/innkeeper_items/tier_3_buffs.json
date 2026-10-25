@@ -1,7 +1,13 @@
 {
   "values": [
-    "loot_n_explore:knights_favourite",
-    "loot_n_explore:the_unshakable",
+    {
+      "id": "loot_n_explore:knights_favourite",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:the_unshakable",
+      "required": false
+    },
     {
       "id": "loot_n_explore:dettlaffs_blood",
       "required": false

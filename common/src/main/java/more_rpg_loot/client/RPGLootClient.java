@@ -7,7 +7,8 @@ import more_rpg_loot.client.entity.renderers.frozen_depths.misc.StraightIcicleRe
 import more_rpg_loot.client.entity.renderers.frozen_depths.misc.TrackingIcicleRenderer;
 import more_rpg_loot.client.entity.renderers.frozen_depths.monarchs_guard.ThrownLanceEntityRenderer;
 import more_rpg_loot.client.entity.renderers.generic.CustomCloudRenderer;
-import more_rpg_loot.client.models.CustomModelHelper;
+import com.mrpg_lib.client.model.CustomModelHelper;
+import com.mrpg_lib.entity.MRPGCEntities;
 import more_rpg_loot.client.hud.FrostMonarchSpawnOverlay;
 import more_rpg_loot.client.music.LNEMusicManager;
 import more_rpg_loot.entity.ModEntities;
@@ -46,7 +47,7 @@ public class RPGLootClient {
     public static void registerEntityRenderers(EntityRendererSink sink) {
         sink.register(ModEntities.STRAIGHT_ICICLE, StraightIcicleRenderer::new);
         sink.register(ModEntities.BARRIER_ICICLE, BarrierIcicleRenderer::new);
-        sink.register(ModEntities.CUSTOM_CLOUD, CustomCloudRenderer::new);
+        sink.register(MRPGCEntities.CUSTOM_CLOUD, CustomCloudRenderer::new);
         sink.register(ModEntities.LNE_ABILITY_ARROW, ArrowEntityRenderer::new);
         sink.register(ModEntities.FROZEN_ARROW, ArrowEntityRenderer::new);
         sink.register(ModEntities.THROWN_LANCE, ThrownLanceEntityRenderer::new);
@@ -115,7 +116,8 @@ public class RPGLootClient {
         FrostMonarchSpawnOverlay.start();
     }
 
-    public static void registerBlockRenderLayers(Consumer<Block> cutout) {
+    public static void registerBlockRenderLayers(Consumer<Block> cutout, Consumer<Block> translucent) {
+        translucent.accept(ModBlocks.FRAGILE_ICE.block());
         cutout.accept(ModBlocks.FROZEN_CHAIN.block());
         cutout.accept(ModBlocks.SOULFROST_LANTERN.block());
         cutout.accept(ModBlocks.FROST_BLOOM.block());
@@ -135,7 +137,8 @@ public class RPGLootClient {
 
     public static void registerModelIds() {
         CustomModelHelper.registerModelIds(List.of(
-                Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight")
+                Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight"),
+                Identifier.of(MOD_ID, "entity/frozen_depths/icicle_projectile")
         ));
     }
 }

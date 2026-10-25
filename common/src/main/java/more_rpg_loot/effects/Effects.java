@@ -1,7 +1,6 @@
 package more_rpg_loot.effects;
 import more_rpg_loot.platform.LNEPlatform;
 
-import more_rpg_loot.RPGLoot;
 import more_rpg_loot.config.EffectsConfig;
 import more_rpg_loot.effects.frozen_depths.FrostResistanceEffect;
 import more_rpg_loot.effects.generic.EnderDragonScalesEffect;
@@ -73,7 +72,6 @@ public class Effects {
             "Wither's Curse",
             "Increases Incoming Damage, the amplifier increases with each harmful status effect.",
             new WithersCurseEffect(StatusEffectCategory.HARMFUL, 0x2a1b01));
-    /// T0 BUFF EFFECTS
     public static final Effects.Entry HOT_CHOCOLATE =  new Effects.Entry("hot_chocolate",
             "Hot Chocolate",
             "Increases Attack Speed.",
@@ -86,7 +84,6 @@ public class Effects {
             "Sweet Berry Punch",
             "Increases Armor Toughness.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T1 BUFF EFFECTS
     public static final Effects.Entry BEET_ROOTBEER =  new Effects.Entry("beet_rootbeer",
             "Beet Rootbeer",
             "Increases Max Health.",
@@ -95,7 +92,6 @@ public class Effects {
             "Malt Extract",
             "Increases Attack Damage.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T2 BUFF EFFECTS
     public static final Effects.Entry VITAL_DRINK =  new Effects.Entry("vital_drink",
             "Vital Drink",
             "Increases Armor Toughness and Max Health.",
@@ -104,7 +100,6 @@ public class Effects {
             "Strong Espresso",
             "Increases Attack Speed and Movement Speed.",
             new CustomStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
-    /// T3 BUFF EFFECTS
     public static final Effects.Entry KNIGHTS_FAVOURITE =  new Effects.Entry("knights_favourite",
             "Knight's Favourite Stew",
             "Increases Attack Damage, Attack Speed and Knockback Resistance.",
@@ -115,13 +110,7 @@ public class Effects {
             new SpecialStatusEffect(StatusEffectCategory.BENEFICIAL, 0x00ffff));
 
     public static void register(){
-        RPGLoot.LOGGER.info("Registering Status Effects for " + MOD_ID);
-        EffectsConfig cfg;
-        try {
-            cfg = effectsConfig != null ? effectsConfig.value : new EffectsConfig();
-        } catch (NoClassDefFoundError e) {
-            cfg = new EffectsConfig();
-        }
+        EffectsConfig cfg = effectsConfig != null ? effectsConfig.value : new EffectsConfig();
         ELDER_GUARDIANS_CURSE.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, ELDER_GUARDIANS_CURSE.modifierId(),
@@ -136,7 +125,6 @@ public class Effects {
                             SpellEngineAttributes.DAMAGE_TAKEN.entry, WITHERS_CURSE.modifierId(),
                             0.05, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
         }
-        /// T0 BUFF EFFECTS
         HOT_CHOCOLATE.effect
                 .addAttributeModifier(
                     EntityAttributes.GENERIC_ATTACK_SPEED, HOT_CHOCOLATE.modifierId(),
@@ -149,7 +137,6 @@ public class Effects {
                 .addAttributeModifier(
                     EntityAttributes.GENERIC_ARMOR_TOUGHNESS, SWEET_BERRY_PUNCH.modifierId(),
                     cfg.drinks_armor_toughness_t0_boost, EntityAttributeModifier.Operation.ADD_VALUE);
-        /// T1 BUFF EFFECTS
         BEET_ROOTBEER.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MAX_HEALTH, BEET_ROOTBEER.modifierId(),
@@ -158,7 +145,6 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE, MALT_EXTRACT.modifierId(),
                         cfg.drinks_damage_t1_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        /// T2 BUFF EFFECTS
         VITAL_DRINK.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ARMOR_TOUGHNESS, VITAL_DRINK.modifierId(),
@@ -173,7 +159,6 @@ public class Effects {
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED, ESPRESSO.modifierId(),
                         cfg.drinks_speed_t2_boost, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        /// T3 BUFF EFFECTS
         KNIGHTS_FAVOURITE.effect
                 .addAttributeModifier(
                         EntityAttributes.GENERIC_ATTACK_SPEED, KNIGHTS_FAVOURITE.modifierId(),

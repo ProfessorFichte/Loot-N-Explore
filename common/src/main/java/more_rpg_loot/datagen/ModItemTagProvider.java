@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.spell_engine.rpg_series.item.Equipment;
@@ -60,7 +61,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
             int quality = getInnkeeperItemQuality(item);
             if (quality >= 0) {
                 getOrCreateTagBuilder(getInnkeeperTagForTier(quality))
-                        .add(item);
+                        .addOptional(Registries.ITEM.getId(item));
             }
         }
 

@@ -11,14 +11,13 @@ public class StraightIcicleRenderer extends AbstractIcicleModelRenderer<Straight
     }
 
     @Override
-    protected void applyExtraTransform(MatrixStack matrices, StraightIcicleEntity entity) {
+    protected void applyExtraTransform(MatrixStack matrices, StraightIcicleEntity entity, float tickDelta) {
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getYaw()));
     }
 
     @Override
     protected float getEmergeProgress(StraightIcicleEntity entity, float tickDelta) {
         float animationProgress = entity.getAnimationProgress(tickDelta);
-        // rises for the first half of the animation, sinks back down for the second half
         return animationProgress < 0.5F ? animationProgress * 2.0F : 2.0F - (animationProgress * 2.0F);
     }
 }

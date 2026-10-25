@@ -13,7 +13,6 @@ public class LNE_AbilityDatagen extends SpellGenerator {
 
     @Override
     public void generateSpells(Builder builder) {
-        // Register all spells from the LNE_Abilities entries list
         for (var entry : LNE_Abilities.entries) {
             builder.add(entry.id(), entry.spell());
         }

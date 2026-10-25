@@ -2,7 +2,7 @@ package more_rpg_loot.client.entity.renderers.frozen_depths.monarchs_soldier;
 
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.models.frozen_depths.monarchs_soldier.MonarchsSoldierModel;
-import more_rpg_loot.client.entity.renderers.generic.GenericEyesFeatureRenderer;
+import com.mrpg_lib.client.render.GenericEyesFeatureRenderer;
 import more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier.GeneralMonarchsSoldierEntity;
 import more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier.MonarchsSoldierEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;

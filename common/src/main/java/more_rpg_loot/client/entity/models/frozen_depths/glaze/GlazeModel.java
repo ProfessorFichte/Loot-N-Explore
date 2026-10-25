@@ -6,9 +6,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class GlazeModel extends SinglePartEntityModel<GlazeEntity> {
 	private final ModelPart body;
 	private final ModelPart head;

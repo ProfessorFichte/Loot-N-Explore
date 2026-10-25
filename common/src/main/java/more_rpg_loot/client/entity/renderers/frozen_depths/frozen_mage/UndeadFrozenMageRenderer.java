@@ -2,7 +2,7 @@ package more_rpg_loot.client.entity.renderers.frozen_depths.frozen_mage;
 
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.entity.models.frozen_depths.frozen_mage.UndeadFrozenMageModel;
-import more_rpg_loot.client.entity.renderers.generic.GenericEyesFeatureRenderer;
+import com.mrpg_lib.client.render.GenericEyesFeatureRenderer;
 import more_rpg_loot.entity.frozen_depths.mob.frozen_mage.GeneralUndeadFrozenMageEntity;
 import more_rpg_loot.entity.frozen_depths.mob.frozen_mage.UndeadFrozenMageEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;

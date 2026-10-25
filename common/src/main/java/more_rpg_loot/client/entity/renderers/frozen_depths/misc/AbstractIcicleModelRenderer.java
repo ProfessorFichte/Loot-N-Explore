@@ -15,30 +15,33 @@ import net.minecraft.util.Identifier;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
-/**
- * Shared rendering for the frozen_depths icicle entities: both rise out of the ground using the
- * same baked block model, texture, and scale - only the emergence curve (and, for the thrown
- * variant, a yaw rotation) differs.
- */
 public abstract class AbstractIcicleModelRenderer<T extends Entity> extends EntityRenderer<T> {
     private static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/block/frozen_depths/sharp_icicles.png");
-    private static final Identifier MODEL_ID = Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight");
+    private static final Identifier SPIKE_MODEL_ID = Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight");
 
-    // Model extends from y=-16 to y=28 (44px = 2.75 blocks)
+    // spike model spans y=-16 to y=28 (2.75 blocks)
     private static final float MODEL_HEIGHT = 2.75F;
 
     protected AbstractIcicleModelRenderer(EntityRendererFactory.Context context) {
         super(context);
     }
 
-    /** 0.0 = fully retracted below ground, 1.0 = fully emerged. */
     protected abstract float getEmergeProgress(T entity, float tickDelta);
 
     protected float getEmergeThreshold() {
         return 0.0F;
     }
 
-    protected void applyExtraTransform(MatrixStack matrices, T entity) {
+    protected Identifier getModelId() {
+        return SPIKE_MODEL_ID;
+    }
+
+    protected void applyExtraTransform(MatrixStack matrices, T entity, float tickDelta) {
+    }
+
+    protected void applyModelTransform(MatrixStack matrices) {
+        matrices.scale(1.5F, 1.5F, 1.5F);
+        matrices.translate(-0.5, -0.5, -0.5);
     }
 
     @Override
@@ -50,15 +53,14 @@ public abstract class AbstractIcicleModelRenderer<T extends Entity> extends Enti
 
         matrices.push();
 
-        applyExtraTransform(matrices, entity);
+        applyExtraTransform(matrices, entity, tickDelta);
 
         float yOffset = -MODEL_HEIGHT + (MODEL_HEIGHT * emergeProgress);
         matrices.translate(0.0, yOffset, 0.0);
 
-        BakedModel model = LNEClientModels.lookup.apply(MODEL_ID);
+        BakedModel model = LNEClientModels.lookup.apply(getModelId());
         if (model != null) {
-            matrices.scale(1.5F, 1.5F, 1.5F);
-            matrices.translate(-0.5, -0.5, -0.5);
+            applyModelTransform(matrices);
 
             var particleSprite = model.getParticleSprite();
             var renderLayer = RenderLayer.getEntityCutoutNoCull(particleSprite.getAtlasId());

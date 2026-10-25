@@ -23,18 +23,16 @@ public class SmithingTemplates {
 
     public static class Container { Item item; }
 
-    // Entry record for smithing templates with datagen support
-    // Stores all translation strings needed for datagen
     public record Entry(
-            Identifier id,                      // Item registry ID
-            String templateKey,                 // Key for translation (e.g., "ender_dragon")
-            String appliesTo,                   // Translation: what items this applies to
-            String ingredientText,              // Translation: what ingredient is required
-            String titleText,                   // Translation: template title
-            String baseSlotDescription,         // Translation: base slot description
-            String additionsSlotDescription,    // Translation: additions slot description
-            List<Identifier> baseItems,         // Base items list for template
-            List<Identifier> ingredientItems,   // Ingredient items list for template
+            Identifier id,
+            String templateKey,
+            String appliesTo,
+            String ingredientText,
+            String titleText,
+            String baseSlotDescription,
+            String additionsSlotDescription,
+            List<Identifier> baseItems,
+            List<Identifier> ingredientItems,
             Function<Item.Settings, Item> factory,
             Item.Settings settings,
             Container container
@@ -47,40 +45,36 @@ public class SmithingTemplates {
                     additionsSlotDescription, baseItems, ingredientItems, factory, settings, new Container());
         }
 
-        // Gets the actual item instance
         public Item item() { return container.item; }
     }
 
-    // List of all smithing template entries for datagen access
     public static final ArrayList<Entry> ENTRIES = new ArrayList<>();
 
-    // Helper method to add entries to the list
     private static Entry add(Entry entry) {
         ENTRIES.add(entry);
         return entry;
     }
-    //UPGRADES
     public static final List<Identifier> BASE_ITEMS = Util.make(new ArrayList<>(),
             identifiers -> {
                 identifiers.add(Identifier.of("item/empty_slot_axe"));
                 identifiers.add(Identifier.of("item/empty_slot_sword"));
-                if(LNEPlatform.isModLoaded("archers")){
+                if(LNEPlatform.isModLoaded("lne_archers")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_bow"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_crossbow"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_spear"));
                 }
-                if(LNEPlatform.isModLoaded("paladins")){
+                if(LNEPlatform.isModLoaded("lne_paladins")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_hammer"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_holy"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_mace"));
                 }
-                if(LNEPlatform.isModLoaded("rogues")){
+                if(LNEPlatform.isModLoaded("lne_rogues")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_dagger"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_sickle"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_glaive"));
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_double_axe"));
                 }
-                if(LNEPlatform.isModLoaded("wizards")){
+                if(LNEPlatform.isModLoaded("lne_wizards")){
                     identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wand"));
                 }
                 if(LNEPlatform.isModLoaded("forcemaster")){
@@ -108,10 +102,7 @@ public class SmithingTemplates {
                 identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_frozen_soul"));
             });
 
-    // Smithing template entries with translation data for datagen
-    // Each entry contains the template key and all required translation strings
     static {
-        // Ender Dragon Upgrade Template
         add(new Entry(
                 Identifier.of(MOD_ID, "dragon_upgrade_smithing_template"),
                 "ender_dragon",
@@ -134,7 +125,6 @@ public class SmithingTemplates {
                 new Item.Settings()
         ));
 
-        // Elder Guardian Upgrade Template
         add(new Entry(
                 Identifier.of(MOD_ID, "guardian_upgrade_smithing_template"),
                 "elder_guardian",
@@ -157,7 +147,6 @@ public class SmithingTemplates {
                 new Item.Settings()
         ));
 
-        // Wither Upgrade Template
         add(new Entry(
                 Identifier.of(MOD_ID, "wither_upgrade_smithing_template"),
                 "wither",
@@ -180,7 +169,6 @@ public class SmithingTemplates {
                 new Item.Settings()
         ));
 
-        // Frost Monarch Upgrade Template
         add(new Entry(
                 Identifier.of(MOD_ID, "frostmonarch_upgrade_smithing_template"),
                 "frostmonarch",
@@ -204,10 +192,7 @@ public class SmithingTemplates {
         ));
     }
 
-    // Registers all smithing template entries to the game
-    // Iterates through all entries and registers each item to the item registry
     public static void registerSmithingUpgrades(){
-        // Register each entry using the Entry system
         for (Entry entry : ENTRIES) {
             Item item = entry.factory().apply(entry.settings());
             entry.container.item = item;

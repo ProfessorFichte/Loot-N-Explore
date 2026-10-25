@@ -1,7 +1,5 @@
 package more_rpg_loot.item.weapons.generic;
 
-import more_rpg_loot.platform.LNEPlatform;
-
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,13 +10,11 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-// Mace abilities are suppressed when spell_engine is installed.
 public class WitherMaceItem extends MaceItem {
     private static final int COOLDOWN = 240;
     public WitherMaceItem(float bonus, float speed) { super(LNE_WeaponItems.maceSettings(bonus, speed)); }
     @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (!attacker.getWorld().isClient
-                && !LNEPlatform.isModLoaded("spell_engine")
+        if (!attacker.getWorld().isClient && LNE_WeaponItems.vanillaAbilitiesActive()
                 && attacker instanceof PlayerEntity player
                 && !player.getItemCooldownManager().isCoolingDown(this)
                 && attacker.getRandom().nextFloat() < 0.20f) {

@@ -128,7 +128,6 @@ public class LNE_RelicItems {
                 .build();
     }
 
-    // ENDER DRAGON THEME
     public static final Entry ENDER_DRAGON_TOOTH = add(new Entry(2, "ender_dragon_tooth",
             attackDamageBonus(0.05), null));
     public static final Entry CHARGED_AMETHYST = add(new Entry(2, "charged_amethyst",
@@ -138,7 +137,6 @@ public class LNE_RelicItems {
     public static final Entry ENDER_DRAGON_SCALES = add(new Entry(4, "ender_dragon_scales",
             attackSpeedBonus(0.05), Identifier.of(MOD_ID, "ender_dragon_scales")));
 
-    // WITHER THEME
     public static final Entry UNKNOWN_REMAINS = add(new Entry(2, "unknown_remains",
             attackSpeedBonus(0.05), null));
     public static final Entry LOST_SOUL = add(new Entry(2, "lost_soul",
@@ -148,7 +146,6 @@ public class LNE_RelicItems {
     public static final Entry WITHER_SPINE = add(new Entry(4, "wither_spine",
             armorBonus(2), Identifier.of(MOD_ID, "wither_spine")));
 
-    // GLACIAL THEME
     public static final Entry ETERNAL_SNOWFLAKE = add(new Entry(2, "eternal_snowflake",
             luckBonus(1), null));
     public static final Entry GLACIER_SHARD = add(new Entry(2, "glacier_shard",
@@ -158,7 +155,6 @@ public class LNE_RelicItems {
     public static final Entry FROZEN_SOUL = add(new Entry(4, "frozen_soul",
             healthBonus(2), Identifier.of(MOD_ID, "frozen_soul")));
 
-    // OCEAN THEME
     public static final Entry AMPHITRITE_DIADEM = add(new Entry(2, "amphitrite_diadem",
             luckBonus(1), null));
     public static final Entry RAINBOW_CORAL = add(new Entry(2, "rainbow_coral",

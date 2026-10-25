@@ -10,17 +10,21 @@ public class ConditionalGoal extends Goal {
     public ConditionalGoal(FrostMonarchEntity monarch, Goal wrapped) {
         this.monarch = monarch;
         this.wrapped = wrapped;
+        this.setControls(wrapped.getControls());
+    }
+
+    @Override
+    public boolean shouldRunEveryTick() {
+        return true;
     }
 
     @Override
     public boolean canStart() {
-        // Prevent starting during any ability
         return !monarch.isPerformingAbility() && wrapped.canStart();
     }
 
     @Override
     public boolean shouldContinue() {
-        // Stop continuing if any ability activates
         return !monarch.isPerformingAbility() && wrapped.shouldContinue();
     }
 

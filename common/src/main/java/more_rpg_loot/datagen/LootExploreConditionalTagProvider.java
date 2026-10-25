@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import more_rpg_loot.compat.spell_engine.LNE_Relics;
 import more_rpg_loot.item.relics.LNE_RelicItems;
+import more_rpg_loot.util.LneItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.DataProvider;
@@ -32,12 +33,47 @@ public class LootExploreConditionalTagProvider implements DataProvider {
         JsonObject json = new JsonObject();
         json.addProperty("replace", false);
         JsonArray values = new JsonArray();
-        relicIds.forEach(values::add);
+        relicIds.forEach(id -> values.add(optionalEntry(id)));
         json.add("values", values);
 
-        Path path = output.getResolver(DataOutput.OutputType.DATA_PACK, "tags/item")
-                .resolveJson(Identifier.of("spell_engine", "spell_trinket"));
-        return DataProvider.writeToPath(writer, json, path);
+        return CompletableFuture.allOf(
+                DataProvider.writeToPath(writer, json, tagPath("spell_engine", "spell_trinket")),
+                DataProvider.writeToPath(writer, trinketsNecklaceTag(), tagPath("trinkets", "chest/necklace")));
+    }
+
+    private static JsonObject optionalEntry(String id) {
+        JsonObject entry = new JsonObject();
+        entry.addProperty("id", id);
+        entry.addProperty("required", false);
+        return entry;
+    }
+
+    private Path tagPath(String namespace, String path) {
+        return output.getResolver(DataOutput.OutputType.DATA_PACK, "tags/item")
+                .resolveJson(Identifier.of(namespace, path));
+    }
+
+    private static JsonObject trinketsNecklaceTag() {
+        JsonObject spellEngineLoaded = new JsonObject();
+        spellEngineLoaded.addProperty("condition", "fabric:all_mods_loaded");
+        JsonArray mods = new JsonArray();
+        mods.add("spell_engine");
+        spellEngineLoaded.add("values", mods);
+
+        JsonObject not = new JsonObject();
+        not.addProperty("condition", "fabric:not");
+        not.add("value", spellEngineLoaded);
+
+        JsonArray conditions = new JsonArray();
+        conditions.add(not);
+
+        JsonObject json = new JsonObject();
+        json.add("fabric:load_conditions", conditions);
+        json.addProperty("replace", false);
+        JsonArray values = new JsonArray();
+        values.add(optionalEntry("#" + LneItemTags.RELICS.id()));
+        json.add("values", values);
+        return json;
     }
 
     @Override

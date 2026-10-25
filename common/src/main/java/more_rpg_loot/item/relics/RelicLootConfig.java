@@ -31,8 +31,6 @@ public class RelicLootConfig {
         drop(config, "minecraft:entities/skeleton", 0.025F, "unknown_remains");
         drop(config, "minecraft:entities/wither_skeleton", 0.025F, "lost_soul");
 
-        drop(config, "loot_n_explore:spawners/frozen/normal/glaze_tower", 0.35F, "glacier_shard");
-        drop(config, "loot_n_explore:spawners/frozen/ominous/glaze_tower", 0.5F, "glacier_shard");
         drop(config, "loot_n_explore:chests/trials/frozen/reward_glacial_tomb", 0.75F, "frozen_rib");
         drop(config, "loot_n_explore:chests/trials/frozen/reward_ominous_glacial_tomb", 1.0F, "frozen_rib");
 

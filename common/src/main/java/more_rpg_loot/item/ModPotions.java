@@ -1,6 +1,5 @@
 package more_rpg_loot.item;
 
-import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.effects.Effects;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -48,7 +47,6 @@ public class ModPotions {
             "Frosted");
 
     public static void registerPotions(){
-        RPGLoot.LOGGER.info("Registering Potions for " + MOD_ID);
     }
 
     public static void registerRecipes(BrewingSink sink) {

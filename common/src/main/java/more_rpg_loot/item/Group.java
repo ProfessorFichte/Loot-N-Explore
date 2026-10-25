@@ -1,6 +1,5 @@
 package more_rpg_loot.item;
 
-import more_rpg_loot.RPGLoot;
 import more_rpg_loot.blocks.ModBlocks;
 import more_rpg_loot.platform.LNEEvents;
 import net.minecraft.item.Item;
@@ -49,7 +48,6 @@ public class Group {
         RPG_FOOD = create(RPG_FOOD_KEY, foodTranslationKey, () -> new ItemStack(CommonItems.MALT_EXTRACT.item()));
         RPG_GENERIC = create(RPG_GENERIC_KEY, genericTranslationKey, () -> new ItemStack(ModBlocks.INNKEEPER_SHELF.block()));
         RPG_FROZEN_DEPTHS = create(RPG_FROZEN_DEPTHS_KEY, frozenDepthsTranslationKey, () -> new ItemStack(CommonItems.MONARCHS_KEY.item()));
-        RPGLoot.LOGGER.info("Registering Item Groups for " + MOD_ID);
     }
 
     private static ItemGroup create(RegistryKey<ItemGroup> groupKey, String translationKey, Supplier<ItemStack> icon) {

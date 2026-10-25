@@ -2,6 +2,7 @@ package com.lne.neoforge;
 
 import com.lne.neoforge.client.LNEClientPackets;
 import com.lne.neoforge.compat.CompatFeatures;
+import com.lne.neoforge.compat.curios.CuriosCompat;
 import com.lne.neoforge.platform.NeoForgeEventsImpl;
 import com.lne.neoforge.platform.NeoForgePlatformImpl;
 import more_rpg_loot.RPGLoot;
@@ -15,6 +16,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -31,6 +33,7 @@ public final class RPGLootNeoForge {
         CompatFeatures.init();
         RPGLoot.init();
         RPGLoot.registerServerEvents();
+        modBus.addListener(AddPackFindersEvent.class, CuriosCompat::addPacks);
         modBus.addListener(RegisterEvent.class, RPGLootNeoForge::register);
         modBus.addListener(RegisterPayloadHandlersEvent.class, RPGLootNeoForge::registerPayloads);
         modBus.addListener(BuildCreativeModeTabContentsEvent.class, NeoForgeEventsImpl::dispatchItemGroup);

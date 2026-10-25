@@ -5,11 +5,6 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-/**
- * Made with Blockbench 5.1.4
- * Exported for Minecraft version 1.19 or later with Mojang mappings
- * Converted for Fabric 1.21.1 with Yarn mappings
- */
 public class FrostHoundAnimations {
 	public static final Animation idle = Animation.Builder.create(1.75F).looping()
 		.addBoneAnimation("tail", new Transformation(Transformation.Targets.ROTATE,

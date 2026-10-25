@@ -2,18 +2,25 @@ package more_rpg_loot.blocks.frozen_depths;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 
 public class FrozenTorchBlock extends Block {
     public static final BooleanProperty FLOOR = BooleanProperty.of("floor");
@@ -59,6 +66,15 @@ public class FrozenTorchBlock extends Block {
     }
 
     @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        Direction support = state.get(FLOOR) ? Direction.DOWN : state.get(FACING).getOpposite();
+        if (direction == support && !state.canPlaceAt(world, pos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(FLOOR)) return FLOOR_SHAPE;
         return switch (state.get(FACING)) {
@@ -68,5 +84,30 @@ public class FrozenTorchBlock extends Block {
             case EAST  -> WALL_EAST_SHAPE;
             default    -> VoxelShapes.fullCube();
         };
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        if (random.nextInt(3) != 0) return;
+        double x = pos.getX() + 0.5;
+        double y = pos.getY() + 0.7;
+        double z = pos.getZ() + 0.5;
+        if (!state.get(FLOOR)) {
+            Direction facing = state.get(FACING);
+            x += facing.getOffsetX() * 0.27;
+            y += 0.22;
+            z += facing.getOffsetZ() * 0.27;
+        }
+        world.addParticle(ParticleTypes.SNOWFLAKE, x, y, z, 0.0, 0.01, 0.0);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }

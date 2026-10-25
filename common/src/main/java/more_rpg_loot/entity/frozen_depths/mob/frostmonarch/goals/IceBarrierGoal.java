@@ -1,16 +1,20 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
 
 import more_rpg_loot.entity.ModEntities;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
-import more_rpg_loot.entity.frozen_depths.mob.frosthaunt.FrosthauntEntity;
+import com.mrpg_lib.entity.config.CustomValues;
 import more_rpg_loot.entity.frozen_depths.projectile.BarrierIcicleEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.world.Difficulty;
+import net.minecraft.util.Identifier;
 
 import java.util.EnumSet;
 
@@ -18,8 +22,6 @@ public class IceBarrierGoal extends Goal {
     private final FrostMonarchEntity monarch;
     private int channelTicks;
     private boolean isCasting;
-    private int barrierUsesRemaining;
-    private int lastHealthThresholdReached = -1;
 
     private static final int BARRIER_DURATION = 50;
     private static final int BARRIER_GAME_TICKS = 100;
@@ -27,32 +29,22 @@ public class IceBarrierGoal extends Goal {
 
     public IceBarrierGoal(FrostMonarchEntity monarch) {
         this.monarch = monarch;
-        this.barrierUsesRemaining = getBarrierUsesForDifficulty();
         this.setControls(EnumSet.of(Goal.Control.MOVE, Goal.Control.LOOK, Goal.Control.JUMP, Goal.Control.TARGET));
     }
 
-    private int getBarrierUsesForDifficulty() {
-        if (monarch.getWorld() == null) {
-            return 3; // Default fallback
-        }
-
-        Difficulty difficulty = monarch.getWorld().getDifficulty();
-        return switch (difficulty) {
-            case EASY -> 2;
-            case NORMAL -> 3;
-            case HARD -> 4;
-            default -> 3; // PEACEFUL
-        };
+    @Override
+    public boolean shouldRunEveryTick() {
+        return true;
     }
 
     @Override
     public boolean canStart() {
-        if (!monarch.isPerformingAbility() && barrierUsesRemaining > 0 && !isCasting) {
+        if (!monarch.isPerformingAbility() && monarch.getBarrierUsesRemaining() > 0 && !isCasting) {
             float healthPercent = monarch.getHealth() / monarch.getMaxHealth();
 
             for (int i = 0; i < HEALTH_THRESHOLDS.length; i++) {
-                if (healthPercent <= HEALTH_THRESHOLDS[i] && i > lastHealthThresholdReached) {
-                    lastHealthThresholdReached = i;
+                if (healthPercent <= HEALTH_THRESHOLDS[i] && i > monarch.getBarrierThresholdReached()) {
+                    monarch.setBarrierThresholdReached(i);
                     return true;
                 }
             }
@@ -65,13 +57,12 @@ public class IceBarrierGoal extends Goal {
         this.isCasting = true;
         this.channelTicks = BARRIER_DURATION;
         monarch.setCasting(true);
-        barrierUsesRemaining--;
+        monarch.consumeBarrierUse();
 
         if (!monarch.getWorld().isClient) {
             monarch.setBarrierTimer(BARRIER_GAME_TICKS);
             spawnProtectiveIcicles();
 
-            // Spawn FrostHaunt entities when barrier starts
             spawnFrostHaunts();
 
             monarch.getWorld().playSound(
@@ -91,7 +82,7 @@ public class IceBarrierGoal extends Goal {
         }
 
         if (!monarch.getWorld().isClient() && channelTicks > 0) {
-            float totalHealPercent = 0.3F - ((3 - barrierUsesRemaining - 1) * 0.05F);
+            float totalHealPercent = 0.3F - (Math.max(0, monarch.getBarrierThresholdReached()) * 0.05F);
             float difficultyMultiplier = monarch.getHealingForDifficulty();
             float healPerTick = (monarch.getMaxHealth() * totalHealPercent * difficultyMultiplier) / BARRIER_DURATION;
             monarch.heal(healPerTick);
@@ -185,13 +176,9 @@ public class IceBarrierGoal extends Goal {
         monarch.globalAbilityCooldown = 20;
     }
 
-    public Integer getSpawnAmountPerDifficulty() {
-        Difficulty difficulty = monarch.getWorld().getDifficulty();
-        return switch (difficulty) {
-            case PEACEFUL, EASY -> 1;
-            case NORMAL -> 2;
-            case HARD -> 3;
-        };
+    private EntityType<?> summonType(CustomValues tuning) {
+        Identifier id = Identifier.tryParse(tuning.getString(FrozenDepthsTuning.BARRIER_SUMMON_ENTITY, ""));
+        return id != null ? Registries.ENTITY_TYPE.getOrEmpty(id).orElse(ModEntities.FROST_HAUNT) : ModEntities.FROST_HAUNT;
     }
 
     private void spawnFrostHaunts() {
@@ -199,8 +186,13 @@ public class IceBarrierGoal extends Goal {
             return;
         }
 
-        int baseCount = getSpawnAmountPerDifficulty() + monarch.getRandom().nextInt(2);
-        int hauntCount = monarch.getScaledCount(baseCount);
+        CustomValues tuning = monarch.tuning();
+        int baseCount = tuning.getInt(FrozenDepthsTuning.BARRIER_SUMMON_COUNT, 1);
+        if (baseCount <= 0) {
+            return;
+        }
+        int hauntCount = monarch.getScaledCount(baseCount + monarch.getRandom().nextInt(2));
+        EntityType<?> type = summonType(tuning);
 
         for (int i = 0; i < hauntCount; i++) {
             double angle = 2 * Math.PI * i / hauntCount;
@@ -209,10 +201,12 @@ public class IceBarrierGoal extends Goal {
             double z = monarch.getZ() + Math.sin(angle) * radius;
             double y = monarch.getY();
 
-            FrosthauntEntity haunt = new FrosthauntEntity(ModEntities.FROST_HAUNT, serverWorld);
+            if (!(type.create(serverWorld) instanceof MobEntity haunt)) {
+                return;
+            }
             haunt.refreshPositionAndAngles(x, y, z, (float) (angle * 180 / Math.PI), 0);
             haunt.initialize(serverWorld, serverWorld.getLocalDifficulty(haunt.getBlockPos()),
-                SpawnReason.MOB_SUMMONED, null, null);
+                SpawnReason.MOB_SUMMONED, null);
             haunt.setTarget(monarch.getTarget());
 
             serverWorld.spawnEntity(haunt);

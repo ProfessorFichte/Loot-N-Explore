@@ -5,10 +5,8 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class FrostMonarchAnimations {
+
 	public static final Animation spawn = Animation.Builder.create(3.0F)
 		.addBoneAnimation("Body", new Transformation(Transformation.Targets.ROTATE, 
 			new Keyframe(0.375F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),

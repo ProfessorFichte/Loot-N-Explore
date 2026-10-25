@@ -5,12 +5,8 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-/**
- * Made with Blockbench 5.1.4
- * Exported for Minecraft version 1.19 or later with Mojang mappings
- * Converted for Fabric 1.21.1 with Yarn mappings
- */
 public class FrostedRangerAnimations {
+
     public static final Animation idle = Animation.Builder.create(3.0F).looping()
         .addBoneAnimation("Body", new Transformation(Transformation.Targets.ROTATE,
             new Keyframe(0.0F, AnimationHelper.createRotationalVector(-4.0344F, 7.4818F, -0.5261F), Transformation.Interpolations.CUBIC),

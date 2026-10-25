@@ -7,8 +7,10 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.item.HeldItemRenderer;
 
 public class FrostMonarchHeldItemFeatureRenderer extends AbstractHeldItemFeatureRenderer<FrostMonarchEntity, FrostMonarchModel> {
+    private static final float HAND_SHIFT_TOWARD_SHOULDER = 2.5F;
+
     public FrostMonarchHeldItemFeatureRenderer(FeatureRendererContext<FrostMonarchEntity, FrostMonarchModel> context, HeldItemRenderer heldItemRenderer) {
-        super(context, heldItemRenderer);
+        super(context, heldItemRenderer, HAND_SHIFT_TOWARD_SHOULDER);
     }
 
     @Override

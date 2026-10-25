@@ -13,7 +13,6 @@ import more_rpg_loot.entity.frozen_depths.mob.monarchs_guard.MonarchsGuardEntity
 import more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier.GeneralMonarchsSoldierEntity;
 import more_rpg_loot.entity.frozen_depths.mob.monarchs_soldier.MonarchsSoldierEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.*;
-import more_rpg_loot.entity.generic.entity.CustomCloudEntity;
 import more_rpg_loot.entity.generic.projectile.LNEAbilityArrowEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,6 +22,8 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class ModEntities {
@@ -58,14 +59,10 @@ public class ModEntities {
             .dimensions(0.5f, 0.5f)
             .maxTrackingRange(8)
             .build("lne_ability_arrow");
-    public static final EntityType<CustomCloudEntity> CUSTOM_CLOUD = EntityType.Builder.<CustomCloudEntity>create(CustomCloudEntity::new, SpawnGroup.MISC)
-            .dimensions(6.0f, 0.5f)
-            .maxTrackingRange(8)
-            .build("custom_cloud");
-
     public static final EntityType<TrackingIcicleEntity> TRACKING_ICICLE = EntityType.Builder.<TrackingIcicleEntity>create(TrackingIcicleEntity::new, SpawnGroup.MISC)
             .dimensions(0.3f, 0.3f)
             .maxTrackingRange(8)
+            .trackingTickInterval(1)
             .build("tracking_icicle");
     public static final EntityType<ThrownLanceEntity> THROWN_LANCE = EntityType.Builder.<ThrownLanceEntity>create(ThrownLanceEntity::new, SpawnGroup.MISC)
             .dimensions(0.5f, 0.5f)
@@ -81,7 +78,7 @@ public class ModEntities {
             .maxTrackingRange(8)
             .build("undead_frozen_mage");
     public static final EntityType<GeneralUndeadFrozenMageEntity> GENERAL_UNDEAD_FROZEN_MAGE = EntityType.Builder.create(GeneralUndeadFrozenMageEntity::new, SpawnGroup.MONSTER)
-            .dimensions(0.9f, 2.985f)
+            .dimensions(0.6f, 1.99f)
             .maxTrackingRange(8)
             .build("general_undead_frozen_mage");
     public static final EntityType<FrostedRangerEntity> FROSTED_RANGER = EntityType.Builder.create(FrostedRangerEntity::new, SpawnGroup.MONSTER)
@@ -89,7 +86,7 @@ public class ModEntities {
             .maxTrackingRange(8)
             .build("frosted_ranger");
     public static final EntityType<GeneralFrostedRangerEntity> GENERAL_FROSTED_RANGER = EntityType.Builder.create(GeneralFrostedRangerEntity::new, SpawnGroup.MONSTER)
-            .dimensions(0.9f, 2.985f)
+            .dimensions(0.6f, 1.99f)
             .maxTrackingRange(8)
             .build("general_frosted_ranger");
     public static final EntityType<FrostHoundEntity> FROST_HOUND = EntityType.Builder.create(FrostHoundEntity::new, SpawnGroup.MONSTER)
@@ -101,7 +98,7 @@ public class ModEntities {
             .maxTrackingRange(8)
             .build("monarchs_soldier");
     public static final EntityType<GeneralMonarchsSoldierEntity> GENERAL_MONARCHS_SOLDIER = EntityType.Builder.create(GeneralMonarchsSoldierEntity::new, SpawnGroup.MONSTER)
-            .dimensions(0.9f, 2.985f)
+            .dimensions(0.6f, 1.99f)
             .maxTrackingRange(8)
             .build("general_monarchs_soldier");
     public static final EntityType<MonarchsGuardEntity> MONARCHS_GUARD = EntityType.Builder.create(MonarchsGuardEntity::new, SpawnGroup.MONSTER)
@@ -110,26 +107,25 @@ public class ModEntities {
             .build("monarchs_guard");
 
     public static void register(){
-        register("frost_haunt", FROST_HAUNT);
-        register("frost_monarch", FROST_MONARCH);
-        register("glaze", GLAZE);
-        register("frostball", FROSTBALL);
-        register("frostball_locator", FROSTBALL_LOCATOR);
-        register("straight_icicle", STRAIGHT_ICICLE);
-        register("barrier_icicle", BARRIER_ICICLE);
-        register("lne_ability_arrow", LNE_ABILITY_ARROW);
-        register("custom_cloud", CUSTOM_CLOUD);
-        register("tracking_icicle", TRACKING_ICICLE);
-        register("frozen_arrow", FROZEN_ARROW);
-        register("thrown_lance", THROWN_LANCE);
-        register("undead_frozen_mage", UNDEAD_FROZEN_MAGE);
-        register("general_undead_frozen_mage", GENERAL_UNDEAD_FROZEN_MAGE);
-        register("frosted_ranger", FROSTED_RANGER);
-        register("general_frosted_ranger", GENERAL_FROSTED_RANGER);
-        register("frost_hound", FROST_HOUND);
-        register("monarchs_soldier", MONARCHS_SOLDIER);
-        register("general_monarchs_soldier", GENERAL_MONARCHS_SOLDIER);
-        register("monarchs_guard", MONARCHS_GUARD);
+        register("frost_haunt", "Frosthaunt", FROST_HAUNT);
+        register("frost_monarch", "Frost Monarch", FROST_MONARCH);
+        register("glaze", "Glaze", GLAZE);
+        register("frostball", "Frostball", FROSTBALL);
+        register("frostball_locator", "Frostball Locator", FROSTBALL_LOCATOR);
+        register("straight_icicle", "Icicle", STRAIGHT_ICICLE);
+        register("barrier_icicle", "Barrier Icicle", BARRIER_ICICLE);
+        register("lne_ability_arrow", "Arrow", LNE_ABILITY_ARROW);
+        register("tracking_icicle", "Icicle", TRACKING_ICICLE);
+        register("frozen_arrow", "Frozen Arrow", FROZEN_ARROW);
+        register("thrown_lance", "Thrown Lance", THROWN_LANCE);
+        register("undead_frozen_mage", "Undead Frozen Mage", UNDEAD_FROZEN_MAGE);
+        register("general_undead_frozen_mage", "General Undead Frozen Mage", GENERAL_UNDEAD_FROZEN_MAGE);
+        register("frosted_ranger", "Frosted Ranger", FROSTED_RANGER);
+        register("general_frosted_ranger", "General Frosted Ranger", GENERAL_FROSTED_RANGER);
+        register("frost_hound", "Frost Hound", FROST_HOUND);
+        register("monarchs_soldier", "Monarch's Soldier", MONARCHS_SOLDIER);
+        register("general_monarchs_soldier", "General Monarch's Soldier", GENERAL_MONARCHS_SOLDIER);
+        register("monarchs_guard", "Monarch's Guard", MONARCHS_GUARD);
     }
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, DefaultAttributeContainer.Builder> sink) {
@@ -146,7 +142,12 @@ public class ModEntities {
         sink.accept(MONARCHS_GUARD, MonarchsGuardEntity.createAttributes());
     }
 
-    private static <T extends Entity> void register(String id, EntityType<T> type) {
+    public record Entry(String id, String translation) {}
+
+    public static final List<Entry> all = new ArrayList<>();
+
+    private static <T extends Entity> void register(String id, String translation, EntityType<T> type) {
+        all.add(new Entry(id, translation));
         Registry.register(Registries.ENTITY_TYPE, RPGLoot.id(id), type);
     }
 }

@@ -11,7 +11,7 @@
     "sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
   },
   "license": "ARR",
-  "icon": "icon.png",
+  "icon": "assets/loot_n_explore/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -28,17 +28,28 @@
     "loot_n_explore.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.5",
+    "fabricloader": ">=${fabric_loader_compat_version}",
     "minecraft": "~1.21.1",
     "java": ">=21",
     "fabric-api": "*",
-    "structure_pool_api": "*"
+    "structure_pool_api": "*",
+    "mrpg_lib": "*"
   },
   "suggests": {
     "spell_engine": "*",
     "spell_power": "*",
-    "more_rpg_classes": "*",
     "ranged_weapon_api": "*",
+    "witcher_rpg": "*",
+    "critical_strike": "*",
+    "lithostitched": "*",
     "trinkets": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "modId": "loot_n_explore",
+      "links": {
+        "modmenu.discord": "https://discord.gg/AShKd5XrTu"
+      }
+    }
   }
 }

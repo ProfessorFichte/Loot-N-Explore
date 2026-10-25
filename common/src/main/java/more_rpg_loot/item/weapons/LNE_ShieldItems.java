@@ -26,7 +26,7 @@ import java.util.List;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
-// Shields are only registered here if "lne_paladins" is not installed, mirroring how it registers its own themed shields.
+// Only registered here when lne_paladins is absent; it registers its own themed shields.
 public class LNE_ShieldItems {
 
     public record Entry(String name, Item item) {

@@ -1,5 +1,8 @@
 {
   "values": [
-    "loot_n_explore:glaze"
+    {
+      "id": "loot_n_explore:glaze",
+      "required": false
+    }
   ]
 }

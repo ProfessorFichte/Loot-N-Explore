@@ -1,6 +1,6 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
 
-import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.particle.Particles;
 import more_rpg_loot.entity.ModEntities;
 import more_rpg_loot.item.CommonItems;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ public class FrostballLocatorEntity extends Entity implements FlyingItemEntity {
     private double targetX;
     private double targetY;
     private double targetZ;
-    private int age;
+    private int flightTicks;
 
     public FrostballLocatorEntity(EntityType<? extends FrostballLocatorEntity> entityType, World world) {
         super(entityType, world);
@@ -42,7 +42,7 @@ public class FrostballLocatorEntity extends Entity implements FlyingItemEntity {
         this.targetX = this.getX() + dx * hopScale;
         this.targetY = this.getY() + 8.0;
         this.targetZ = this.getZ() + dz * hopScale;
-        this.age = 0;
+        this.flightTicks = 0;
 
         this.setVelocity(
                 (this.targetX - this.getX()) / FLIGHT_TICKS,
@@ -54,7 +54,7 @@ public class FrostballLocatorEntity extends Entity implements FlyingItemEntity {
     @Override
     public void tick() {
         super.tick();
-        this.age++;
+        this.flightTicks++;
 
         var velocity = this.getVelocity();
         this.setPosition(this.getX() + velocity.x, this.getY() + velocity.y, this.getZ() + velocity.z);
@@ -62,7 +62,7 @@ public class FrostballLocatorEntity extends Entity implements FlyingItemEntity {
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             serverWorld.spawnParticles(ParticleTypes.SOUL, this.getX(), this.getY(), this.getZ(), 1, 0.0, 0.0, 0.0, 0.0);
 
-            if (this.age >= FLIGHT_TICKS) {
+            if (this.flightTicks >= FLIGHT_TICKS) {
                 serverWorld.spawnParticles(Particles.FREEZING_SNOWFLAKE, this.getX(), this.getY(), this.getZ(), 12, 0.2, 0.2, 0.2, 0.05);
                 this.discard();
             }

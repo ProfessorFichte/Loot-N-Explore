@@ -133,13 +133,11 @@ public class LNE_Relics {
             return this;
         }
 
-        // Sets the translated display name for this relic (used by datagen)
         public Entry translatedName(String translatedName) {
             this.translatedName = translatedName;
             return this;
         }
 
-        // Sets the lore text for this relic (shown in tooltip, used by datagen)
         public Entry lore(String loreText) {
             this.loreText = loreText;
             return this;
@@ -154,7 +152,7 @@ public class LNE_Relics {
         }
 
         public boolean isEnabled() {
-            return true;
+            return config().isEnabled();
         }
     }
 
@@ -171,7 +169,6 @@ public class LNE_Relics {
     public static final String RANGED_WEAPON_DAMAGE = "ranged_weapon:damage";
     public static final String WATER_SPELL_POWER = "spell_power:water";
 
-    // ENDER DRAGON THEME
     public static final Entry ENDER_DRAGON_TOOTH = add(new Entry(2, "ender_dragon_tooth"))
             .translatedName("Ender Dragon Tooth")
             .lore("The Ender Dragon's Tooth's are scattered across end cities.")
@@ -206,7 +203,6 @@ public class LNE_Relics {
                             new AttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED.getIdAsString(), haste, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE)
                     ))
             );
-    // WITHER THEME
     public static final Entry UNKNOWN_REMAINS = add(new Entry(2, "unknown_remains"))
             .translatedName("Unknown Remains")
             .lore("Even skeletons once had a name and were someone.")
@@ -241,7 +237,6 @@ public class LNE_Relics {
                             new AttributeModifier(EntityAttributes.GENERIC_ARMOR.getIdAsString(), armor, EntityAttributeModifier.Operation.ADD_VALUE)
                     ))
             );
-    // GLACIAL THEME
     public static final Entry ETERNAL_SNOWFLAKE = add(new Entry(2, "eternal_snowflake"))
             .translatedName("Eternal Snowflake")
             .lore("This snowflake cannot melt, they were collected in igloos.")
@@ -277,7 +272,6 @@ public class LNE_Relics {
                     ))
             );
 
-    // OCEAN THEME
     public static final Entry AMPHITRITE_DIADEM = add(new Entry(2, "amphitrite_diadem"))
             .translatedName("Amphitrite's Diadem")
             .lore("Find this shiny diadem, in buried shipwrecks, plundered by pirates.")

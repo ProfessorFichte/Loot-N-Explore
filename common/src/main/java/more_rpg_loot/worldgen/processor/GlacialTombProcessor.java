@@ -3,7 +3,7 @@ package more_rpg_loot.worldgen.processor;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import more_rpg_loot.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.EmptyBlockView;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
@@ -185,27 +186,23 @@ public class GlacialTombProcessor extends StructureProcessor {
         }
 
         if (state.isOf(topFiller)) {
-            return processTopFiller(world, blockPos);
+            return processTopFiller(world, blockPos, placementData);
         }
 
         if (state.isOf(bottomFiller)) {
-            return processBottomFiller(world, blockPos);
+            return processBottomFiller(world, blockPos, placementData);
         }
 
-        if (removeWater) {
-            BlockState worldState = world.getBlockState(blockPos);
-            if (worldState.getFluidState().isIn(FluidTags.WATER)) {
-                if (state.isAir()) {
-                    return new StructureTemplate.StructureBlockInfo(blockPos, Blocks.AIR.getDefaultState(), null);
-                }
-                return currentBlockInfo;
-            }
+        if (removeWater && state.contains(Properties.WATERLOGGED) && state.get(Properties.WATERLOGGED)) {
+            return new StructureTemplate.StructureBlockInfo(
+                    currentBlockInfo.pos(),
+                    state.with(Properties.WATERLOGGED, false),
+                    currentBlockInfo.nbt());
         }
 
         return currentBlockInfo;
     }
 
-    //Checks if a block should be culled in the blend zone.
     private boolean shouldCullSpecialBlock(BlockState state, @Nullable net.minecraft.nbt.NbtCompound nbt) {
         if (state.isAir()) return false;
 
@@ -251,7 +248,6 @@ public class GlacialTombProcessor extends StructureProcessor {
     }
 
 
-     // Removes entities at or near the given position.
     private void removeEntitiesAt(ServerWorld world, BlockPos pos) {
         Box searchBox = new Box(pos).expand(1.5);
 
@@ -272,8 +268,13 @@ public class GlacialTombProcessor extends StructureProcessor {
         }
     }
 
-    private StructureTemplate.StructureBlockInfo processTopFiller(WorldView world, BlockPos blockPos) {
-        if (world instanceof WorldAccess worldAccess) {
+    private static boolean isInPlacementBox(StructurePlacementData placementData, BlockPos pos) {
+        var box = placementData.getBoundingBox();
+        return box == null || box.contains(pos);
+    }
+
+    private StructureTemplate.StructureBlockInfo processTopFiller(WorldView world, BlockPos blockPos, StructurePlacementData placementData) {
+        if (world instanceof WorldAccess worldAccess && isInPlacementBox(placementData, blockPos)) {
             BlockPos abovePos = blockPos.up();
             generateChainUpward(worldAccess, abovePos);
         }
@@ -281,8 +282,8 @@ public class GlacialTombProcessor extends StructureProcessor {
         return new StructureTemplate.StructureBlockInfo(blockPos, ceilingBlock.getDefaultState(), null);
     }
 
-    private StructureTemplate.StructureBlockInfo processBottomFiller(WorldView world, BlockPos blockPos) {
-        if (world instanceof WorldAccess worldAccess) {
+    private StructureTemplate.StructureBlockInfo processBottomFiller(WorldView world, BlockPos blockPos, StructurePlacementData placementData) {
+        if (world instanceof WorldAccess worldAccess && isInPlacementBox(placementData, blockPos)) {
             BlockPos belowPos = blockPos.down();
             if (spiralPillar) {
                 generateSpiralPillarDownward(worldAccess, belowPos);
@@ -537,10 +538,10 @@ public class GlacialTombProcessor extends StructureProcessor {
                 for (int i = 0; i < 8; i++) {
                     BlockState state = world.getBlockState(checkPos);
                     if (isTreeBlock(state)) {
-                        return true; // Found tree block nearby above us
+                        return true;
                     }
                     if (isTerrainBlock(state)) {
-                        break; // Hit terrain, not under canopy from this direction
+                        break;
                     }
                     checkPos.move(Direction.UP);
                 }
@@ -564,7 +565,7 @@ public class GlacialTombProcessor extends StructureProcessor {
 
             if (isTreeBlock(state)) {
                 foundTreeBlocks = true;
-                airAfterTree = 0; // Reset air counter when we see more tree blocks
+                airAfterTree = 0;
             }
 
             if (foundTreeBlocks && (state.isAir() || state.isOf(Blocks.CAVE_AIR))) {
@@ -601,7 +602,7 @@ public class GlacialTombProcessor extends StructureProcessor {
 
         int distanceFromSurface = effectiveSurfaceY - y;
         double blendFactor = 1.0 - ((double)(distanceFromSurface - surfaceMargin) / BLEND_DISTANCE);
-        blendFactor = Math.max(0.0, Math.min(1.0, blendFactor)); // Clamp to 0-1
+        blendFactor = Math.max(0.0, Math.min(1.0, blendFactor));
 
         BlockState aboveState = world.getBlockState(blockPos.up());
         boolean hasTerrainAbove = isTerrainBlock(aboveState);
@@ -635,7 +636,7 @@ public class GlacialTombProcessor extends StructureProcessor {
 
         if (hasAirAbove && !hasTerrainAbove && !hasIceAbove) {
             if (isExposedToSky(world, blockPos)) {
-                return Blocks.AIR.getDefaultState(); // Will become null
+                return Blocks.AIR.getDefaultState();
             }
         }
 
@@ -748,7 +749,6 @@ public class GlacialTombProcessor extends StructureProcessor {
     private boolean isTerrainBlock(BlockState state) {
         if (state.isAir()) return false;
 
-        // EXCLUDE non-terrain blocks first (leaves, logs, plants, etc.)
         if (state.isIn(BlockTags.LEAVES)) return false;
         if (state.isIn(BlockTags.LOGS)) return false;
         if (state.isIn(BlockTags.PLANKS)) return false;
@@ -758,7 +758,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         if (state.isIn(BlockTags.FENCES)) return false;
         if (state.isIn(BlockTags.WALLS)) return false;
 
-        // Check vanilla tags that mods typically use for terrain
         if (state.isIn(BlockTags.DIRT)) return true;
         if (state.isIn(BlockTags.BASE_STONE_OVERWORLD)) return true;
         if (state.isIn(BlockTags.BASE_STONE_NETHER)) return true;
@@ -767,7 +766,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         if (state.isIn(BlockTags.ICE)) return true;
         if (state.isIn(BlockTags.SNOW)) return true;
 
-        // Common vanilla terrain blocks (fallback for untagged)
         if (state.isOf(Blocks.GRASS_BLOCK)) return true;
         if (state.isOf(Blocks.GRAVEL)) return true;
         if (state.isOf(Blocks.CLAY)) return true;
@@ -775,7 +773,7 @@ public class GlacialTombProcessor extends StructureProcessor {
         if (state.isOf(Blocks.MUD)) return true;
         if (state.isOf(Blocks.MUDDY_MANGROVE_ROOTS)) return true;
 
-        if (state.isOpaqueFullCube(null, BlockPos.ORIGIN)) {
+        if (state.isOpaque() && state.isFullCube(EmptyBlockView.INSTANCE, BlockPos.ORIGIN)) {
             Block block = state.getBlock();
             String blockId = Registries.BLOCK.getId(block).toString();
 
@@ -818,7 +816,7 @@ public class GlacialTombProcessor extends StructureProcessor {
             if (belowGrass != null) {
                 return belowGrass;
             }
-            return Blocks.DIRT.getDefaultState(); // Fallback
+            return Blocks.DIRT.getDefaultState();
         }
 
         if (isSnowLikeBlock(aboveState)) {
@@ -897,7 +895,6 @@ public class GlacialTombProcessor extends StructureProcessor {
 
 
     private BlockState getTerrainBlockForY(WorldView world, BlockPos pos) {
-        // Try to sample nearby terrain first
         BlockState sampled = sampleNearbyTerrain(world, pos);
         if (sampled != null) {
             return sampled;
@@ -917,7 +914,6 @@ public class GlacialTombProcessor extends StructureProcessor {
     private boolean isIcyBlock(BlockState state) {
         if (state.isAir()) return false;
 
-        // Check vanilla ice/snow tags and blocks
         if (state.isIn(BlockTags.ICE)) return true;
         if (state.isIn(BlockTags.SNOW)) return true;
         if (state.isOf(Blocks.SNOW_BLOCK)) return true;
@@ -928,7 +924,6 @@ public class GlacialTombProcessor extends StructureProcessor {
         if (state.isOf(Blocks.BLUE_ICE)) return true;
         if (state.isOf(Blocks.FROSTED_ICE)) return true;
 
-        // Check for modded icy blocks by name
         String blockId = Registries.BLOCK.getId(state.getBlock()).toString().toLowerCase();
         return blockId.contains("ice") || blockId.contains("snow") ||
                blockId.contains("frost") || blockId.contains("frozen") ||
@@ -950,8 +945,8 @@ public class GlacialTombProcessor extends StructureProcessor {
 
         for (int dx = -ICE_DETECTION_RADIUS; dx <= ICE_DETECTION_RADIUS; dx += 3) {
             for (int dz = -ICE_DETECTION_RADIUS; dz <= ICE_DETECTION_RADIUS; dz += 3) {
-                int x = pos.getX() + dx;
-                int z = pos.getZ() + dz;
+                int x = (chunkX << 4) + 8 + dx;
+                int z = (chunkZ << 4) + 8 + dz;
 
 
                 int surfaceY = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, x, z);
@@ -982,7 +977,7 @@ public class GlacialTombProcessor extends StructureProcessor {
 
     private BlockState getIceOvergrowthState(WorldView world, BlockPos blockPos, double icyRatio, int distanceFromSurface) {
         if (icyRatio < ICE_OVERGROWTH_THRESHOLD) {
-            return null; // Not enough icy terrain to trigger overgrowth
+            return null;
         }
 
         int overgrowthDepth = (int) (3 + (icyRatio * 17));
@@ -1019,7 +1014,7 @@ public class GlacialTombProcessor extends StructureProcessor {
         if (hasTerrainBelow || hasIceBelow) supportBonus += 0.15;
 
         double probability = (baseProbability * depthFactor) + supportBonus;
-        probability = Math.min(0.95, probability); // Cap at 95%
+        probability = Math.min(0.95, probability);
 
         if (distanceFromSurface <= 2 && (hasTerrainAbove || hasIceAbove || hasAdjacentSupport)) {
             probability = Math.max(probability, 0.85);
@@ -1039,7 +1034,6 @@ public class GlacialTombProcessor extends StructureProcessor {
                 return true;
             }
         }
-        // Also check diagonally above for better draping
         for (Direction dir : Direction.Type.HORIZONTAL) {
             BlockState state = world.getBlockState(pos.offset(dir).up());
             if (isTerrainBlock(state) || isIcyBlock(state)) {

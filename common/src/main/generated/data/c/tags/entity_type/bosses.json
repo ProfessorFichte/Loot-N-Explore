@@ -1,5 +1,8 @@
 {
   "values": [
-    "loot_n_explore:frost_monarch"
+    {
+      "id": "loot_n_explore:frost_monarch",
+      "required": false
+    }
   ]
 }

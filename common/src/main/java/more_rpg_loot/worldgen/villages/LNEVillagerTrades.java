@@ -5,6 +5,7 @@ import more_rpg_loot.platform.LNEEvents;
 import more_rpg_loot.worldgen.map.ModMapDecorations;
 import more_rpg_loot.util.LneItemTags;
 import more_rpg_loot.worldgen.structures.LNESellMapFactory;
+import more_rpg_loot.worldgen.structures.StructureTags;
 import net.minecraft.entity.ai.brain.Activity;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
@@ -101,161 +102,16 @@ public class LNEVillagerTrades {
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                     });
 
-            LNEEvents.get().registerVillagerTrades(innkeeper, 2, factories -> {
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_0.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_2_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_2_innkeeper_maxUses,
-                            level_2_innkeeper_experience,
-                            level_2_innkeeper_priceMultiplier
-                    );
-                });
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_0.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_2_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_2_innkeeper_maxUses,
-                            level_2_innkeeper_experience,
-                            level_2_innkeeper_priceMultiplier
-                    );
-                });
-            });
-            LNEEvents.get().registerVillagerTrades(innkeeper, 3, factories -> {
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_1.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_3_innkeeper_maxUses,
-                            level_3_innkeeper_experience,
-                            level_3_innkeeper_priceMultiplier
-                    );
-                });
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_1.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_3_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_3_innkeeper_maxUses,
-                            level_3_innkeeper_experience,
-                            level_3_innkeeper_priceMultiplier
-                    );
-                });
-            });
-            LNEEvents.get().registerVillagerTrades(innkeeper, 4, factories -> {
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_2.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_4_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_4_innkeeper_maxUses,
-                            level_4_innkeeper_experience,
-                            level_4_innkeeper_priceMultiplier
-                    );
-                });
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_2.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_4_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_4_innkeeper_maxUses,
-                            level_4_innkeeper_experience,
-                            level_4_innkeeper_priceMultiplier
-                    );
-                });
-            });
-            LNEEvents.get().registerVillagerTrades(innkeeper, 5, factories -> {
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_3.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_5_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_5_innkeeper_maxUses,
-                            level_5_innkeeper_experience,
-                            level_5_innkeeper_priceMultiplier
-                    );
-                });
-                factories.add((entity, random) -> {
-                    var registryAccess = entity.getWorld().getRegistryManager();
-                    var itemRegistry = registryAccess.get(RegistryKeys.ITEM);
-                    var tagKey = TagKey.of(RegistryKeys.ITEM, LneItemTags.INNKEEPER_BUFFS_3.id());
-                    var tag = itemRegistry.getEntryList(tagKey);
-                    if (tag.isEmpty()) return null;
-                    var itemList = tag.get().stream().toList();
-                    if (itemList.isEmpty()) return null;
-                    var randomItemEntry = itemList.get(random.nextInt(itemList.size()));
-                    Item randomItem = randomItemEntry.value();
-                    return new TradeOffer(
-                            new TradedItem(Items.EMERALD, level_5_innkeeper_price),
-                            new ItemStack(randomItem, 1),
-                            level_5_innkeeper_maxUses,
-                            level_5_innkeeper_experience,
-                            level_5_innkeeper_priceMultiplier
-                    );
-                });
-            });
+            registerBuffTrades(innkeeper, 2, LneItemTags.INNKEEPER_BUFFS_0.id(),
+                    level_2_innkeeper_price, level_2_innkeeper_maxUses, level_2_innkeeper_experience, level_2_innkeeper_priceMultiplier);
+            registerBuffTrades(innkeeper, 3, LneItemTags.INNKEEPER_BUFFS_1.id(),
+                    level_3_innkeeper_price, level_3_innkeeper_maxUses, level_3_innkeeper_experience, level_3_innkeeper_priceMultiplier);
+            registerBuffTrades(innkeeper, 4, LneItemTags.INNKEEPER_BUFFS_2.id(),
+                    level_4_innkeeper_price, level_4_innkeeper_maxUses, level_4_innkeeper_experience, level_4_innkeeper_priceMultiplier);
+            registerBuffTrades(innkeeper, 5, LneItemTags.INNKEEPER_BUFFS_3.id(),
+                    level_5_innkeeper_price, level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier);
 
-            ///CARTOGRAPHER TRADES
-        TagKey<Structure> frostmonarchTempleTag = TagKey.of(RegistryKeys.STRUCTURE, Identifier.of("loot_n_explore", "frostmonarch_temple"));
+        TagKey<Structure> frostmonarchTempleTag = StructureTags.MONARCHS_TEMPLE_LOCATED;
         LNEEvents.get().registerVillagerTrades(VillagerProfession.CARTOGRAPHER, 4, factories -> {
             factories.add((entity, random) -> new LNESellMapFactory(
                     12,
@@ -269,4 +125,26 @@ public class LNEVillagerTrades {
         });
         }
 
+    private static void registerBuffTrades(VillagerProfession profession, int level, Identifier tagId,
+                                           int price, int maxUses, int experience, float priceMultiplier) {
+        TagKey<Item> tagKey = TagKey.of(RegistryKeys.ITEM, tagId);
+        LNEEvents.get().registerVillagerTrades(profession, level, factories -> {
+            for (int i = 0; i < 2; i++) {
+                factories.add((entity, random) -> {
+                    var tag = entity.getWorld().getRegistryManager().get(RegistryKeys.ITEM).getEntryList(tagKey);
+                    if (tag.isEmpty()) return null;
+                    var itemList = tag.get().stream().toList();
+                    if (itemList.isEmpty()) return null;
+                    Item randomItem = itemList.get(random.nextInt(itemList.size())).value();
+                    return new TradeOffer(
+                            new TradedItem(Items.EMERALD, price),
+                            new ItemStack(randomItem, 1),
+                            maxUses,
+                            experience,
+                            priceMultiplier
+                    );
+                });
+            }
+        });
     }
+}

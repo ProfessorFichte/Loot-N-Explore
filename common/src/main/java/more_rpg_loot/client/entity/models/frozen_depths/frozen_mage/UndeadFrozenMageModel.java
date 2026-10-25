@@ -1,15 +1,14 @@
 package more_rpg_loot.client.entity.models.frozen_depths.frozen_mage;
 
+import com.mrpg_lib.client.animation.AnimationBlender;
 import more_rpg_loot.entity.frozen_depths.mob.frozen_mage.UndeadFrozenMageEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class UndeadFrozenMageModel<T extends UndeadFrozenMageEntity> extends SinglePartEntityModel<T> {
+    private final AnimationBlender blender = new AnimationBlender();
     private final ModelPart Main;
     private final ModelPart waist;
     private final ModelPart Body;
@@ -84,14 +83,10 @@ public class UndeadFrozenMageModel<T extends UndeadFrozenMageEntity> extends Sin
     public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-        // Vanilla walk-cycle blending fights the cast pose if residual limb-swing momentum is
-        // still present right as casting starts (navigation.stop() doesn't zero it out instantly) -
-        // skip it while casting so the cast animation isn't intermittently masked.
-        if (!entity.isCasting()) {
-            this.animateMovement(UndeadFrozenMageAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
-        }
-        this.updateAnimation(entity.idleAnimationState, UndeadFrozenMageAnimations.idle, ageInTicks);
-        this.updateAnimation(entity.castAnimationState, UndeadFrozenMageAnimations.cast, ageInTicks);
+        AnimationBlender.Session session = blender.begin(entity, ageInTicks);
+        session.action(entity.castAnimationState, UndeadFrozenMageAnimations.cast);
+        float actionWeight = session.apply(this, UndeadFrozenMageAnimations.idle);
+        AnimationBlender.movement(this, UndeadFrozenMageAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f, 1.0F - actionWeight);
     }
 
     @Override

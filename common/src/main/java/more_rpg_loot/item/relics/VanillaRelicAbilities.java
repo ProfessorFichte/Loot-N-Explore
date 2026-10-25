@@ -1,9 +1,8 @@
 package more_rpg_loot.item.relics;
 
-import more_rpg_loot.platform.LNEPlatform;
-
-import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.particle.Particles;
 import more_rpg_loot.compat.spell_engine.ISpellRelicEnhancer;
+import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -34,7 +33,7 @@ public class VanillaRelicAbilities implements ISpellRelicEnhancer {
 
     public static TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         var stack = player.getStackInHand(hand);
-        if (LNEPlatform.isModLoaded("more_rpg_classes")) {
+        if (!LNE_WeaponItems.vanillaAbilitiesActive()) {
             return TypedActionResult.pass(stack);
         }
         if (player.getItemCooldownManager().isCoolingDown(stack.getItem())) {

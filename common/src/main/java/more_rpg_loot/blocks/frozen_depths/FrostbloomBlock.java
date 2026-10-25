@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.EntityTypeTags;
@@ -58,6 +59,7 @@ public class FrostbloomBlock extends FlowerBlock {
 
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
         if (!world.isClient && world.getDifficulty() != Difficulty.PEACEFUL) {
+            if (entity instanceof PlayerEntity player && player.getAbilities().invulnerable) return;
             if (entity instanceof LivingEntity livingEntity) {
                 EntityType<?> type = entity.getType();
                 if (!type.isIn(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)) {

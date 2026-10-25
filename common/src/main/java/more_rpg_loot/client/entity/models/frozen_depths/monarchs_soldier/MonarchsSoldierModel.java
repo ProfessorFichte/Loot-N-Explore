@@ -8,9 +8,6 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class MonarchsSoldierModel<T extends MonarchsSoldierEntity> extends SinglePartEntityModel<T> implements ModelWithArms {
 	private final ModelPart group;
 	private final ModelPart waist;
@@ -100,7 +97,6 @@ public class MonarchsSoldierModel<T extends MonarchsSoldierEntity> extends Singl
 		ModelPart armPart = arm == Arm.RIGHT ? this.RightArm : this.LeftArm;
 		ModelPart handPart = arm == Arm.RIGHT ? this.rightItem : this.leftItem;
 
-		// group -> waist -> Body -> arm -> hand position
 		this.applyPartTransform(matrices, this.group);
 		this.applyPartTransform(matrices, this.waist);
 		this.applyPartTransform(matrices, this.Body);

@@ -39,7 +39,7 @@ public class MonarchsCrownItem extends BlockItem {
         }
 
         if (world instanceof ServerWorld serverWorld) {
-            BlockPos targetPos = serverWorld.locateStructure(StructureTags.FROSTMONARCH_TEMPLE_LOCATED, user.getBlockPos(), SEARCH_RADIUS_CHUNKS, false);
+            BlockPos targetPos = serverWorld.locateStructure(StructureTags.MONARCHS_TEMPLE_LOCATED, user.getBlockPos(), SEARCH_RADIUS_CHUNKS, false);
             user.getItemCooldownManager().set(this, LOCATE_COOLDOWN_TICKS);
 
             if (targetPos != null) {

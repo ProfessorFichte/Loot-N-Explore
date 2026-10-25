@@ -1,5 +1,8 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
 
+import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchAnimationTimes;
+import com.mrpg_lib.entity.config.CustomValues;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.FrostballEntity;
 import net.minecraft.entity.Entity;
@@ -39,6 +42,11 @@ public class HailstormGoal extends Goal {
     }
 
     @Override
+    public boolean shouldRunEveryTick() {
+        return true;
+    }
+
+    @Override
     public boolean canStart() {
         if(!monarch.isPerformingAbility() && !isCasting){
             LivingEntity target = monarch.getTarget();
@@ -65,7 +73,7 @@ public class HailstormGoal extends Goal {
     @Override
     public void start() {
         this.isCasting = true;
-        this.channelTicks = 20;
+        this.channelTicks = FrostMonarchAnimationTimes.SUMMON_RELEASE_TICK + 10;
         this.hasStarted = false;
         this.delayedHailballs.clear();
         this.cachedTarget = monarch.getTarget();
@@ -75,7 +83,6 @@ public class HailstormGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
-        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] HailstormGoal started, target={}", cachedTarget);
     }
 
     @Override
@@ -84,7 +91,6 @@ public class HailstormGoal extends Goal {
             hasStarted = true;
         }
 
-        // Only keep casting flag during the initial channel
         if (channelTicks > 0) {
             if (!monarch.isCasting()) {
                 monarch.setCasting(true);
@@ -100,13 +106,11 @@ public class HailstormGoal extends Goal {
 
             channelTicks--;
         } else {
-            // Channel complete - allow monarch to move
             if (monarch.isCasting()) {
                 monarch.setCasting(false);
             }
         }
 
-        // Process delayed hailballs (continues even after channel ends)
         if (!monarch.getWorld().isClient()) {
             java.util.Iterator<DelayedHailball> iterator = delayedHailballs.iterator();
             while (iterator.hasNext()) {
@@ -128,10 +132,11 @@ public class HailstormGoal extends Goal {
             );
 
             net.minecraft.util.math.random.Random random = monarch.getRandom();
-            int targetedHailballsPerEntity = monarch.getScaledCount(8);
+            CustomValues tuning = monarch.tuning();
+            int targetedHailballsPerEntity = monarch.getScaledCount(tuning.getInt(FrozenDepthsTuning.HAILSTORM_HAILSTONES_PER_TARGET, 8));
 
             for (Entity entity : entities) {
-                if (entity instanceof LivingEntity living && !(entity instanceof MobEntity)) {
+                if (entity instanceof LivingEntity living && living.isAlive() && !(entity instanceof MobEntity) && !(entity instanceof net.minecraft.entity.decoration.ArmorStandEntity)) {
                     for (int i = 0; i < targetedHailballsPerEntity; i++) {
                         spawnHailball(living.getX() + (random.nextDouble() - 0.5) * 4.0,
                                      living.getY() + 10.0 + random.nextDouble() * 8.0,
@@ -140,7 +145,7 @@ public class HailstormGoal extends Goal {
                 }
             }
 
-            int randomHailballs = monarch.getScaledCount(40);
+            int randomHailballs = monarch.getScaledCount(tuning.getInt(FrozenDepthsTuning.HAILSTORM_RANDOM_HAILSTONES, 40));
             for (int i = 0; i < randomHailballs; i++) {
                 double angle = random.nextDouble() * 2 * Math.PI;
                 double distance = random.nextDouble() * HAILSTORM_RADIUS;
@@ -193,7 +198,7 @@ public class HailstormGoal extends Goal {
         this.delayedHailballs.clear();
         monarch.setCasting(false);
 
-        monarch.hailStormCooldown = 400;
+        monarch.hailStormCooldown = monarch.tuning().getInt(FrozenDepthsTuning.HAILSTORM_COOLDOWN, 400);
         monarch.globalAbilityCooldown = 20;
     }
 }

@@ -1,6 +1,7 @@
 package com.lne.neoforge.platform;
 
 import more_rpg_loot.platform.LNEEvents;
+import more_rpg_loot.platform.LNEPlatform;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
@@ -96,7 +97,8 @@ public final class NeoForgeEventsImpl implements LNEEvents.Impl {
 
             @Override
             public boolean isBuiltin() {
-                return true;
+                String namespace = event.getName().getNamespace();
+                return namespace.equals("minecraft") || LNEPlatform.isModLoaded(namespace);
             }
 
             @Override

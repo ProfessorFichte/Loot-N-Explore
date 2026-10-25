@@ -175,9 +175,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_SWORD, frozenSoul, getItem("loot_n_explore:glacial_sword"), "frozen_depths/glacial_sword");
         createSmithingTransformRecipe(exporter, frostTemplate, Items.NETHERITE_AXE,   frozenSoul, getItem("loot_n_explore:glacial_axe"),   "frozen_depths/glacial_axe");
 
-        // Bow/crossbow (unless lne_archers installed) and mace (unless lne_paladins installed) recipes
-        // need both fabric:load_conditions and neoforge:conditions, which the FabricRecipeProvider
-        // exporter can't emit together - see LootExploreConditionalRecipeProvider.
+        // these need both fabric:load_conditions and neoforge:conditions, which the
+        // FabricRecipeProvider exporter can't emit together, see LootExploreConditionalRecipeProvider
     }
 
 

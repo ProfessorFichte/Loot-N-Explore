@@ -1,7 +1,5 @@
 package more_rpg_loot.item.weapons.generic;
 
-import more_rpg_loot.platform.LNEPlatform;
-
 import more_rpg_loot.item.weapons.LNE_ShieldItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import more_rpg_loot.item.weapons.ShieldBlockAbility;
@@ -23,7 +21,7 @@ public class WitherShieldItem extends ShieldItem implements ShieldBlockAbility {
     public WitherShieldItem() { super(LNE_ShieldItems.shieldSettings(Identifier.of(MOD_ID, "wither_spine"))); }
     @Override public boolean canRepair(ItemStack stack, ItemStack ingredient) { return ingredient.isOf(Items.BONE); }
     @Override public void onShieldBlock(PlayerEntity blocker, LivingEntity attacker) {
-        if (LNEPlatform.isModLoaded("spell_engine")
+        if (!LNE_WeaponItems.vanillaAbilitiesActive()
                 || blocker.getItemCooldownManager().isCoolingDown(this)
                 || blocker.getRandom().nextFloat() >= 0.20f) {
             return;

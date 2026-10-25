@@ -1,5 +1,8 @@
 {
   "values": [
-    "loot_n_explore:frostbloom"
+    {
+      "id": "loot_n_explore:frostbloom",
+      "required": false
+    }
   ]
 }

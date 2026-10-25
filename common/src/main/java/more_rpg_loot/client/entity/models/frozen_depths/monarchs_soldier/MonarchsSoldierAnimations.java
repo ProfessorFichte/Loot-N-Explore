@@ -5,11 +5,6 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-/**
- * Made with Blockbench 5.1.4
- * Exported for Minecraft version 1.17 or later with Mojang mappings
- * Converted for Fabric 1.21.1 with Yarn mappings
- */
 public class MonarchsSoldierAnimations {
 	public static final Animation idle = Animation.Builder.create(2.0F).looping()
 		.addBoneAnimation("Body", new Transformation(Transformation.Targets.ROTATE, 
@@ -104,7 +99,7 @@ public class MonarchsSoldierAnimations {
 			new Keyframe(0.5417F, AnimationHelper.createRotationalVector(-10.34F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.7917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
-			new Keyframe(0.9583F, AnimationHelper.createRotationalVector(14.09F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
+			new Keyframe(0.9583F, AnimationHelper.createRotationalVector(14.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
 		.addBoneAnimation("RightLeg", new Transformation(Transformation.Targets.TRANSLATE, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.18F, 1.44F), Transformation.Interpolations.CUBIC),
@@ -196,7 +191,7 @@ public class MonarchsSoldierAnimations {
 			new Keyframe(0.5417F, AnimationHelper.createRotationalVector(-10.34F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.75F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 			new Keyframe(0.7917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
-			new Keyframe(0.9583F, AnimationHelper.createRotationalVector(14.09F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
+			new Keyframe(0.9583F, AnimationHelper.createRotationalVector(14.5F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC)
 		))
 		.addBoneAnimation("RightLeg", new Transformation(Transformation.Targets.TRANSLATE, 
 			new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, 0.18F, 1.44F), Transformation.Interpolations.CUBIC),

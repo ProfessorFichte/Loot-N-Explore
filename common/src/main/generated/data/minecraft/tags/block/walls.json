@@ -1,5 +1,8 @@
 {
   "values": [
-    "loot_n_explore:blue_ice_brick_wall"
+    {
+      "id": "loot_n_explore:blue_ice_brick_wall",
+      "required": false
+    }
   ]
 }

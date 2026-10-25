@@ -5,11 +5,6 @@ import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
-/**
- * Made with Blockbench 5.1.4
- * Exported for Minecraft version 1.17 or later with Mojang mappings
- * Converted for Fabric 1.21.1 with Yarn mappings
- */
 public class GlazeAnimations {
 	public static final Animation idle = Animation.Builder.create(2.0F).looping()
 		.addBoneAnimation("core", new Transformation(Transformation.Targets.ROTATE,

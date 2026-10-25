@@ -16,6 +16,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 
 public class FrozenAdventurerBlock extends Block {
     private static final VoxelShape SHAPE = Block.createCuboidShape(3, 0, 3, 13, 16, 13);
@@ -63,5 +65,15 @@ public class FrozenAdventurerBlock extends Block {
             }
         }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }

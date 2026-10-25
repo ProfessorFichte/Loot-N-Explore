@@ -6,9 +6,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-// Made with Blockbench 5.1.4
-// Converted for Fabric 1.21.1 with Yarn mappings
-
 public class FrostHoundModel extends SinglePartEntityModel<FrostHoundEntity> {
     private final ModelPart bone;
     private final ModelPart L_leg_1;
@@ -44,7 +41,7 @@ public class FrostHoundModel extends SinglePartEntityModel<FrostHoundEntity> {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        // export has no single wrapping root part; wrap all top-level parts under "bone"
+        // the export has no single root part, so everything goes under "bone"
         ModelPartData bone = modelPartData.addChild("bone", ModelPartBuilder.create(), ModelTransform.NONE);
 
         ModelPartData L_leg_1 = bone.addChild("L_leg_1", ModelPartBuilder.create().uv(36, 0).cuboid(-1.5F, -0.5F, -1.5F, 3.0F, 9.0F, 3.0F, new Dilation(0.0F)), ModelTransform.pivot(2.0F, 15.5F, -6.25F));

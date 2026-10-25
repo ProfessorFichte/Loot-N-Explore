@@ -16,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +84,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         );
     }
 
-    // Structures are a dynamic (datapack-backed) registry, so a RegistryEntryList can only be
-    // resolved from the WrapperLookup generateAdvancement() receives - not from a static field
-    // initializer. Left as an unfiltered location criterion until entries are built lazily.
+    // structures are a dynamic registry, so the entry list can't be resolved in a static initializer
+    // (left as an unfiltered location criterion)
     private static AdvancementCriterion<?> atStructures(String... structureIds) {
         var locationBuilder = LocationPredicate.Builder.create();
 
@@ -195,7 +194,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // Guardian theme advancements
         addEquipment(new Entry(
             id("equipment/find_amphitrite_diadem"),
             "Amphitrite's Diadem",
@@ -268,7 +266,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // Wither theme advancements
         addEquipment(new Entry(
             id("equipment/find_unknown_remains"),
             "Unknown Remains",
@@ -341,7 +338,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // Frostmonarch theme advancements
         addEquipment(new Entry(
             id("equipment/find_eternal_snowflake"),
             "Eternal Snowflake",
@@ -414,12 +410,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // EXPLORATION ROOT
         addExploration(new Entry(
             id("exploration/root"),
             "Explore new Structures!",
             "Start your journey and explore the world!",
-            null,  // No parent (this is root)
+            null,
             "minecraft:filled_map",
             AdvancementFrame.TASK,
             false, false, false,
@@ -428,7 +423,6 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             null
         ));
 
-        // Exploration advancements
         addExploration(new Entry(
             id("exploration/find_inn"),
             "Take a rest",
@@ -438,7 +432,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementFrame.TASK,
             false, false, false, null,
             atStructures("desert_inn", "plains_inn", "badlands_inn"),
-            20  // Experience reward
+            20
         ));
 
         addExploration(new Entry(

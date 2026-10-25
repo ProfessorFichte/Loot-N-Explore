@@ -1,19 +1,19 @@
 package more_rpg_loot.entity.frozen_depths.projectile;
-import more_rpg_loot.platform.LNEPlatform;
+
+import com.mrpg_lib.util.AllyHelper;
+import more_rpg_loot.util.damage.FrostDamageProfiles;
+import com.mrpg_lib.util.damage.SpellDamage;
 
 import more_rpg_loot.sounds.ModSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Ownable;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import net.spell_power.api.SpellSchools;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,6 @@ import static more_rpg_loot.util.HelperMethods.applyStatusEffect;
 import static more_rpg_loot.util.HelperMethods.getFreezingEffect;
 
 public class StraightIcicleEntity extends Entity implements Ownable {
-    // Animation timing
     public static final int WARMUP_TICKS = 10;
     public static final int ATTACK_TICK = 20;
     public static final int LIFETIME_TICKS = 28;
@@ -124,14 +123,7 @@ public class StraightIcicleEntity extends Entity implements Ownable {
         LivingEntity owner = this.getOwner();
 
         for (LivingEntity target : targets) {
-            // Skip if target is the owner or a teammate
-            if (target == owner) {
-                continue;
-            }
-            if(owner instanceof MobEntity && target instanceof  MobEntity){
-                continue;
-            }
-            if (owner != null && owner.isTeammate(target)) {
+            if (!AllyHelper.canHurt(owner, target)) {
                 continue;
             }
 
@@ -164,17 +156,7 @@ public class StraightIcicleEntity extends Entity implements Ownable {
     }
 
     private float calculateDamage(LivingEntity owner) {
-        float damage = (float) (owner.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.75);
-
-        if (LNEPlatform.isModLoaded("spell_power")) {
-            try {
-                double frostPower = owner.getAttributeValue(SpellSchools.FROST.attributeEntry);
-                damage += (float) (frostPower * 0.5);
-            } catch (Exception e) {
-            }
-        }
-
-        return Math.max(6.0F, damage);
+        return SpellDamage.calculate(owner, FrostDamageProfiles.GROUND_ICICLE);
     }
 
     @Override

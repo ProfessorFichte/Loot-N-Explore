@@ -1,0 +1,36 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"1": "loot_n_explore:block/frozen_depths/icicle_projectile",
+		"particle": "loot_n_explore:block/frozen_depths/icicle_projectile"
+	},
+	"elements": [
+		{
+			"from": [3, 7, -16],
+			"to": [11, 7.1, 32],
+			"faces": {
+				"north": {"uv": [14, 16, 16, 16], "texture": "#1"},
+				"east": {"uv": [13.5, 0, 16, 10], "texture": "#1"},
+				"south": {"uv": [14, 16, 16, 16], "texture": "#1"},
+				"west": {"uv": [8, 16, 16, 16], "texture": "#1"},
+				"up": {"uv": [5, 0, 0, 16], "texture": "#1"},
+				"down": {"uv": [5, 16, 0, 0], "texture": "#1"}
+			}
+		},
+		{
+			"from": [7, 3, -16],
+			"to": [7.1, 11, 32],
+			"rotation": {"angle": 0, "axis": "y", "origin": [14, 0, 0]},
+			"faces": {
+				"north": {"uv": [14, 16, 16, 16], "rotation": 90, "texture": "#1"},
+				"east": {"uv": [5, 16, 0, 0], "rotation": 270, "texture": "#1"},
+				"south": {"uv": [14, 16, 16, 16], "rotation": 270, "texture": "#1"},
+				"west": {"uv": [0, 0, 5, 16], "rotation": 270, "texture": "#1"},
+				"up": {"uv": [13.5, 0, 16, 10], "rotation": 270, "texture": "#1"},
+				"down": {"uv": [8, 16, 16, 16], "rotation": 270, "texture": "#1"}
+			}
+		}
+	]
+}

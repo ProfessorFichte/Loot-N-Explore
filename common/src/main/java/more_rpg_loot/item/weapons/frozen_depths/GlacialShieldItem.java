@@ -1,7 +1,5 @@
 package more_rpg_loot.item.weapons.frozen_depths;
 
-import more_rpg_loot.platform.LNEPlatform;
-
 import more_rpg_loot.item.weapons.LNE_ShieldItems;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
 import more_rpg_loot.item.weapons.ShieldBlockAbility;
@@ -23,7 +21,7 @@ public class GlacialShieldItem extends ShieldItem implements ShieldBlockAbility 
     public GlacialShieldItem() { super(LNE_ShieldItems.shieldSettings(Identifier.of(MOD_ID, "frozen_soul"))); }
     @Override public boolean canRepair(ItemStack stack, ItemStack ingredient) { return ingredient.isOf(Items.ICE); }
     @Override public void onShieldBlock(PlayerEntity blocker, LivingEntity attacker) {
-        if (LNEPlatform.isModLoaded("spell_engine")
+        if (!LNE_WeaponItems.vanillaAbilitiesActive()
                 || blocker.getItemCooldownManager().isCoolingDown(this)
                 || blocker.getRandom().nextFloat() >= 0.20f) {
             return;

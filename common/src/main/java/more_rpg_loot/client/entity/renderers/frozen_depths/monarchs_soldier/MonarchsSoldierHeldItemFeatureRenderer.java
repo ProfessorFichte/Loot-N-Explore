@@ -7,7 +7,9 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.item.HeldItemRenderer;
 
 public class MonarchsSoldierHeldItemFeatureRenderer<T extends MonarchsSoldierEntity> extends AbstractHeldItemFeatureRenderer<T, MonarchsSoldierModel<T>> {
+    private static final float HAND_SHIFT_TOWARD_SHOULDER = 2.5F;
+
     public MonarchsSoldierHeldItemFeatureRenderer(FeatureRendererContext<T, MonarchsSoldierModel<T>> context, HeldItemRenderer heldItemRenderer) {
-        super(context, heldItemRenderer);
+        super(context, heldItemRenderer, HAND_SHIFT_TOWARD_SHOULDER);
     }
 }

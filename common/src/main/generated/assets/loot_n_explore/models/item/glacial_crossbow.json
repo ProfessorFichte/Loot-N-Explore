@@ -8,23 +8,16 @@
       }
     },
     {
-      "model": "loot_n_explore:item/glacial_crossbow_pulling_0",
-      "predicate": {
-        "pull": 0.333,
-        "pulling": 1
-      }
-    },
-    {
       "model": "loot_n_explore:item/glacial_crossbow_pulling_1",
       "predicate": {
-        "pull": 0.666,
+        "pull": 0.58,
         "pulling": 1
       }
     },
     {
       "model": "loot_n_explore:item/glacial_crossbow_pulling_2",
       "predicate": {
-        "pull": 0.9990000000000001,
+        "pull": 1.0,
         "pulling": 1
       }
     },

@@ -3,11 +3,12 @@ package more_rpg_loot.blocks.frozen_depths;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PowderSnowBlock;
+import net.minecraft.block.TranslucentBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class FragileIceBlock extends Block {
+public class FragileIceBlock extends TranslucentBlock {
     private static final float RUN_BREAK_CHANCE = 0.30F;
     private static final float WALK_BREAK_CHANCE = 0.05F;
 

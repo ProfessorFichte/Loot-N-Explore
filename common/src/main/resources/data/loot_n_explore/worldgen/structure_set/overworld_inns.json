@@ -1,16 +1,16 @@
 {
   "structures": [
     {
-      "structure": "loot_n_explore:plains_inn",
-      "weight": 5
+      "structure": "loot_n_explore:overworld_inns/plains",
+      "weight": 1
     },
     {
-      "structure": "loot_n_explore:desert_inn",
-      "weight": 5
+      "structure": "loot_n_explore:overworld_inns/desert",
+      "weight": 1
     },
     {
-      "structure": "loot_n_explore:badlands_inn",
-      "weight": 5
+      "structure": "loot_n_explore:overworld_inns/badlands",
+      "weight": 1
     }
   ],
   "placement": {

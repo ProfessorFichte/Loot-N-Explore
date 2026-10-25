@@ -1,6 +1,6 @@
 package more_rpg_loot.client.entity.renderers.generic;
 
-import more_rpg_loot.entity.generic.entity.CustomCloudEntity;
+import com.mrpg_lib.entity.CustomCloudEntity;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.util.Identifier;

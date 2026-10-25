@@ -1,7 +1,13 @@
 {
   "values": [
-    "loot_n_explore:vital_drink",
-    "loot_n_explore:espresso",
+    {
+      "id": "loot_n_explore:vital_drink",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:espresso",
+      "required": false
+    },
     {
       "id": "loot_n_explore:forrest_spirit",
       "required": false

@@ -2,6 +2,7 @@ package more_rpg_loot.blocks.generic;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
@@ -13,7 +14,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 
 public class HangingInnSignBlock extends Block {
     private static final VoxelShape HANGING_SHAPE  = Block.createCuboidShape(2,  0, 7, 14, 12,  9);
@@ -70,5 +74,24 @@ public class HangingInnSignBlock extends Block {
         Direction facing = state.get(FACING);
         return world.getBlockState(pos.offset(facing.getOpposite()))
                 .isSideSolidFullSquare(world, pos.offset(facing.getOpposite()), facing);
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        Direction support = state.get(HANGING) ? Direction.UP : state.get(FACING).getOpposite();
+        if (direction == support && !state.canPlaceAt(world, pos)) {
+            return Blocks.AIR.getDefaultState();
+        }
+        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }

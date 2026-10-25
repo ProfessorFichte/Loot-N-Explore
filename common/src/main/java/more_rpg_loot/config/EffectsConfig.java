@@ -39,5 +39,5 @@ public class EffectsConfig {
     public float drinks_special_attribute_t2_boost = 0.15F;
     public float drinks_special_attribute_t3_boost = 0.2F;
 
-    public float drinks_knockback_resistance_t3_boost = 3.0F;
+    public float drinks_knockback_resistance_t3_boost = 0.3F;
 }

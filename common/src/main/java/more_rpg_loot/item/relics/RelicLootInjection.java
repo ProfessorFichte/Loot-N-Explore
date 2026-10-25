@@ -16,18 +16,13 @@ public final class RelicLootInjection {
     private RelicLootInjection() {}
 
     public static void init() {
-        try {
-            config = new ConfigManager<RelicLootConfig>("relic_loot", RelicLootConfig.defaults())
-                    .builder()
-                    .setDirectory(RPGLoot.MOD_ID)
-                    .sanitize(true)
-                    .build();
-            config.refresh();
-            config.save();
-        } catch (NoClassDefFoundError e) {
-            RPGLoot.LOGGER.warn("[LootNExplore] tiny_config not found, relic loot injection disabled: {}", e.getMessage());
-            return;
-        }
+        config = new ConfigManager<RelicLootConfig>("relic_loot", RelicLootConfig.defaults())
+                .builder()
+                .setDirectory(RPGLoot.MOD_ID)
+                .sanitize(true)
+                .build();
+        config.refresh();
+        config.save();
         LNEEvents.get().onLootTableModify(RelicLootInjection::configure);
     }
 

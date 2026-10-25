@@ -3,7 +3,7 @@ package more_rpg_loot.compat.spell_engine.trinket_compat;
 import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import more_rpg_loot.item.relics.VanillaRelicAbilities;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;

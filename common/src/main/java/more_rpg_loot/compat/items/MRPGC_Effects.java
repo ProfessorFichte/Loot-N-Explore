@@ -6,8 +6,8 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
-import net.more_rpg_classes.custom.MoreSpellSchools;
-import net.more_rpg_classes.entity.attribute.MRPGCEntityAttributes;
+import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
+import com.mrpg_lib.entity.attribute.MRPGCEntityAttributes;
 import net.spell_power.api.SpellSchools;
 
 import java.util.ArrayList;

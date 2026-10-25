@@ -3,6 +3,8 @@ package more_rpg_loot.compat.items;
 import more_rpg_loot.effects.CustomStatusEffect;
 import more_rpg_loot.effects.SpecialStatusEffect;
 import net.fabric_extras.ranged_weapon.api.EntityAttributes_RangedWeapon;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
@@ -60,5 +62,17 @@ public class RWA_Effects {
                         effectsConfig.value.drinks_arrow_velocity_t3_boost, EntityAttributeModifier.Operation.ADD_VALUE);
 
         CompatEffectEntry.registerAll("Ranged Weapon API", entries);
+    }
+
+    public static DefaultAttributeContainer.Builder addDamageAttribute(DefaultAttributeContainer.Builder builder) {
+        return builder.add(EntityAttributes_RangedWeapon.DAMAGE.entry, 1.0);
+    }
+
+    public static double getDamageMultiplier(LivingEntity entity) {
+        return entity.getAttributeValue(EntityAttributes_RangedWeapon.DAMAGE.entry);
+    }
+
+    public static String damageAttributeId() {
+        return EntityAttributes_RangedWeapon.DAMAGE.entry.getIdAsString();
     }
 }

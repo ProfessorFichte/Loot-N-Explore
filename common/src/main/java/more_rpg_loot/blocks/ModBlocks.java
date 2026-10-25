@@ -41,7 +41,6 @@ public class ModBlocks {
             this(name, block, new BlockItem(block, new Item.Settings()), translation, modelType);
         }
 
-        // Convenience constructor that defaults to CubeAll model
         public Entry(String name, Block block, String translation) {
             this(name, block, translation, new ModelType.CubeAll());
         }
@@ -92,7 +91,6 @@ public class ModBlocks {
         return entry("frozen_soul_block", block, new FrozenSoulBlockItem(block, new Item.Settings()), "Frozen Soul Block", new ModelType.CubeAll());
     }
 
-    /// BASE MOD BLOCKS
     public static final Entry INNKEEPER_SHELF = entry("innkeeper_shelf", new InnkeeperShelfBlock(
             AbstractBlock.Settings.create()
                     .mapColor(MapColor.OAK_TAN)
@@ -100,7 +98,6 @@ public class ModBlocks {
                     .strength(2.5F)
                     .sounds(BlockSoundGroup.WOOD)
                     .nonOpaque()), "Innkeeper Shelf", new ModelType.Custom());
-    /// FROZEN DEPTHS 1.0 CONTENT BLOCKS
     public static final Entry BLUE_ICE_BRICKS = entry("blue_ice_bricks", new Block(
             AbstractBlock.Settings.copy(Blocks.BLUE_ICE)), "Blue Ice Bricks");
     public static final Entry CRACKED_BLUE_ICE_BRICKS = entry("cracked_blue_ice_bricks", new Block(
@@ -125,7 +122,6 @@ public class ModBlocks {
     public static final Entry SOULFROST_LANTERN = entry("soulfrost_lantern", new LanternBlock(
             AbstractBlock.Settings.copy(Blocks.SOUL_LANTERN).nonOpaque()), "Soulfrost Lantern", new ModelType.Custom());
 
-    // Initialize FROST_BLOOM first without model type, then add POTTED variant, then set model type
     private static final Block FROST_BLOOM_BLOCK = new FrostbloomBlock(Effects.FROST_RESISTANCE.registryEntry, 5,
             AbstractBlock.Settings.copy(Blocks.ALLIUM).nonOpaque().noCollision());
     public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),

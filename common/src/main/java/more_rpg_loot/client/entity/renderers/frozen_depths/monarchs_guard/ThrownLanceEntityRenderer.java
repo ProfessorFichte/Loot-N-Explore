@@ -25,10 +25,7 @@ public class ThrownLanceEntityRenderer extends EntityRenderer<ThrownLanceEntity>
     public void render(ThrownLanceEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
 
-        // Render the raw model (ModelTransformationMode.NONE - no baked "held in hand" rotation)
-        // and orient it purely from travel direction so the tip points cleanly along the flight
-        // path - stacking our rotation on top of THIRD_PERSON_RIGHT_HAND's baked angle (previous
-        // attempt) fought against it instead.
+        // raw model with no held-in-hand rotation, so the tip follows the flight direction
         Vec3d velocity = entity.getVelocity().normalize();
         float directionYaw = (float) (Math.toDegrees(Math.atan2(velocity.x, velocity.z)) + 180.0);
         float directionPitch = (float) Math.toDegrees(Math.asin(velocity.y));

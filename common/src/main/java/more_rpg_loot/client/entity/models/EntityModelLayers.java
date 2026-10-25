@@ -22,12 +22,6 @@ public class EntityModelLayers {
             Identifier.of("loot_n_explore", "frost_monarch"),
             "main"
     );
-    public static final EntityModelLayer FROST_MONARCH_INNER_ARMOR =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "inner_armor");
-    public static final EntityModelLayer FROST_MONARCH_OUTER_ARMOR =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "outer_armor");
-    public static final EntityModelLayer FROST_MONARCH_OUTER =
-            new EntityModelLayer(Identifier.of("loot_n_explore", "frost_monarch"), "outer");
 
     public static final EntityModelLayer FROSTHAUNT = new EntityModelLayer(
             Identifier.of("loot_n_explore", "frosthaunt"),

@@ -13,17 +13,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.RotationAxis;
 
-/**
- * Shared held-item rendering for the frozen_depths mob rigs. Main hand renders on the model's
- * left arm and off hand on the right - that's where each rig's weapon socket sits, swapped from
- * the naive getMainArm()-based vanilla mapping.
- */
+// main hand is on the model's left arm, off hand on the right, because that is where the weapon sockets are
 public abstract class AbstractHeldItemFeatureRenderer<T extends LivingEntity, M extends EntityModel<T> & ModelWithArms> extends FeatureRenderer<T, M> {
     private final HeldItemRenderer heldItemRenderer;
+    private final float handShiftTowardShoulder;
 
     protected AbstractHeldItemFeatureRenderer(FeatureRendererContext<T, M> context, HeldItemRenderer heldItemRenderer) {
+        this(context, heldItemRenderer, 0.0F);
+    }
+
+    protected AbstractHeldItemFeatureRenderer(FeatureRendererContext<T, M> context, HeldItemRenderer heldItemRenderer, float handShiftTowardShoulder) {
         super(context);
         this.heldItemRenderer = heldItemRenderer;
+        this.handShiftTowardShoulder = handShiftTowardShoulder / 16.0F;
     }
 
     protected boolean shouldRender(T entity) {
@@ -57,6 +59,7 @@ public abstract class AbstractHeldItemFeatureRenderer<T extends LivingEntity, M 
         matrices.push();
 
         this.getContextModel().setArmAngle(arm, matrices);
+        matrices.translate(0.0F, -this.handShiftTowardShoulder, 0.0F);
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-90.0F));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));

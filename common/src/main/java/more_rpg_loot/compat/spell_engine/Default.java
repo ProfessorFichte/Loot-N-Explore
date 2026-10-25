@@ -64,7 +64,6 @@ public class Default {
         var scrolls = scrollLootConfig.injectors;
         var scrolls_regex = scrollLootConfig.regex_injectors;
 
-        // Vanilla Minecraft Tables
         List.of("minecraft:chests/abandoned_mineshaft",
                         "minecraft:chests/igloo_chest",
                         "minecraft:chests/shipwreck_supply",
@@ -107,7 +106,6 @@ public class Default {
                     );
                 });
 
-        //LOOT&EXPLORE CHESTS
         List.of("loot_n_explore:chests/inns/desert",
                 "loot_n_explore:chests/inns/plains",
                 "loot_n_explore:chests/vilages/plains/small_inn",
@@ -175,7 +173,6 @@ public class Default {
                     );
                 });
 
-        //LOOT&EXPLORE ENTITIES
         items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()
                 .rolls(2)
                 .add(W3).enchant().weight(4)
@@ -185,13 +182,11 @@ public class Default {
                 .add(W5)
                 .add(A5)
         );
-        /// TAVERNS RPG SERIES
         items.put("village_taverns:chests/tavern",  new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B0)
                 .add(B1)
         );
-        /// AETHER
         items.put("aether:chests/dungeon/silver/silver_dungeon_reward", new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B2)
@@ -200,7 +195,6 @@ public class Default {
                 .rolls(0.5)
                 .add(B3)
         );
-        /// DNT
         items.put("nova_structures:chests/undead_crypts_grave", new LootConfig.Pool()
                 .rolls(0.1)
                 .add(B1)
@@ -217,13 +211,11 @@ public class Default {
                 .rolls(0.35)
                 .add(B3)
         );
-        // GRAVEYARD
         items.put("graveyard:chests/large_loot", new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B1)
                 .add(B2)
         );
-        // YUNGS BETTER DUNGEON
         items.put("betterdungeons:zombie_dungeon/chests/special", new LootConfig.Pool()
                 .rolls(0.3)
                 .add(B0)
@@ -234,17 +226,14 @@ public class Default {
                 .rolls(0.5)
                 .add(B2)
         );
-        /// YUNGS BETTER DESERT TEMPLE
         items.put("betterdeserttemples:chests/tomb_pharaoh", new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B2)
         );
-        /// YUNGS BETTER STRONGHOLD
         items.put("betterstrongholds:chests/grand_library", new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B2)
         );
-        /// PHILIPS RUINS
         items.put("philipsruins:chest/badlands_dungeon_loot_high", new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B1)
@@ -253,18 +242,15 @@ public class Default {
                 .rolls(0.5)
                 .add(B2)
         );
-        /// BETTER NETHER
         items.put("betternether:chests/city_surprise", new LootConfig.Pool()
                 .rolls(0.35)
                 .add(B3)
         );
-        /// BETTER END
         items.put("betterend:chests/shadow_forest", new LootConfig.Pool()
                 .rolls(0.35)
                 .add(B2)
                 .add(B3)
         );
-        /// WHEN DUNGEONS ARISE
         items.put("dungeons_arise:chests/bathhouse/bathhouse_normal", new LootConfig.Pool()
                 .rolls(0.25)
                 .add(B1)

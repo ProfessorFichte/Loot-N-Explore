@@ -1,7 +1,7 @@
 package more_rpg_loot.compat.spell_engine;
 import more_rpg_loot.platform.LNEPlatform;
 
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.spell_engine.rpg_series.config.AttributeModifier;
 
 import java.util.LinkedHashMap;
@@ -41,7 +41,7 @@ public class LNE_RelicsConfig {
         @Nullable public String required_mod;
 
         public boolean isSatisfied() {
-            if (required_mod != null || !required_mod.isEmpty()) {
+            if (required_mod != null && !required_mod.isEmpty()) {
                 if (!LNEPlatform.isModLoaded(required_mod)) {
                     return false;
                 }

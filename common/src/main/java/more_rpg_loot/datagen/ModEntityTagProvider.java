@@ -4,6 +4,7 @@ import more_rpg_loot.entity.ModEntities;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.EntityTypeTags;
 import net.minecraft.registry.tag.TagKey;
@@ -20,65 +21,65 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
-                .add(ModEntities.FROST_HAUNT)
-                .add(ModEntities.FROST_MONARCH)
-                .add(ModEntities.UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.FROSTED_RANGER)
-                .add(ModEntities.GENERAL_FROSTED_RANGER)
-                .add(ModEntities.MONARCHS_SOLDIER)
-                .add(ModEntities.GENERAL_MONARCHS_SOLDIER)
-                .add(ModEntities.MONARCHS_GUARD)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HAUNT))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_MONARCH))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_GUARD))
         ;
 
         getOrCreateTagBuilder(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS)
-                .add(ModEntities.GLAZE)
-                .add(ModEntities.FROST_HAUNT)
-                .add(ModEntities.FROST_MONARCH)
-                .add(ModEntities.UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.FROSTED_RANGER)
-                .add(ModEntities.GENERAL_FROSTED_RANGER)
-                .add(ModEntities.FROST_HOUND)
-                .add(ModEntities.MONARCHS_SOLDIER)
-                .add(ModEntities.GENERAL_MONARCHS_SOLDIER)
-                .add(ModEntities.MONARCHS_GUARD)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GLAZE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HAUNT))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_MONARCH))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HOUND))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_GUARD))
         ;
 
         getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES)
-                .add(ModEntities.GLAZE)
-                .add(ModEntities.FROST_HAUNT)
-                .add(ModEntities.FROST_MONARCH)
-                .add(ModEntities.UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.FROSTED_RANGER)
-                .add(ModEntities.GENERAL_FROSTED_RANGER)
-                .add(ModEntities.FROST_HOUND)
-                .add(ModEntities.MONARCHS_SOLDIER)
-                .add(ModEntities.GENERAL_MONARCHS_SOLDIER)
-                .add(ModEntities.MONARCHS_GUARD)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GLAZE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HAUNT))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_MONARCH))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HOUND))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_GUARD))
         ;
 
         getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-                .add(ModEntities.GLAZE)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GLAZE))
         ;
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("c", "bosses")))
-                .add(ModEntities.FROST_MONARCH)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_MONARCH))
         ;
 
         getOrCreateTagBuilder(TagKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of("frostiful", "benefits_from_cold")))
-                .add(ModEntities.FROST_MONARCH)
-                .add(ModEntities.FROST_HAUNT)
-                .add(ModEntities.GLAZE)
-                .add(ModEntities.UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE)
-                .add(ModEntities.FROSTED_RANGER)
-                .add(ModEntities.GENERAL_FROSTED_RANGER)
-                .add(ModEntities.FROST_HOUND)
-                .add(ModEntities.MONARCHS_SOLDIER)
-                .add(ModEntities.GENERAL_MONARCHS_SOLDIER)
-                .add(ModEntities.MONARCHS_GUARD)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_MONARCH))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HAUNT))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GLAZE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_UNDEAD_FROZEN_MAGE))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROSTED_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.FROST_HOUND))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_GUARD))
         ;
     }
 }

@@ -3,10 +3,11 @@ package com.lne.fabric.client;
 import more_rpg_loot.client.RPGLootClient;
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.hud.FrostMonarchSpawnOverlay;
-import more_rpg_loot.client.models.CustomModelHelper;
+import com.mrpg_lib.client.model.CustomModelHelper;
 import more_rpg_loot.client.particle.DragonClawParticle;
+import more_rpg_loot.client.particle.FrozenSoulMoteParticle;
 import more_rpg_loot.client.platform.LNEClientModels;
-import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.particle.Particles;
 import more_rpg_loot.network.FrostMonarchSpawnOverlayPayload;
 import more_rpg_loot.network.FrozenDepthsMusicPayload;
 import net.fabricmc.api.ClientModInitializer;
@@ -29,13 +30,16 @@ public final class RPGLootFabricClient implements ClientModInitializer {
         RPGLootClient.registerEntityRenderers(EntityRendererRegistry::register);
         ParticleFactoryRegistry.getInstance().register(Particles.DRAGON_CLAW, DragonClawParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FREEZING_SNOWFLAKE, SnowflakeParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_SOUL_MOTE, FrozenSoulMoteParticle.Factory::new);
         ClientEntityEvents.ENTITY_LOAD.register((entity, world) -> RPGLootClient.onBossEntityLoad(entity));
         ClientPlayNetworking.registerGlobalReceiver(FrozenDepthsMusicPayload.ID,
                 (payload, context) -> RPGLootClient.onFrozenDepthsMusic(payload.start()));
         ClientPlayNetworking.registerGlobalReceiver(FrostMonarchSpawnOverlayPayload.ID,
                 (payload, context) -> RPGLootClient.onFrostMonarchSpawnOverlay());
         HudRenderCallback.EVENT.register(FrostMonarchSpawnOverlay::render);
-        RPGLootClient.registerBlockRenderLayers(block -> BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout()));
+        RPGLootClient.registerBlockRenderLayers(
+                block -> BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getCutout()),
+                block -> BlockRenderLayerMap.INSTANCE.putBlock(block, RenderLayer.getTranslucent()));
         RPGLootClient.registerModelIds();
         ModelLoadingPlugin.register(pluginContext -> CustomModelHelper.modelIds().forEach(pluginContext::addModels));
         LNEClientModels.lookup = id -> MinecraftClient.getInstance().getBakedModelManager().getModel(id);

@@ -8,6 +8,8 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 
 import static more_rpg_loot.RPGLoot.MOD_ID;
 
@@ -28,5 +30,15 @@ public class InnkeeperShelfBlock extends Block {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }

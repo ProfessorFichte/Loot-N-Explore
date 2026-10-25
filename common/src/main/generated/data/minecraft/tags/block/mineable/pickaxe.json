@@ -1,18 +1,68 @@
 {
   "values": [
-    "loot_n_explore:soulfrost_lantern",
-    "loot_n_explore:frozen_chain",
-    "loot_n_explore:monarchs_crown",
-    "loot_n_explore:blue_ice_bricks",
-    "loot_n_explore:blue_ice_brick_slab",
-    "loot_n_explore:blue_ice_brick_stairs",
-    "loot_n_explore:blue_ice_brick_wall",
-    "loot_n_explore:cracked_blue_ice_bricks",
-    "loot_n_explore:snowy_blue_ice_bricks",
-    "loot_n_explore:polished_ice_block",
-    "loot_n_explore:polished_ice_bricks",
-    "loot_n_explore:frozen_soul_block",
-    "loot_n_explore:frozen_trial_spawner",
-    "loot_n_explore:frozen_vault"
+    {
+      "id": "loot_n_explore:soulfrost_lantern",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_chain",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:monarchs_crown",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blue_ice_bricks",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blue_ice_brick_slab",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blue_ice_brick_stairs",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:blue_ice_brick_wall",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:cracked_blue_ice_bricks",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:snowy_blue_ice_bricks",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:polished_ice_block",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:polished_ice_bricks",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_soul_block",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_trial_spawner",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_vault",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:pointed_icicle",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:icicle_bar",
+      "required": false
+    }
   ]
 }

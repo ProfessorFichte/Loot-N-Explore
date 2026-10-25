@@ -1,7 +1,10 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
+
+import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchAnimationTimes;
 import more_rpg_loot.platform.LNEPlatform;
 
 import more_rpg_loot.blocks.frozen_depths.IcicleBlock;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.sounds.ModSounds;
 import net.minecraft.block.BlockState;
@@ -38,6 +41,11 @@ public class ScreechGoal extends Goal {
     }
 
     @Override
+    public boolean shouldRunEveryTick() {
+        return true;
+    }
+
+    @Override
     public boolean canStart() {
         if(!monarch.isPerformingAbility() && !isCasting){
             LivingEntity target = monarch.getTarget();
@@ -65,7 +73,7 @@ public class ScreechGoal extends Goal {
     public void start() {
         this.cachedTarget = monarch.getTarget();
         this.isCasting = true;
-        this.channelTicks = 25;
+        this.channelTicks = FrostMonarchAnimationTimes.SCREECH_LENGTH_TICKS;
         this.hasStarted = false;
         monarch.setScreeching(true);
         monarch.setCasting(true);
@@ -74,24 +82,21 @@ public class ScreechGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
-        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] ScreechGoal started, target={}", cachedTarget);
     }
 
 
     private void screechAttack() {
         if (!monarch.getWorld().isClient()) {
+            double damageMultiplier = monarch.tuning().getDouble(FrozenDepthsTuning.SCREECH_DAMAGE_MULTIPLIER, 0.1);
             List<Entity> entities = monarch.getWorld().getOtherEntities(
                     monarch,
                     monarch.getBoundingBox().expand(SCREECH_RADIUS)
             );
-            int hitCount = 0;
-
             for (Entity entity : entities) {
-                if (entity instanceof LivingEntity living && !(entity instanceof MobEntity)) {
-                    hitCount++;
+                if (entity instanceof LivingEntity living && living.isAlive() && !(entity instanceof MobEntity) && !(entity instanceof net.minecraft.entity.decoration.ArmorStandEntity)) {
                     monarch.setVelocity(Vec3d.ZERO);
 
-                    float baseDamage = (float) monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.1F;
+                    float baseDamage = (float) (monarch.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * damageMultiplier);
                     float scaledDamage = monarch.getScaledDamage(baseDamage);
 
                     living.damage(
@@ -103,21 +108,6 @@ public class ScreechGoal extends Goal {
                     float knockbackResistanceLiving = (float) living.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);
                     living.takeKnockback(1.5F - knockbackResistanceLiving, dx, dz);
 
-                    if (!entity.getWorld().isClient() && entity.getWorld() instanceof ServerWorld serverWorld) {
-                        double radius = 5.0;
-                        int count  = 3;
-                        Vec3d pos = monarch.getPos();
-
-                        for (int i = 0; i < count; i++) {
-                            double angle = 2 * Math.PI * i / count;
-                            double x = pos.x + radius * Math.cos(angle);
-                            double z = pos.z + radius * Math.sin(angle);
-                            double y = pos.y + 1.0;
-                            serverWorld.spawnParticles(
-                                    ParticleTypes.SONIC_BOOM,
-                                    x, y, z, 1, 0, 0, 0, 0);
-                        }
-                    }
                     if (LNEPlatform.isModLoaded("spell_engine")) {
                         living.addStatusEffect(new StatusEffectInstance(SpellEngineEffects.STUN.entry, 40, 0));
                     } else {
@@ -127,6 +117,18 @@ public class ScreechGoal extends Goal {
                 }
             }
 
+            if (monarch.getWorld() instanceof ServerWorld serverWorld) {
+                double radius = 5.0;
+                int count = 3;
+                Vec3d pos = monarch.getPos();
+                for (int i = 0; i < count; i++) {
+                    double angle = 2 * Math.PI * i / count;
+                    serverWorld.spawnParticles(
+                            ParticleTypes.SONIC_BOOM,
+                            pos.x + radius * Math.cos(angle), pos.y + 1.0, pos.z + radius * Math.sin(angle),
+                            1, 0, 0, 0, 0);
+                }
+            }
             monarch.getWorld().playSound(
                     null,
                     monarch.getX(), monarch.getY(), monarch.getZ(),
@@ -135,7 +137,6 @@ public class ScreechGoal extends Goal {
                     2.5f, 1.0f
             );
             dropCeilingIcicles();
-            more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] Screech hit {} entities", hitCount);
         }
     }
 
@@ -191,7 +192,7 @@ public class ScreechGoal extends Goal {
                 monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
             }
         }
-        if (channelTicks == 13) {
+        if (channelTicks == FrostMonarchAnimationTimes.SCREECH_LENGTH_TICKS - FrostMonarchAnimationTimes.SCREECH_RELEASE_TICK) {
             screechAttack();
         }
 
@@ -212,7 +213,7 @@ public class ScreechGoal extends Goal {
         monarch.setScreeching(false);
         monarch.setCasting(false);
 
-        monarch.screechCooldown = monarch.getScaledCooldown(300);
+        monarch.screechCooldown = monarch.getScaledCooldown(monarch.tuning().getInt(FrozenDepthsTuning.SCREECH_COOLDOWN, 300));
         monarch.globalAbilityCooldown = 20;
     }
 }

@@ -4,9 +4,10 @@ import more_rpg_loot.RPGLoot;
 import more_rpg_loot.client.RPGLootClient;
 import more_rpg_loot.client.entity.models.EntityModelLayers;
 import more_rpg_loot.client.hud.FrostMonarchSpawnOverlay;
-import more_rpg_loot.client.models.CustomModelHelper;
+import com.mrpg_lib.client.model.CustomModelHelper;
 import more_rpg_loot.client.particle.DragonClawParticle;
-import more_rpg_loot.client.particle.Particles;
+import more_rpg_loot.client.particle.FrozenSoulMoteParticle;
+import more_rpg_loot.particle.Particles;
 import more_rpg_loot.client.platform.LNEClientModels;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.SnowflakeParticle;
@@ -40,6 +41,7 @@ public class RPGLootNeoForgeClient {
     public static void onRegisterParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(Particles.DRAGON_CLAW, DragonClawParticle.Factory::new);
         event.registerSpriteSet(Particles.FREEZING_SNOWFLAKE, SnowflakeParticle.Factory::new);
+        event.registerSpriteSet(Particles.FROZEN_SOUL_MOTE, FrozenSoulMoteParticle.Factory::new);
     }
 
     @SubscribeEvent
@@ -48,7 +50,9 @@ public class RPGLootNeoForgeClient {
         LNEClientModels.lookup = id -> MinecraftClient.getInstance().getBakedModelManager().getModel(new ModelIdentifier(id, "standalone"));
         event.enqueueWork(() -> {
             RPGLootClient.registerModelPredicates();
-            RPGLootClient.registerBlockRenderLayers(block -> RenderLayers.setRenderLayer(block, RenderLayer.getCutout()));
+            RPGLootClient.registerBlockRenderLayers(
+                    block -> RenderLayers.setRenderLayer(block, RenderLayer.getCutout()),
+                    block -> RenderLayers.setRenderLayer(block, RenderLayer.getTranslucent()));
         });
     }
 

@@ -1,6 +1,6 @@
 package more_rpg_loot.worldgen.structures;
 
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.MapColorComponent;
 import net.minecraft.entity.Entity;

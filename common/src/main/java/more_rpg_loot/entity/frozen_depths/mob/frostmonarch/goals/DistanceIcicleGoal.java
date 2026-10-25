@@ -1,5 +1,7 @@
 package more_rpg_loot.entity.frozen_depths.mob.frostmonarch.goals;
 
+import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchAnimationTimes;
+import more_rpg_loot.entity.frozen_depths.FrozenDepthsTuning;
 import more_rpg_loot.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
 import more_rpg_loot.entity.frozen_depths.projectile.StraightIcicleEntity;
 import net.minecraft.block.BlockState;
@@ -30,6 +32,11 @@ public class DistanceIcicleGoal extends Goal {
     }
 
     @Override
+    public boolean shouldRunEveryTick() {
+        return true;
+    }
+
+    @Override
     public boolean canStart() {
         if (!monarch.isPerformingAbility() && !isCasting) {
             LivingEntity target = monarch.getTarget();
@@ -47,7 +54,7 @@ public class DistanceIcicleGoal extends Goal {
     public void start() {
         this.cachedTarget = monarch.getTarget();
         this.isCasting = true;
-        this.channelTicks = 10;
+        this.channelTicks = FrostMonarchAnimationTimes.SUMMON_RELEASE_TICK + 5;
         this.hasStarted = false;
         monarch.setCasting(true);
         monarch.getNavigation().stop();
@@ -55,7 +62,6 @@ public class DistanceIcicleGoal extends Goal {
         if (cachedTarget != null) {
             monarch.getLookControl().lookAt(cachedTarget, 30.0F, 30.0F);
         }
-        more_rpg_loot.RPGLoot.LOGGER.info("[FrostMonarch] DistanceIcicleGoal started, target={}", cachedTarget);
     }
 
     @Override
@@ -161,7 +167,6 @@ public class DistanceIcicleGoal extends Goal {
                 GameEvent.Emitter.of(monarch)
             );
         } else {
-            more_rpg_loot.RPGLoot.LOGGER.warn("[FrostMonarch] DistanceIcicleGoal found no ground for icicle at x={}, z={} (minY={}, maxY={}) - icicle skipped", x, z, minY, maxY);
         }
     }
 
@@ -178,7 +183,7 @@ public class DistanceIcicleGoal extends Goal {
         this.cachedTarget = null;
         monarch.setCasting(false);
 
-        monarch.distanceIcicleCooldown = monarch.getScaledCooldown(250);
+        monarch.distanceIcicleCooldown = monarch.getScaledCooldown(monarch.tuning().getInt(FrozenDepthsTuning.DISTANCE_ICICLE_COOLDOWN, 250));
         monarch.globalAbilityCooldown = 20;
     }
 }

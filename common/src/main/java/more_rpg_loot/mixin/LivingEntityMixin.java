@@ -31,7 +31,6 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    // Vanilla-fallback shield block ability trigger - fires independently of any other block-detection hook on this same injection point.
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damageShield(F)V"))
     public void shieldBlockAbilityMixin(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!(livingEntity instanceof PlayerEntity player)) {
