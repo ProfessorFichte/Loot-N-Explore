@@ -1,6 +1,8 @@
 package more_rpg_loot.item.weapons.frozen_depths;
 
+import more_rpg_loot.ability.TriggerType;
 import more_rpg_loot.item.weapons.LNE_WeaponItems;
+import more_rpg_loot.item.weapons.WeaponAbility;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
@@ -12,18 +14,17 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 public class GlacialAxeItem extends AxeItem {
-    private static final int COOLDOWN = 360;
     public GlacialAxeItem(float bonus, float speed) { super(ToolMaterials.NETHERITE, LNE_WeaponItems.meleeSettings(bonus, speed)); }
     @Override public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (!attacker.getWorld().isClient && LNE_WeaponItems.vanillaAbilitiesActive() && attacker instanceof PlayerEntity player
                 && !player.getItemCooldownManager().isCoolingDown(this)
-                && attacker.getRandom().nextFloat() < 0.20f) {
+                && WeaponAbility.GLACIAL.roll(attacker.getRandom())) {
             LNE_WeaponItems.spawnFrostballs(attacker.getWorld(), attacker);
-            player.getItemCooldownManager().set(this, COOLDOWN);
+            player.getItemCooldownManager().set(this, WeaponAbility.GLACIAL.cooldownTicks());
         }
         return super.postHit(stack, target, attacker);
     }
     @Override public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type); LNE_WeaponItems.addAbilityTooltip(this, tooltip);
+        super.appendTooltip(stack, context, tooltip, type); LNE_WeaponItems.addAbilityTooltip(WeaponAbility.GLACIAL, TriggerType.MELEE_HIT, tooltip);
     }
 }

@@ -1,5 +1,6 @@
 package more_rpg_loot.item.weapons;
 
+import more_rpg_loot.ability.TriggerType;
 import more_rpg_loot.platform.LNEEvents;
 
 import more_rpg_loot.platform.LNEPlatform;
@@ -31,10 +32,8 @@ import net.minecraft.item.*;
 import net.minecraft.item.MaceItem;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -48,7 +47,7 @@ import static more_rpg_loot.RPGLoot.MOD_ID;
 
 public class LNE_WeaponItems {
 
-    public record Entry(String name, Item item, String translatedName, String loreText) {
+    public record Entry(String name, Item item, String translatedName) {
         public Identifier id() { return Identifier.of(MOD_ID, name); }
     }
 
@@ -56,20 +55,20 @@ public class LNE_WeaponItems {
     public static final List<Entry> rangedEntries = new ArrayList<>();
     public static final List<Entry> maceEntries = new ArrayList<>();
 
-    private static Entry add(String name, Item item, String translatedName, String loreText) {
-        var e = new Entry(name, item, translatedName, loreText);
+    private static Entry add(String name, Item item, String translatedName) {
+        var e = new Entry(name, item, translatedName);
         entries.add(e);
         return e;
     }
 
-    private static Entry addRanged(String name, Item item, String translatedName, String loreText) {
-        var e = new Entry(name, item, translatedName, loreText);
+    private static Entry addRanged(String name, Item item, String translatedName) {
+        var e = new Entry(name, item, translatedName);
         rangedEntries.add(e);
         return e;
     }
 
-    private static Entry addMace(String name, Item item, String translatedName, String loreText) {
-        var e = new Entry(name, item, translatedName, loreText);
+    private static Entry addMace(String name, Item item, String translatedName) {
+        var e = new Entry(name, item, translatedName);
         maceEntries.add(e);
         return e;
     }
@@ -93,8 +92,7 @@ public class LNE_WeaponItems {
     public static void spawnDragonParticles(World world, LivingEntity target) {
         if (world instanceof ServerWorld sw) {
             double cx = target.getX(), cy = target.getY() + target.getHeight() / 2.0, cz = target.getZ();
-            sw.spawnParticles(ParticleTypes.PORTAL,       cx, cy, cz, 20, 0.4, 0.5, 0.4, 0.2);
-            sw.spawnParticles(ParticleTypes.DRAGON_BREATH, cx, cy, cz, 12, 0.3, 0.4, 0.3, 0.05);
+            WeaponFx.dragon(sw, new Vec3d(cx, cy, cz));
         }
     }
 
@@ -112,6 +110,9 @@ public class LNE_WeaponItems {
             skull.setPosition(attacker.getX(), attacker.getEyeY(), attacker.getZ());
             world.spawnEntity(skull);
         }
+        if (world instanceof ServerWorld sw) {
+            WeaponFx.wither(sw, new Vec3d(attacker.getX(), attacker.getEyeY(), attacker.getZ()), target.getPos().add(0, target.getHeight() / 2.0, 0));
+        }
     }
 
     public static void spawnFrostballs(World world, LivingEntity attacker) {
@@ -124,29 +125,29 @@ public class LNE_WeaponItems {
             ball.setVelocity(0, -1, 0);
             world.spawnEntity(ball);
         }
+        if (world instanceof ServerWorld sw) {
+            WeaponFx.glacial(sw, new Vec3d(bx, by, bz), attacker.getPos().add(0, 0.2, 0));
+        }
     }
 
     public static void spawnRainCloud(LivingEntity attacker, LivingEntity target) {
-        float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * 0.25f);
+        float dmg = (float)(attacker.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE) * WeaponAbility.ELDER_GUARDIAN.damageMultiplier());
         CloudMethods.spawnCustomCloud(ParticleTypes.RAIN, attacker, target, 1,
                 5.0f, 5, 5.0f, null, 0, 0, false, 0,
                 true, dmg, target.getDamageSources().magic());
+        if (target.getWorld() instanceof ServerWorld sw) {
+            WeaponFx.guardian(sw, target.getPos().add(0, target.getHeight() / 2.0, 0));
+        }
     }
 
     public static boolean vanillaAbilitiesActive() {
         return !LNEPlatform.isModLoaded("spell_engine");
     }
 
-    public static void addAbilityTooltip(Item item, List<Text> tooltip) {
+    public static void addAbilityTooltip(WeaponAbility ability, TriggerType trigger, List<Text> tooltip) {
         if (vanillaAbilitiesActive()) {
-            tooltip.add(ScreenTexts.EMPTY);
-            tooltip.add(Text.translatable(item.getTranslationKey() + ".lore")
-                    .formatted(Formatting.GRAY, Formatting.ITALIC));
+            ability.appendTooltip(trigger, tooltip);
         }
-    }
-
-    public static void addElderGuardianTooltip(Item item, List<Text> tooltip) {
-        addAbilityTooltip(item, tooltip);
     }
 
     private static ProjectileEntity toAbilityArrow(World world, LivingEntity shooter, byte abilityId, ProjectileEntity vanilla) {
@@ -175,7 +176,7 @@ public class LNE_WeaponItems {
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
             super.appendTooltip(stack, context, tooltip, type);
-            addAbilityTooltip(this, tooltip);
+            addAbilityTooltip(LNEAbilityArrowEntity.weaponAbility(abilityId), TriggerType.ARROW_HIT, tooltip);
         }
     }
 
@@ -196,7 +197,7 @@ public class LNE_WeaponItems {
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
             super.appendTooltip(stack, context, tooltip, type);
-            addAbilityTooltip(this, tooltip);
+            addAbilityTooltip(LNEAbilityArrowEntity.weaponAbility(abilityId), TriggerType.ARROW_HIT, tooltip);
         }
     }
 
@@ -223,29 +224,17 @@ public class LNE_WeaponItems {
     public static Entry ELDER_GUARDIAN_BOW;
     public static Entry ELDER_GUARDIAN_CROSSBOW;
 
-    private static final String LORE_DRAGON   = "On hit (20% chance): Drains 15% of your attack damage as magic damage, restoring it as health. (15s cooldown)";
-    private static final String LORE_WITHER   = "On hit (20% chance): Fires three Wither Skulls at your target. (12s cooldown)";
-    private static final String LORE_GLACIAL  = "On hit (20% chance): Summons a ring of frostballs above your target. (18s cooldown)";
-    private static final String LORE_GUARDIAN = "On hit (20% chance): Conjures a rain storm around your target, dealing 25% of your attack damage. (10s cooldown)";
-    private static final String LORE_DRAGON_RANGED   = "On arrow hit (20% chance): Drains 15% of your attack damage as magic damage, restoring it as health. (15s cooldown)";
-    private static final String LORE_WITHER_RANGED   = "On arrow hit (20% chance): Fires three Wither Skulls at your target. (12s cooldown)";
-    private static final String LORE_GLACIAL_RANGED  = "On arrow hit (20% chance): Summons a ring of frostballs above your target. (18s cooldown)";
-    private static final String LORE_GUARDIAN_RANGED = "On arrow hit (20% chance): Conjures a rain storm around your target, dealing 25% of your attack damage. (10s cooldown)";
 
-    public static final String LORE_DRAGON_BLOCK   = "On block (20% chance): Drains 15% of your attack damage as magic damage, restoring it as health. (15s cooldown)";
-    public static final String LORE_WITHER_BLOCK   = "On block (20% chance): Fires three Wither Skulls at your attacker. (12s cooldown)";
-    public static final String LORE_GLACIAL_BLOCK  = "On block (20% chance): Summons a ring of frostballs above you. (18s cooldown)";
-    public static final String LORE_GUARDIAN_BLOCK = "On block (20% chance): Conjures a rain storm around your attacker, dealing 25% of your attack damage. (10s cooldown)";
 
     public static void register() {
-        ENDER_DRAGON_SWORD   = add("ender_dragon_sword",   new EnderDragonSwordItem(4, -2.4f),   "Dragon Slayer",   LORE_DRAGON);
-        ENDER_DRAGON_AXE     = add("ender_dragon_axe",     new EnderDragonAxeItem(6, -3.0f),     "End Conqueror",   LORE_DRAGON);
-        WITHER_SWORD         = add("wither_sword",         new WitherSwordItem(4, -2.4f),         "Withered Sword",  LORE_WITHER);
-        WITHER_AXE           = add("wither_axe",           new WitherAxeItem(6, -3.0f),           "Withered Axe",    LORE_WITHER);
-        GLACIAL_SWORD        = add("glacial_sword",        new GlacialSwordItem(4, -2.4f),        "Glacial Sword",   LORE_GLACIAL);
-        GLACIAL_AXE          = add("glacial_axe",          new GlacialAxeItem(6, -3.0f),          "Glacial Axe",     LORE_GLACIAL);
-        ELDER_GUARDIAN_SWORD = add("elder_guardian_sword", new ElderGuardianSwordItem(4, -2.4f), "Leviathan",       LORE_GUARDIAN);
-        ELDER_GUARDIAN_AXE   = add("elder_guardian_axe",   new ElderGuardianAxeItem(6, -3.0f),   "Nautilus",        LORE_GUARDIAN);
+        ENDER_DRAGON_SWORD   = add("ender_dragon_sword",   new EnderDragonSwordItem(4, -2.4f),   "Dragon Slayer");
+        ENDER_DRAGON_AXE     = add("ender_dragon_axe",     new EnderDragonAxeItem(6, -3.0f),     "End Conqueror");
+        WITHER_SWORD         = add("wither_sword",         new WitherSwordItem(4, -2.4f),         "Withered Sword");
+        WITHER_AXE           = add("wither_axe",           new WitherAxeItem(6, -3.0f),           "Withered Axe");
+        GLACIAL_SWORD        = add("glacial_sword",        new GlacialSwordItem(4, -2.4f),        "Glacial Sword");
+        GLACIAL_AXE          = add("glacial_axe",          new GlacialAxeItem(6, -3.0f),          "Glacial Axe");
+        ELDER_GUARDIAN_SWORD = add("elder_guardian_sword", new ElderGuardianSwordItem(4, -2.4f), "Leviathan");
+        ELDER_GUARDIAN_AXE   = add("elder_guardian_axe",   new ElderGuardianAxeItem(6, -3.0f),   "Nautilus");
         for (var entry : entries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
@@ -255,10 +244,10 @@ public class LNE_WeaponItems {
     }
 
     public static void registerMaces() {
-        ENDER_DRAGON_MACE   = addMace("ender_dragon_mace",   new EnderDragonMaceItem(3, -3.2f),   "Dragon's Mace",  LORE_DRAGON);
-        WITHER_MACE         = addMace("wither_mace",         new WitherMaceItem(3, -3.2f),         "Withered Mace",  LORE_WITHER);
-        GLACIAL_MACE        = addMace("glacial_mace",        new GlacialMaceItem(3, -3.2f),        "Glacial Mace",   LORE_GLACIAL);
-        ELDER_GUARDIAN_MACE = addMace("elder_guardian_mace", new ElderGuardianMaceItem(3, -3.2f), "Tide Mace",      LORE_GUARDIAN);
+        ENDER_DRAGON_MACE   = addMace("ender_dragon_mace",   new EnderDragonMaceItem(3, -3.2f),   "Dragon's Mace");
+        WITHER_MACE         = addMace("wither_mace",         new WitherMaceItem(3, -3.2f),         "Withered Mace");
+        GLACIAL_MACE        = addMace("glacial_mace",        new GlacialMaceItem(3, -3.2f),        "Glacial Mace");
+        ELDER_GUARDIAN_MACE = addMace("elder_guardian_mace", new ElderGuardianMaceItem(3, -3.2f), "Tide Mace");
         for (var entry : maceEntries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
@@ -268,14 +257,14 @@ public class LNE_WeaponItems {
     }
 
     public static void registerRanged() {
-        ENDER_DRAGON_BOW        = addRanged("ender_dragon_bow",        new AbilityBowItem(LNEAbilityArrowEntity.ENDER_DRAGON),  "Dragon's Bow",            LORE_DRAGON_RANGED);
-        ENDER_DRAGON_CROSSBOW   = addRanged("ender_dragon_crossbow",   new AbilityCrossbowItem(LNEAbilityArrowEntity.ENDER_DRAGON), "Dragon's Crossbow",   LORE_DRAGON_RANGED);
-        WITHER_BOW              = addRanged("wither_bow",              new AbilityBowItem(LNEAbilityArrowEntity.WITHER),         "Wither Bow",              LORE_WITHER_RANGED);
-        WITHER_CROSSBOW         = addRanged("wither_crossbow",         new AbilityCrossbowItem(LNEAbilityArrowEntity.WITHER),    "Wither Crossbow",         LORE_WITHER_RANGED);
-        GLACIAL_BOW             = addRanged("glacial_bow",             new AbilityBowItem(LNEAbilityArrowEntity.GLACIAL),        "Glacial Bow",             LORE_GLACIAL_RANGED);
-        GLACIAL_CROSSBOW        = addRanged("glacial_crossbow",        new AbilityCrossbowItem(LNEAbilityArrowEntity.GLACIAL),   "Glacial Crossbow",        LORE_GLACIAL_RANGED);
-        ELDER_GUARDIAN_BOW      = addRanged("elder_guardian_bow",      new AbilityBowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Bow",    LORE_GUARDIAN_RANGED);
-        ELDER_GUARDIAN_CROSSBOW = addRanged("elder_guardian_crossbow", new AbilityCrossbowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Crossbow", LORE_GUARDIAN_RANGED);
+        ENDER_DRAGON_BOW        = addRanged("ender_dragon_bow",        new AbilityBowItem(LNEAbilityArrowEntity.ENDER_DRAGON),  "Dragon's Bow");
+        ENDER_DRAGON_CROSSBOW   = addRanged("ender_dragon_crossbow",   new AbilityCrossbowItem(LNEAbilityArrowEntity.ENDER_DRAGON), "Dragon's Crossbow");
+        WITHER_BOW              = addRanged("wither_bow",              new AbilityBowItem(LNEAbilityArrowEntity.WITHER),         "Wither Bow");
+        WITHER_CROSSBOW         = addRanged("wither_crossbow",         new AbilityCrossbowItem(LNEAbilityArrowEntity.WITHER),    "Wither Crossbow");
+        GLACIAL_BOW             = addRanged("glacial_bow",             new AbilityBowItem(LNEAbilityArrowEntity.GLACIAL),        "Glacial Bow");
+        GLACIAL_CROSSBOW        = addRanged("glacial_crossbow",        new AbilityCrossbowItem(LNEAbilityArrowEntity.GLACIAL),   "Glacial Crossbow");
+        ELDER_GUARDIAN_BOW      = addRanged("elder_guardian_bow",      new AbilityBowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Bow");
+        ELDER_GUARDIAN_CROSSBOW = addRanged("elder_guardian_crossbow", new AbilityCrossbowItem(LNEAbilityArrowEntity.ELDER_GUARDIAN), "Elder Guardian's Crossbow");
         for (var entry : rangedEntries) {
             Registry.register(Registries.ITEM, entry.id(), entry.item());
         }
