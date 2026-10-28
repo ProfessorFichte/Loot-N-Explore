@@ -1,0 +1,106 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_floor0"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_floor1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_side0"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side1"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt0"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt1"
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_side0",
+          "y": 90
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side1",
+          "y": 90
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt0",
+          "y": 90
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt1",
+          "y": 90
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_side0",
+          "y": 180
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side1",
+          "y": 180
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt0",
+          "y": 180
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt1",
+          "y": 180
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_side0",
+          "y": 270
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side1",
+          "y": 270
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt0",
+          "y": 270
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_side_alt1",
+          "y": 270
+        }
+      ]
+    },
+    {
+      "apply": [
+        {
+          "model": "loot_n_explore:block/frostflame_up0"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_up1"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_up_alt0"
+        },
+        {
+          "model": "loot_n_explore:block/frostflame_up_alt1"
+        }
+      ]
+    }
+  ]
+}

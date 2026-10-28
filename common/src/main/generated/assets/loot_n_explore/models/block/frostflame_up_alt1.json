@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_up_alt",
+  "textures": {
+    "fire": "loot_n_explore:block/frostflame_1"
+  }
+}

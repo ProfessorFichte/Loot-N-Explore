@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fire_side",
+  "textures": {
+    "fire": "loot_n_explore:block/frostflame_1"
+  }
+}
