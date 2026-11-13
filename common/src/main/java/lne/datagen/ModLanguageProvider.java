@@ -1,5 +1,6 @@
 package lne.datagen;
 
+import lne.server.frostsiege.Frostsiege;
 import lne.blocks.generic.VariantControls;
 import lne.blocks.FrozenDepthsBlocks;
 import lne.blocks.ModBlocks;
@@ -207,6 +208,14 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         builder.add(FrostMonarchLines.BARRIER_SUMMON_KEYS.get(1), "What are you doing? Help me, you fools!");
         builder.add(FrostMonarchLines.BARRIER_SUMMON_KEYS.get(2), "Have fun with my subjects!");
         builder.add(FrostMonarchLines.BARRIER_SUMMON_KEYS.get(3), "When I'm finished with you, you will join them.");
+        builder.add("event.loot_n_explore.frostsiege", "Eternal Frostsiege");
+        builder.add("event.loot_n_explore.frostsiege.wave", "Wave %s/%s");
+        builder.add("event.loot_n_explore.frostsiege.victory", "Victory");
+        builder.add(Frostsiege.WARNING_KEY, "You feel a frightening shivering cold aura...");
+        builder.add("commands.loot_n_explore.frostsiege.start", "Started an Eternal Frostsiege for %s");
+        builder.add("commands.loot_n_explore.frostsiege.start.failed", "A Frostsiege can't start here. The player has to be in the Overworld under open sky, away from other sieges and not on peaceful");
+        builder.add("commands.loot_n_explore.frostsiege.stop", "Stopped the Eternal Frostsiege of %s");
+        builder.add("commands.loot_n_explore.frostsiege.stop.failed", "That player is not in a Frostsiege");
         builder.add("block.loot_n_explore.frozen_soul_block.hint", "Please free our soul, bring us the cursed Crown");
         builder.add("block.loot_n_explore.frozen_soul_block.lore", "It seems powerful magic compressed this block. The souls constantly call for something.");
         builder.add("block.loot_n_explore.monarchs_crown.lore", "This crown once belonged to a king who lost everything to his obsession with power and the freezing cold.");

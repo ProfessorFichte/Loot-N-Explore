@@ -1,5 +1,6 @@
 package lne.compat.spell_engine;
 
+import net.spell_engine.spellbinding.spellchoice.SpellChoices;
 import com.mrpg_lib.compat.spell_engine.CustomCasting;
 import com.mrpg_lib.compat.spell_engine.MobSpellCastGoal;
 import com.mrpg_lib.entity.ISpellCasterEntity;
@@ -42,6 +43,7 @@ public final class LneMobSpellGoalFactory implements MobSpellGoals.Factory {
     @Override
     public boolean hasWeaponSkills() {
         MobEntity mob = caster.asMobEntity();
+        if (SpellChoices.from(mob.getMainHandStack()) != null) return true;
         SpellContainer container = SpellContainerHelper.containerFromItemStack(mob.getMainHandStack());
         if (container == null || container.spell_ids() == null) return false;
         var registry = SpellRegistry.from(mob.getWorld());
@@ -88,7 +90,12 @@ public final class LneMobSpellGoalFactory implements MobSpellGoals.Factory {
 
         @Override
         public boolean canStart() {
-            return options.gate().getAsBoolean() && mob.getWorld().getTime() >= readyAt && super.canStart();
+            return options.gate().getAsBoolean() && mob.getWorld().getTime() >= readyAt && seesTarget() && super.canStart();
+        }
+
+        private boolean seesTarget() {
+            LivingEntity target = mob.getTarget();
+            return target != null && target.isAlive() && mob.getVisibilityCache().canSee(target);
         }
 
         @Override

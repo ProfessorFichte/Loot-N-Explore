@@ -1,6 +1,7 @@
 package lne.datagen;
 
 import lne.entity.ModEntities;
+import lne.util.LneTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKeys;
@@ -60,6 +61,13 @@ public class ModEntityTagProvider extends FabricTagProvider.EntityTypeTagProvide
                 .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_SOLDIER))
                 .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
                 .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.MONARCHS_GUARD))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_GUARD))
+        ;
+
+        getOrCreateTagBuilder(LneTags.GENERALS)
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROZEN_MAGICIAN))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_FROZEN_RANGER))
+                .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_SOLDIER))
                 .addOptional(Registries.ENTITY_TYPE.getId(ModEntities.GENERAL_MONARCHS_GUARD))
         ;
 

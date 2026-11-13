@@ -226,13 +226,14 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
 
     private static LootPool.Builder consumables(int tier, boolean ominous) {
         var pool = one()
-                .with(item(Items.COOKED_MUTTON, 3, 1, ominous ? 3 : 1 + tier / 2))
-                .with(item(Items.BAKED_POTATO, 3, 1, 2))
-                .with(item(Items.BREAD, 3, 1, 2))
+                .with(item(Items.COOKED_MUTTON, 3, ominous ? 2 : 1, ominous ? 4 : 1 + tier))
+                .with(item(Items.BAKED_POTATO, 3, ominous ? 2 : 1, ominous ? 4 : 3))
+                .with(item(Items.BREAD, 3, 1, 3))
+                .with(item(CommonItems.FROSTBALL.item(), 2, 2, ominous ? 6 : 2 + tier))
                 .with(potion(Items.POTION, ModPotions.FROST_RESISTANCE_POTION.potion(), 1, 1, 1))
                 .with(potion(Items.POTION, Potions.REGENERATION, 1, 1, 1));
         if (ominous || tier >= 2) {
-            pool.with(item(Items.GOLDEN_CARROT, ominous ? 2 : tier - 1, 1, 1));
+            pool.with(item(Items.GOLDEN_CARROT, ominous ? 2 : tier - 1, 1, ominous ? 2 : 1));
         }
         if (ominous) {
             pool.with(potion(Items.POTION, Potions.STRENGTH, 1, 1, 1));

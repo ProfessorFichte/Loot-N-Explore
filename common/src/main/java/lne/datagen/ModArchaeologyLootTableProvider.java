@@ -65,6 +65,7 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                         .with(counted(Items.BOOK, 6, 1, 2))
                         .with(counted(Items.PAPER, 5, 1, 3))
                         .with(ItemEntry.builder(Items.WRITABLE_BOOK).weight(3))
+                        .with(explorerMap(StructureTags.ON_PILLAGER_OUTPOST_MAPS, "pillager_outpost", 3))
                         .with(enchantedBook(1, 5, 10))));
         RegistryWrapper.Impl<Enchantment> enchantments = registryLookup.join().getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
         exporter.accept(LneLootTables.ARCHAEOLOGY_STRONGHOLD_LIBRARY, LootTable.builder()
@@ -141,14 +142,18 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
         return LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(enchantedBook(10, 5, 15))
-                .with(ItemEntry.builder(Items.MAP).weight(20)
-                        .apply(ExplorationMapLootFunction.builder()
-                                .withDestination(mapDestination)
-                                .withDecoration(MapDecorationTypes.RED_X))
-                        .apply(SetNameLootFunction.builder(Text.translatable("filled_map." + LneMod.MOD_ID + "." + mapName),
-                                SetNameLootFunction.Target.ITEM_NAME)))
+                .with(explorerMap(mapDestination, mapName, 20))
                 .with(spellScroll(40, 2))
                 .with(ItemEntry.builder(Items.BOOK).weight(30)));
+    }
+
+    private static LeafEntry.Builder<?> explorerMap(TagKey<Structure> destination, String mapName, int weight) {
+        return ItemEntry.builder(Items.MAP).weight(weight)
+                .apply(ExplorationMapLootFunction.builder()
+                        .withDestination(destination)
+                        .withDecoration(MapDecorationTypes.RED_X))
+                .apply(SetNameLootFunction.builder(Text.translatable("filled_map." + LneMod.MOD_ID + "." + mapName),
+                        SetNameLootFunction.Target.ITEM_NAME));
     }
 
     private LeafEntry.Builder<?> enchantedBook(int weight, int minLevels, int maxLevels) {

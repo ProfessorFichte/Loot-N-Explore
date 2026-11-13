@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "F": {
+      "item": "loot_n_explore:frozen_soul"
+    },
+    "G": {
+      "item": "loot_n_explore:glaze_rod"
+    }
+  },
+  "pattern": [
+    "  F",
+    " G ",
+    "G  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "loot_n_explore:monarchs_frost_staff"
+  }
+}

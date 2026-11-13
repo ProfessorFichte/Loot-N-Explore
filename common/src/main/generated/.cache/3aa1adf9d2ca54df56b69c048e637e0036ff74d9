@@ -1,9 +1,9 @@
-// 1.21.1	2026-11-12T11:13:46.3954157	Loot N Explore/Tags for minecraft:spell
-4e53bfbb8f293012d56a1489af5b5479ec6f8218 data\loot_n_explore\tags\spell\mob\general_frozen_magician\secondary.json
+// 1.21.1	2026-11-13T09:32:44.3833973	Loot N Explore/Tags for minecraft:spell
 2508a3d5416d6a022e7976bac24447cc4d4c6d01 data\loot_n_explore\tags\spell\mob\general_frozen_magician\primary.json
+4e53bfbb8f293012d56a1489af5b5479ec6f8218 data\loot_n_explore\tags\spell\mob\general_frozen_magician\secondary.json
 ad99f4d8c9c479b43b2eee215a42e289d07fbf1e data\loot_n_explore\tags\spell\mob\general_monarchs_soldier\secondary.json
-8c6a579054af024c288859afa013ab6801fa7aae data\loot_n_explore\tags\spell\mob\general_frozen_ranger\secondary.json
 96b9fab9cb5aaf98c1ad58b6eed1cef9cb20acf9 data\loot_n_explore\tags\spell\mob\general_monarchs_guard\secondary.json
+8c6a579054af024c288859afa013ab6801fa7aae data\loot_n_explore\tags\spell\mob\general_frozen_ranger\secondary.json
 ff02463ceeeab03a34ebb9b1fab083cd653dbf5a data\loot_n_explore\tags\spell\mob\frost_monarch\secondary.json
 22bbe62c22f1a3f05c59edcb78fe1809a1ce990f data\loot_n_explore\tags\spell\mob\frozen_magician\primary.json
 a9c7e64f2a9b5eb8430e5dd27b9be4d75d845a46 data\loot_n_explore\tags\spell\mob\monarchs_soldier\secondary.json

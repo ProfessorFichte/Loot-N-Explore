@@ -125,6 +125,17 @@ public sealed interface ModelType {
         }
     }
 
+    record HorizontalFacing(String folder) implements ModelType {
+        @Override
+        public void generate(BlockStateModelGenerator generator, Block block) {
+            var id = Registries.BLOCK.getId(block);
+            Identifier model = Identifier.of(id.getNamespace(), "block/" + folder + id.getPath());
+            generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, model))
+                    .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+            generator.registerParentedItemModel(block, model);
+        }
+    }
+
     record SimpleBlockItem() implements ModelType {
         @Override
         public void generate(BlockStateModelGenerator generator, Block block) {

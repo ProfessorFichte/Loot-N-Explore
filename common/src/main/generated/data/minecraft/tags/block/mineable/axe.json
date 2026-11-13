@@ -5,6 +5,14 @@
       "required": false
     },
     {
+      "id": "loot_n_explore:suspicious_bookshelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_kingdom_flag",
+      "required": false
+    },
+    {
       "id": "loot_n_explore:oak_hanging_inn_sign",
       "required": false
     },
@@ -17,11 +25,23 @@
       "required": false
     },
     {
-      "id": "loot_n_explore:suspicious_bookshelf",
+      "id": "loot_n_explore:birch_hanging_inn_sign",
       "required": false
     },
     {
-      "id": "loot_n_explore:frozen_kingdom_flag",
+      "id": "loot_n_explore:jungle_hanging_inn_sign",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:dark_oak_hanging_inn_sign",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:mangrove_hanging_inn_sign",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:cherry_hanging_inn_sign",
       "required": false
     }
   ]

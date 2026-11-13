@@ -1,5 +1,6 @@
 package lne.blocks;
 
+import lne.blocks.frozen_depths.SealedMonarchBlock;
 import lne.blocks.frozen_depths.FrostbloomBlock;
 import lne.blocks.frozen_depths.FrozenDecoratedPotBlock;
 import lne.blocks.frozen_depths.FrozenKingdomFlagBlock;
@@ -104,6 +105,14 @@ public class FrozenDepthsBlocks {
             AbstractBlock.Settings.copy(Blocks.SOUL_FIRE).mapColor(MapColor.LIGHT_BLUE));
     public static final Entry FROZEN_SOULS = frozenSoulsEntry();
     public static final Entry MONARCHS_CROWN = monarchsCrownEntry();
+
+    public static final Entry SEALED_MONARCH = entry("sealed_monarch", new SealedMonarchBlock(
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.LIGHT_BLUE_GRAY)
+                    .strength(5.0F, 6.0F)
+                    .requiresTool()
+                    .sounds(BlockSoundGroup.GLASS)
+                    .nonOpaque()), "Sealed Monarch", new ModelType.HorizontalFacing("frozen_depths/"));
 
     public static final Entry FROZEN_CHAIN = entry("frozen_chain", new FrozenChainBlock(
             AbstractBlock.Settings.copy(Blocks.CHAIN).nonOpaque()), "Frozen Chain", new ModelType.Custom());

@@ -1,5 +1,6 @@
 package lne.datagen;
 
+import lne.util.LneTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKey;
@@ -32,6 +33,10 @@ public class ModBiomeTagProvider extends FabricTagProvider<Biome> {
         surface(hasStructure("icy_dungeons"), true, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_TAIGA, BiomeKeys.GROVE, BiomeKeys.ICE_SPIKES,
                 BiomeKeys.SNOWY_SLOPES, BiomeKeys.FROZEN_PEAKS);
         surface(hasStructure("frozen_depths/monarchs_temple"), false, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_TAIGA, BiomeKeys.ICE_SPIKES);
+        surface(LneTags.ICY_BIOMES, true, BiomeKeys.SNOWY_PLAINS, BiomeKeys.SNOWY_TAIGA, BiomeKeys.GROVE, BiomeKeys.ICE_SPIKES,
+                BiomeKeys.SNOWY_SLOPES, BiomeKeys.FROZEN_PEAKS, BiomeKeys.JAGGED_PEAKS, BiomeKeys.SNOWY_BEACH,
+                BiomeKeys.FROZEN_RIVER, BiomeKeys.FROZEN_OCEAN, BiomeKeys.DEEP_FROZEN_OCEAN);
+        getOrCreateTagBuilder(LneTags.FROSTSIEGE_BIOMES).addTag(LneTags.ICY_BIOMES);
     }
 
     @SafeVarargs

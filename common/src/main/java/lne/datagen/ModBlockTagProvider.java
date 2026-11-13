@@ -38,6 +38,7 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.POLISHED_ICE_BLOCK.block()))
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.POLISHED_ICE_BRICKS.block()))
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.FROZEN_SOULS.block()))
+                .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.SEALED_MONARCH.block()))
         ;
         for (var entry : ModBlocks.all) {
             if (entry.block() instanceof lne.blocks.themed.ThemedBlock) pickaxe.addOptional(Registries.BLOCK.getId(entry.block()));
@@ -71,14 +72,11 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.POLISHED_ICE_BRICKS.block()))
         ;
 
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+        var axeMineable = getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
                 .addOptional(Registries.BLOCK.getId(ModBlocks.INNKEEPER_SHELF.block()))
-                .addOptional(Registries.BLOCK.getId(ModBlocks.OAK_HANGING_INN_SIGN.block()))
-                .addOptional(Registries.BLOCK.getId(ModBlocks.ACACIA_HANGING_INN_SIGN.block()))
-                .addOptional(Registries.BLOCK.getId(ModBlocks.SPRUCE_HANGING_INN_SIGN.block()))
                 .addOptional(Registries.BLOCK.getId(ModBlocks.SUSPICIOUS_BOOKSHELF.block()))
-                .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.FROZEN_KINGDOM_FLAG.block()))
-        ;
+                .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.FROZEN_KINGDOM_FLAG.block()));
+        ModBlocks.INN_SIGNS.forEach(sign -> axeMineable.addOptional(Registries.BLOCK.getId(sign.block())));
 
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.SOULFROST_LANTERN.block()))
@@ -93,6 +91,10 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.POLISHED_ICE_BLOCK.block()))
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.POLISHED_ICE_BRICKS.block()))
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.CRYOTIC_BLOCK.block()))
+        ;
+
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+                .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.SEALED_MONARCH.block()))
         ;
 
         getOrCreateTagBuilder(BlockTags.WALLS)

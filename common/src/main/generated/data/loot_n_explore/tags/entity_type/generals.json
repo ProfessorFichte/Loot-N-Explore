@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:general_frozen_magician",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:general_frozen_ranger",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:general_monarchs_soldier",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:general_monarchs_guard",
+      "required": false
+    }
+  ]
+}

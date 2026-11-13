@@ -85,7 +85,7 @@ public class ModEntities {
             .maxTrackingRange(8)
             .build("ice_wall");
     public static final EntityType<EternalWinterPortalEntity> ETERNAL_WINTER_PORTAL = EntityType.Builder.<EternalWinterPortalEntity>create(EternalWinterPortalEntity::new, SpawnGroup.MISC)
-            .dimensions(2.0f, 2.0f)
+            .dimensions(4.0f, 4.0f)
             .maxTrackingRange(8)
             .build("eternal_winter_portal");
     public static final EntityType<FrostDecoyEntity> FROST_DECOY = EntityType.Builder.<FrostDecoyEntity>create(FrostDecoyEntity::new, SpawnGroup.MISC)

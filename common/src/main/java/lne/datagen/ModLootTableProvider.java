@@ -46,6 +46,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(FrozenDepthsBlocks.CRYOTIC_BLOCK.block());
         addDrop(FrozenDepthsBlocks.FROSTFLAME, dropsNothing());
         addDrop(FrozenDepthsBlocks.MONARCHS_CROWN.block());
+        addDrop(FrozenDepthsBlocks.SEALED_MONARCH.block(), FrozenDepthsBlocks.MONARCHS_CROWN.item());
         addDrop(FrozenDepthsBlocks.FROST_BLOOM.block());
         addPottedPlantDrops(FrozenDepthsBlocks.POTTED_FROST_BLOOM);
 
@@ -54,9 +55,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addToolDrop(FrozenDepthsBlocks.POLISHED_ICE_BRICKS.block(), ItemTags.PICKAXES);
         addDrop(FrozenDepthsBlocks.ICICLE_BAR.block());
         addDrop(FrozenDepthsBlocks.FRAGILE_ICE.block(), dropsWithSilkTouch(FrozenDepthsBlocks.FRAGILE_ICE.block()));
-        addToolDrop(ModBlocks.OAK_HANGING_INN_SIGN.block(), ItemTags.AXES);
-        addToolDrop(ModBlocks.ACACIA_HANGING_INN_SIGN.block(), ItemTags.AXES);
-        addToolDrop(ModBlocks.SPRUCE_HANGING_INN_SIGN.block(), ItemTags.AXES);
+        ModBlocks.INN_SIGNS.forEach(sign -> addToolDrop(sign.block(), ItemTags.AXES));
         addDrop(FrozenDepthsBlocks.FROZEN_TORCH.block());
         addBoneDrop(FrozenDepthsBlocks.FROZEN_BONES.block(), 1, 3);
         addBoneDrop(FrozenDepthsBlocks.FROZEN_ADVENTURER.block(), 2, 4);

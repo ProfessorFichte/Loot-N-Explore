@@ -34,6 +34,7 @@ public class LneDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModEntityTagProvider::new);
 		pack.addProvider(ModDamageTypeTagProvider::new);
 		pack.addProvider(ModBiomeTagProvider::new);
+		pack.addProvider(ModStatusEffectTagProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(LootExploreConditionalRecipeProvider::new);
 		pack.addProvider(LootExploreConditionalTagProvider::new);

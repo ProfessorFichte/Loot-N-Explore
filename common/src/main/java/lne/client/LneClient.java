@@ -151,9 +151,8 @@ public class LneClient {
         cutout.accept(FrozenDepthsBlocks.FROZEN_BONES.block());
         cutout.accept(FrozenDepthsBlocks.FROZEN_TORCH.block());
         cutout.accept(FrozenDepthsBlocks.FROZEN_ADVENTURER.block());
-        cutout.accept(ModBlocks.OAK_HANGING_INN_SIGN.block());
-        cutout.accept(ModBlocks.ACACIA_HANGING_INN_SIGN.block());
-        cutout.accept(ModBlocks.SPRUCE_HANGING_INN_SIGN.block());
+        cutout.accept(FrozenDepthsBlocks.SEALED_MONARCH.block());
+        ModBlocks.INN_SIGNS.forEach(sign -> cutout.accept(sign.block()));
         cutout.accept(FrozenDepthsBlocks.ICICLE_BAR.block());
         cutout.accept(FrozenDepthsBlocks.ICICLE.block());
         cutout.accept(FrozenDepthsBlocks.FROSTFLAME);

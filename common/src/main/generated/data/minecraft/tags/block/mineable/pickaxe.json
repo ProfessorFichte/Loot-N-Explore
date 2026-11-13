@@ -49,6 +49,10 @@
       "required": false
     },
     {
+      "id": "loot_n_explore:sealed_monarch",
+      "required": false
+    },
+    {
       "id": "loot_n_explore:frozen_trial_spawner",
       "required": false
     },

@@ -52,6 +52,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(frozenSoulItem), conditionsFromItem(frozenSoulItem))
                 .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frozen_soul_block"));
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, CommonItems.MONARCHS_FROST_STAFF.item())
+                .pattern("  F")
+                .pattern(" G ")
+                .pattern("G  ")
+                .input('G', glazeRod)
+                .input('F', frozenSoulItem)
+                .criterion(hasItem(frozenSoulItem), conditionsFromItem(frozenSoulItem))
+                .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/monarchs_frost_staff"));
+
         Item dragonTemplate = getItem("loot_n_explore:dragon_upgrade_smithing_template");
         Item dragonTooth = getItem("loot_n_explore:ender_dragon_tooth");
         Item chargedAmethyst = getItem("loot_n_explore:charged_amethyst");
