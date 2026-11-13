@@ -24,6 +24,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static lne.LneMod.MOD_ID;
 
@@ -63,27 +64,25 @@ public class ModBlocks {
                     .strength(2.5F)
                     .sounds(BlockSoundGroup.WOOD)
                     .nonOpaque()), "Innkeeper Shelf", new ModelType.Custom());
-    public static final Entry OAK_HANGING_INN_SIGN = entry("oak_hanging_inn_sign", new HangingInnSignBlock(
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.OAK_TAN)
-                    .instrument(NoteBlockInstrument.BASS)
-                    .strength(1.0F)
-                    .sounds(BlockSoundGroup.HANGING_SIGN)
-                    .nonOpaque()), "Oak Hanging Inn Sign", new ModelType.Custom());
-    public static final Entry ACACIA_HANGING_INN_SIGN = entry("acacia_hanging_inn_sign", new HangingInnSignBlock(
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.ORANGE)
-                    .instrument(NoteBlockInstrument.BASS)
-                    .strength(1.0F)
-                    .sounds(BlockSoundGroup.HANGING_SIGN)
-                    .nonOpaque()), "Acacia Hanging Inn Sign", new ModelType.Custom());
-    public static final Entry SPRUCE_HANGING_INN_SIGN = entry("spruce_hanging_inn_sign", new HangingInnSignBlock(
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.SPRUCE_BROWN)
-                    .instrument(NoteBlockInstrument.BASS)
-                    .strength(1.0F)
-                    .sounds(BlockSoundGroup.HANGING_SIGN)
-                    .nonOpaque()), "Spruce Hanging Inn Sign", new ModelType.Custom());
+    private static Entry innSign(String wood, String woodName, MapColor color) {
+        return entry(wood + "_hanging_inn_sign", new HangingInnSignBlock(
+                AbstractBlock.Settings.create()
+                        .mapColor(color)
+                        .instrument(NoteBlockInstrument.BASS)
+                        .strength(1.0F)
+                        .sounds(BlockSoundGroup.HANGING_SIGN)
+                        .nonOpaque()), woodName + " Hanging Inn Sign", new ModelType.Custom());
+    }
+
+    public static final List<Entry> INN_SIGNS = List.of(
+            innSign("oak", "Oak", MapColor.OAK_TAN),
+            innSign("acacia", "Acacia", MapColor.ORANGE),
+            innSign("spruce", "Spruce", MapColor.SPRUCE_BROWN),
+            innSign("birch", "Birch", MapColor.PALE_YELLOW),
+            innSign("jungle", "Jungle", MapColor.DIRT_BROWN),
+            innSign("dark_oak", "Dark Oak", MapColor.BROWN),
+            innSign("mangrove", "Mangrove", MapColor.RED),
+            innSign("cherry", "Cherry", MapColor.TERRACOTTA_WHITE));
 
     public static final Entry SUSPICIOUS_BOOKSHELF = entry("suspicious_bookshelf", new SuspiciousBlock.Sideways(Blocks.BOOKSHELF,
             SoundEvents.ITEM_BRUSH_BRUSHING_GENERIC, SoundEvents.BLOCK_CHISELED_BOOKSHELF_PICKUP,
@@ -104,9 +103,9 @@ public class ModBlocks {
             Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, entry.name), entry.block);
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
         }
-        java.util.Set<String> generic = java.util.Set.of(
-                "innkeeper_shelf", "oak_hanging_inn_sign", "spruce_hanging_inn_sign", "acacia_hanging_inn_sign", "suspicious_bookshelf",
-                "deepslate_bookshelf", "suspicious_deepslate_bookshelf");
+        java.util.Set<String> generic = new java.util.HashSet<>(java.util.Set.of(
+                "innkeeper_shelf", "suspicious_bookshelf", "deepslate_bookshelf", "suspicious_deepslate_bookshelf"));
+        INN_SIGNS.forEach(sign -> generic.add(sign.name()));
         LNEEvents.get().modifyItemGroup(Group.RPG_GENERIC_KEY, (content) -> {
             for (var entry : all) {
                 if (generic.contains(entry.name)) content.add(entry.item());
