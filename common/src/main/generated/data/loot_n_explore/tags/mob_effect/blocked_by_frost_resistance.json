@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:freezing",
+      "required": false
+    },
+    {
+      "id": "mrpg_lib:frosted",
+      "required": false
+    },
+    {
+      "id": "mrpg_lib:frozen_solid",
+      "required": false
+    }
+  ]
+}

@@ -2,10 +2,12 @@ package lne.mixin;
 
 import lne.effects.Effects;
 import lne.item.weapons.ShieldBlockAbility;
+import lne.util.LneTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -42,6 +44,13 @@ public abstract class LivingEntityMixin {
         }
         if (player.getActiveItem().getItem() instanceof ShieldBlockAbility ability) {
             ability.onShieldBlock(player, attacker);
+        }
+    }
+
+    @Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
+    public void frostResistanceBlocksColdEffects(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+        if (effect.getEffectType().isIn(LneTags.BLOCKED_BY_FROST_RESISTANCE) && hasStatusEffect(Effects.FROST_RESISTANCE.registryEntry)) {
+            cir.setReturnValue(false);
         }
     }
 
