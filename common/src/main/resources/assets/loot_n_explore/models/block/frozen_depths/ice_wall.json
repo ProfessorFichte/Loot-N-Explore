@@ -1,0 +1,46 @@
+{
+	"credit": "Made by pedravila",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "loot_n_explore:block/frozen_depths/ice_wall",
+		"particle": "loot_n_explore:block/frozen_depths/ice_wall"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 29, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 3.625], "texture": "#0"},
+				"east": {"uv": [2, 0, 4, 3.625], "texture": "#0"},
+				"south": {"uv": [0, 3.625, 2, 7.25], "texture": "#0"},
+				"west": {"uv": [2, 3.625, 4, 7.25], "texture": "#0"},
+				"up": {"uv": [6, 7, 4, 5], "texture": "#0"},
+				"down": {"uv": [7.625, 0, 5.625, 2], "texture": "#0"}
+			}
+		},
+		{
+			"from": [7, 0, 8],
+			"to": [18, 13, 18],
+			"faces": {
+				"north": {"uv": [7.125, 2, 8.5, 3.625], "texture": "#0"},
+				"east": {"uv": [1.375, 7.25, 2.625, 8.875], "texture": "#0"},
+				"south": {"uv": [0, 7.25, 1.375, 8.875], "texture": "#0"},
+				"west": {"uv": [2.625, 7.25, 3.875, 8.875], "texture": "#0"},
+				"up": {"uv": [8.625, 8.25, 7.25, 7], "texture": "#0"},
+				"down": {"uv": [8.875, 3.625, 7.5, 4.875], "texture": "#0"}
+			}
+		},
+		{
+			"from": [-2, 0, -3],
+			"to": [11, 20, 9],
+			"faces": {
+				"north": {"uv": [4, 0, 5.625, 2.5], "texture": "#0"},
+				"east": {"uv": [5.625, 2, 7.125, 4.5], "texture": "#0"},
+				"south": {"uv": [4, 2.5, 5.625, 5], "texture": "#0"},
+				"west": {"uv": [6, 4.5, 7.5, 7], "texture": "#0"},
+				"up": {"uv": [5.625, 8.5, 4, 7], "texture": "#0"},
+				"down": {"uv": [7.25, 7, 5.625, 8.5], "texture": "#0"}
+			}
+		}
+	]
+}

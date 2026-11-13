@@ -38,3 +38,9 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+.architectury-transformer
+/.architectury-transformer
+
+# local dev workspace switches
+/workspace.properties

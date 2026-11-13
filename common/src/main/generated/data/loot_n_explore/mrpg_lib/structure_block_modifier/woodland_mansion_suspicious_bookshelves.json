@@ -1,0 +1,18 @@
+{
+  "chance": 0.05,
+  "loot_table": "loot_n_explore:archaeology/woodland_mansion",
+  "max_per_piece": 2,
+  "pieces": [
+    "minecraft:wmp"
+  ],
+  "replacement": {
+    "Name": "loot_n_explore:suspicious_bookshelf",
+    "Properties": {
+      "dusted": "0"
+    }
+  },
+  "structures": [
+    "minecraft:mansion"
+  ],
+  "target": "minecraft:bookshelf"
+}

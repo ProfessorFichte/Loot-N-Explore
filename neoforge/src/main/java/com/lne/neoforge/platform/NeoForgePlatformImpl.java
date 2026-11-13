@@ -1,9 +1,14 @@
 package com.lne.neoforge.platform;
 
-import more_rpg_loot.platform.LNEPlatform;
+import com.lne.neoforge.compat.curios.CuriosAccess;
+import lne.platform.LNEPlatform;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.LoadingModList;
+
+import java.util.List;
 
 public final class NeoForgePlatformImpl implements LNEPlatform.Impl {
     @Override
@@ -17,5 +22,10 @@ public final class NeoForgePlatformImpl implements LNEPlatform.Impl {
     @Override
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
+    }
+
+    @Override
+    public List<ItemStack> equippedAccessories(LivingEntity entity) {
+        return isModLoaded("curios") ? CuriosAccess.equipped(entity) : List.of();
     }
 }

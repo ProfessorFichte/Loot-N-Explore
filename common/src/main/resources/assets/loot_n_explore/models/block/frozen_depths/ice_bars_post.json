@@ -2,7 +2,7 @@
 	"ambientocclusion": false,
 	"format_version": "1.21.11",
 	"credit": "Made with Blockbench by AnolXD",
-	"parent": "minecraft:block/template_bars_post",
+	"parent": "minecraft:block/block",
 	"textures": {
 		"1": "loot_n_explore:block/frozen_depths/ice_bars_post",
 		"particle": "loot_n_explore:block/frozen_depths/ice_bars"

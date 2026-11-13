@@ -1,0 +1,15 @@
+{
+  "chance": 0.15,
+  "loot_table": "loot_n_explore:archaeology/village/snowy",
+  "max_per_piece": 3,
+  "replacement": {
+    "Name": "loot_n_explore:suspicious_bookshelf",
+    "Properties": {
+      "dusted": "0"
+    }
+  },
+  "structures": [
+    "minecraft:village_snowy"
+  ],
+  "target": "minecraft:bookshelf"
+}

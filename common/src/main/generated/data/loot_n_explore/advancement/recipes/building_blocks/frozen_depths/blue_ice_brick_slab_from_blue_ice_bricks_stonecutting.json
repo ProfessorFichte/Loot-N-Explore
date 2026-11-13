@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blue_ice_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:blue_ice_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:frozen_depths/blue_ice_brick_slab_from_blue_ice_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blue_ice_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:frozen_depths/blue_ice_brick_slab_from_blue_ice_bricks_stonecutting"
+    ]
+  }
+}

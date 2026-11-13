@@ -1,0 +1,8 @@
+{
+  "comparator_output": 5,
+  "description": {
+    "translate": "jukebox_song.loot_n_explore.the_king_cursed_by_winter"
+  },
+  "length_in_seconds": 89.0,
+  "sound_event": "loot_n_explore:music.frost_monarch_battle"
+}

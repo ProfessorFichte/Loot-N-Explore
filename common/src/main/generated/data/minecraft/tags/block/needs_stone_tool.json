@@ -43,6 +43,10 @@
     {
       "id": "loot_n_explore:polished_ice_bricks",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:cryotic_block",
+      "required": false
     }
   ]
 }

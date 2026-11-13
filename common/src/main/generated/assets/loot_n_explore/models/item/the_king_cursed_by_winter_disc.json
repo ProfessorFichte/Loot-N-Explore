@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "loot_n_explore:item/misc/frozen_depths/the_king_cursed_by_winter_disc"
+  }
+}

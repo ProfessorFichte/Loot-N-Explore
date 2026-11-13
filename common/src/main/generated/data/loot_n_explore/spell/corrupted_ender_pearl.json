@@ -1,0 +1,91 @@
+{
+  "school": "spell_power:dynamic",
+  "range": 32.0,
+  "tier": 1,
+  "learn": {},
+  "active": {},
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_projectile_release"
+    },
+    "sound": {
+      "id": "minecraft:entity.ender_pearl.throw"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {}
+  },
+  "deliver": {
+    "type": "CUSTOM",
+    "custom": {
+      "handler": "loot_n_explore:void_rift"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {}
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_arcane",
+            "appearance": {
+              "color": 4284940287,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 15.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 7.0,
+    "visuals": {
+      "particles": [
+        {
+          "id": "portal",
+          "appearance": {},
+          "batch": {
+            "count": 80.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.6,
+            "max_speed": 1.2
+          }
+        },
+        {
+          "id": "spell_engine:magic_arcane",
+          "appearance": {
+            "color": 4284940287,
+            "motion": "BURST"
+          },
+          "batch": {
+            "count": 40.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.2,
+            "max_speed": 0.5
+          }
+        }
+      ]
+    },
+    "sound": {
+      "id": "minecraft:entity.enderman.teleport"
+    }
+  },
+  "cost": {
+    "cooldown": {
+      "duration": 60.0
+    }
+  }
+}

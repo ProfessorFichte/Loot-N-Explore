@@ -1,0 +1,8 @@
+{
+  "comparator_output": 6,
+  "description": {
+    "translate": "jukebox_song.loot_n_explore.jolly_time"
+  },
+  "length_in_seconds": 303.0,
+  "sound_event": "loot_n_explore:music.inn"
+}

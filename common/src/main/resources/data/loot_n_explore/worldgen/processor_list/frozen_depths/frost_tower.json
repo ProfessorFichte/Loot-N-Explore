@@ -1,0 +1,39 @@
+{
+  "processors": [
+    {
+      "processor_type": "mrpg_lib:random_replace",
+      "target": "minecraft:bookshelf",
+      "chance": 0.1,
+      "count": 2,
+      "replacement": {
+        "Name": "loot_n_explore:suspicious_bookshelf"
+      },
+      "loot_table": "loot_n_explore:archaeology/frozen_depths/frost_tower"
+    },
+    {
+      "processor_type": "mrpg_lib:random_replace",
+      "target": "loot_n_explore:deepslate_bookshelf",
+      "chance": 0.1,
+      "count": 2,
+      "replacement": {
+        "Name": "loot_n_explore:suspicious_deepslate_bookshelf"
+      },
+      "loot_table": "loot_n_explore:archaeology/frozen_depths/frost_tower"
+    },
+    {
+      "processor_type": "mrpg_lib:random_replace",
+      "target": "loot_n_explore:deepslate_bookshelf",
+      "chance": 0.2,
+      "replacement": {
+        "Name": "loot_n_explore:icy_deepslate_bookshelf"
+      },
+      "keep_properties": true
+    },
+    {
+      "processor_type": "mrpg_lib:container_loot",
+      "target": "#loot_n_explore:structure_pots",
+      "loot_table": "loot_n_explore:pots/frozen_depths/frost_tower",
+      "chance": 0.25
+    }
+  ]
+}

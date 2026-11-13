@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "wizards:frost_nova",
+      "required": false
+    },
+    {
+      "id": "wizards:frost_spikes",
+      "required": false
+    }
+  ]
+}

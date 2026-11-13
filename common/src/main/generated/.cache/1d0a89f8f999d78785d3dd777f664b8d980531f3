@@ -1,7 +1,7 @@
-// 1.21.1	2026-10-03T22:54:34.4931958	Loot N Explore/Tags for minecraft:entity_type
-8fe91a28fe09ae48d09096195665c3ed965180c8 data\frostiful\tags\entity_type\benefits_from_cold.json
-a054777fb73d3e7e097ac673642ab84c48174371 data\minecraft\tags\entity_type\powder_snow_walkable_mobs.json
+// 1.21.1	2026-11-12T11:13:46.3964173	Loot N Explore/Tags for minecraft:entity_type
+fc0939bca9edbc604b0060c812a24cc292b68d47 data\frostiful\tags\entity_type\benefits_from_cold.json
+4b8880de9b7115fa68b1e8333d8fc0957bb55eb5 data\minecraft\tags\entity_type\powder_snow_walkable_mobs.json
 97e63690e2f810321e1c2c66166d496c35c6f7bf data\minecraft\tags\entity_type\fall_damage_immune.json
-a054777fb73d3e7e097ac673642ab84c48174371 data\minecraft\tags\entity_type\freeze_immune_entity_types.json
-db2bc319ad78dda562eb9cd85d1df3c71a273486 data\minecraft\tags\entity_type\skeletons.json
+4b8880de9b7115fa68b1e8333d8fc0957bb55eb5 data\minecraft\tags\entity_type\freeze_immune_entity_types.json
+d5bcc7f55eccb537ee20905b3ea14acd10f5c888 data\minecraft\tags\entity_type\skeletons.json
 a72d74c96979d9fa45c8372a0ac73917df10e697 data\c\tags\entity_type\bosses.json

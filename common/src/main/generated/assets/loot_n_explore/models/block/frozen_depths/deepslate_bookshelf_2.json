@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_top",
+    "side": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_2"
+  }
+}

@@ -1,6 +1,6 @@
 package com.lne.fabric.platform;
 
-import more_rpg_loot.platform.LNEEvents;
+import lne.platform.LNEEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;

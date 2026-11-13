@@ -127,7 +127,7 @@
 	],
 	"gui_light": "front",
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "lne_paladins:item/wither_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "loot_n_explore:item/wither_shield_blocking"}
 	],
 	"display": {
 		"thirdperson_righthand": {

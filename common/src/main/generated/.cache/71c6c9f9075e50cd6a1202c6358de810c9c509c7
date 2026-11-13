@@ -1,7 +1,10 @@
-// 1.21.1	2026-10-03T22:54:34.4906419	Loot N Explore/Tags for minecraft:block
-8d72ff50ae9bbbfd997e582531c5be4f4e1e2fbc data\minecraft\tags\block\mineable\axe.json
-d4f98f4ada7bd6bf71dbe9f066c3819b0bf59a80 data\minecraft\tags\block\mineable\pickaxe.json
+// 1.21.1	2026-11-12T11:13:46.3914118	Loot N Explore/Tags for minecraft:block
+52971c0c85682876e2d5ba4afc6bbd1ef0c107d2 data\minecraft\tags\block\enchantment_power_provider.json
+c94ccd5900a37e05d5bce70caf63ef246ae9902f data\minecraft\tags\block\mineable\axe.json
+70ee1569f39646a52064ad0ec2b32105d6e39451 data\minecraft\tags\block\mineable\pickaxe.json
 709b099afc9b5519f0833baa16003c4196430fa0 data\minecraft\tags\block\walls.json
-a56d055e34560807f4a7cbfc25933ef1d4e3cbc7 data\minecraft\tags\block\needs_stone_tool.json
+8f043e6b550af1bbc9ee0674f994fff5db5e3cea data\minecraft\tags\block\fire.json
+3930574eee468e597e7e6cdc0c7008b4a9724e55 data\minecraft\tags\block\needs_stone_tool.json
 576016f332585eb650a4da0ed807225f73e93e0d data\minecraft\tags\block\small_flowers.json
 635d0e75f891b5c577b724dd3db9d15da8d6bfa6 data\minecraft\tags\block\ice.json
+6f43554a312b49a4dd611136af7dbdb21c5e811e data\loot_n_explore\tags\block\structure_pots.json

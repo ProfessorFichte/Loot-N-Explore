@@ -1,0 +1,13 @@
+{
+  "processors": [
+    {
+      "processor_type": "mrpg_lib:random_replace",
+      "target": "loot_n_explore:deepslate_bookshelf",
+      "chance": 0.2,
+      "replacement": {
+        "Name": "loot_n_explore:icy_deepslate_bookshelf"
+      },
+      "keep_properties": true
+    }
+  ]
+}

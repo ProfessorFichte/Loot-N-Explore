@@ -1,6 +1,6 @@
 package com.lne.fabric.worldgen;
 
-import more_rpg_loot.worldgen.gen.ModPlacedFeatures;
+import lne.worldgen.gen.ModPlacedFeatures;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.world.biome.BiomeKeys;

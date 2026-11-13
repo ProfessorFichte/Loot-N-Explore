@@ -1,7 +1,7 @@
 {
   "type": "minecraft:jigsaw",
   "step": "surface_structures",
-  "biomes": "#loot_n_explore:has_structure/frozen_depths/monarchs_temple",
+  "biomes": "#loot_n_explore:has_structure/frozen_depths/overworld_icy_structures",
   "start_pool": "loot_n_explore:frozen_depths/frost_tower/e0",
   "terrain_adaptation": "beard_box",
   "size": 6,

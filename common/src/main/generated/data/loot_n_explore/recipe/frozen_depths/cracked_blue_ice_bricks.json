@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "loot_n_explore:blue_ice_bricks"
+  },
+  "result": {
+    "id": "loot_n_explore:cracked_blue_ice_bricks"
+  }
+}

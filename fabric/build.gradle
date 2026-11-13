@@ -57,9 +57,7 @@ repositories {
         url = 'https://maven.ladysnake.org/releases'
     }
     maven { url 'https://jitpack.io' }
-    mavenLocal {
-        content { excludeModule('maven.modrinth', 'more-rpg-library') }
-    }
+    mavenLocal()
 }
 
 dependencies {
@@ -73,22 +71,23 @@ dependencies {
     modImplementation("dev.kosmx.player-anim:player-animation-lib-${platform}:${project.player_anim_version}")
     modImplementation("me.shedaniel.cloth:cloth-config-${platform}:${project.cloth_config_version}")
     modImplementation("maven.modrinth:tiny-config:${project.tiny_config_version}-${platform}")
-    modLocalRuntime("com.github.thedeathlycow:thermoo:${project.thermoo_version}")
+    modCompileOnly("com.github.thedeathlycow:thermoo:${project.thermoo_version}")
 
-    modLocalRuntime("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
+    modCompileOnly("maven.modrinth:spell-power:${project.spell_power_version}-${platform}")
     modCompileOnly("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
-    modLocalRuntime("maven.modrinth:spell-engine:${project.spell_engine_version}-${platform}")
     modCompileOnly("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
     modLocalRuntime("maven.modrinth:more-rpg-library:${project.more_rpg_library_version}-${platform}")
-    modLocalRuntime("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}-${platform}")
+    modCompileOnly("maven.modrinth:ranged-weapon-api:${project.ranged_weapon_api_version}-${platform}")
     modCompileOnly("maven.modrinth:witcher-rpg-class:${project.witcher_version}-${platform}")
     modCompileOnly("maven.modrinth:relics-rpg:${project.relics_version}-${platform}")
     modCompileOnly("maven.modrinth:critical-strike:${project.critical_strike_version}-${platform}")
 
-    modImplementation("maven.modrinth:trinkets:${project.trinkets_version}")
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3"
+    modCompileOnly("maven.modrinth:trinkets:${project.trinkets_version}")
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.3"
+    modCompileOnly "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.3"
 }
+
+apply from: rootProject.file("workspace-runtime.gradle")
 
 processResources {
     inputs.property 'version', project.version

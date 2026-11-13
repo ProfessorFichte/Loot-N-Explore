@@ -1,7 +1,7 @@
 package com.lne.fabric.compat;
 
-import more_rpg_loot.compat.spell_engine.trinket_compat.TrinketsCompat;
-import more_rpg_loot.platform.LNEPlatform;
+import lne.compat.trinkets.TrinketsCompat;
+import lne.platform.LNEPlatform;
 import net.spell_engine.fabric.compat.FabricCompatFeatures;
 
 public class CompatFeatures {

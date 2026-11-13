@@ -1,16 +1,25 @@
 package com.lne.neoforge.client;
 
-import more_rpg_loot.client.RPGLootClient;
-import more_rpg_loot.network.FrozenDepthsMusicPayload;
+import lne.client.LneClient;
+import lne.network.EntityHudTextPayload;
+import lne.network.StructureMusicPayload;
 
 public final class LNEClientPackets {
     private LNEClientPackets() {}
 
-    public static void onMusic(FrozenDepthsMusicPayload payload) {
-        RPGLootClient.onFrozenDepthsMusic(payload.start());
+    public static void onMusic(StructureMusicPayload payload) {
+        LneClient.onStructureMusic(payload);
     }
 
-    public static void onSpawnOverlay() {
-        RPGLootClient.onFrostMonarchSpawnOverlay();
+    public static void onRelicStacks(lne.network.RelicStacksPayload payload) {
+        LneClient.onRelicStacks(payload);
+    }
+
+    public static void onWeaponCooldown(lne.network.WeaponCooldownPayload payload) {
+        lne.client.hud.WeaponReadyCue.onRangedCooldown(payload.ability(), payload.ticks());
+    }
+
+    public static void onEntityHudText(EntityHudTextPayload payload) {
+        LneClient.onEntityHudText(payload);
     }
 }

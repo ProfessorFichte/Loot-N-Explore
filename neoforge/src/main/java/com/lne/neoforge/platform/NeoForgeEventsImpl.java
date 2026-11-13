@@ -1,7 +1,7 @@
 package com.lne.neoforge.platform;
 
-import more_rpg_loot.platform.LNEEvents;
-import more_rpg_loot.platform.LNEPlatform;
+import lne.platform.LNEEvents;
+import lne.platform.LNEPlatform;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;

@@ -146,6 +146,22 @@
           "name": "minecraft:paper"
         }
       ]
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.05,
+          "condition": "minecraft:random_chance"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "loot_n_explore:jolly_time_disc"
+        }
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "loot_n_explore:chests/inns/desert"

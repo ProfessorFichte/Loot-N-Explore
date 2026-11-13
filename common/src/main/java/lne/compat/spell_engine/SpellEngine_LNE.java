@@ -1,0 +1,186 @@
+package lne.compat.spell_engine;
+
+import lne.config.TweaksConfig;
+import com.mrpg_lib.compat.spell_engine.MrpgLibSpells;
+import lne.platform.LNEEvents;
+import lne.platform.LNEPlatform;
+
+import lne.item.CommonItems;
+import lne.item.StaffItem;
+import lne.item.relics.LNE_RelicItems;
+import lne.item.weapons.LNE_ShieldItems;
+import lne.item.weapons.LNE_WeaponItems;
+import net.minecraft.util.Identifier;
+import net.spell_engine.rpg_series.config.ConfigFile;
+import net.spell_engine.api.spell.SpellDataComponents;
+import net.spell_engine.api.spell.container.SpellContainer;
+import net.spell_engine.api.spell.container.SpellContainers;
+import net.spell_engine.rpg_series.datagen.WeaponSkills;
+import net.spell_engine.rpg_series.loot.LootConfig;
+import net.spell_engine.rpg_series.loot.LootHelper;
+import net.tiny_config.ConfigManager;
+
+import java.util.List;
+
+import static lne.LneMod.MOD_ID;
+
+public class SpellEngine_LNE {
+
+    public static ConfigManager<LootConfig> lootEquipmentConfig = new ConfigManager<>
+            ("loot_equipment_v1", Default.itemLootConfig)
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .constrain(value -> LootConfig.constrainValues(value, Default.itemLootConfig))
+            .build();
+    public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
+            ("loot_scrolls", Default.scrollLootConfig)
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .constrain(value -> LootConfig.constrainValues(value, Default.scrollLootConfig))
+            .build();
+    public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
+            ("equipment_v1", new ConfigFile.Equipment())
+            .builder()
+            .setDirectory(MOD_ID)
+            .sanitize(true)
+            .build();
+
+    public static void initialize() {
+        lootEquipmentConfig.refresh();
+        itemConfig.refresh();
+        lootScrollsConfig.refresh();
+        configureWeaponSpells();
+        configureRelicSpells();
+        RelicSpellHandlers.register();
+        itemConfig.save();
+        LootHelper.TAG_CACHE.refresh();
+        LNEEvents.get().onLootTableModify(ctx -> {
+            LootHelper.configure(ctx.registries(), ctx.tableId(), List.of(), ctx::addPool, lootEquipmentConfig.value, ctx.tableId().toString());
+            LootHelper.configure(ctx.registries(), ctx.tableId(), List.of(), ctx::addPool, lootScrollsConfig.value, ctx.tableId().toString());
+        });
+        LNEEvents.get().onServerStarted(server -> LootHelper.updateTagCache(lootEquipmentConfig.value));
+        LNEEvents.get().onDataPackReload(() -> LootHelper.updateTagCache(lootEquipmentConfig.value));
+    }
+
+    private static void configureWeaponSpells() {
+        LNEEvents.get().modifyItemComponents(context -> {
+            if (!TweaksConfig.weaponAbilities() || !TweaksConfig.spellEngineAbilities()) return;
+            setContainer(context, LNE_WeaponItems.ENDER_DRAGON_SWORD,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.dragonclaw_melee.id().toString())));
+            setContainer(context, LNE_WeaponItems.ENDER_DRAGON_AXE,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.CLEAVE.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.dragonclaw_melee.id().toString())));
+
+            setContainer(context, LNE_WeaponItems.WITHER_SWORD,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.wither_pulse_melee.id().toString())));
+            setContainer(context, LNE_WeaponItems.WITHER_AXE,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.CLEAVE.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.wither_pulse_melee.id().toString())));
+
+            setContainer(context, LNE_WeaponItems.GLACIAL_SWORD,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.avalanche_melee.id().toString())));
+            setContainer(context, LNE_WeaponItems.GLACIAL_AXE,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.CLEAVE.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.avalanche_melee.id().toString())));
+
+            setContainer(context, LNE_WeaponItems.ELDER_GUARDIAN_SWORD,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.SWIFT_STRIKES.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.waterbomb_melee.id().toString())));
+            setContainer(context, LNE_WeaponItems.ELDER_GUARDIAN_AXE,
+                    SpellContainers.forMeleeWeapon()
+                            .withSpellId(WeaponSkills.CLEAVE.id())
+                            .withAdditionalSpell(List.of(MrpgLibSpells.waterbomb_melee.id().toString())));
+
+            if (!LNEPlatform.isModLoaded("lne_paladins") && LNE_WeaponItems.ENDER_DRAGON_MACE != null) {
+                setContainer(context, LNE_WeaponItems.ENDER_DRAGON_MACE,
+                        SpellContainers.forMeleeWeapon()
+                                .withSpellId(WeaponSkills.SMASH.id())
+                                .withAdditionalSpell(List.of(MrpgLibSpells.dragonclaw_melee.id().toString())));
+                setContainer(context, LNE_WeaponItems.WITHER_MACE,
+                        SpellContainers.forMeleeWeapon()
+                                .withSpellId(WeaponSkills.SMASH.id())
+                                .withAdditionalSpell(List.of(MrpgLibSpells.wither_pulse_melee.id().toString())));
+                setContainer(context, LNE_WeaponItems.GLACIAL_MACE,
+                        SpellContainers.forMeleeWeapon()
+                                .withSpellId(WeaponSkills.SMASH.id())
+                                .withAdditionalSpell(List.of(MrpgLibSpells.avalanche_melee.id().toString())));
+                setContainer(context, LNE_WeaponItems.ELDER_GUARDIAN_MACE,
+                        SpellContainers.forMeleeWeapon()
+                                .withSpellId(WeaponSkills.SMASH.id())
+                                .withAdditionalSpell(List.of(MrpgLibSpells.waterbomb_melee.id().toString())));
+            }
+
+            setRanged(context, LNE_WeaponItems.ENDER_DRAGON_BOW, MrpgLibSpells.dragon_breath_ranged.id());
+            setRanged(context, LNE_WeaponItems.ENDER_DRAGON_CROSSBOW, MrpgLibSpells.dragon_breath_ranged.id());
+            setRanged(context, LNE_WeaponItems.WITHER_BOW, MrpgLibSpells.cursed_wither_bolt.id());
+            setRanged(context, LNE_WeaponItems.WITHER_CROSSBOW, MrpgLibSpells.cursed_wither_bolt.id());
+            setRanged(context, LNE_WeaponItems.GLACIAL_BOW, MrpgLibSpells.glacial_splitter.id());
+            setRanged(context, LNE_WeaponItems.GLACIAL_CROSSBOW, MrpgLibSpells.glacial_splitter.id());
+            setRanged(context, LNE_WeaponItems.ELDER_GUARDIAN_BOW, MrpgLibSpells.reef_arrows.id());
+            setRanged(context, LNE_WeaponItems.ELDER_GUARDIAN_CROSSBOW, MrpgLibSpells.reef_arrows.id());
+
+            if (StaffItem.hasSpellEngineSpell()) {
+                context.modify(CommonItems.MONARCHS_FROST_STAFF.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                        SpellContainers.forMagicWeapon().withSpellId(Identifier.of("wizards", "frostbolt"))));
+            }
+            context.modify(CommonItems.GUARDS_FROST_LANCE.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                    SpellContainers.forMeleeWeapon().withSpellId(WeaponSkills.IMPALE.id())
+                            .withAdditionalSpell(List.of(LNE_Abilities.frostbite_melee.id().toString()))));
+            context.modify(CommonItems.FROST_HAUNTS_AXE.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                    SpellContainers.forMeleeWeapon().withSpellId(WeaponSkills.CLEAVE.id())
+                            .withAdditionalSpell(List.of(LNE_Abilities.frostbite_melee.id().toString()))));
+            context.modify(CommonItems.FROZEN_BOW.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
+                    SpellContainers.forRangedWeapon().withSpellId(LNE_Abilities.frostbite_ranged.id())));
+
+            if (!LNEPlatform.isModLoaded("lne_paladins")) {
+                setShield(context, LNE_ShieldItems.ENDER_DRAGON_SHIELD, MrpgLibSpells.ender_dragon_shield.id());
+                setShield(context, LNE_ShieldItems.WITHER_SHIELD, MrpgLibSpells.wither_shield.id());
+                setShield(context, LNE_ShieldItems.GLACIAL_SHIELD, MrpgLibSpells.glacial_shield.id());
+                setShield(context, LNE_ShieldItems.ELDER_GUARDIAN_SHIELD, MrpgLibSpells.elder_guardian_shield.id());
+            }
+        });
+    }
+
+    private static void configureRelicSpells() {
+        LNEEvents.get().modifyItemComponents(context -> {
+            if (!TweaksConfig.relicAbilities() || !TweaksConfig.spellEngineAbilities()) return;
+            for (var entry : LNE_RelicItems.entries) {
+                var spellId = entry.spellId() != null ? entry.spellId() : entry.id();
+                if (LNE_Abilities.entries.stream().anyMatch(ability -> ability.id().equals(spellId))) {
+                    context.modify(entry.item().get(), builder ->
+                            builder.add(SpellDataComponents.SPELL_CONTAINER, SpellContainers.forRelic(spellId)));
+                }
+            }
+        });
+    }
+
+    private static void setShield(LNEEvents.ItemComponentContext context, LNE_ShieldItems.Entry entry, Identifier spellId) {
+        if (entry != null) {
+            context.modify(entry.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER, SpellContainers.forShield(List.of(spellId))));
+        }
+    }
+
+    private static void setRanged(LNEEvents.ItemComponentContext context,
+                                  LNE_WeaponItems.Entry entry, Identifier spellId) {
+        setContainer(context, entry, SpellContainers.forRangedWeapon().withSpellId(spellId));
+    }
+
+    private static void setContainer(LNEEvents.ItemComponentContext context,
+                                      LNE_WeaponItems.Entry entry, SpellContainer container) {
+        if (entry != null) {
+            context.modify(entry.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER, container));
+        }
+    }
+}

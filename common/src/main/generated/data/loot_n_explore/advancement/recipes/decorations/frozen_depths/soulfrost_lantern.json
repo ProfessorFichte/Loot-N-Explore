@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_frozen_torch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:frozen_torch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:frozen_depths/soulfrost_lantern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_frozen_torch"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:frozen_depths/soulfrost_lantern"
+    ]
+  }
+}

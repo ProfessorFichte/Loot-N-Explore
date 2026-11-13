@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "variant=0": {
+      "model": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_0"
+    },
+    "variant=1": {
+      "model": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_1"
+    },
+    "variant=2": {
+      "model": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_2"
+    },
+    "variant=3": {
+      "model": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_3"
+    },
+    "variant=4": {
+      "model": "loot_n_explore:block/frozen_depths/deepslate_bookshelf_4"
+    }
+  }
+}

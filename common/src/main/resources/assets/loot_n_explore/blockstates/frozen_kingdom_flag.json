@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,wall=false": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag"
+    },
+    "facing=north,wall=true": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag_wall"
+    },
+    "facing=east,wall=false": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag",
+      "y": 90
+    },
+    "facing=east,wall=true": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag_wall",
+      "y": 90
+    },
+    "facing=south,wall=false": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag",
+      "y": 180
+    },
+    "facing=south,wall=true": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag_wall",
+      "y": 180
+    },
+    "facing=west,wall=false": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag",
+      "y": 270
+    },
+    "facing=west,wall=true": {
+      "model": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag_wall",
+      "y": 270
+    }
+  }
+}

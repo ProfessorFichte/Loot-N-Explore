@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "location": "loot_n_explore:frozen_depths/frost_tower/e2",
-        "processors": "minecraft:empty",
+        "processors": "loot_n_explore:frozen_depths/frost_tower",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

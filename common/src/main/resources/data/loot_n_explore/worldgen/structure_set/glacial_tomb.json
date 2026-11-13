@@ -7,12 +7,12 @@
   ],
   "placement": {
     "exclusion_zone": {
-      "chunk_count": 8,
-      "other_set": "minecraft:mineshafts"
+      "chunk_count": 10,
+      "other_set": "minecraft:ancient_cities"
     },
     "type": "minecraft:random_spread",
     "separation": 8,
     "spacing": 18,
-    "salt": 1592847361
+    "salt": 825186845
   }
 }

@@ -1,15 +1,33 @@
 {
   "required": true,
-  "package": "more_rpg_loot.mixin",
+  "package": "lne.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BlockEntityTypeAccessor",
+    "AbstractFireBlockMixin",
     "LivingEntityMixin",
-    "VillagerMixin"
+    "SkeletonEntityMixin",
+    "RelicLivingEntityMixin",
+    "RelicServerPlayerMixin",
+    "BrushableBlockEntityMixin",
+    "RangedWeaponItemMixin",
+    "TrialSpawnerDataMixin",
+    "VillagerMixin",
+    "SpellBindingBlockMixin",
+    "SimpleRegistryMixin",
+    "SinglePoolElementAccessor"
   ],
   "client": [
+    "BuiltinModelItemRendererMixin",
+    "DecoratedPotBlockEntityRendererMixin",
     "BossBarHudMixin",
-    "ModelPredicateProviderRegistryInvoker"
+    "InGameOverlayRendererMixin",
+    "TrialSpawnerLogicMixin",
+    "VaultClientMixin",
+    "ParticleManagerMixin",
+    "ModelPredicateProviderRegistryInvoker",
+    "DrawContextMixin",
+    "ClientPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

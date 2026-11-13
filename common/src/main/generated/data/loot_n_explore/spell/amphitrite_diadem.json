@@ -1,0 +1,105 @@
+{
+  "school": "spell_power:water",
+  "range": 5.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "chance": 0.1,
+        "chance_batching": true
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.1,
+        "chance_batching": true,
+        "spell": {
+          "archetype": "MELEE",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "ARROW_IMPACT",
+        "chance": 0.1,
+        "chance_batching": true
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.1,
+        "chance_batching": true,
+        "spell": {
+          "type": "ACTIVE"
+        },
+        "impact": {
+          "impact_type": "DAMAGE"
+        }
+      }
+    ]
+  },
+  "release": {
+    "visuals": {
+      "particles": [
+        {
+          "id": "splash",
+          "appearance": {},
+          "batch": {
+            "count": 60.0,
+            "shape": "CIRCLE",
+            "anchor": "ENTITY",
+            "vertical_origin": 0.1,
+            "min_speed": 0.3,
+            "max_speed": 0.6
+          }
+        }
+      ]
+    },
+    "sound": {
+      "id": "minecraft:ambient.underwater.enter"
+    }
+  },
+  "target": {
+    "type": "AREA",
+    "area": {
+      "include_caster": true
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.3
+        }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_heal",
+            "appearance": {
+              "color": 4294954239,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 8.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

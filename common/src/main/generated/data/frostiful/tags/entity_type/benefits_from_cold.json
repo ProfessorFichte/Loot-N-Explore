@@ -5,7 +5,7 @@
       "required": false
     },
     {
-      "id": "loot_n_explore:frost_haunt",
+      "id": "loot_n_explore:frost_haunted",
       "required": false
     },
     {
@@ -13,19 +13,19 @@
       "required": false
     },
     {
-      "id": "loot_n_explore:undead_frozen_mage",
+      "id": "loot_n_explore:frozen_magician",
       "required": false
     },
     {
-      "id": "loot_n_explore:general_undead_frozen_mage",
+      "id": "loot_n_explore:general_frozen_magician",
       "required": false
     },
     {
-      "id": "loot_n_explore:frosted_ranger",
+      "id": "loot_n_explore:frozen_ranger",
       "required": false
     },
     {
-      "id": "loot_n_explore:general_frosted_ranger",
+      "id": "loot_n_explore:general_frozen_ranger",
       "required": false
     },
     {
@@ -42,6 +42,10 @@
     },
     {
       "id": "loot_n_explore:monarchs_guard",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:general_monarchs_guard",
       "required": false
     }
   ]

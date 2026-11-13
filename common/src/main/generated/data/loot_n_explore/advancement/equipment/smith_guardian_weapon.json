@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#loot_n_explore:weapon_themes/guardian"
+            "items": "#loot_n_explore:weapon_themes/elder_guardian"
           }
         ]
       },

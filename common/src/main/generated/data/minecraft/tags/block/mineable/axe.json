@@ -15,6 +15,14 @@
     {
       "id": "loot_n_explore:spruce_hanging_inn_sign",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:suspicious_bookshelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:frozen_kingdom_flag",
+      "required": false
     }
   ]
 }

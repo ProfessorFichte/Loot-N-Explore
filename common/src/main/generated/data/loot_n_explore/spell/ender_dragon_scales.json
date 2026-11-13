@@ -1,5 +1,5 @@
 {
-  "school": "spell_power:physical_melee",
+  "school": "spell_power:dynamic",
   "tier": 1,
   "learn": {},
   "active": {},
@@ -10,48 +10,131 @@
     "visuals": {
       "particles": [
         {
-          "id": "end_rod",
-          "appearance": {},
-          "batch": {
-            "count": 40.0,
-            "shape": "CIRCLE",
-            "anchor": "ENTITY",
-            "min_speed": 0.6,
-            "max_speed": 0.8
-          }
-        },
-        {
           "id": "dragon_breath",
           "appearance": {},
           "batch": {
             "count": 40.0,
             "shape": "CIRCLE",
             "anchor": "ENTITY",
-            "min_speed": 0.6,
-            "max_speed": 0.8
+            "vertical_origin": 0.1,
+            "min_speed": 0.3,
+            "max_speed": 0.5
           }
         }
       ]
     },
     "sound": {
-      "id": "spell_engine:generic_healing_impact_3"
+      "id": "minecraft:entity.ender_dragon.growl"
     }
+  },
+  "deliver": {
+    "type": "CLOUD",
+    "clouds": [
+      {
+        "volume": {
+          "radius": 2.0,
+          "area": {
+            "vertical_range_multiplier": 0.5
+          }
+        },
+        "time_to_live_seconds": 6.0,
+        "growth": {
+          "radius_step": 0.5,
+          "step_interval": 20,
+          "duration_ticks": 120
+        },
+        "impact_tick_interval": 20,
+        "client_data": {
+          "light_level": 12,
+          "particles": [
+            {
+              "id": "dragon_breath",
+              "appearance": {},
+              "batch": {
+                "count": 20.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1,
+                "max_speed": 0.02
+              }
+            },
+            {
+              "id": "spell_engine:magic_arcane",
+              "appearance": {
+                "color": 4284940287,
+                "motion": "ASCEND"
+              },
+              "batch": {
+                "count": 8.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1,
+                "min_speed": 0.1,
+                "max_speed": 0.3
+              }
+            }
+          ]
+        }
+      }
+    ]
   },
   "impacts": [
     {
       "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "loot_n_explore:ender_dragon_scales",
-          "duration": 7.0,
-          "amplifier_power_multiplier": 0.2
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4
         }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_arcane",
+            "appearance": {
+              "color": 4284940287,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 10.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "action": {
+        "type": "HEAL",
+        "heal": {
+          "spell_power_coefficient": 0.25
+        }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_heal",
+            "appearance": {
+              "color": 4294954239,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 6.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
       }
     }
   ],
   "cost": {
     "cooldown": {
-      "duration": 70.0
+      "duration": 90.0
     }
   }
 }

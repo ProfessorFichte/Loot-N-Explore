@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "O": {
-      "item": "minecraft:obsidian"
+    "C": {
+      "item": "loot_n_explore:cryotic_block"
     },
     "S": {
       "item": "loot_n_explore:frozen_soul"
     }
   },
   "pattern": [
-    "OOO",
-    "OSO",
-    "OOO"
+    "CCC",
+    "CSC",
+    "CCC"
   ],
   "result": {
     "count": 1,

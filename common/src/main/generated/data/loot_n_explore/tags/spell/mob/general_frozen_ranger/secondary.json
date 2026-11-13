@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "archers_expansion:arctic_volley",
+      "required": false
+    },
+    {
+      "id": "archers_expansion:enchanted_crystal_arrow",
+      "required": false
+    },
+    {
+      "id": "archers:rain_of_arrows",
+      "required": false
+    }
+  ]
+}

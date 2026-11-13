@@ -1,0 +1,14 @@
+{
+  "processors": [
+    {
+      "processor_type": "mrpg_lib:random_replace",
+      "target": "minecraft:bookshelf",
+      "chance": 0.08,
+      "count": 1,
+      "replacement": {
+        "Name": "loot_n_explore:suspicious_bookshelf"
+      },
+      "loot_table": "loot_n_explore:archaeology/inn"
+    }
+  ]
+}

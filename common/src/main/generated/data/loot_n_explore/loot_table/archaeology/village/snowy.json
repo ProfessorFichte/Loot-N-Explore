@@ -1,0 +1,73 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 15.0,
+                "min": 5.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "minecraft:red_x",
+              "destination": "loot_n_explore:on_frost_tower_maps",
+              "function": "minecraft:exploration_map"
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.loot_n_explore.frost_tower"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map",
+          "weight": 20
+        },
+        {
+          "type": "mrpg_lib:conditional_item",
+          "conditions": [
+            {
+              "condition": "mrpg_lib:spells_available",
+              "spell_tier_max": 2,
+              "spell_tier_min": 2
+            }
+          ],
+          "functions": [
+            {
+              "blacklist_spells": [],
+              "count": 1.0,
+              "function": "mrpg_lib:specific_spell_scroll_pool",
+              "spell_pools": [],
+              "spell_tier_max": 2.0,
+              "spell_tier_min": 2.0
+            }
+          ],
+          "item": "spell_engine:spell_scroll",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 30
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

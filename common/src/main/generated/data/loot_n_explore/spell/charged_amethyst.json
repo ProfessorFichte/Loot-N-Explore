@@ -1,0 +1,139 @@
+{
+  "school": "spell_power:dynamic",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "chance": 0.2,
+        "chance_batching": true
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.2,
+        "chance_batching": true,
+        "spell": {
+          "archetype": "MELEE",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "ARROW_IMPACT",
+        "chance": 0.2,
+        "chance_batching": true
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.2,
+        "chance_batching": true,
+        "spell": {
+          "type": "ACTIVE"
+        },
+        "impact": {
+          "impact_type": "DAMAGE"
+        }
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "deliver": {
+    "type": "CLOUD",
+    "clouds": [
+      {
+        "volume": {
+          "radius": 5.0
+        },
+        "time_to_live_seconds": 0.6,
+        "impact_tick_interval": 10,
+        "client_data": {
+          "particles": [
+            {
+              "id": "spell_engine:magic_arcane",
+              "appearance": {
+                "color": 4284940287,
+                "motion": "ASCEND"
+              },
+              "batch": {
+                "count": 6.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1,
+                "min_speed": 0.1,
+                "max_speed": 0.3
+              }
+            }
+          ]
+        },
+        "spawn": {
+          "sound": {
+            "id": "minecraft:block.amethyst_block.resonate"
+          },
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:magic_arcane",
+                "appearance": {
+                  "color": 4284940287,
+                  "motion": "BURST"
+                },
+                "batch": {
+                  "count": 40.0,
+                  "shape": "SPHERE",
+                  "anchor": "ENTITY",
+                  "min_speed": 0.2,
+                  "max_speed": 0.5
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4
+        }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_arcane",
+            "appearance": {
+              "color": 4284940287,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 12.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
+      },
+      "sound": {
+        "id": "minecraft:block.amethyst_cluster.break",
+        "volume": 0.6
+      }
+    }
+  ]
+}

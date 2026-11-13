@@ -7,6 +7,19 @@ architectury {
     minecraft = project.minecraft_version
 }
 
+ext.runtimeWorkspaceFlags = ["workspace_spell_engine", "workspace_trinkets", "workspace_curios", "workspace_thermoo"]
+ext.runtimeWorkspace = {
+    def local = rootProject.file("workspace.properties")
+    def props = new Properties()
+    if (local.exists()) { local.withInputStream { props.load(it) } }
+    def flags = [:]
+    for (name in runtimeWorkspaceFlags) {
+        def cli = providers.gradleProperty(name).orNull
+        flags[name] = (cli != null ? cli : props.getProperty(name, "true")).toBoolean()
+    }
+    return flags
+}()
+
 allprojects {
     group = rootProject.maven_group
     version = rootProject.mod_version

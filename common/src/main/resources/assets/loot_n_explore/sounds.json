@@ -1,5 +1,6 @@
 {
   "entity.glaze.hurt": {
+    "subtitle": "subtitles.loot_n_explore.entity.glaze.hurt",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/glaze/hit1",
       "loot_n_explore:frozen_depths/mob/glaze/hit2",
@@ -7,6 +8,7 @@
     ]
   },
   "entity.glaze.ambient": {
+    "subtitle": "subtitles.loot_n_explore.entity.glaze.ambient",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/glaze/breathe1",
       "loot_n_explore:frozen_depths/mob/glaze/breathe2",
@@ -15,46 +17,55 @@
     ]
   },
   "entity.glaze.death": {
+    "subtitle": "subtitles.loot_n_explore.entity.glaze.death",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/glaze/death"
     ]
   },
   "entity.glaze.freeze": {
+    "subtitle": "subtitles.loot_n_explore.entity.glaze.freeze",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/glaze/freeze"
     ]
   },
   "villager.innkeeper": {
+    "subtitle": "subtitles.loot_n_explore.villager.innkeeper",
     "sounds": [
       "loot_n_explore:generic/villager/innkeeper"
     ]
   },
   "frostmonarch.screech": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.screech",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/screech"
     ]
   },
   "frostmonarch.deep_freeze": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.deep_freeze",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/deep_freeze"
     ]
   },
   "frostmonarch.spawned_laugh": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.spawned_laugh",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/spawned_laugh"
     ]
   },
   "frostmonarch.spawned_storm": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.spawned_storm",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/spawned_storm"
     ]
   },
   "frostmonarch.healing": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.healing",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/healing"
     ]
   },
   "frostmonarch.hurt": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.hurt",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/hurt_1",
       "loot_n_explore:frozen_depths/mob/frostmonarch/hurt_2",
@@ -62,6 +73,7 @@
     ]
   },
   "frostmonarch.death": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.death",
     "sounds": [
       "loot_n_explore:frozen_depths/mob/frostmonarch/death_1",
       "loot_n_explore:frozen_depths/mob/frostmonarch/death_2"
@@ -83,7 +95,16 @@
       }
     ]
   },
+  "music.inn": {
+    "sounds": [
+      {
+        "name": "loot_n_explore:generic/music/jolly_time",
+        "stream": true
+      }
+    ]
+  },
   "block.frozen_soul_block.ambient": {
+    "subtitle": "subtitles.loot_n_explore.block.frozen_soul_block.ambient",
     "sounds": [
       "loot_n_explore:frozen_depths/block/frozen_soul/ambient_1",
       "loot_n_explore:frozen_depths/block/frozen_soul/ambient_2",

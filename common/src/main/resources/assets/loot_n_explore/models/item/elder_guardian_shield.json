@@ -407,7 +407,7 @@
 	],
 	"gui_light": "front",
 	"overrides": [
-		{"predicate": {"blocking": 1}, "model": "lne_paladins:item/elder_guardian_shield_blocking"}
+		{"predicate": {"blocking": 1}, "model": "loot_n_explore:item/elder_guardian_shield_blocking"}
 	],
 	"display": {
 		"thirdperson_righthand": {

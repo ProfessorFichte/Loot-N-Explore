@@ -1,5 +1,5 @@
 {
-  "school": "spell_power:soul",
+  "school": "spell_power:dynamic",
   "range": 48.0,
   "tier": 1,
   "learn": {},
@@ -14,14 +14,17 @@
           "id": "smoke",
           "appearance": {},
           "batch": {
-            "count": 40.0,
+            "count": 30.0,
             "shape": "SPHERE",
             "anchor": "ENTITY",
-            "min_speed": 0.6,
-            "max_speed": 0.8
+            "min_speed": 0.4,
+            "max_speed": 0.6
           }
         }
       ]
+    },
+    "sound": {
+      "id": "minecraft:entity.wither.shoot"
     }
   },
   "target": {
@@ -32,30 +35,68 @@
     "type": "PROJECTILE",
     "projectile": {
       "launch_properties": {
-        "velocity": 1.2
+        "velocity": 1.2,
+        "extra_launch_count": 2,
+        "extra_launch_delay": 3,
+        "sound": {
+          "id": "minecraft:entity.wither.shoot"
+        }
+      },
+      "projectile": {
+        "divergence": 9.0,
+        "client_data": {
+          "travel_particles": [
+            {
+              "id": "smoke",
+              "appearance": {},
+              "batch": {
+                "count": 2.0,
+                "shape": "CIRCLE",
+                "anchor": "ENTITY",
+                "alignment": "LOOK",
+                "min_speed": 0.6,
+                "max_speed": 0.9
+              }
+            }
+          ],
+          "composite_model": {
+            "models": [
+              {
+                "rotate_degrees_per_tick": 0.0,
+                "fx": {
+                  "model_id": "loot_n_explore:spell_projectile/wither_skull",
+                  "light_emission": "RADIATE",
+                  "scale": 1.5
+                }
+              }
+            ]
+          }
+        }
       }
     }
   },
   "impacts": [
     {
-      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.25
+          "spell_power_coefficient": 0.8
         }
       },
       "visuals": {
         "particles": [
           {
-            "id": "smoke",
-            "appearance": {},
+            "id": "spell_engine:magic_skull",
+            "appearance": {
+              "color": 4278190335,
+              "motion": "BURST"
+            },
             "batch": {
-              "count": 20.0,
+              "count": 12.0,
               "shape": "SPHERE",
               "anchor": "ENTITY",
-              "min_speed": 0.6,
-              "max_speed": 0.8
+              "min_speed": 0.2,
+              "max_speed": 0.5
             }
           }
         ]
@@ -65,28 +106,52 @@
       }
     },
     {
-      "attribute": "minecraft:generic.attack_damage",
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
           "effect_id": "wither",
           "duration": 5.0,
           "amplifier": 1,
-          "amplifier_power_multiplier": 0.25,
           "show_particles": true
         }
       }
     }
   ],
   "area_impact": {
-    "radius": 2.0,
+    "radius": 5.0,
     "area": {
       "distance_dropoff": "SQUARED"
+    },
+    "visuals": {
+      "particles": [
+        {
+          "id": "explosion",
+          "appearance": {},
+          "batch": {
+            "count": 3.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.2,
+            "max_speed": 0.4
+          }
+        },
+        {
+          "id": "smoke",
+          "appearance": {},
+          "batch": {
+            "count": 30.0,
+            "shape": "SPHERE",
+            "anchor": "ENTITY",
+            "min_speed": 0.4,
+            "max_speed": 0.8
+          }
+        }
+      ]
     }
   },
   "cost": {
     "cooldown": {
-      "duration": 45.0
+      "duration": 90.0
     }
   }
 }

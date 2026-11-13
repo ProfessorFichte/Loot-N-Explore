@@ -1,14 +1,14 @@
 {
-  "school": "spell_power:physical_melee",
-  "range": 32.0,
+  "school": "spell_power:dynamic",
+  "range": 16.0,
   "tier": 1,
   "learn": {},
   "active": {
     "cast": {
-      "duration": 4.0,
+      "duration": 5.0,
       "type": "CHANNEL",
       "channel": {
-        "ticks": 20
+        "ticks": 10
       },
       "animation": {
         "id": "spell_engine:two_handed_channeling"
@@ -46,7 +46,9 @@
     {
       "action": {
         "type": "DAMAGE",
-        "damage": {}
+        "damage": {
+          "spell_power_coefficient": 0.3
+        }
       },
       "sound": {
         "id": "minecraft:entity.guardian.attack",
@@ -57,15 +59,15 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "effect_id": "loot_n_explore:elder_guardians_curse",
-          "duration": 8.0
+          "effect_id": "weakness",
+          "duration": 3.0
         }
       }
     }
   ],
   "cost": {
     "cooldown": {
-      "duration": 60.0
+      "duration": 30.0
     }
   }
 }

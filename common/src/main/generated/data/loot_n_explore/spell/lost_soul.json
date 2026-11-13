@@ -1,0 +1,149 @@
+{
+  "school": "spell_power:physical_melee",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_activation": false,
+    "show_range": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "chance": 0.05,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ]
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.05,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "spell": {
+          "archetype": "MELEE",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "ARROW_IMPACT",
+        "chance": 0.05,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ]
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.05,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "spell": {
+          "archetype": "ARCHERY",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.05,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "impact": {
+          "impact_type": "DAMAGE"
+        }
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "impacts": [
+    {
+      "attribute_from_target": true,
+      "attribute": "minecraft:generic.max_health",
+      "action": {
+        "type": "HEAL",
+        "apply_to_caster": true,
+        "heal": {
+          "spell_power_coefficient": 0.15
+        }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "soul",
+            "appearance": {},
+            "batch": {
+              "count": 14.0,
+              "shape": "PILLAR",
+              "anchor": "ENTITY",
+              "vertical_origin": 0.1,
+              "min_speed": 0.05,
+              "max_speed": 0.15
+            }
+          },
+          {
+            "id": "soul_fire_flame",
+            "appearance": {},
+            "batch": {
+              "count": 8.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.03,
+              "max_speed": 0.1
+            }
+          },
+          {
+            "id": "spell_engine:magic_skull",
+            "appearance": {
+              "color": 1608114431,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 8.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.4
+            }
+          }
+        ]
+      },
+      "sound": {
+        "id": "minecraft:particle.soul_escape",
+        "volume": 0.8
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 10.0,
+      "haste_affected": false
+    }
+  }
+}

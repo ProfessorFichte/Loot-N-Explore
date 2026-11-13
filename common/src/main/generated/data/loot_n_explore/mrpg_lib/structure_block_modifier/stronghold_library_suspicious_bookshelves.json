@@ -1,0 +1,18 @@
+{
+  "chance": 0.03,
+  "loot_table": "loot_n_explore:archaeology/stronghold_library",
+  "max_per_piece": 4,
+  "pieces": [
+    "minecraft:shli"
+  ],
+  "replacement": {
+    "Name": "loot_n_explore:suspicious_bookshelf",
+    "Properties": {
+      "dusted": "0"
+    }
+  },
+  "structures": [
+    "minecraft:stronghold"
+  ],
+  "target": "minecraft:bookshelf"
+}

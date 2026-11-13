@@ -15,13 +15,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.lne.fabric.RPGLootFabric"
+      "com.lne.fabric.LneFabric"
     ],
     "client": [
-      "com.lne.fabric.client.RPGLootFabricClient"
+      "com.lne.fabric.client.LneFabricClient"
     ],
     "fabric-datagen": [
-      "more_rpg_loot.RPGLootDataGenerator"
+      "lne.LneDataGenerator"
     ]
   },
   "mixins": [

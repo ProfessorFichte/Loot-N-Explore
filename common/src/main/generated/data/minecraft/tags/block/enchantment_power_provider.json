@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:deepslate_bookshelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:icy_deepslate_bookshelf",
+      "required": false
+    }
+  ]
+}

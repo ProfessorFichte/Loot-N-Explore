@@ -1,0 +1,21 @@
+package lne.worldgen.structures;
+
+import lne.LneMod;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.world.gen.structure.Structure;
+
+public interface StructureTags {
+    TagKey<Structure> SMALL_TREASURE= register("small_treasure");
+    TagKey<Structure> ZOMBIE_QUEST = register("zombie_quest");
+    TagKey<Structure> SPIDER_QUEST = register("spider_quest");
+    TagKey<Structure> PILLAGER_QUEST = register("pillager_quest");
+    TagKey<Structure> MONARCHS_TEMPLE_LOCATED = register("frozen_depths/monarchs_temple");
+    TagKey<Structure> ON_FROST_TOWER_MAPS = register("on_frost_tower_maps");
+    TagKey<Structure> ON_DESERT_PYRAMID_MAPS = register("on_desert_pyramid_maps");
+    TagKey<Structure> ON_PILLAGER_OUTPOST_MAPS = register("on_pillager_outpost_maps");
+
+    private static TagKey<Structure> register(String id) {
+        return TagKey.of(RegistryKeys.STRUCTURE,  LneMod.id(id));
+    }
+}

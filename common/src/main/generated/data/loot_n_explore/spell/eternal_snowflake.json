@@ -1,0 +1,133 @@
+{
+  "school": "spell_power:dynamic",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_activation": false,
+    "show_range": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "DAMAGE_TAKEN",
+        "chance": 0.05,
+        "chance_batching": true
+      }
+    ]
+  },
+  "deliver": {
+    "type": "CLOUD",
+    "clouds": [
+      {
+        "volume": {
+          "radius": 4.0,
+          "area": {
+            "vertical_range_multiplier": 0.5
+          }
+        },
+        "time_to_live_seconds": 7.0,
+        "impact_tick_interval": 20,
+        "presence_sound": {
+          "id": "spell_engine:generic_frost_impact"
+        },
+        "client_data": {
+          "particles": [
+            {
+              "id": "spell_engine:snowflake",
+              "appearance": {},
+              "batch": {
+                "count": 14.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1,
+                "min_speed": 0.05,
+                "max_speed": 0.2
+              }
+            },
+            {
+              "id": "spell_engine:magic_frost",
+              "appearance": {
+                "color": 1724710911,
+                "motion": "DRIFT"
+              },
+              "batch": {
+                "count": 6.0,
+                "shape": "PILLAR",
+                "anchor": "ENTITY",
+                "vertical_origin": 0.1,
+                "min_speed": 0.05,
+                "max_speed": 0.15
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.05
+        }
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:freezing",
+          "duration": 3.0,
+          "show_particles": true
+        }
+      },
+      "visuals": {
+        "particles": [
+          {
+            "id": "spell_engine:magic_frost",
+            "appearance": {
+              "color": 1724710911,
+              "motion": "BURST"
+            },
+            "batch": {
+              "count": 8.0,
+              "shape": "SPHERE",
+              "anchor": "ENTITY",
+              "min_speed": 0.2,
+              "max_speed": 0.5
+            }
+          }
+        ]
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_impact",
+        "volume": 0.5
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 15.0,
+      "haste_affected": false
+    }
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "texture_size": [
+    64,
+    64
+  ],
+  "textures": {
+    "0": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag",
+    "particle": "loot_n_explore:block/frozen_depths/frozen_kingdom_flag"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        -13.75,
+        13.95
+      ],
+      "to": [
+        15,
+        13.25,
+        13.95
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          2,
+          -13.75,
+          12.95
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            3.5,
+            6.75
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            3.5,
+            0,
+            7,
+            6.75
+          ],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        12,
+        14
+      ],
+      "to": [
+        15,
+        14,
+        16
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          2,
+          -10,
+          12
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            6.75,
+            3.5,
+            7.25
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            9,
+            6.75,
+            9.5,
+            7.25
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            3.5,
+            6.75,
+            7,
+            7.25
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            9,
+            7.25,
+            9.5,
+            7.75
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            0,
+            7.25,
+            3.5,
+            7.75
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            3.5,
+            7.25,
+            7,
+            7.75
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        18.22,
+        -60.1,
+        15.91
+      ],
+      "translation": [
+        0.75,
+        2.25,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        18.22,
+        -60.1,
+        15.91
+      ],
+      "translation": [
+        0.75,
+        2.25,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ]
+    },
+    "ground": {
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ]
+    },
+    "gui": {
+      "rotation": [
+        -165,
+        -45,
+        -180
+      ],
+      "translation": [
+        2.75,
+        -4.5,
+        0
+      ],
+      "scale": [
+        0.49414,
+        0.49414,
+        0.49414
+      ]
+    },
+    "head": {
+      "translation": [
+        0,
+        15.75,
+        -4.75
+      ],
+      "scale": [
+        1.26953,
+        1.26953,
+        1.26953
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -2.5,
+        -4.75
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0,
+        -180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        6.5
+      ],
+      "scale": [
+        1.06641,
+        1.06641,
+        1.06641
+      ]
+    }
+  }
+}

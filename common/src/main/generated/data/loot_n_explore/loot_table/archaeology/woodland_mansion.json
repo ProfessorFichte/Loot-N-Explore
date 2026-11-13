@@ -1,0 +1,59 @@
+{
+  "type": "minecraft:archaeology",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:totem_of_undying",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 25.0,
+                "min": 15.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 15
+        },
+        {
+          "type": "mrpg_lib:conditional_item",
+          "conditions": [
+            {
+              "condition": "mrpg_lib:spells_available",
+              "spell_tier_max": 3,
+              "spell_tier_min": 3
+            }
+          ],
+          "functions": [
+            {
+              "blacklist_spells": [],
+              "count": 1.0,
+              "function": "mrpg_lib:specific_spell_scroll_pool",
+              "spell_pools": [],
+              "spell_tier_max": 3.0,
+              "spell_tier_min": 3.0
+            }
+          ],
+          "item": "spell_engine:spell_scroll",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:book",
+          "weight": 40
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

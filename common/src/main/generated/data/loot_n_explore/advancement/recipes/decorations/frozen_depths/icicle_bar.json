@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pointed_icicle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "loot_n_explore:pointed_icicle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "loot_n_explore:frozen_depths/icicle_bar"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pointed_icicle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "loot_n_explore:frozen_depths/icicle_bar"
+    ]
+  }
+}

@@ -12,7 +12,7 @@
     {
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
-        "location": "loot_n_explore:entities/monster/frosthaunt",
+        "location": "loot_n_explore:entities/monster/frost_haunted",
         "processors": "loot_n_explore:glacial_tomb_pillars",
         "projection": "rigid"
       },

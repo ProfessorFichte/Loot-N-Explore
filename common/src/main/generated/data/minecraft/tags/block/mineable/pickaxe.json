@@ -63,6 +63,22 @@
     {
       "id": "loot_n_explore:icicle_bar",
       "required": false
+    },
+    {
+      "id": "loot_n_explore:cryotic_block",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:deepslate_bookshelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:icy_deepslate_bookshelf",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:suspicious_deepslate_bookshelf",
+      "required": false
     }
   ]
 }

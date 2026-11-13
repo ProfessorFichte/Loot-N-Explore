@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "rogues:charge",
+      "required": false
+    },
+    {
+      "id": "rogues:throw_net",
+      "required": false
+    }
+  ]
+}

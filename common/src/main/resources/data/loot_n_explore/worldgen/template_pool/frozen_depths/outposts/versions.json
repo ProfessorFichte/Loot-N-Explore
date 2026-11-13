@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "location": "loot_n_explore:frozen_depths/outposts/v0",
-        "processors": "minecraft:empty",
+        "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -15,7 +15,7 @@
       "weight": 1,
       "element": {
         "location": "loot_n_explore:frozen_depths/outposts/v1",
-        "processors": "minecraft:empty",
+        "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -24,7 +24,7 @@
       "weight": 1,
       "element": {
         "location": "loot_n_explore:frozen_depths/outposts/v2",
-        "processors": "minecraft:empty",
+        "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

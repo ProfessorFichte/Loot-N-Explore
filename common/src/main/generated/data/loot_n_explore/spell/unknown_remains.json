@@ -1,0 +1,98 @@
+{
+  "school": "spell_power:soul",
+  "range": 0.0,
+  "tier": 7,
+  "tooltip": {
+    "show_activation": false,
+    "show_range": false,
+    "name": {
+      "show_in_compact": false,
+      "show_in_details": false
+    },
+    "description": {
+      "color": "dark_green"
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "MELEE_IMPACT",
+        "chance": 0.04,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ]
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.04,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "spell": {
+          "archetype": "MELEE",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "ARROW_IMPACT",
+        "chance": 0.04,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ]
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.04,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "spell": {
+          "archetype": "ARCHERY",
+          "type": "ACTIVE"
+        }
+      },
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.04,
+        "chance_batching": true,
+        "target_conditions": [
+          {
+            "health_percent_below": 0.0
+          }
+        ],
+        "impact": {
+          "impact_type": "DAMAGE"
+        }
+      }
+    ]
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "CUSTOM",
+        "custom": {
+          "handler": "loot_n_explore:summon_skeleton"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 60.0,
+      "haste_affected": false
+    }
+  }
+}
