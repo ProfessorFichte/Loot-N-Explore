@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.projectile;
 
+import net.minecraft.entity.damage.DamageSource;
 import com.mrpg_lib.util.AllyHelper;
 import net.minecraft.sound.SoundEvents;
 import com.mrpg_lib.util.damage.SpellDamage;
@@ -50,8 +51,8 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
     public enum Shot {
         STAFF(1.6F, 1.6F, 0, 0.012F, 0.0F, 0, 40),
         RING(0.9F, 1.1F, 6, 0.02F, 0.0F, 0, 22),
-        VOLLEY(0.4F, 1.15F, 14, 0.0F, 4.0F, 24, 60),
-        SINGLE(0.55F, 1.2F, 10, 0.0F, 2.5F, 18, 50);
+        VOLLEY(0.32F, 0.92F, 14, 0.0F, 4.0F, 30, 75),
+        SINGLE(0.44F, 0.96F, 10, 0.0F, 2.5F, 22, 62);
 
         final float startSpeed;
         final float maxSpeed;
@@ -354,8 +355,15 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
     }
 
     private void hit(@Nullable LivingEntity owner, LivingEntity target) {
-        target.damage(this.getDamageSources().indirectMagic(this, owner), calculateDamage(owner));
         Vec3d hitPos = aimPoint(target);
+        // Magic damage goes through shields, so a raised shield takes the hit as a thrown projectile instead.
+        DamageSource blockable = this.getDamageSources().thrown(this, owner);
+        if (target.blockedByShield(blockable)) {
+            target.damage(blockable, calculateDamage(owner));
+            shatter(hitPos);
+            return;
+        }
+        target.damage(this.getDamageSources().indirectMagic(this, owner), calculateDamage(owner));
         if (freezingTicks > 0) {
             target.addStatusEffect(new StatusEffectInstance(Effects.FREEZING.registryEntry, freezingTicks, 0), owner);
             if (this.getWorld() instanceof ServerWorld sw) {
