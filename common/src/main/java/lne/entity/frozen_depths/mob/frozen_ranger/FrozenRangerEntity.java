@@ -570,4 +570,9 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
             ranger.salvoCooldown = ranger.tuning().getInt(FrozenDepthsTuning.SALVO_COOLDOWN, 100) + ranger.random.nextInt(60);
         }
     }
+
+    @Override
+    protected boolean isAffectedByDaylight() {
+        return false;
+    }
 }

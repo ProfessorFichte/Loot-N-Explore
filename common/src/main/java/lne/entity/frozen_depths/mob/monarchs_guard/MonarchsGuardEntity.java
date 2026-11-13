@@ -600,4 +600,8 @@ public class MonarchsGuardEntity extends SkeletonEntity implements ISpellCasterE
         }
     }
 
+    @Override
+    protected boolean isAffectedByDaylight() {
+        return false;
+    }
 }

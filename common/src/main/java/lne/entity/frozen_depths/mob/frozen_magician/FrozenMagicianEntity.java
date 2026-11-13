@@ -818,4 +818,8 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
         }
     }
 
+    @Override
+    protected boolean isAffectedByDaylight() {
+        return false;
+    }
 }

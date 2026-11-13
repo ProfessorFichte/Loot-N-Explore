@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.frost_hound;
 
+import lne.util.LneTags;
 import lne.LneMod;
 import com.mrpg_lib.entity.config.CustomValues;
 import com.mrpg_lib.entity.config.EntityAttributeApplier;
@@ -189,5 +190,13 @@ public class FrostHoundEntity extends HostileEntity {
         } else {
             this.idleAnimationState.startIfNotRunning(this.age);
         }
+    }
+
+    @Override
+    public void tickMovement() {
+        if (this.isAlive() && this.isAffectedByDaylight() && !this.getWorld().getBiome(this.getBlockPos()).isIn(LneTags.ICY_BIOMES)) {
+            this.setOnFireFor(8.0F);
+        }
+        super.tickMovement();
     }
 }

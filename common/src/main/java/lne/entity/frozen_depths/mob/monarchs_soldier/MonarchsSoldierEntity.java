@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.monarchs_soldier;
 
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import lne.entity.frozen_depths.goal.MobFacing;
+import com.mrpg_lib.util.AllyHelper;
 import lne.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
@@ -59,6 +63,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
     private int normalHitAnimTicksRemaining = 0;
 
     private int aoeCooldown = 0;
+    private static final double PROJECTILE_DETECT_RANGE = 12.0;
     private int blockTimer = 0;
     private int blockCooldown = 0;
     private int postActionCooldown = 0;
@@ -439,14 +444,36 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
 
         @Override
         public boolean canStart() {
+            if (soldier.isBlocking() || soldier.isPerformingAoe() || soldier.spellCasting || soldier.blockCooldown > 0
+                    || !soldier.tuning().getBoolean(FrozenDepthsTuning.SHIELD_BLOCK_ENABLED, true)) {
+                return false;
+            }
+            LivingEntity shooter = soldier.age % 2 == 0 ? incomingShooter() : null;
+            if (shooter != null) {
+                this.target = shooter;
+                return true;
+            }
             this.target = soldier.getTarget();
             if (target == null || !target.isAlive()) return false;
             double dist = soldier.squaredDistanceTo(target);
             return dist <= 7.0 * 7.0 && dist > 1.0 * 1.0
-                    && !soldier.isBlocking() && !soldier.isPerformingAoe() && !soldier.spellCasting
-                    && soldier.blockCooldown <= 0
-                    && soldier.random.nextFloat() < soldier.tuning().getDouble(FrozenDepthsTuning.SHIELD_RAISE_CHANCE, 0.08)
-                    && soldier.tuning().getBoolean(FrozenDepthsTuning.SHIELD_BLOCK_ENABLED, true);
+                    && soldier.random.nextFloat() < soldier.tuning().getDouble(FrozenDepthsTuning.SHIELD_RAISE_CHANCE, 0.08);
+        }
+
+        @Nullable
+        private LivingEntity incomingShooter() {
+            Vec3d center = soldier.getBoundingBox().getCenter();
+            for (ProjectileEntity projectile : soldier.getWorld().getEntitiesByClass(ProjectileEntity.class,
+                    soldier.getBoundingBox().expand(PROJECTILE_DETECT_RANGE), p -> p.getVelocity().lengthSquared() > 0.04)) {
+                if (!(projectile.getOwner() instanceof LivingEntity shooter) || shooter == soldier || !AllyHelper.canHurt(shooter, soldier)) {
+                    continue;
+                }
+                Vec3d toSoldier = center.subtract(projectile.getPos()).normalize();
+                if (toSoldier.dotProduct(projectile.getVelocity().normalize()) > 0.9) {
+                    return shooter;
+                }
+            }
+            return null;
         }
 
         @Override
@@ -457,6 +484,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
         @Override
         public void start() {
             soldier.setBlocking(true);
+            MobFacing.face(soldier, target);
             soldier.playSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON.value(), 0.6F, 0.8F);
             soldier.blockTimer = soldier.tuning().getInt(FrozenDepthsTuning.SHIELD_BLOCK_DURATION, 40) + soldier.random.nextInt(20);
         }
@@ -532,4 +560,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
         }
     }
 
+    @Override
+    protected boolean isAffectedByDaylight() {
+        return false;
+    }
 }

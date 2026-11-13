@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.frost_haunted;
 
+import lne.util.LneTags;
 import lne.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
@@ -94,17 +95,13 @@ public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEn
         }
     }
 
-    protected boolean usesMobCompat() {
-        return true;
-    }
-
     private boolean usesWeaponSkills() {
-        return usesMobCompat() && TweaksConfig.mobSpellCasting()
+        return TweaksConfig.mobSpellCasting()
                 && tuning().getBoolean(FrozenDepthsTuning.WEAPON_SKILLS_ENABLED, true);
     }
 
     private boolean usesBetterCombat() {
-        return usesMobCompat() && TweaksConfig.mobBetterCombat()
+        return TweaksConfig.mobBetterCombat()
                 && tuning().getBoolean(FrozenDepthsTuning.MELEE_ENABLED, true)
                 && tuning().getBoolean(FrozenDepthsTuning.BETTER_COMBAT_ENABLED, true);
     }
@@ -270,7 +267,8 @@ public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEn
         }
     }
 
+    @Override
+    protected boolean isAffectedByDaylight() {
+        return super.isAffectedByDaylight() && !this.getWorld().getBiome(this.getBlockPos()).isIn(LneTags.ICY_BIOMES);
+    }
 }
-
-
-
