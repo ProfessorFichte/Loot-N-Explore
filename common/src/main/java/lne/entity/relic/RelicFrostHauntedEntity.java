@@ -55,11 +55,6 @@ public class RelicFrostHauntedEntity extends FrostHauntedEntity implements Ownab
         targetSelector.add(1, new RelicMinionGoals.ProtectOwner<>(this));
     }
 
-    @Override
-    protected boolean usesMobCompat() {
-        return false;
-    }
-
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
