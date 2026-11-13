@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "loot_n_explore:block/frozen_depths/sealed_monarch",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "loot_n_explore:block/frozen_depths/sealed_monarch"
+    },
+    "facing=south": {
+      "model": "loot_n_explore:block/frozen_depths/sealed_monarch",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "loot_n_explore:block/frozen_depths/sealed_monarch",
+      "y": 270
+    }
+  }
+}
