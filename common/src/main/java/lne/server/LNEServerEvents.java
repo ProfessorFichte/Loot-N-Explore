@@ -1,5 +1,7 @@
 package lne.server;
 
+import lne.server.frostsiege.Frostsiege;
+import lne.blocks.frozen_depths.FrozenBonesAmbush;
 import lne.ability.RelicTriggers;
 import lne.ability.RelicZones;
 import lne.mixin.SinglePoolElementAccessor;
@@ -41,6 +43,8 @@ public class LNEServerEvents {
         LNEEvents.get().registerServerWorldTick(RelicTriggers::onWorldTick);
         LNEEvents.get().registerServerWorldTick(RelicZones::tick);
         LNEEvents.get().registerServerWorldTick(RelicTriggers::tickForcedChannels);
+        LNEEvents.get().registerServerWorldTick(FrozenBonesAmbush::tick);
+        LNEEvents.get().registerServerWorldTick(Frostsiege::tick);
     }
 
     private static void onWorldTick(ServerWorld world) {
@@ -50,7 +54,7 @@ public class LNEServerEvents {
         playing.keySet().removeIf(uuid -> world.getServer().getPlayerManager().getPlayer(uuid) == null);
 
         for (ServerPlayerEntity player : world.getPlayers()) {
-            StructureMusicTrack track = trackAt(world, player.getBlockPos());
+            StructureMusicTrack track = Frostsiege.isBesieged(player) ? StructureMusicTrack.FROZEN_DEPTHS : trackAt(world, player.getBlockPos());
             StructureMusicTrack previous = playing.get(player.getUuid());
 
             if (previous != null && previous != track) {

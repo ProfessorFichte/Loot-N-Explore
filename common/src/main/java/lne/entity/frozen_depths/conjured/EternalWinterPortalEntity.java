@@ -1,5 +1,8 @@
 package lne.entity.frozen_depths.conjured;
 
+import java.util.List;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import lne.LneMod;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.AllyHelper;
@@ -44,11 +47,15 @@ public class EternalWinterPortalEntity extends HostileEntity {
     private static final int CHARGE_TICKS = 30;
     private static final int HUM_INTERVAL = 40;
     private static final double TARGET_SEARCH_RANGE = 32.0;
+    private static final Identifier SUMMON_STRENGTH = Identifier.of(LneMod.MOD_ID, "portal_summon_strength");
 
     @Nullable private UUID ownerUuid;
     @Nullable private LivingEntity owner;
     private Identifier summonType = Registries.ENTITY_TYPE.getId(ModEntities.FROST_HAUNTED);
     private int hitSoundCooldown;
+    private int shieldTicks;
+    private double summonStrength;
+    @Nullable private String summonTag;
 
     public EternalWinterPortalEntity(EntityType<? extends EternalWinterPortalEntity> type, World world) {
         super(type, world);
@@ -56,14 +63,29 @@ public class EternalWinterPortalEntity extends HostileEntity {
         this.experiencePoints = 0;
     }
 
-    public EternalWinterPortalEntity(World world, LivingEntity owner, EntityType<?> summonType, int lifetime, int firstSpawnDelay, int spawnInterval) {
+    public EternalWinterPortalEntity(World world, @Nullable LivingEntity owner, EntityType<?> summonType, int lifetime, int firstSpawnDelay, int spawnInterval) {
         this(ModEntities.ETERNAL_WINTER_PORTAL, world);
         this.owner = owner;
-        this.ownerUuid = owner.getUuid();
+        this.ownerUuid = owner != null ? owner.getUuid() : null;
         this.summonType = Registries.ENTITY_TYPE.getId(summonType);
         this.dataTracker.set(LIFETIME, Math.max(1, lifetime));
         this.dataTracker.set(FIRST_SPAWN_DELAY, Math.max(1, firstSpawnDelay));
         this.dataTracker.set(SPAWN_INTERVAL, Math.max(CHARGE_TICKS, spawnInterval));
+    }
+
+    public EternalWinterPortalEntity shielded(int ticks) {
+        this.shieldTicks = ticks;
+        return this;
+    }
+
+    public EternalWinterPortalEntity empowering(double strength, @Nullable String tag) {
+        this.summonStrength = strength;
+        this.summonTag = tag;
+        return this;
+    }
+
+    private boolean isShielded() {
+        return this.age < shieldTicks;
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -128,8 +150,12 @@ public class EternalWinterPortalEntity extends HostileEntity {
             return;
         }
         if (this.getFireTicks() > 0) {
-            close(true);
-            return;
+            if (isShielded()) {
+                this.extinguish();
+            } else {
+                close(true);
+                return;
+            }
         }
         if (this.age % HUM_INTERVAL == 1) {
             sound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.8F, 0.6F);
@@ -162,6 +188,7 @@ public class EternalWinterPortalEntity extends HostileEntity {
             if (type != null && type.create(serverWorld) instanceof MobEntity mob) {
                 mob.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
                 mob.initialize(serverWorld, serverWorld.getLocalDifficulty(mob.getBlockPos()), SpawnReason.MOB_SUMMONED, null);
+                empower(mob);
                 LivingEntity target = summonTarget(serverWorld);
                 if (target != null) {
                     mob.setTarget(target);
@@ -170,6 +197,22 @@ public class EternalWinterPortalEntity extends HostileEntity {
             }
             MrpgFx.play(serverWorld, LNEFx.ETERNAL_WINTER_PORTAL_RELEASE, FxParams.at(this.getPos().add(0, this.getHeight() * 0.5, 0)));
         }
+    }
+
+    private void empower(MobEntity mob) {
+        if (summonTag != null) {
+            mob.addCommandTag(summonTag);
+        }
+        if (summonStrength <= 0) {
+            return;
+        }
+        for (var attribute : List.of(EntityAttributes.GENERIC_MAX_HEALTH, EntityAttributes.GENERIC_ATTACK_DAMAGE)) {
+            var instance = mob.getAttributeInstance(attribute);
+            if (instance != null) {
+                instance.addPersistentModifier(new EntityAttributeModifier(SUMMON_STRENGTH, summonStrength, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+            }
+        }
+        mob.setHealth(mob.getMaxHealth());
     }
 
     @Nullable
@@ -198,7 +241,7 @@ public class EternalWinterPortalEntity extends HostileEntity {
         if (source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             return super.damage(source, amount);
         }
-        if (source.isIn(LneDamageTags.CLOSES_ETERNAL_WINTER_PORTAL)) {
+        if (source.isIn(LneDamageTags.CLOSES_ETERNAL_WINTER_PORTAL) && !isShielded()) {
             close(true);
             return true;
         }
@@ -283,6 +326,11 @@ public class EternalWinterPortalEntity extends HostileEntity {
         nbt.putInt("FirstSpawnDelay", getFirstSpawnDelay());
         nbt.putInt("PortalAge", this.age);
         nbt.putString("SummonType", summonType.toString());
+        nbt.putInt("ShieldTicks", shieldTicks);
+        nbt.putDouble("SummonStrength", summonStrength);
+        if (summonTag != null) {
+            nbt.putString("SummonTag", summonTag);
+        }
         if (ownerUuid != null) {
             nbt.putUuid("Owner", ownerUuid);
         }
@@ -305,6 +353,9 @@ public class EternalWinterPortalEntity extends HostileEntity {
         if (type != null && Registries.ENTITY_TYPE.containsId(type)) {
             this.summonType = type;
         }
+        this.shieldTicks = nbt.getInt("ShieldTicks");
+        this.summonStrength = nbt.getDouble("SummonStrength");
+        this.summonTag = nbt.contains("SummonTag") ? nbt.getString("SummonTag") : null;
         this.ownerUuid = nbt.containsUuid("Owner") ? nbt.getUuid("Owner") : null;
         this.owner = null;
     }

@@ -1,5 +1,6 @@
 package com.lne.neoforge;
 
+import lne.command.FrostsiegeCommand;
 import lne.command.RelicCommand;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import com.lne.neoforge.client.LNEClientPackets;
@@ -47,6 +48,7 @@ public final class LneNeoForge {
                 event -> ModPotions.registerRecipes(event.getBuilder()::registerPotionRecipe));
         NeoForge.EVENT_BUS.addListener(VillagerTradesEvent.class, NeoForgeEventsImpl::dispatchVillagerTrades);
         NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> RelicCommand.register(event.getDispatcher()));
+        NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> FrostsiegeCommand.register(event.getDispatcher()));
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

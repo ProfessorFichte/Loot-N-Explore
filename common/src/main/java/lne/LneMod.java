@@ -44,12 +44,16 @@ public class LneMod {
 	public static ConfigManager<EffectsConfig> effectsConfig = null;
 	public static ConfigManager<EntityAttributeConfig> entityAttributeConfig = null;
 	public static ConfigManager<lne.config.FrozenDepthsConfig> frozenDepthsConfig = null;
+	public static ConfigManager<lne.config.FrostsiegeConfig> frostsiegeConfig = new ConfigManager<>("frostsiege", new lne.config.FrostsiegeConfig())
+			.builder().setDirectory(MOD_ID).sanitize(true).build();
 	public static ConfigManager<lne.config.TweaksConfig> tweaksConfig = new ConfigManager<>("tweaks", new lne.config.TweaksConfig())
 			.builder().setDirectory(MOD_ID).sanitize(true).build();
 
 	public static void init() {
 		tweaksConfig.refresh();
 		tweaksConfig.save();
+		frostsiegeConfig.refresh();
+		frostsiegeConfig.save();
 		effectsConfig = new ConfigManager<EffectsConfig>("effects_v2", new EffectsConfig())
 				.builder().setDirectory(MOD_ID).sanitize(true).build();
 		villageConfig = new ConfigManager<>("villages", Default.villages)

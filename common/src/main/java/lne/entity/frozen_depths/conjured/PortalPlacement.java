@@ -4,6 +4,7 @@ import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import lne.fx.LNEFx;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.Registries;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.RaycastContext;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,8 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class PortalPlacement {
-    private static final double HOVER = 0.3;
-    private static final double MIN_SPACING = 3.0;
+    private static final double HOVER = 0.5;
+    private static final double HALF_WIDTH = 2.0;
+    private static final double HEIGHT = 4.0;
+    private static final double MIN_SPACING = 5.0;
     private static final int ATTEMPTS = 40;
     private static final int ATTEMPTS_WITH_SIGHT = 30;
     private static final int SCAN_UP = 6;
@@ -42,36 +46,48 @@ public final class PortalPlacement {
         if (!(caster.getWorld() instanceof ServerWorld world) || count <= 0) {
             return 0;
         }
-        List<Vec3d> taken = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            Vec3d spot = findSpot(world, caster, Math.max(2.0, radius), taken);
-            if (spot == null) {
-                continue;
-            }
-            taken.add(spot);
-            EternalWinterPortalEntity portal = new EternalWinterPortalEntity(world, caster, summonType, lifetime, firstSpawnDelay, spawnInterval);
-            portal.refreshPositionAndAngles(spot.x, spot.y, spot.z, caster.getRandom().nextFloat() * 360.0F, 0.0F);
-            world.spawnEntity(portal);
-            MrpgFx.play(world, LNEFx.ETERNAL_WINTER_PORTAL_OPEN, FxParams.at(spot.add(0, portal.getHeight() * 0.5, 0)));
+        List<Vec3d> spots = findSpots(world, caster.getPos(), caster.getRandom(), count, Math.max(2.0, radius), caster, false);
+        for (Vec3d spot : spots) {
+            openAt(world, caster, spot, summonType, lifetime, firstSpawnDelay, spawnInterval);
         }
-        return taken.size();
+        return spots.size();
+    }
+
+    public static EternalWinterPortalEntity openAt(ServerWorld world, @Nullable LivingEntity owner, Vec3d spot, EntityType<?> summonType,
+                                                   int lifetime, int firstSpawnDelay, int spawnInterval) {
+        EternalWinterPortalEntity portal = new EternalWinterPortalEntity(world, owner, summonType, lifetime, firstSpawnDelay, spawnInterval);
+        portal.refreshPositionAndAngles(spot.x, spot.y, spot.z, world.getRandom().nextFloat() * 360.0F, 0.0F);
+        world.spawnEntity(portal);
+        MrpgFx.play(world, LNEFx.ETERNAL_WINTER_PORTAL_OPEN, FxParams.at(spot.add(0, portal.getHeight() * 0.5, 0)));
+        return portal;
+    }
+
+    public static List<Vec3d> findSpots(ServerWorld world, Vec3d center, Random random, int count, double radius,
+                                        @Nullable Entity viewer, boolean surfaceOnly) {
+        List<Vec3d> spots = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Vec3d spot = findSpot(world, center, random, radius, spots, viewer, surfaceOnly);
+            if (spot != null) {
+                spots.add(spot);
+            }
+        }
+        return spots;
     }
 
     @Nullable
-    private static Vec3d findSpot(ServerWorld world, LivingEntity caster, double radius, List<Vec3d> taken) {
-        Random random = caster.getRandom();
+    private static Vec3d findSpot(ServerWorld world, Vec3d center, Random random, double radius, List<Vec3d> taken,
+                                  @Nullable Entity viewer, boolean surfaceOnly) {
         double minDistance = Math.min(4.0, radius * 0.5);
-        Vec3d eyes = caster.getEyePos();
         for (int attempt = 0; attempt < ATTEMPTS; attempt++) {
             double angle = random.nextDouble() * Math.PI * 2.0;
             double distance = minDistance + random.nextDouble() * (radius - minDistance);
-            double x = caster.getX() + Math.cos(angle) * distance;
-            double z = caster.getZ() + Math.sin(angle) * distance;
-            Vec3d spot = groundSpot(world, x, z, caster.getBlockY());
+            double x = center.x + Math.cos(angle) * distance;
+            double z = center.z + Math.sin(angle) * distance;
+            Vec3d spot = surfaceOnly ? surfaceSpot(world, x, z) : groundSpot(world, x, z, MathHelper.floor(center.y));
             if (spot == null || tooClose(spot, taken)) {
                 continue;
             }
-            if (attempt < ATTEMPTS_WITH_SIGHT && !inSight(world, caster, eyes, spot)) {
+            if (viewer != null && attempt < ATTEMPTS_WITH_SIGHT && !inSight(world, viewer, spot)) {
                 continue;
             }
             return spot;
@@ -80,20 +96,32 @@ public final class PortalPlacement {
     }
 
     @Nullable
-    private static Vec3d groundSpot(ServerWorld world, double x, double z, int casterY) {
-        BlockPos.Mutable pos = new BlockPos.Mutable(MathHelper.floor(x), casterY + SCAN_UP, MathHelper.floor(z));
-        for (int y = casterY + SCAN_UP; y >= casterY - SCAN_DOWN; y--) {
-            pos.setY(y - 1);
-            BlockState below = world.getBlockState(pos);
-            if (!below.isSideSolidFullSquare(world, pos, Direction.UP)) {
-                continue;
-            }
-            Box space = new Box(x - 1.0, y + HOVER, z - 1.0, x + 1.0, y + HOVER + 2.0, z + 1.0);
-            if (world.isSpaceEmpty(space) && !world.containsFluid(space)) {
-                return new Vec3d(x, y + HOVER, z);
+    private static Vec3d groundSpot(ServerWorld world, double x, double z, int centerY) {
+        for (int y = centerY + SCAN_UP; y >= centerY - SCAN_DOWN; y--) {
+            Vec3d spot = spotOn(world, x, y, z);
+            if (spot != null) {
+                return spot;
             }
         }
         return null;
+    }
+
+    @Nullable
+    private static Vec3d surfaceSpot(ServerWorld world, double x, double z) {
+        int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MathHelper.floor(x), MathHelper.floor(z));
+        Vec3d spot = spotOn(world, x, y, z);
+        return spot != null && world.isSkyVisible(BlockPos.ofFloored(spot)) ? spot : null;
+    }
+
+    @Nullable
+    private static Vec3d spotOn(ServerWorld world, double x, int y, double z) {
+        BlockPos below = new BlockPos(MathHelper.floor(x), y - 1, MathHelper.floor(z));
+        BlockState ground = world.getBlockState(below);
+        if (!ground.isSideSolidFullSquare(world, below, Direction.UP)) {
+            return null;
+        }
+        Box space = new Box(x - HALF_WIDTH, y + HOVER, z - HALF_WIDTH, x + HALF_WIDTH, y + HOVER + HEIGHT, z + HALF_WIDTH);
+        return world.isSpaceEmpty(space) && !world.containsFluid(space) ? new Vec3d(x, y + HOVER, z) : null;
     }
 
     private static boolean tooClose(Vec3d spot, List<Vec3d> taken) {
@@ -105,8 +133,8 @@ public final class PortalPlacement {
         return false;
     }
 
-    private static boolean inSight(ServerWorld world, LivingEntity caster, Vec3d eyes, Vec3d spot) {
-        Vec3d center = spot.add(0, 1.0, 0);
-        return world.raycast(new RaycastContext(eyes, center, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, caster)).getType() == HitResult.Type.MISS;
+    private static boolean inSight(ServerWorld world, Entity viewer, Vec3d spot) {
+        Vec3d center = spot.add(0, HEIGHT * 0.5, 0);
+        return world.raycast(new RaycastContext(viewer.getEyePos(), center, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, viewer)).getType() == HitResult.Type.MISS;
     }
 }

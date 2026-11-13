@@ -1,5 +1,6 @@
 package com.lne.fabric;
 
+import lne.command.FrostsiegeCommand;
 import lne.command.RelicCommand;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import com.lne.fabric.compat.CompatFeatures;
@@ -48,6 +49,7 @@ public final class LneFabric implements ModInitializer {
         LneMod.registerVillagerSchedules();
         LneMod.registerServerEvents();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> RelicCommand.register(dispatcher));
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> FrostsiegeCommand.register(dispatcher));
         FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> ModPotions.registerRecipes(builder::registerPotionRecipe));
         FabricVegetationGeneration.generate();
     }
