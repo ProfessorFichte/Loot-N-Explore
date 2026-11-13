@@ -1,5 +1,10 @@
 package lne.blocks.frozen_depths;
 
+import net.minecraft.world.World;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -16,6 +21,7 @@ import net.minecraft.util.BlockRotation;
 
 public class FrozenBonesBlock extends Block {
     private static final VoxelShape SHAPE = Block.createCuboidShape(2, 0, 2, 14, 8, 14);
+    private static final float BREAK_CHANCE = 0.1F;
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
     public FrozenBonesBlock(Settings settings) {
@@ -46,5 +52,21 @@ public class FrozenBonesBlock extends Block {
     @Override
     public BlockState mirror(BlockState state, BlockMirror mirror) {
         return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
+
+    @Override
+    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
+        if (world instanceof ServerWorld serverWorld && entity instanceof PlayerEntity player
+                && !player.isCreative() && !player.isSpectator()
+                && steppedOnThisTick(pos, player) && world.random.nextFloat() < BREAK_CHANCE) {
+            world.breakBlock(pos, false, player);
+            FrozenBonesAmbush.schedule(serverWorld, pos, player);
+        }
+        super.onSteppedOn(world, pos, state, entity);
+    }
+
+    // onSteppedOn runs every tick the player stands here, the chance should only be rolled once per walk-over.
+    private static boolean steppedOnThisTick(BlockPos pos, PlayerEntity player) {
+        return MathHelper.floor(player.prevX) != pos.getX() || MathHelper.floor(player.prevZ) != pos.getZ() || player.prevY > player.getY();
     }
 }
