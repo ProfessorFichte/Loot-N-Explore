@@ -75,9 +75,9 @@ public class SealedMonarchBlock extends Block {
             return;
         }
         EntityType<?> general = generals.get(world.getRandom().nextInt(generals.size()));
-        List<Vec3d> spots = PortalPlacement.findSpots(world, center, world.getRandom(), 1, GENERAL_SPAWN_RADIUS, null, false);
+        List<Vec3d> spots = PortalPlacement.findSpots(world, center, world.getRandom(), 1, GENERAL_SPAWN_RADIUS, null, false, false);
         Vec3d spot = spots.isEmpty() ? center : spots.getFirst();
-        PortalPlacement.openAt(world, null, spot, general, PORTAL_LIFETIME, GENERAL_SPAWN_DELAY, PORTAL_LIFETIME);
+        PortalPlacement.openAt(world, null, spot, general, PORTAL_LIFETIME, GENERAL_SPAWN_DELAY, PORTAL_LIFETIME, false);
     }
 
     @Override

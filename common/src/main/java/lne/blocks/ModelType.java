@@ -125,14 +125,28 @@ public sealed interface ModelType {
         }
     }
 
-    record HorizontalFacing(String folder) implements ModelType {
+    record HorizontalFacing(String folder, @Nullable String itemTextureFolder) implements ModelType {
+        public HorizontalFacing(String folder) {
+            this(folder, null);
+        }
+
         @Override
         public void generate(BlockStateModelGenerator generator, Block block) {
             var id = Registries.BLOCK.getId(block);
             Identifier model = Identifier.of(id.getNamespace(), "block/" + folder + id.getPath());
             generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, model))
                     .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
-            generator.registerParentedItemModel(block, model);
+            if (itemTextureFolder == null) {
+                generator.registerParentedItemModel(block, model);
+            }
+        }
+
+        @Override
+        public void generateItemModel(ItemModelGenerator generator, Item item, String blockName) {
+            if (itemTextureFolder != null) {
+                Models.GENERATED.upload(Identifier.of(MOD_ID, "item/" + blockName),
+                        TextureMap.layer0(Identifier.of(MOD_ID, "item/" + itemTextureFolder + blockName)), generator.writer);
+            }
         }
     }
 

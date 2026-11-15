@@ -44,3 +44,6 @@ replay_*.log
 
 # local dev workspace switches
 /workspace.properties
+
+.wiki/
+.wiki

@@ -15,18 +15,22 @@
     "VillagerMixin",
     "SpellBindingBlockMixin",
     "SimpleRegistryMixin",
-    "SinglePoolElementAccessor"
+    "SinglePoolElementAccessor",
+    "VaultServerDataAccessor"
   ],
   "client": [
     "BuiltinModelItemRendererMixin",
     "DecoratedPotBlockEntityRendererMixin",
     "BossBarHudMixin",
+    "BossBarHudAccessor",
+    "WorldRendererMixin",
     "InGameOverlayRendererMixin",
     "TrialSpawnerLogicMixin",
     "VaultClientMixin",
     "ParticleManagerMixin",
     "ModelPredicateProviderRegistryInvoker",
     "DrawContextMixin",
+    "BrushItemMixin",
     "ClientPlayerEntityMixin"
   ],
   "injectors": {

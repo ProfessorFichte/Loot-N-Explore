@@ -41,8 +41,8 @@
   - **Eternal Winter Portals**: during the Ice Barrier the Frost Monarch opens floating snowflake portals at random spots up to 25 blocks around him (1 / 2 / 2 portals for the first / second / third barrier, 3 on Normal and Hard for the third). Each portal stays open for 20 seconds and releases one of his servants 1 second after it opens and then every 5 seconds (up to 4 per portal), unless you close it with fire: a Fire Aspect weapon, a Flame arrow, a fire spell or a fire lit underneath it. Stronger servants come out in later barriers and on higher difficulties. When the Frost Monarch falls, his portals close without releasing anything
   - **General Ysmerith** blinks away in a burst of ice when you get too close (every 12-16 seconds) and leaves a **Frost Decoy** of himself behind: an ice statue that bursts into a 3-block blast of snowflakes after 2 seconds, or at once when an enemy touches or hits it, dealing frost damage and inflicting Freezing
   - **General Ysmerith** opens an Eternal Winter Portal too once he drops below 30% health (1 portal, once per minute), which works like the Frost Monarch's portals
-  - Eternal Winter Portals are big floating snowflake spheres, 4 blocks wide
   - The Frost Monarch does not despawn when players leave, keeps its health and remaining Ice Barrier uses, and only one can be summoned at a time
+  - When the Frost Monarch awakens, every unlit Cryotic Block within 40 blocks bursts into Frostflame
   - A spawn overlay announces the Frost Monarch's awakening: "You fools have freed me!" is written out letter by letter in frosty ice blue
   - The Frost Monarch speaks: when it falls into its fake death it says "I have lost, again?" and the letters then drop one after another like falling icicles, and when it opens its portals during the Ice Barrier it calls out one of four random lines
   - All texts are translatable, and `disable_entity_hud_text` in `tweaks.json` hides them (for every speaking mob)
@@ -60,12 +60,12 @@
   - Decorated Pots and Frozen Decorated Pots have a 25% chance to hold one item or a small stack from the structure's own pot loot table (snowballs, bones, iron and gold nuggets, Frostballs, Cryo Essence, emeralds and rarely a diamond)
 ## Eternal Frostsiege
 - A new raid event. While you carry the **Monarch's Crown** through icy biomes (biome tag `loot_n_explore:frostsiege_biomes`) under open sky in the Overworld, there is a small chance every minute that an Eternal Frostsiege starts: 1% on Easy, 2% on Normal, 3% on Hard. Every use of the Crown's ability adds 5% until the next siege
-- It announces itself: "You feel a frightening shivering cold aura..." is written on your screen, frozen souls rise around you, it starts to snow, the Frozen Depths music plays and a raid bar fills up
-- Then Eternal Winter Portals open around you in waves. Snowflake pillars mark the spots shortly before the portals open
+- It announces itself: "You feel a frightening shivering cold aura..." is written on your screen, frozen souls rise around you, it starts to snow (also in biomes where it would rain or stay dry), the Frozen Depths music plays and a raid bar fills up
+- Then Eternal Winter Portals open around you in waves, twice as big as the Frost Monarch's (4 blocks wide). Snowflake pillars mark the spots shortly before the portals open
   - Wave 1 Frost Hounds, wave 2 Frost Haunted, wave 3 Frozen Rangers and Monarch's Soldiers
   - Normal adds wave 4 with Frozen Magicians and Monarch's Soldiers
   - Hard adds wave 5: a single portal that releases one random General
-  - 2 / 3 / 4 portals per wave on Easy / Normal / Hard
+  - 2 / 3 / 4 portals per wave on Easy / Normal / Hard, and one more for every other player nearby (up to 4 more)
 - Siege portals stay for 40 seconds and can't be closed with fire in their first 20 seconds
 - With Bad Omen, Raid Omen or Trial Omen the portals release mobs faster and the mobs have 25% more health and attack damage
 - After a siege that player has an hour of rest before the next one can start
@@ -75,13 +75,14 @@
 - New music disc **Jolly Time**, found with a 5% chance in Loot & Explore inn chests
 - Bookshelves in the standalone inns have a small chance (8% each, at most 1 per inn) to be Suspicious Bookshelves with books, paper, book and quills and Pillager Outpost maps (needs More RPG Library)
 - Improved some textures for some consumables
+- New **Empty Beer Mug**: Beet Rootbeer, Malt Extract, Waldmeister, Enchanted Ale and Rivian Kriek now leave one behind instead of a glass bottle. Innkeepers buy them for emeralds on their first level, and you can place them as decoration with the handle facing you
 ## New Blocks
 - Decorative frozen set: **Frozen Torch**, **Frozen Bones**, **Frozen Adventurer**, **Pointed Icicles**, **Icicle Bars** and **Fragile Ice**
 - Walking over **Frozen Bones** has a 10% chance to break them, and 3 seconds later a Frost Haunted rises from that spot and hunts you
 - **Sealed Monarch** - the frozen king on his throne. Right click it or mine it with an iron pickaxe (or better) and it drops the Monarch's Crown. Frozen souls burst out and an Eternal Winter Portal opens nearby that releases one random General
 - In creative, Shift + Right Click with an empty hand changes the variant of the Deepslate Bookshelf, Frozen Decorated Pot and Frozen Adventurer; their tooltip says so while you are in creative
 - Pointed Icicles fall as a chain when disturbed
-- **Suspicious Bookshelf** and **Suspicious Deepslate Bookshelf** - brush them like suspicious sand; the item always comes out of the side, also when you brush the top
+- **Suspicious Bookshelf** and **Suspicious Deepslate Bookshelf** - brush them like suspicious sand; the item always comes out of the side, also when you brush the top. Brushing them puffs out light grey dust that slowly fades away
 - Stronghold libraries can contain Suspicious Bookshelves (3% per bookshelf, up to 4 per library part) with their own loot: a Mending book (rare), a level 30 enchanted book, a spell scroll with a tier 3 or 4 spell (only with Spell Engine and spells installed) or a book. Needs More RPG Library
 - Libraries in villages and woodland mansions can contain Suspicious Bookshelves too (needs More RPG Library):
   - Woodland Mansions (5% per bookshelf, up to 2 per room): a Totem of Undying (rare), an enchanted book, a spell scroll with a tier 3 spell (only with Spell Engine and spells installed) or a book
@@ -151,14 +152,14 @@
 - Relic drops are now fully data-driven in **`config/loot_n_explore/relic_loot.json`**
   - Every entry is a loot table with its own drop chance (`rolls`) and item list, so you can retune drop rates, point relics at different loot tables, add your own drops, or disable them completely
   - This replaces the relic drop-chance values that used to live in `tweaks_v1.json` (that file is no longer used - defaults are generated on first launch)
-- Frozen Depths mobs can be rebalanced in **`config/loot_n_explore/entity_attributes_v1.json`**
+- Frozen Depths mobs can be rebalanced in **`config/loot_n_explore/frozen_depths/entity_attributes_v1.json`**
   - `attributes`: health, damage, armor, spell power and more, with separate Normal / Hard multipliers
   - `custom`: ability values such as cooldowns (in ticks), arrow / icicle / hailstone counts, ranges, damage multipliers, the Frost Monarch's Ice Barrier uses, Ice Wall size and duration, and the number of Eternal Winter Portals and the mobs that come out of them (per barrier and difficulty)
   - Every ability of every Frozen Depths mob can be turned off with its `..._enabled` value (1 = on, 0 = off), for example `screech_enabled`, `ice_wall_enabled` or `melee_enabled`
   - `equipment`: the items each mob spawns with (main hand, off hand, helmet, chestplate, leggings, boots), as an item or a random pick from an item tag, with spawn, enchant and drop chances
   - Changes apply to newly spawned mobs (ability values also to mobs already in the world). Keys that are missing from an older file use the built-in defaults - delete the file to regenerate it with every key
-- The ominous Frozen Trial Spawner projectiles can be turned off in **`config/loot_n_explore/frozen_depths_v1.json`** (`frozen_trial_spawner_ominous_projectiles`)
-- The Eternal Frostsiege has its own **`config/loot_n_explore/frostsiege.json`**: on / off, chances, cooldown, waves and portals per difficulty, the mobs of every wave, portal times and the ominous bonus
+- The ominous Frozen Trial Spawner projectiles can be turned off in **`config/loot_n_explore/frozen_depths/frozen_depths_v1.json`** (`frozen_trial_spawner_ominous_projectiles`)
+- The Eternal Frostsiege has its own **`config/loot_n_explore/frozen_depths/frostsiege.json`**: on / off, chances, cooldown, waves and portals per difficulty, the mobs of every wave, portal times and the ominous bonus
 - Relic bonuses can be changed in **`config/loot_n_explore/relics_v2.json`** (attribute, amount and operation per relic - attributes of mods that are not installed are simply skipped)
 - Relic ability numbers (chances, radius, durations, cooldowns in ticks and channel time) can be changed in **`config/loot_n_explore/relic_abilities_v2.json`**
 - Weapon and relic ability effects are played through More RPG Library's particle effect system: one packet per effect instead of one per particle, and every player sets the particle amount with `fx_density` in `config/mrpg_lib/client_fx_v1.json`
