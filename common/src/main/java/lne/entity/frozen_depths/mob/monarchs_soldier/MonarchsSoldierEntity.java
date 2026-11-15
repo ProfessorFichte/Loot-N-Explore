@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.monarchs_soldier;
 
+import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import lne.entity.frozen_depths.goal.MobFacing;
@@ -63,7 +64,8 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
     private int normalHitAnimTicksRemaining = 0;
 
     private int aoeCooldown = 0;
-    private static final double PROJECTILE_DETECT_RANGE = 12.0;
+    private static final double PROJECTILE_DETECT_RANGE = 16.0;
+    private static final double AIM_DETECT_RANGE = 24.0;
     private int blockTimer = 0;
     private int blockCooldown = 0;
     private int postActionCooldown = 0;
@@ -448,7 +450,7 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
                     || !soldier.tuning().getBoolean(FrozenDepthsTuning.SHIELD_BLOCK_ENABLED, true)) {
                 return false;
             }
-            LivingEntity shooter = soldier.age % 2 == 0 ? incomingShooter() : null;
+            LivingEntity shooter = incomingShooter();
             if (shooter != null) {
                 this.target = shooter;
                 return true;
@@ -462,6 +464,11 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
 
         @Nullable
         private LivingEntity incomingShooter() {
+            LivingEntity aiming = soldier.getTarget();
+            if (aiming != null && aiming.isAlive() && aiming.isUsingItem() && aiming.getActiveItem().getItem() instanceof RangedWeaponItem
+                    && soldier.squaredDistanceTo(aiming) <= AIM_DETECT_RANGE * AIM_DETECT_RANGE && soldier.getVisibilityCache().canSee(aiming)) {
+                return aiming;
+            }
             Vec3d center = soldier.getBoundingBox().getCenter();
             for (ProjectileEntity projectile : soldier.getWorld().getEntitiesByClass(ProjectileEntity.class,
                     soldier.getBoundingBox().expand(PROJECTILE_DETECT_RANGE), p -> p.getVelocity().lengthSquared() > 0.04)) {
