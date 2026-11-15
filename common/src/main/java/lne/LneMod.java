@@ -44,8 +44,9 @@ public class LneMod {
 	public static ConfigManager<EffectsConfig> effectsConfig = null;
 	public static ConfigManager<EntityAttributeConfig> entityAttributeConfig = null;
 	public static ConfigManager<lne.config.FrozenDepthsConfig> frozenDepthsConfig = null;
+	private static final String FROZEN_DEPTHS_CONFIGS = MOD_ID + "/frozen_depths";
 	public static ConfigManager<lne.config.FrostsiegeConfig> frostsiegeConfig = new ConfigManager<>("frostsiege", new lne.config.FrostsiegeConfig())
-			.builder().setDirectory(MOD_ID).sanitize(true).build();
+			.builder().setDirectory(FROZEN_DEPTHS_CONFIGS).sanitize(true).build();
 	public static ConfigManager<lne.config.TweaksConfig> tweaksConfig = new ConfigManager<>("tweaks", new lne.config.TweaksConfig())
 			.builder().setDirectory(MOD_ID).sanitize(true).build();
 
@@ -59,10 +60,10 @@ public class LneMod {
 		villageConfig = new ConfigManager<>("villages", Default.villages)
 				.builder().setDirectory(MOD_ID).sanitize(true).build();
 		entityAttributeConfig = new ConfigManager<>("entity_attributes_v1", seededEntityAttributeDefaults())
-				.builder().setDirectory(MOD_ID).sanitize(true).build();
+				.builder().setDirectory(FROZEN_DEPTHS_CONFIGS).sanitize(true).build();
 
 		frozenDepthsConfig = new ConfigManager<>("frozen_depths_v1", new lne.config.FrozenDepthsConfig())
-				.builder().setDirectory(MOD_ID).sanitize(true).build();
+				.builder().setDirectory(FROZEN_DEPTHS_CONFIGS).sanitize(true).build();
 
 		effectsConfig.refresh();
 		frozenDepthsConfig.refresh();

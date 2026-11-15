@@ -49,7 +49,14 @@ public final class Frostsiege {
         if (sieges != null) {
             for (Iterator<Siege> iterator = sieges.iterator(); iterator.hasNext(); ) {
                 Siege siege = iterator.next();
-                if (!siege.tick(world)) {
+                boolean running;
+                try {
+                    running = siege.tick(world);
+                } catch (RuntimeException e) {
+                    LneMod.LOGGER.error("Eternal Frostsiege stopped because of an error", e);
+                    running = false;
+                }
+                if (!running) {
                     iterator.remove();
                     finish(world, siege);
                 }

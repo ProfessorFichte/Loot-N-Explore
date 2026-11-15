@@ -1,5 +1,6 @@
 package lne.server.frostsiege;
 
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
@@ -46,13 +47,24 @@ public class FrostsiegeState extends PersistentState {
         var state = new FrostsiegeState();
         var cooldowns = nbt.getCompound("cooldowns");
         for (var key : cooldowns.getKeys()) {
-            state.cooldownUntil.put(UUID.fromString(key), cooldowns.getLong(key));
+            UUID player = parse(key);
+            if (player != null) state.cooldownUntil.put(player, cooldowns.getLong(key));
         }
         var bonuses = nbt.getCompound("chance_bonus");
         for (var key : bonuses.getKeys()) {
-            state.chanceBonus.put(UUID.fromString(key), bonuses.getFloat(key));
+            UUID player = parse(key);
+            if (player != null) state.chanceBonus.put(player, bonuses.getFloat(key));
         }
         return state;
+    }
+
+    @Nullable
+    private static UUID parse(String key) {
+        try {
+            return UUID.fromString(key);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     @Override

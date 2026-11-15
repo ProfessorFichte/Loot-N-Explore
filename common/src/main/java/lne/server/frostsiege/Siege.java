@@ -146,7 +146,7 @@ final class Siege {
     }
 
     private boolean isGeneralWave() {
-        return wave >= config.wave_mobs.size();
+        return config.wave_mobs == null || wave >= config.wave_mobs.size();
     }
 
     private boolean placePortals(ServerWorld world, ServerPlayerEntity player) {
@@ -154,7 +154,9 @@ final class Siege {
             return phaseTicks < PLACEMENT_RETRY_TICKS;
         }
         center = player.getPos();
-        spots = PortalPlacement.findSpots(world, center, world.getRandom(), isGeneralWave() ? 1 : portalsPerWave, config.portal_radius, null, true);
+        int extraPlayers = Math.max(0, bar.getPlayers().size() - 1);
+        int portalCount = portalsPerWave + Math.min(config.max_extra_portals, extraPlayers * config.extra_portals_per_player);
+        spots = PortalPlacement.findSpots(world, center, world.getRandom(), isGeneralWave() ? 1 : portalCount, config.portal_radius, null, true, true);
         if (spots.isEmpty()) {
             return true;
         }
@@ -182,7 +184,7 @@ final class Siege {
         int spawnsPerPortal = general ? 1 : 1 + Math.max(0, portalLifetime - 1 - firstDelay) / interval;
         for (int i = 0; i < spots.size(); i++) {
             EternalWinterPortalEntity portal = PortalPlacement.openAt(world, null, spots.get(i), types.get(i % types.size()),
-                    portalLifetime, firstDelay, general ? portalLifetime : interval);
+                    portalLifetime, firstDelay, general ? portalLifetime : interval, true);
             portal.shielded(general ? portalLifetime : config.portal_shield_ticks)
                     .empowering(ominous ? config.ominous_strength_bonus : 0.0, mobTag);
             portals.add(portal.getUuid());
@@ -193,8 +195,9 @@ final class Siege {
 
     private List<EntityType<?>> waveTypes() {
         List<EntityType<?>> types = new ArrayList<>();
-        for (String id : config.wave_mobs.get(wave)) {
-            types.add(PortalPlacement.resolveType(id, ModEntities.FROST_HAUNTED));
+        List<String> ids = config.wave_mobs.get(wave);
+        for (String id : ids != null ? ids : List.<String>of()) {
+            if (id != null) types.add(PortalPlacement.resolveType(id, ModEntities.FROST_HAUNTED));
         }
         return types.isEmpty() ? List.of(ModEntities.FROST_HAUNTED) : types;
     }

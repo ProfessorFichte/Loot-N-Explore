@@ -19,10 +19,12 @@ public class FrostsiegeConfig {
     public int portals_easy = 2;
     public int portals_normal = 3;
     public int portals_hard = 4;
+    public int extra_portals_per_player = 1;
+    public int max_extra_portals = 4;
     public double portal_radius = 16.0;
     public int portal_lifetime_ticks = 800;
     public int portal_shield_ticks = 400;
-    public int portal_spawn_interval_ticks = 260;
+    public int portal_spawn_interval_ticks = 220;
     public int wave_pause_ticks = 100;
     public float ominous_spawn_interval_multiplier = 0.75F;
     public float ominous_strength_bonus = 0.25F;

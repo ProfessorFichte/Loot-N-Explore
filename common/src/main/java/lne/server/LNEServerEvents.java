@@ -45,6 +45,7 @@ public class LNEServerEvents {
         LNEEvents.get().registerServerWorldTick(RelicTriggers::tickForcedChannels);
         LNEEvents.get().registerServerWorldTick(FrozenBonesAmbush::tick);
         LNEEvents.get().registerServerWorldTick(Frostsiege::tick);
+        LNEEvents.get().onServerStarted(server -> RelicZones.clear());
     }
 
     private static void onWorldTick(ServerWorld world) {
