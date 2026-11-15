@@ -14,8 +14,13 @@ import lne.sounds.ModSounds;
 import com.mrpg_lib.util.combat.MeleeArcStrike;
 import net.minecraft.entity.*;
 import com.mrpg_lib.sounds.MRPGLibSounds;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkSectionPos;
+import net.minecraft.world.chunk.ChunkSection;
+import net.minecraft.world.chunk.WorldChunk;
+import lne.blocks.FrozenDepthsBlocks;
 import lne.config.TweaksConfig;
 import lne.entity.frozen_depths.goal.CastingBodyLock;
 import lne.entity.frozen_depths.goal.MobCompatGoals;
@@ -88,6 +93,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
     private static final double BASE_ARMOR = 4.0;
     private static final int DEFAULT_INVUL_TIMER = 220;
     private static final int INTRO_HEALING_SOUND_DELAY = 30;
+    private static final int CRYOTIC_LIGHT_RADIUS = 40;
     private static final int DEATH_ANIMATION_DURATION = FrostMonarchAnimationTimes.DEATH_LENGTH_TICKS;
     public static final double CLOSE_RANGE = 8.0;
     public static final double MID_RANGE = 20.0;
@@ -594,6 +600,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
                 );
                 MrpgFx.play(serverWorld, LNEFx.MONARCH_AWAKENING_SHOCKWAVE, FxParams.at(this.getPos()));
                 MrpgFx.play(serverWorld, LNEFx.MONARCH_AWAKENING_BURST, FxParams.at(this.getPos().add(0, 1.0, 0)));
+                lightCryoticBlocks(serverWorld);
                 double radius = 5.0;
                 List<LivingEntity> livingEntities = this.getWorld().getEntitiesByClass(
                         LivingEntity.class,
@@ -632,6 +639,46 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
                 this.getNavigation().stop();
             }
             this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+        }
+    }
+
+    private void lightCryoticBlocks(ServerWorld world) {
+        Block cryotic = FrozenDepthsBlocks.CRYOTIC_BLOCK.block();
+        BlockState flame = FrozenDepthsBlocks.FROSTFLAME.getDefaultState();
+        BlockPos center = this.getBlockPos();
+        int radiusSq = CRYOTIC_LIGHT_RADIUS * CRYOTIC_LIGHT_RADIUS;
+        int minChunkX = ChunkSectionPos.getSectionCoord(center.getX() - CRYOTIC_LIGHT_RADIUS);
+        int maxChunkX = ChunkSectionPos.getSectionCoord(center.getX() + CRYOTIC_LIGHT_RADIUS);
+        int minChunkZ = ChunkSectionPos.getSectionCoord(center.getZ() - CRYOTIC_LIGHT_RADIUS);
+        int maxChunkZ = ChunkSectionPos.getSectionCoord(center.getZ() + CRYOTIC_LIGHT_RADIUS);
+        int minY = Math.max(world.getBottomY(), center.getY() - CRYOTIC_LIGHT_RADIUS);
+        int maxY = Math.min(world.getTopY() - 2, center.getY() + CRYOTIC_LIGHT_RADIUS);
+        BlockPos.Mutable pos = new BlockPos.Mutable();
+        for (int chunkX = minChunkX; chunkX <= maxChunkX; chunkX++) {
+            for (int chunkZ = minChunkZ; chunkZ <= maxChunkZ; chunkZ++) {
+                // Only chunks that are already loaded, so the boss never generates new terrain here.
+                if (!(world.getChunkManager().getWorldChunk(chunkX, chunkZ) instanceof WorldChunk chunk)) continue;
+                for (int sectionY = ChunkSectionPos.getSectionCoord(minY); sectionY <= ChunkSectionPos.getSectionCoord(maxY); sectionY++) {
+                    ChunkSection section = chunk.getSection(chunk.sectionCoordToIndex(sectionY));
+                    if (section.isEmpty() || !section.hasAny(state -> state.isOf(cryotic))) continue;
+                    int baseX = ChunkSectionPos.getBlockCoord(chunkX);
+                    int baseY = ChunkSectionPos.getBlockCoord(sectionY);
+                    int baseZ = ChunkSectionPos.getBlockCoord(chunkZ);
+                    for (int x = 0; x < 16; x++) {
+                        for (int y = 0; y < 16; y++) {
+                            for (int z = 0; z < 16; z++) {
+                                if (!section.getBlockState(x, y, z).isOf(cryotic)) continue;
+                                pos.set(baseX + x, baseY + y, baseZ + z);
+                                if (pos.getY() < minY || pos.getY() > maxY || pos.getSquaredDistance(center) > radiusSq) continue;
+                                pos.move(0, 1, 0);
+                                if (world.getBlockState(pos).isAir() && flame.canPlaceAt(world, pos)) {
+                                    world.setBlockState(pos, flame);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
