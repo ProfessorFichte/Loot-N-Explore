@@ -1,5 +1,6 @@
 package lne.blocks.frozen_depths;
 
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.server.world.ServerWorld;
@@ -56,7 +57,7 @@ public class FrozenBonesBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (world instanceof ServerWorld serverWorld && entity instanceof PlayerEntity player
+        if (world instanceof ServerWorld serverWorld && world.getDifficulty() != Difficulty.PEACEFUL && entity instanceof PlayerEntity player
                 && !player.isCreative() && !player.isSpectator()
                 && steppedOnThisTick(pos, player) && world.random.nextFloat() < BREAK_CHANCE) {
             world.breakBlock(pos, false, player);
