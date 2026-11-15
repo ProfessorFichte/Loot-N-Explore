@@ -363,7 +363,7 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
 
         @Override
         public boolean shouldContinue() {
-            return target != null && target.isAlive() && ranger.isWithinAttackRange(target, 2.0);
+            return target != null && target.isAlive() && ranger.canTarget(target) && ranger.isWithinAttackRange(target, 2.0);
         }
 
         @Override
@@ -463,7 +463,7 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
 
         @Override
         public boolean shouldContinue() {
-            return phase != 0 && (target == null || target.isAlive());
+            return phase != 0 && (target == null || target.isAlive() && ranger.canTarget(target));
         }
 
         @Override
