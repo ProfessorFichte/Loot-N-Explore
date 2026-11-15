@@ -157,6 +157,7 @@ public class LneClient {
         cutout.accept(FrozenDepthsBlocks.ICICLE.block());
         cutout.accept(FrozenDepthsBlocks.FROSTFLAME);
         cutout.accept(FrozenDepthsBlocks.FROZEN_KINGDOM_FLAG.block());
+        cutout.accept(ModBlocks.EMPTY_BEER_MUG.block());
     }
 
     public static void registerModelIds() {

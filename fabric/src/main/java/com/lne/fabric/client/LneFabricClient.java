@@ -5,6 +5,7 @@ import lne.client.entity.models.EntityModelLayers;
 import lne.client.hud.EntityHudTextOverlay;
 import com.mrpg_lib.client.model.CustomModelHelper;
 import lne.client.particle.DragonClawParticle;
+import lne.client.particle.BookDustParticle;
 import lne.client.particle.FrostMistParticle;
 import lne.client.particle.FrozenSoulMoteParticle;
 import lne.client.platform.LNEClientModels;
@@ -39,6 +40,7 @@ public final class LneFabricClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(Particles.FREEZING_SNOWFLAKE, SnowflakeParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_SOUL_MOTE, FrozenSoulMoteParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROST_MIST, FrostMistParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Particles.BOOK_DUST, BookDustParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_SOUL, SoulParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROST_SCREECH, SonicBoomParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_FLAME, net.minecraft.client.particle.FlameParticle.Factory::new);
