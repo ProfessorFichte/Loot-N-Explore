@@ -1,5 +1,6 @@
 package lne.item;
 
+import lne.blocks.ModBlocks;
 import lne.item.weapons.frozen_depths.FreezingWeapons;
 import lne.blocks.FrozenDepthsBlocks;
 import lne.platform.LNEEvents;
@@ -71,6 +72,10 @@ public class CommonItems {
                 .build();
     }
 
+    private static Item beerMug() {
+        return ModBlocks.EMPTY_BEER_MUG.item();
+    }
+
     public static final Entry HOT_CHOCOLATE = entry("hot_chocolate",
             new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Effects.HOT_CHOCOLATE.registryEntry, 0),
             "Hot Chocolate", new ItemModelType.Generated("item/consumables/generic/"));
@@ -82,10 +87,10 @@ public class CommonItems {
             "Sweet Berry Punch", new ItemModelType.Generated("item/consumables/generic/"));
 
     public static final Entry BEET_ROOTBEER = entry("beet_rootbeer",
-            new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.BEET_ROOTBEER.registryEntry, 1),
+            new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.BEET_ROOTBEER.registryEntry, 1, CommonItems::beerMug),
             "Beet Rootbeer", new ItemModelType.Generated("item/consumables/generic/"));
     public static final Entry MALT_EXTRACT = entry("malt_extract",
-            new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.MALT_EXTRACT.registryEntry, 1),
+            new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Effects.MALT_EXTRACT.registryEntry, 1, CommonItems::beerMug),
             "Malt Extract", new ItemModelType.Generated("item/consumables/generic/"));
 
     public static final Entry VITAL_DRINK = entry("vital_drink",

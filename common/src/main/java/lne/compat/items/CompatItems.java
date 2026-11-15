@@ -1,5 +1,6 @@
 package lne.compat.items;
 
+import lne.blocks.ModBlocks;
 import lne.platform.LNEEvents;
 import lne.platform.LNEPlatform;
 
@@ -94,6 +95,10 @@ public class CompatItems {
         return e;
     }
 
+    private static Item beerMug() {
+        return ModBlocks.EMPTY_BEER_MUG.item();
+    }
+
     public static final Entry WATERMELON_DRINK = entry("watermelon_drink",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), MRPGC_Effects.WATERMELON_DRINK.registryEntry, 1),
             "Watermelon Drink", "mrpg_lib", 1);
@@ -126,7 +131,7 @@ public class CompatItems {
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), RWA_Effects.APPLE_JUICE.registryEntry, 0),
             "Apple Juice", "ranged_weapon_api", 0);
     public static final Entry WALDMEISTER = entry("waldmeister",
-            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), RWA_Effects.WALDMEISTER.registryEntry, 1),
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), RWA_Effects.WALDMEISTER.registryEntry, 1, CompatItems::beerMug),
             "Waldmeister", "ranged_weapon_api", 1);
     public static final Entry FORREST_SPIRIT = entry("forrest_spirit",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), RWA_Effects.FORREST_SPIRIT.registryEntry, 2),
@@ -154,7 +159,7 @@ public class CompatItems {
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), SpellPower_Effects.HOLY_WATER.registryEntry, 1),
             "Holy Water", "spell_power", 1);
     public static final Entry ENCHANTED_ALE = entry("enchanted_ale",
-            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), SpellPower_Effects.ENCHANTED_ALE.registryEntry, 1),
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), SpellPower_Effects.ENCHANTED_ALE.registryEntry, 1, CompatItems::beerMug),
             "Enchanted Ale", "spell_power", 1);
     public static final Entry WIZARDS_ELIXIR = entry("wizards_elixir",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), SpellPower_Effects.WIZARDS_ELIXIR.registryEntry, 2),
@@ -170,7 +175,7 @@ public class CompatItems {
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.COMMON), Witcher_Effects.BEAUCLAIR_WHITE.registryEntry, 0),
             "Beauclair White", "witcher_rpg", 0);
     public static final Entry RIVIAN_KRIEK = entry("rivian_kriek",
-            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1),
+            () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.UNCOMMON), Witcher_Effects.RIVIAN_KRIEK.registryEntry, 1, CompatItems::beerMug),
             "Rivian Kriek", "witcher_rpg", 1);
     public static final Entry BUTCHER_OF_BLAVIKEN = entry("butcher_of_blaviken",
             () -> new InnkeeperDrinkItem(new Item.Settings().maxCount(16).rarity(Rarity.RARE), Witcher_Effects.BUTCHER_OF_BLAVIKEN.registryEntry, 2),

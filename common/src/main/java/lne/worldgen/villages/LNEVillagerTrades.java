@@ -1,5 +1,6 @@
 package lne.worldgen.villages;
 
+import lne.blocks.ModBlocks;
 import lne.platform.LNEEvents;
 
 import lne.worldgen.map.ModMapDecorations;
@@ -74,6 +75,10 @@ public class LNEVillagerTrades {
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(
                                 new TradedItem(Items.BOWL, level_1_innkeeper_price_buy),
+                                new ItemStack(Items.EMERALD, 1),
+                                level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
+                        factories.add((entity, random) -> new TradeOffer(
+                                new TradedItem(ModBlocks.EMPTY_BEER_MUG.item(), level_1_innkeeper_price_buy),
                                 new ItemStack(Items.EMERALD, 1),
                                 level_1_innkeeper_maxUses, level_1_innkeeper_experience, level_1_innkeeper_priceMultiplier));
                         factories.add((entity, random) -> new TradeOffer(

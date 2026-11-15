@@ -74,6 +74,7 @@ public class ModBlockTagProvider  extends FabricTagProvider.BlockTagProvider{
 
         var axeMineable = getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
                 .addOptional(Registries.BLOCK.getId(ModBlocks.INNKEEPER_SHELF.block()))
+                .addOptional(Registries.BLOCK.getId(ModBlocks.EMPTY_BEER_MUG.block()))
                 .addOptional(Registries.BLOCK.getId(ModBlocks.SUSPICIOUS_BOOKSHELF.block()))
                 .addOptional(Registries.BLOCK.getId(FrozenDepthsBlocks.FROZEN_KINGDOM_FLAG.block()));
         ModBlocks.INN_SIGNS.forEach(sign -> axeMineable.addOptional(Registries.BLOCK.getId(sign.block())));

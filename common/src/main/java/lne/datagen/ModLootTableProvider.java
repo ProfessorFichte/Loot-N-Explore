@@ -63,6 +63,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(FrozenDepthsBlocks.ICY_DEEPSLATE_BOOKSHELF.block(), block -> drops(block, FrozenDepthsBlocks.DEEPSLATE_BOOKSHELF.block(), ConstantLootNumberProvider.create(1)));
         addDrop(FrozenDepthsBlocks.SUSPICIOUS_DEEPSLATE_BOOKSHELF.block(), dropsNothing());
         addDrop(ModBlocks.SUSPICIOUS_BOOKSHELF.block(), dropsNothing());
+        addDrop(ModBlocks.EMPTY_BEER_MUG.block());
         addDrop(FrozenDepthsBlocks.FROZEN_KINGDOM_FLAG.block());
         addDecoratedPotDrop(FrozenDepthsBlocks.FROZEN_DECORATED_POT.block());
         addDrop(FrozenDepthsBlocks.ICICLE.block(), LootTable.builder().pool(LootPool.builder()

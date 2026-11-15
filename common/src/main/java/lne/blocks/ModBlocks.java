@@ -3,6 +3,7 @@ package lne.blocks;
 import lne.platform.LNEEvents;
 
 import lne.blocks.frozen_depths.FrozenDecoratedPotBlock;
+import lne.blocks.generic.BeerMugBlock;
 import lne.blocks.generic.HangingInnSignBlock;
 import lne.blocks.generic.SuspiciousBlock;
 import lne.blocks.themed.ThemedTrialSpawnerBlock;
@@ -73,6 +74,14 @@ public class ModBlocks {
                         .nonOpaque()), woodName + " Hanging Inn Sign", new ModelType.Custom());
     }
 
+    public static final Entry EMPTY_BEER_MUG = entry("empty_beer_mug", new BeerMugBlock(
+            AbstractBlock.Settings.create()
+                    .mapColor(MapColor.OAK_TAN)
+                    .strength(0.5F)
+                    .sounds(BlockSoundGroup.WOOD)
+                    .nonOpaque()
+                    .pistonBehavior(PistonBehavior.DESTROY)), "Empty Beer Mug", new ModelType.HorizontalFacing("generic/", "misc/"));
+
     public static final List<Entry> INN_SIGNS = List.of(
             innSign("oak", "Oak", MapColor.OAK_TAN),
             innSign("acacia", "Acacia", MapColor.ORANGE),
@@ -103,7 +112,7 @@ public class ModBlocks {
             Registry.register(Registries.ITEM, Identifier.of(MOD_ID, entry.name), entry.item());
         }
         java.util.Set<String> generic = new java.util.HashSet<>(java.util.Set.of(
-                "innkeeper_shelf", "suspicious_bookshelf", "deepslate_bookshelf", "suspicious_deepslate_bookshelf"));
+                "innkeeper_shelf", "empty_beer_mug", "suspicious_bookshelf", "deepslate_bookshelf", "suspicious_deepslate_bookshelf"));
         INN_SIGNS.forEach(sign -> generic.add(sign.name()));
         LNEEvents.get().modifyItemGroup(Group.RPG_GENERIC_KEY, (content) -> {
             for (var entry : all) {

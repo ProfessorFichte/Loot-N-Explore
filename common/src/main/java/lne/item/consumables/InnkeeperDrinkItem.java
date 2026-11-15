@@ -23,15 +23,22 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class InnkeeperDrinkItem extends Item {
     private final RegistryEntry<StatusEffect>  boost_effect_0;
     private final int quality;
+    private final Supplier<Item> emptyContainer;
 
     public InnkeeperDrinkItem(Item.Settings settings,RegistryEntry<StatusEffect>  boostEffect, int quality) {
+        this(settings, boostEffect, quality, () -> Items.GLASS_BOTTLE);
+    }
+
+    public InnkeeperDrinkItem(Item.Settings settings, RegistryEntry<StatusEffect> boostEffect, int quality, Supplier<Item> emptyContainer) {
         super(settings);
         boost_effect_0 = boostEffect;
         this.quality = quality;
+        this.emptyContainer = emptyContainer;
     }
 
     public int getQuality() {
@@ -51,9 +58,9 @@ public class InnkeeperDrinkItem extends Item {
             resultStack.decrement(1);
 
             if (resultStack.isEmpty()) {
-                resultStack = new ItemStack(Items.GLASS_BOTTLE);
+                resultStack = new ItemStack(emptyContainer.get());
             } else {
-                player.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
+                player.getInventory().insertStack(new ItemStack(emptyContainer.get()));
             }
         }
         if (!world.isClient) {

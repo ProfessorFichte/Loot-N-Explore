@@ -5,6 +5,10 @@
       "required": false
     },
     {
+      "id": "loot_n_explore:empty_beer_mug",
+      "required": false
+    },
+    {
       "id": "loot_n_explore:suspicious_bookshelf",
       "required": false
     },

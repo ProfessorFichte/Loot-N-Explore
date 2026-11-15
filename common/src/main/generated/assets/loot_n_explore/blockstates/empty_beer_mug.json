@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "loot_n_explore:block/generic/empty_beer_mug",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "loot_n_explore:block/generic/empty_beer_mug"
+    },
+    "facing=south": {
+      "model": "loot_n_explore:block/generic/empty_beer_mug",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "loot_n_explore:block/generic/empty_beer_mug",
+      "y": 270
+    }
+  }
+}
