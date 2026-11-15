@@ -30,9 +30,15 @@ public class RelicDataState extends PersistentState {
         var state = new RelicDataState();
         var playersNbt = nbt.getCompound("players");
         for (var key : playersNbt.getKeys()) {
+            UUID player;
+            try {
+                player = UUID.fromString(key);
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
             var data = new RelicPlayerData(state);
             data.load(playersNbt.getCompound(key));
-            state.players.put(UUID.fromString(key), data);
+            state.players.put(player, data);
         }
         return state;
     }

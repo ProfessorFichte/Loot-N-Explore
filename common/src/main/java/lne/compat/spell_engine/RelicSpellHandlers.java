@@ -82,7 +82,8 @@ public class RelicSpellHandlers {
                 ParticleHelper.sendBatches(center, owner, spell.area_impact.visuals.particles);
             }
             if (spell.area_impact.sound != null) {
-                var sound = Registries.SOUND_EVENT.get(Identifier.of(spell.area_impact.sound.id()));
+                Identifier soundId = spell.area_impact.sound.id() != null ? Identifier.tryParse(spell.area_impact.sound.id()) : null;
+                var sound = soundId != null ? Registries.SOUND_EVENT.get(soundId) : null;
                 if (sound != null) {
                     world.playSound(null, center.x, center.y, center.z, sound, SoundCategory.PLAYERS, 1.0F, 1.0F);
                 }

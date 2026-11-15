@@ -45,6 +45,14 @@ public final class RelicZones {
     private RelicZones() {
     }
 
+    public static void clear() {
+        STORMS.clear();
+        TEMPESTS.clear();
+        BUBBLES.clear();
+        CLOUDS.clear();
+        WHIRLPOOLS.clear();
+    }
+
     public static void startStorm(ServerPlayerEntity player, double radius, int durationTicks, int freezeTicks) {
         STORMS.put(player.getUuid(), new Storm(radius, freezeTicks, player.getServerWorld().getTime() + durationTicks));
         MrpgFx.play(player.getServerWorld(), LNEFx.FROST_STORM, FxParams.on(player).radius((float) radius).duration(durationTicks));
