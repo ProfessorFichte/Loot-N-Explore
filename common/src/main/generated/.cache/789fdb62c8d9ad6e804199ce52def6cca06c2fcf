@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-13T09:32:44.37539	Loot N Explore/Model Definitions
+// 1.21.1	2026-11-15T11:17:04.580426	Loot N Explore/Model Definitions
 4843a06ac0a5e67139d4008e7dfde4df7f93ce4d assets\loot_n_explore\models\item\blue_ice_brick_slab.json
 45625cd488d09122c518d1f08c8ec2d941a5ca6e assets\loot_n_explore\blockstates\icy_deepslate_bookshelf.json
 1c565a3790871854bd05dc48c47df4c94997e5b7 assets\loot_n_explore\models\item\eternal_snowflake.json
@@ -60,6 +60,7 @@ fecbe300a009dad88cf386ed647c4bf11344d9df assets\loot_n_explore\blockstates\suspi
 6413d3a78606a2a4afa478b15f3cb20a96d441cd assets\loot_n_explore\blockstates\suspicious_bookshelf.json
 12b81f5e425e68f1f6c6e6d9701ebb4a98aba42e assets\loot_n_explore\models\item\knights_favourite.json
 1f5c56b02e2257aae79458873d7afc9957067ee3 assets\loot_n_explore\models\item\guardian_upgrade_smithing_template.json
+5ac7a5457b0d73edfd1ecd8b9cb1b628295c4b11 assets\loot_n_explore\models\item\empty_beer_mug.json
 c923e881e1ad015d67d2b27dd1f6efb2a88d6b26 assets\loot_n_explore\models\block\frozen_depths\deepslate_bookshelf_3.json
 0daaeb53892f637de99de8be75e1d0362a28283f assets\loot_n_explore\models\item\beauclair_white.json
 623c32882199e9be27f4203002498235f06a5998 assets\loot_n_explore\models\item\cactus_juice.json
@@ -69,6 +70,7 @@ c923e881e1ad015d67d2b27dd1f6efb2a88d6b26 assets\loot_n_explore\models\block\froz
 d5e5b22c436b800ac78246556706c555bbb9c284 assets\loot_n_explore\models\item\hot_chilli.json
 937295c11e9b4e73f8c5522f98905222c37a441d assets\loot_n_explore\models\item\ender_dragon_crossbow_pulling_1.json
 e1a0a11314d76b2259e0c006ffd8b1ffd8a77180 assets\loot_n_explore\models\item\holy_water.json
+c3589d60224e61cb7271512f7efd56fc408f4e71 assets\loot_n_explore\blockstates\empty_beer_mug.json
 5b2550396cba696df2faa30f8fc1d8009fbfc14b assets\loot_n_explore\models\item\wither_bow_pulling_0.json
 d335d3bc654f0d19422bfcfdd31bab3692065e4c assets\loot_n_explore\models\block\frostbloom.json
 51890112172a4f8d08a635b4d99ddf101f607f3f assets\loot_n_explore\models\item\frozen_soul_block.json
@@ -131,8 +133,8 @@ acea54079570c8261f6c8205d661357c8f0c3426 assets\loot_n_explore\blockstates\potte
 2e6f42ccb876fab5474856991d1830d46f992982 assets\loot_n_explore\models\item\elder_guardian_crossbow_arrow.json
 5bf5003f9e61078206bb8163f5aecfbe0ac90c58 assets\loot_n_explore\models\item\vital_drink.json
 95d57a2558732d64be9f867de64e8a33256d9578 assets\loot_n_explore\models\item\corrupted_ender_pearl.json
-ca2ff1579f35fd70f4ec0a23ea4e55a914c9b217 assets\loot_n_explore\models\item\monarchs_key.json
 52c2804261641a5bb78819c0f4f46c552a8a80cf assets\loot_n_explore\models\block\suspicious_bookshelf.json
+ca2ff1579f35fd70f4ec0a23ea4e55a914c9b217 assets\loot_n_explore\models\item\monarchs_key.json
 b419a6f9ac2d8cbd89ab4a124364220a560dc9b4 assets\loot_n_explore\models\item\wizards_elixir.json
 c165f02c424d88b6a6c23dabbd7f5f4d0750f151 assets\loot_n_explore\models\item\frostbloom.json
 0099ba56f47a766f06f8b91fb4be5b4964d8eca3 assets\loot_n_explore\models\item\green_chilli.json

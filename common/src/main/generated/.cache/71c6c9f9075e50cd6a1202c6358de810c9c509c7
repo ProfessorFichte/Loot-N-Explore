@@ -1,6 +1,6 @@
-// 1.21.1	2026-11-13T09:32:44.3783927	Loot N Explore/Tags for minecraft:block
+// 1.21.1	2026-11-15T11:17:04.5819593	Loot N Explore/Tags for minecraft:block
 52971c0c85682876e2d5ba4afc6bbd1ef0c107d2 data\minecraft\tags\block\enchantment_power_provider.json
-a00db5b6b1da5b8515c78e3da5fdfadeda0fc70d data\minecraft\tags\block\mineable\axe.json
+fbd56621376cfb85b0e8ad41b99357e41f8a98c4 data\minecraft\tags\block\mineable\axe.json
 dd66d255e57199948a95b03005cad6b83b48bfcd data\minecraft\tags\block\mineable\pickaxe.json
 b01cf7337fb405ef25d9dd4ea7884cd6bb8eb36d data\minecraft\tags\block\needs_iron_tool.json
 709b099afc9b5519f0833baa16003c4196430fa0 data\minecraft\tags\block\walls.json

@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-13T09:32:44.3879046	Loot N Explore/Block Loot Tables
+// 1.21.1	2026-11-15T11:17:04.5884834	Loot N Explore/Block Loot Tables
 15a49285d8cd6253c199399e5127f012fccc4264 data\loot_n_explore\loot_table\blocks\polished_ice_block.json
 56b7df138dd2edb8e77ca42aeb38b1f4212da5e1 data\loot_n_explore\loot_table\blocks\birch_hanging_inn_sign.json
 dc7d39b00aba7e46e796714c98f699e4773a1a43 data\loot_n_explore\loot_table\blocks\blue_ice_brick_wall.json
@@ -11,6 +11,7 @@ f43900c997d959b573818bb35d3329766fac5e3b data\loot_n_explore\loot_table\blocks\i
 9955ce41f4ef8bfd4192c6630c567ea969a06d9c data\loot_n_explore\loot_table\blocks\cracked_blue_ice_bricks.json
 46552d48fb26a3910596ffa4be957e75c39c1ba1 data\loot_n_explore\loot_table\blocks\frozen_torch.json
 63f5668c5396f24aef1e6b749c862edf0e0bf54a data\loot_n_explore\loot_table\blocks\blue_ice_bricks.json
+de72d2c4896f4b7572ffbb2c4d147f2381699b91 data\loot_n_explore\loot_table\blocks\empty_beer_mug.json
 db2cc496f7c892a9d9e5df6c8f4f38162866f3b7 data\loot_n_explore\loot_table\blocks\blue_ice_brick_stairs.json
 8c200cb3e5e74b36c4bde6a6c5194aa90de7dd08 data\loot_n_explore\loot_table\blocks\frozen_kingdom_flag.json
 de80125c00543266ac51003c7bc62e871876fef6 data\loot_n_explore\loot_table\blocks\snowy_blue_ice_bricks.json
@@ -23,8 +24,8 @@ ce1d18d79bde4361360b95016438046146179c79 data\loot_n_explore\loot_table\blocks\i
 d1327c80f3b86ac9ae6dbfdfe43fc794120e83cf data\loot_n_explore\loot_table\blocks\monarchs_crown.json
 704d563ab94833fb3b3c94a43ac3893aa8d47e07 data\loot_n_explore\loot_table\blocks\soulfrost_lantern.json
 cb6876468ab84d1a2700a79aea4706fd2a7c2a44 data\loot_n_explore\loot_table\blocks\frozen_bones.json
-aafa9537597fd0a28aedc10108337685947f299d data\loot_n_explore\loot_table\blocks\mangrove_hanging_inn_sign.json
 1d4929d7d6176f60e5ea991a577527ed251ef375 data\loot_n_explore\loot_table\blocks\frostflame.json
+aafa9537597fd0a28aedc10108337685947f299d data\loot_n_explore\loot_table\blocks\mangrove_hanging_inn_sign.json
 d99e1b06ffb4a424af7973968986b4bd9654d23f data\loot_n_explore\loot_table\blocks\polished_ice_bricks.json
 1d4929d7d6176f60e5ea991a577527ed251ef375 data\loot_n_explore\loot_table\blocks\suspicious_bookshelf.json
 37217a0c5917d9c5e396544a81853e4337672c84 data\loot_n_explore\loot_table\blocks\deepslate_bookshelf.json
