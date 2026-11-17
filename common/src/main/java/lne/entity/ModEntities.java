@@ -193,12 +193,12 @@ public class ModEntities {
         register("frozen_magician", "Frozen Magician", FROZEN_MAGICIAN);
         register("general_frozen_magician", "General Ysmerith, the Rimebound Counsel", GENERAL_FROZEN_MAGICIAN);
         register("frozen_ranger", "Frozen Ranger", FROZEN_RANGER);
-        register("general_frozen_ranger", "General Kaelthorn, the Wallwatch", GENERAL_FROZEN_RANGER);
+        register("general_frozen_ranger", "General Kaelthorn, the Wallwatch Huntsman", GENERAL_FROZEN_RANGER);
         register("frost_hound", "Frost Hound", FROST_HOUND);
         register("monarchs_soldier", "Monarch's Soldier", MONARCHS_SOLDIER);
-        register("general_monarchs_soldier", "General Haldrec, the Shield of the Crown", GENERAL_MONARCHS_SOLDIER);
+        register("general_monarchs_soldier", "General Haldrec, the Last Shield of the Crown", GENERAL_MONARCHS_SOLDIER);
         register("monarchs_guard", "Monarch's Guard", MONARCHS_GUARD);
-        register("general_monarchs_guard", "General Dunmarth, the Warden of the City", GENERAL_MONARCHS_GUARD);
+        register("general_monarchs_guard", "General Dunmarth, the Warden of the Frozen City", GENERAL_MONARCHS_GUARD);
     }
 
     public static void registerAttributes(BiConsumer<EntityType<? extends LivingEntity>, DefaultAttributeContainer.Builder> sink) {
