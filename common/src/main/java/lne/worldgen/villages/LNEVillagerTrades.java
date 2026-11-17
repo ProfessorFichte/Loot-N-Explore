@@ -116,16 +116,24 @@ public class LNEVillagerTrades {
             registerBuffTrades(innkeeper, 5, LneItemTags.INNKEEPER_BUFFS_3.id(),
                     level_5_innkeeper_price, level_5_innkeeper_maxUses, level_5_innkeeper_experience, level_5_innkeeper_priceMultiplier);
 
-        TagKey<Structure> monarchsTempleTag = StructureTags.MONARCHS_TEMPLE_LOCATED;
         LNEEvents.get().registerVillagerTrades(VillagerProfession.CARTOGRAPHER, 4, factories -> {
             factories.add((entity, random) -> new LNESellMapFactory(
                     12,
-                    monarchsTempleTag,
-                    "filled_map.loot_n_explore.monarchs_temple",
-                    ModMapDecorations.MONARCHS_TEMPLE,
+                    StructureTags.MONARCHS_CASTLE_LOCATED,
+                    "filled_map.loot_n_explore.monarchs_castle",
+                    ModMapDecorations.MONARCHS_CASTLE,
                     12,
                     5,
                     0x3D9DF3
+            ).create(entity, random));
+            factories.add((entity, random) -> new LNESellMapFactory(
+                    12,
+                    StructureTags.GLACIAL_TOMB_LOCATED,
+                    "filled_map.loot_n_explore.glacial_tomb",
+                    ModMapDecorations.GLACIAL_TOMB,
+                    12,
+                    5,
+                    0x6FC6E0
             ).create(entity, random));
         });
         }

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapDecorationType;
 import net.minecraft.item.map.MapState;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
@@ -18,11 +19,16 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.TradedItem;
+import net.minecraft.world.gen.chunk.placement.RandomSpreadStructurePlacement;
+import net.minecraft.world.gen.chunk.placement.StructurePlacementCalculator;
 import net.minecraft.world.gen.structure.Structure;
 
 import java.util.Optional;
 
 public class LNESellMapFactory implements TradeOffers.Factory {
+    private static final int SEARCH_BLOCKS = 10_000;
+    private static final int FALLBACK_RADIUS = 100;
+
     private final int price;
     private final TagKey<Structure> structure;
     private final String nameKey;
@@ -50,7 +56,7 @@ public class LNESellMapFactory implements TradeOffers.Factory {
         }
 
 
-        BlockPos blockPos = serverWorld.locateStructure(this.structure, entity.getBlockPos(), 300, false);
+        BlockPos blockPos = serverWorld.locateStructure(this.structure, entity.getBlockPos(), searchRadius(serverWorld), false);
         if (blockPos != null) {
             ItemStack itemStack = FilledMapItem.createMap(serverWorld, blockPos.getX(), blockPos.getZ(), (byte)2, true, true);
             FilledMapItem.fillExplorationMap(serverWorld, itemStack);
@@ -60,5 +66,20 @@ public class LNESellMapFactory implements TradeOffers.Factory {
             return new TradeOffer(new TradedItem(Items.EMERALD, this.price), Optional.of(new TradedItem(Items.PAPER)), itemStack, this.maxUses, this.experience, 0.2F);
         }
         return null;
+    }
+
+    // locateStructure counts its radius in placement-grid steps (spacing chunks), not in chunks.
+    private int searchRadius(ServerWorld world) {
+        StructurePlacementCalculator calculator = world.getChunkManager().getStructurePlacementCalculator();
+        return world.getRegistryManager().get(RegistryKeys.STRUCTURE).getEntryList(this.structure)
+                .map(entries -> entries.stream()
+                        .flatMap(entry -> calculator.getPlacements(entry).stream())
+                        .filter(placement -> placement instanceof RandomSpreadStructurePlacement)
+                        .mapToInt(placement -> ((RandomSpreadStructurePlacement) placement).getSpacing())
+                        .min()
+                        .orElse(0))
+                .filter(spacing -> spacing > 0)
+                .map(spacing -> Math.ceilDiv(SEARCH_BLOCKS, spacing * 16))
+                .orElse(FALLBACK_RADIUS);
     }
 }
