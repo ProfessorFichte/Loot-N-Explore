@@ -340,7 +340,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addEquipment(new Entry(
             id("equipment/find_eternal_snowflake"),
             "Eternal Snowflake",
-            "This snowflake cannot melt, they were collected in igloos.",
+            "This snowflake cannot melt, they're compressed by the cold breath of the Glaze",
             id("equipment/root"),
             "eternal_snowflake",
             AdvancementFrame.TASK,
@@ -352,7 +352,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addEquipment(new Entry(
             id("equipment/find_glacier_shard"),
             "Glacier Shard",
-            "Glacial Shards are protected by Glaze's in their tower spawners.",
+            "Reach the top of the Frost Tower to get this shard of eternal ice.",
             id("equipment/find_eternal_snowflake"),
             "glacier_shard",
             AdvancementFrame.TASK,

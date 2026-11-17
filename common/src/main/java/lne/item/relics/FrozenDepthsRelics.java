@@ -17,11 +17,11 @@ import static lne.item.relics.LNE_RelicItems.percent;
 public class FrozenDepthsRelics {
     public static final Entry ETERNAL_SNOWFLAKE = new Entry(2, "eternal_snowflake")
             .title("Eternal Snowflake")
-            .lore("This snowflake cannot melt, they were collected in igloos.")
+            .lore("This snowflake cannot melt, they're compressed by the cold breath of the Glaze")
             .bonuses(flat(ARMOR, 1), percent(SPELL_FROST, 0.05));
     public static final Entry GLACIER_SHARD = new Entry(2, "glacier_shard")
             .title("Glacier Shard")
-            .lore("Glacial Shards are protected by Glaze's in their tower spawners.")
+            .lore("Reach the top of the Frost Tower to get this shard of eternal ice.")
             .bonuses(flat(ARMOR, 2), flat(TOUGHNESS, 1));
     public static final Entry FROZEN_RIB = new Entry(3, "frozen_rib")
             .title("Frozen Rib")
