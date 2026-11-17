@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.glaze;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import lne.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
@@ -34,6 +38,12 @@ import java.util.EnumSet;
 import static com.mrpg_lib.util.FreezeMethods.addFrozenTicksCapped;
 
 public class GlazeEntity extends HostileEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     public final AnimationState idleAnimationState = new AnimationState();
     private float eyeOffset = 0.5F;
     private int eyeOffsetCooldown;

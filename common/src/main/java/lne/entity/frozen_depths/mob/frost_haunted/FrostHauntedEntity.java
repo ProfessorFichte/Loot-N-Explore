@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.frost_haunted;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import lne.util.LneTags;
 import lne.platform.LNEPlatform;
 
@@ -40,6 +44,12 @@ import org.jetbrains.annotations.Nullable;
 import static com.mrpg_lib.util.FreezeMethods.addFrozenTicksCapped;
 
 public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(FrostHauntedEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();

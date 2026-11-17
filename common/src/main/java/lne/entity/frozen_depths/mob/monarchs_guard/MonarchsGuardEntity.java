@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.monarchs_guard;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import com.mrpg_lib.util.AllyHelper;
 import lne.platform.LNEPlatform;
 
@@ -47,6 +51,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class MonarchsGuardEntity extends SkeletonEntity implements ISpellCasterEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(MonarchsGuardEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> DASHING = DataTracker.registerData(MonarchsGuardEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> THROWING = DataTracker.registerData(MonarchsGuardEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

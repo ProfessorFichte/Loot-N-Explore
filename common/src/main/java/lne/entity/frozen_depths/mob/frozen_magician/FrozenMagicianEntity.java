@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.frozen_magician;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import lne.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
@@ -52,6 +56,12 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCasterEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(FrozenMagicianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CASTING = DataTracker.registerData(FrozenMagicianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 

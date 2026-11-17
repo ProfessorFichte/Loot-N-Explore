@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.frost_hound;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import lne.util.LneTags;
 import lne.LneMod;
 import com.mrpg_lib.entity.config.CustomValues;
@@ -25,6 +29,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostHoundEntity extends HostileEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();
     public final AnimationState runAnimationState = new AnimationState();

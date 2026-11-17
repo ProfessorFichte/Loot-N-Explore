@@ -1,4 +1,8 @@
 package lne.entity.frozen_depths.mob.frostmonarch;
+
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
 import lne.platform.LNEPlatform;
 import lne.LneMod;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
@@ -78,6 +82,12 @@ import static lne.util.HelperMethods.applyStatusEffect;
 import static lne.util.HelperMethods.getFreezingEffect;
 
 public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     private static final TrackedData<Integer> INVUL_TIMER;
     private static final TrackedData<Integer> BARRIER_TIMER;
     private static final TrackedData<Boolean> SCREECHING = DataTracker.registerData(FrostMonarchEntity.class, TrackedDataHandlerRegistry.BOOLEAN);

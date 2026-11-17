@@ -1,5 +1,8 @@
 package lne.entity.relic;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+
 import lne.fx.LNEFx;
 import lne.entity.frozen_depths.mob.frost_haunted.FrostHauntedEntity;
 import net.minecraft.entity.Entity;
@@ -23,6 +26,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 public class RelicFrostHauntedEntity extends FrostHauntedEntity implements Ownable, EmergingMinion {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return this.getType().getLootTableId();
+    }
+
     private UUID ownerId;
     private int lifeTicks = 400;
 

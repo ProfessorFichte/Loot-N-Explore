@@ -1,5 +1,9 @@
 package lne.entity.frozen_depths.mob.frozen_ranger;
 
+import net.minecraft.loot.LootTable;
+import net.minecraft.registry.RegistryKey;
+import lne.util.LneLootTables;
+
 import lne.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
@@ -49,6 +53,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEntity {
+
+    @Override
+    protected RegistryKey<LootTable> getLootTableId() {
+        return LneLootTables.frozenDepthsEntity(this.getType());
+    }
+
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(FrozenRangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> PERFORMING_SALVO = DataTracker.registerData(FrozenRangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> DRAWING_BOW = DataTracker.registerData(FrozenRangerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
