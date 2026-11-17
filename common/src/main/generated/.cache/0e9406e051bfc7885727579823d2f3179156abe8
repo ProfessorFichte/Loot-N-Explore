@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-15T11:17:04.5789229	Loot N Explore/minecraft:chest Loot Table
+// 1.21.1	2026-11-17T11:56:47.368996	Loot N Explore/minecraft:chest Loot Table
 26da86e84fc6a2c6d3c4d7841936b898795a9f74 data\loot_n_explore\loot_table\chests\frozen_depths\frost_tower\barrel.json
 2beb144c86c8a9e60a6ca7776d1a53e04ee7cb47 data\loot_n_explore\loot_table\chests\frozen_depths\frost_tower\hidden.json
 e37e29c1ccda2a70e49619fa0b4aa4baa93cb063 data\loot_n_explore\loot_table\vaults\frozen_depths\frost_tower\reward.json
@@ -27,12 +27,13 @@ ff45796020f28639ca30c3a33cab094c6047c1d3 data\loot_n_explore\loot_table\vaults\f
 0e109a07a44044627d1189fcae3d9e1fd3c546ec data\loot_n_explore\loot_table\vaults\frozen_depths\monarchs_castle\unique.json
 f8f4175fc725b6e82470653cd5cc171084b1a83b data\loot_n_explore\loot_table\chests\frozen_depths\outpost\barrel.json
 8fd54e0e2b522c2263779026f301373bc0d4fcd4 data\loot_n_explore\loot_table\vaults\frozen_depths\glacial_tomb\unique.json
-80616481db83e54b09e33c022e44d7e790f67226 data\loot_n_explore\loot_table\vaults\frozen_depths\glacial_tomb\reward_ominous.json
 912252722da6760a01f6694c1b9fb7450826544b data\loot_n_explore\loot_table\vaults\frozen_depths\frost_tower\unique.json
+80616481db83e54b09e33c022e44d7e790f67226 data\loot_n_explore\loot_table\vaults\frozen_depths\glacial_tomb\reward_ominous.json
 fc3d7df5a7b2b197b4638db906cc0581797d10eb data\loot_n_explore\loot_table\vaults\frozen_depths\monarchs_castle\ominous_unique.json
 a4a3a6e749a9b27b2fb8edf12588e797ce999660 data\loot_n_explore\loot_table\pots\frozen_depths\monarchs_temple.json
 a1549b4628e6222d0ce4778e93636c3777051179 data\loot_n_explore\loot_table\pots\frozen_depths\outpost.json
 a1b3d02467097bc8a79fbdfa691bda677caad28d data\loot_n_explore\loot_table\vaults\frozen_depths\t2\ominous_rare.json
+a4a3a6e749a9b27b2fb8edf12588e797ce999660 data\loot_n_explore\loot_table\pots\frozen_depths\monarchs_castle.json
 9c1d621c8f53f88f3e6553d973a97c17f8f4ae6d data\loot_n_explore\loot_table\chests\frozen_depths\monarchs_temple\hidden.json
 03b8c9e0e1fdd758ab29522894d3d480471b95fe data\loot_n_explore\loot_table\vaults\frozen_depths\outpost\unique.json
 185a314b6b2f3b67e2765777601a995c2324a02b data\loot_n_explore\loot_table\vaults\frozen_depths\t2\rare.json

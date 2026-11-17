@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-15T11:17:04.580426	Loot N Explore/Model Definitions
+// 1.21.1	2026-11-17T11:56:47.3710142	Loot N Explore/Model Definitions
 4843a06ac0a5e67139d4008e7dfde4df7f93ce4d assets\loot_n_explore\models\item\blue_ice_brick_slab.json
 45625cd488d09122c518d1f08c8ec2d941a5ca6e assets\loot_n_explore\blockstates\icy_deepslate_bookshelf.json
 1c565a3790871854bd05dc48c47df4c94997e5b7 assets\loot_n_explore\models\item\eternal_snowflake.json
@@ -86,8 +86,8 @@ a0d083712f05ab6a296508deb9009f724fa4406c assets\loot_n_explore\blockstates\crack
 92ac5409dca943f5c3e0bc3035cbbcc7edcddb63 assets\loot_n_explore\models\item\cryotic_block.json
 ef9cf05d4ac213792c5fe6c6238189fe95dcb39f assets\loot_n_explore\models\item\suspicious_bookshelf.json
 a953c72afdc68647fb7033bb67d0ea1846839fd7 assets\loot_n_explore\models\block\frostflame_up_alt0.json
-e30b8c6fd5c3dc3eaf23320b9f436311d9e5f272 assets\loot_n_explore\models\block\fragile_ice.json
 41678f0cb0c8f5735d7e6b5f338965c63da80bd7 assets\loot_n_explore\models\item\the_king_cursed_by_winter_disc.json
+e30b8c6fd5c3dc3eaf23320b9f436311d9e5f272 assets\loot_n_explore\models\block\fragile_ice.json
 77315556b4c477bed96987454b5b10c23856f782 assets\loot_n_explore\models\item\fruit_icewater.json
 c20de69ebfcdd733ad049805be9cc9431f10b4d9 assets\loot_n_explore\models\item\grilled_eel_sushi.json
 a97db9d815648595d3ff7f4d931d8116e8b45ac5 assets\loot_n_explore\models\block\frostflame_up1.json

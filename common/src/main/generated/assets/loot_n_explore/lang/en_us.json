@@ -250,6 +250,8 @@
   "event.loot_n_explore.frostsiege.wave": "Wave %s/%s",
   "filled_map.loot_n_explore.desert_pyramid": "Desert Pyramid Map",
   "filled_map.loot_n_explore.frost_tower": "Frost Tower Map",
+  "filled_map.loot_n_explore.glacial_tomb": "Glacial Tomb Map",
+  "filled_map.loot_n_explore.monarchs_castle": "Monarch's Castle Map",
   "filled_map.loot_n_explore.monarchs_temple": "Frost Monarch Temple Map",
   "filled_map.loot_n_explore.pillager_outpost": "Pillager Outpost Map",
   "item.loot_n_explore.amphitrite_diadem": "Amphitrite's Diadem",

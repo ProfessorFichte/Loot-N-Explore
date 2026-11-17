@@ -7,6 +7,7 @@ import lne.LneMod;
 import lne.blocks.FrozenDepthsBlocks;
 import lne.item.CommonItems;
 import lne.util.LneLootTables;
+import lne.worldgen.map.ModMapDecorations;
 import lne.worldgen.structures.StructureTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
@@ -14,6 +15,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
+import net.minecraft.item.map.MapDecorationType;
 import net.minecraft.item.map.MapDecorationTypes;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -30,6 +32,7 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -41,6 +44,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvider {
+    private static final int FROZEN_DEPTHS_MAP_SEARCH_RADIUS = 25;
+
     private final CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup;
 
     public ModArchaeologyLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
@@ -99,7 +104,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(Items.BONE, 3, 1, 3))
                 .with(counted(CommonItems.FROSTBALL.item(), 2, 1, 2))
                 .with(counted(FrozenDepthsBlocks.FROZEN_CHAIN.block(), 2, 1, 1))
-                .with(counted(Items.EMERALD, 2, 1, 2))));
+                .with(counted(Items.EMERALD, 2, 1, 2))
+                .with(monarchsCastleMap())));
         exporter.accept(frozenDepths("glacial_tomb"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(Items.BONE, 4, 1, 3))
@@ -107,7 +113,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(Items.GOLD_NUGGET, 3, 2, 5))
                 .with(counted(FrozenDepthsBlocks.FROZEN_TORCH.block(), 2, 1, 2))
                 .with(counted(Items.EMERALD, 2, 1, 3))
-                .with(counted(Items.DIAMOND, 1, 1, 1))));
+                .with(counted(Items.DIAMOND, 1, 1, 1))
+                .with(monarchsCastleMap())));
         exporter.accept(frozenDepths("outpost"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(Items.PAPER, 4, 1, 3))
@@ -115,7 +122,9 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(CommonItems.CRYO_ESSENCE.item(), 3, 1, 1))
                 .with(counted(Items.IRON_NUGGET, 3, 2, 4))
                 .with(counted(CommonItems.FROSTBALL.item(), 2, 1, 2))
-                .with(counted(Items.EMERALD, 1, 1, 1))));
+                .with(counted(Items.EMERALD, 1, 1, 1))
+                .with(explorerMap(StructureTags.ON_FROST_TOWER_MAPS, "frost_tower", 1,
+                        MapDecorationTypes.RED_X, FROZEN_DEPTHS_MAP_SEARCH_RADIUS))));
         exporter.accept(frozenDepths("monarchs_castle"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(CommonItems.CRYO_ESSENCE.item(), 3, 1, 3))
@@ -152,6 +161,22 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .apply(ExplorationMapLootFunction.builder()
                         .withDestination(destination)
                         .withDecoration(MapDecorationTypes.RED_X))
+                .apply(SetNameLootFunction.builder(Text.translatable("filled_map." + LneMod.MOD_ID + "." + mapName),
+                        SetNameLootFunction.Target.ITEM_NAME));
+    }
+
+    private static LeafEntry.Builder<?> monarchsCastleMap() {
+        return explorerMap(StructureTags.MONARCHS_CASTLE_LOCATED, "monarchs_castle", 1,
+                ModMapDecorations.MONARCHS_CASTLE, FROZEN_DEPTHS_MAP_SEARCH_RADIUS);
+    }
+
+    private static LeafEntry.Builder<?> explorerMap(TagKey<Structure> destination, String mapName, int weight,
+                                                    RegistryEntry<MapDecorationType> decoration, int searchRadius) {
+        return ItemEntry.builder(Items.MAP).weight(weight)
+                .apply(ExplorationMapLootFunction.builder()
+                        .withDestination(destination)
+                        .withDecoration(decoration)
+                        .searchRadius(searchRadius))
                 .apply(SetNameLootFunction.builder(Text.translatable("filled_map." + LneMod.MOD_ID + "." + mapName),
                         SetNameLootFunction.Target.ITEM_NAME));
     }

@@ -2,6 +2,7 @@ package lne.datagen;
 
 import lne.entity.ModEntities;
 import lne.item.CommonItems;
+import lne.util.LneLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.entity.EntityType;
@@ -60,7 +61,7 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
     }
 
     private static void add(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter, EntityType<?> type, LootTable.Builder table) {
-        exporter.accept(type.getLootTableId(), table);
+        exporter.accept(LneLootTables.frozenDepthsEntity(type), table);
     }
 
     private static LootTable.Builder cryoEssence(RegistryWrapper.WrapperLookup lookup, int min, int max) {

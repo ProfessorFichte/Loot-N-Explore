@@ -222,6 +222,8 @@ public class ModLanguageProvider extends FabricLanguageProvider {
         builder.add("block.loot_n_explore.monarchs_crown.ability_hint", "[Shift + Right Click] Listen to the soul's voices.");
 
         builder.add("filled_map.loot_n_explore.monarchs_temple", "Frost Monarch Temple Map");
+        builder.add("filled_map.loot_n_explore.monarchs_castle", "Monarch's Castle Map");
+        builder.add("filled_map.loot_n_explore.glacial_tomb", "Glacial Tomb Map");
         builder.add("filled_map.loot_n_explore.frost_tower", "Frost Tower Map");
         builder.add("filled_map.loot_n_explore.desert_pyramid", "Desert Pyramid Map");
         builder.add("filled_map.loot_n_explore.pillager_outpost", "Pillager Outpost Map");

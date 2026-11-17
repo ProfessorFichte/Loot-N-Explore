@@ -91,6 +91,7 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
         exporter.accept(key(POTS + "frost_tower"), single(pot(2)));
         exporter.accept(key(POTS + "glacial_tomb"), single(pot(3)));
         exporter.accept(key(POTS + "monarchs_temple"), single(pot(3)));
+        exporter.accept(key(POTS + "monarchs_castle"), single(pot(3)));
     }
 
     private void vault(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter, String structure, int tier, boolean ominous, Item disc) {
