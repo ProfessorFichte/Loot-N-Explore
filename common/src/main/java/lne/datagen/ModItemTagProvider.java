@@ -13,6 +13,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.spell_engine.rpg_series.item.Equipment;
@@ -32,6 +34,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(LneItemTags.INNKEEPER_BUFFS_1)
                 .addTag(LneItemTags.INNKEEPER_BUFFS_2)
                 .addTag(LneItemTags.INNKEEPER_BUFFS_3);
+
+        getOrCreateTagBuilder(TagKey.of(RegistryKeys.ITEM, Identifier.of("runes", "rune_crafting/reagent/frost_medium")))
+                .add(CommonItems.CRYO_ESSENCE.item());
 
         for (var entry : LNE_RelicItems.entries) {
             getOrCreateTagBuilder(LneItemTags.RELICS)
