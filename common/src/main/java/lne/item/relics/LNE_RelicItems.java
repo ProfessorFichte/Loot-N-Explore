@@ -4,7 +4,7 @@ import lne.config.TweaksConfig;
 import com.google.common.base.Suppliers;
 import lne.item.Group;
 import lne.item.RelicItem;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;

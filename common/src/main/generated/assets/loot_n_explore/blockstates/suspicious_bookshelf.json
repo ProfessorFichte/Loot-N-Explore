@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "loot_n_explore:block/suspicious_bookshelf"
+      "model": "loot_n_explore:block/generic/suspicious_bookshelf"
     }
   }
 }

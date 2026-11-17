@@ -1,6 +1,6 @@
 package lne.compat;
 
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import lne.compat.items.*;
 import lne.compat.spell_engine.SmithingTemplates;

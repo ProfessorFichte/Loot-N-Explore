@@ -1,6 +1,6 @@
 package lne.entity.frozen_depths.mob.monarchs_soldier;
 
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;

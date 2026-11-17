@@ -1,7 +1,7 @@
 package com.lne.neoforge.platform;
 
 import com.lne.neoforge.compat.curios.CuriosAccess;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.neoforged.fml.ModList;

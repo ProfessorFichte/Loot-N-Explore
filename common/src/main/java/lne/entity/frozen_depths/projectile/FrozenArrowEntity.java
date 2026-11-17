@@ -1,6 +1,6 @@
 package lne.entity.frozen_depths.projectile;
 
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import lne.effects.Effects;
 import lne.entity.ModEntities;

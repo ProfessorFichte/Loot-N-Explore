@@ -5,7 +5,7 @@ import net.minecraft.registry.RegistryKey;
 import lne.util.LneLootTables;
 
 import com.mrpg_lib.util.AllyHelper;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import lne.LneMod;

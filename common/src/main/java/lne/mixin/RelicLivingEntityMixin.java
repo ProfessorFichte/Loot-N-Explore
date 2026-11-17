@@ -1,6 +1,6 @@
 package lne.mixin;
 
-import lne.ability.RelicTriggers;
+import lne.internal.ability.RelicTriggers;
 import lne.effects.generic.RainbowCoralEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;

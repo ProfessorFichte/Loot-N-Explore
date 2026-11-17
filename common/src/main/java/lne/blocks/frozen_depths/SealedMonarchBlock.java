@@ -2,7 +2,7 @@ package lne.blocks.frozen_depths;
 
 import lne.blocks.FrozenDepthsBlocks;
 import lne.entity.frozen_depths.conjured.PortalPlacement;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.util.LneTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

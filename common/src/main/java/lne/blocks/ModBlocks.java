@@ -1,6 +1,6 @@
 package lne.blocks;
 
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 
 import lne.blocks.frozen_depths.FrozenDecoratedPotBlock;
 import lne.blocks.generic.BeerMugBlock;
@@ -80,7 +80,7 @@ public class ModBlocks {
                     .strength(0.5F)
                     .sounds(BlockSoundGroup.WOOD)
                     .nonOpaque()
-                    .pistonBehavior(PistonBehavior.DESTROY)), "Empty Beer Mug", new ModelType.HorizontalFacing("generic/", "misc/"));
+                    .pistonBehavior(PistonBehavior.DESTROY)), "Empty Beer Mug", new ModelType.HorizontalFacing("generic/", "misc/generic/"));
 
     public static final List<Entry> INN_SIGNS = List.of(
             innSign("oak", "Oak", MapColor.OAK_TAN),
@@ -95,7 +95,7 @@ public class ModBlocks {
     public static final Entry SUSPICIOUS_BOOKSHELF = entry("suspicious_bookshelf", new SuspiciousBlock.Sideways(Blocks.BOOKSHELF,
             SoundEvents.ITEM_BRUSH_BRUSHING_GENERIC, SoundEvents.BLOCK_CHISELED_BOOKSHELF_PICKUP,
             AbstractBlock.Settings.copy(Blocks.BOOKSHELF).strength(0.5F).pistonBehavior(PistonBehavior.DESTROY)),
-            "Suspicious Bookshelf", new ModelType.Column("", Identifier.ofVanilla("block/oak_planks")));
+            "Suspicious Bookshelf", new ModelType.Column("generic/", Identifier.ofVanilla("block/oak_planks")));
 
     public static void register(){
         FrozenDepthsBlocks.register();

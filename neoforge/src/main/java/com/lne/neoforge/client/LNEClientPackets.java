@@ -1,8 +1,8 @@
 package com.lne.neoforge.client;
 
 import lne.client.LneClient;
-import lne.network.EntityHudTextPayload;
-import lne.network.StructureMusicPayload;
+import lne.internal.network.EntityHudTextPayload;
+import lne.internal.network.StructureMusicPayload;
 
 public final class LNEClientPackets {
     private LNEClientPackets() {}
@@ -11,11 +11,11 @@ public final class LNEClientPackets {
         LneClient.onStructureMusic(payload);
     }
 
-    public static void onRelicStacks(lne.network.RelicStacksPayload payload) {
+    public static void onRelicStacks(lne.internal.network.RelicStacksPayload payload) {
         LneClient.onRelicStacks(payload);
     }
 
-    public static void onWeaponCooldown(lne.network.WeaponCooldownPayload payload) {
+    public static void onWeaponCooldown(lne.internal.network.WeaponCooldownPayload payload) {
         lne.client.hud.WeaponReadyCue.onRangedCooldown(payload.ability(), payload.ticks());
     }
 

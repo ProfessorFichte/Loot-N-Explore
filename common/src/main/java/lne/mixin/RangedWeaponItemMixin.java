@@ -1,6 +1,6 @@
 package lne.mixin;
 
-import lne.ability.RelicTriggers;
+import lne.internal.ability.RelicTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;

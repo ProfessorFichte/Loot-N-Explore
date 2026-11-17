@@ -1,7 +1,7 @@
 package lne.item;
 
 import lne.blocks.ModBlocks;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

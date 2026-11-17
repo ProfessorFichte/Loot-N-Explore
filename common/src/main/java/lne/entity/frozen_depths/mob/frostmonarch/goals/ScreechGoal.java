@@ -1,7 +1,7 @@
 package lne.entity.frozen_depths.mob.frostmonarch.goals;
 
 import lne.entity.frozen_depths.mob.frostmonarch.FrostMonarchAnimationTimes;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import lne.blocks.frozen_depths.IcicleBlock;
 import lne.entity.frozen_depths.FrozenDepthsTuning;

@@ -2,7 +2,7 @@ package lne.entity.frozen_depths.goal;
 
 import com.mrpg_lib.compat.better_combat.BetterCombatCompat;
 import com.mrpg_lib.compat.combat_roll.CombatRollCompat;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import org.jetbrains.annotations.Nullable;

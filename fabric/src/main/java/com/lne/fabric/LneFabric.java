@@ -1,7 +1,7 @@
 package com.lne.fabric;
 
-import lne.command.FrostsiegeCommand;
-import lne.command.RelicCommand;
+import lne.internal.command.FrostsiegeCommand;
+import lne.internal.command.RelicCommand;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import com.lne.fabric.compat.CompatFeatures;
 import com.lne.fabric.platform.FabricEventsImpl;
@@ -10,12 +10,12 @@ import com.lne.fabric.worldgen.FabricVegetationGeneration;
 import lne.LneMod;
 import lne.entity.ModEntities;
 import lne.item.ModPotions;
-import lne.network.EntityHudTextPayload;
-import lne.network.StructureMusicPayload;
-import lne.network.RelicStacksPayload;
-import lne.network.WeaponCooldownPayload;
-import lne.platform.LNEEvents;
-import lne.platform.LNEPlatform;
+import lne.internal.network.EntityHudTextPayload;
+import lne.internal.network.StructureMusicPayload;
+import lne.internal.network.RelicStacksPayload;
+import lne.internal.network.WeaponCooldownPayload;
+import lne.internal.platform.LNEEvents;
+import lne.internal.platform.LNEPlatform;
 import lne.worldgen.villages.LNEVillagerProfessions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;

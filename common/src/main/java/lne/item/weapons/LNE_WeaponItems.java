@@ -1,8 +1,8 @@
 package lne.item.weapons;
 
 import lne.config.TweaksConfig;
-import lne.ability.TriggerType;
-import lne.platform.LNEEvents;
+import lne.internal.ability.TriggerType;
+import lne.internal.platform.LNEEvents;
 
 
 import lne.entity.generic.projectile.LNEAbilityArrowEntity;

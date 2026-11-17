@@ -1,5 +1,5 @@
 package lne.effects;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.mrpg_lib.config.AttributeModifier;
 import com.mrpg_lib.config.EffectConfig;

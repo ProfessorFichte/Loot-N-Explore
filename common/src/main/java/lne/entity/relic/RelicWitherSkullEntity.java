@@ -2,8 +2,8 @@ package lne.entity.relic;
 
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
-import lne.fx.LNEFx;
-import lne.ability.RelicTargets;
+import lne.internal.fx.LNEFx;
+import lne.internal.ability.RelicTargets;
 import lne.entity.ModEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

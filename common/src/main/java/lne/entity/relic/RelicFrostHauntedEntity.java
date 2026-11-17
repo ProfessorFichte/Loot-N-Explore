@@ -3,7 +3,7 @@ package lne.entity.relic;
 import net.minecraft.loot.LootTable;
 import net.minecraft.registry.RegistryKey;
 
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.entity.frozen_depths.mob.frost_haunted.FrostHauntedEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityData;

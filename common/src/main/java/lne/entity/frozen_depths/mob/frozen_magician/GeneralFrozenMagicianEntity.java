@@ -7,7 +7,7 @@ import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.damage.SpellDamage;
 import com.mrpg_lib.util.damage.SpellDamageProfile;
 import lne.entity.frozen_depths.conjured.FrostDecoyEntity;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.util.damage.FrostDamageProfiles;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import net.minecraft.entity.*;

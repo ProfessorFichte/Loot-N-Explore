@@ -5,7 +5,7 @@ import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.AllyHelper;
 import lne.effects.Effects;
 import lne.entity.ModEntities;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.particle.Particles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;

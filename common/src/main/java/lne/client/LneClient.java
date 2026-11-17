@@ -122,7 +122,7 @@ public class LneClient {
         }
     }
 
-    public static void onStructureMusic(lne.network.StructureMusicPayload payload) {
+    public static void onStructureMusic(lne.internal.network.StructureMusicPayload payload) {
         if (payload.start()) {
             LNEMusicManager.startAmbientMusic(payload.track());
         } else {
@@ -130,11 +130,11 @@ public class LneClient {
         }
     }
 
-    public static void onRelicStacks(lne.network.RelicStacksPayload payload) {
+    public static void onRelicStacks(lne.internal.network.RelicStacksPayload payload) {
         lne.item.relics.RelicStackCache.update(payload.entries());
     }
 
-    public static void onEntityHudText(lne.network.EntityHudTextPayload payload) {
+    public static void onEntityHudText(lne.internal.network.EntityHudTextPayload payload) {
         EntityHudTextOverlay.show(payload);
     }
 

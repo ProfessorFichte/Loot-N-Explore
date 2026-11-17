@@ -6,7 +6,7 @@ import lne.config.FrostsiegeConfig;
 import lne.entity.ModEntities;
 import lne.entity.frozen_depths.conjured.EternalWinterPortalEntity;
 import lne.entity.frozen_depths.conjured.PortalPlacement;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.util.LneTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

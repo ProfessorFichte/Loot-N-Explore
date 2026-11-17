@@ -1,16 +1,16 @@
 package lne.item;
 
-import lne.ability.AbilityTheme;
-import lne.ability.RelicText;
-import lne.ability.TriggerType;
+import lne.internal.ability.AbilityTheme;
+import lne.internal.ability.RelicText;
+import lne.internal.ability.TriggerType;
 import lne.entity.frozen_depths.projectile.TrackingIcicleEntity;
 import lne.item.relics.RelicTooltips;
 import lne.config.TweaksConfig;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import lne.item.weapons.WeaponAbilities;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package lne.effects.generic;
 
-import lne.ability.RelicAbilities;
+import lne.internal.ability.RelicAbilities;
 import lne.effects.Effects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;

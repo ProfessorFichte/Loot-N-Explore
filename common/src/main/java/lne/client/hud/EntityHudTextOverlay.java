@@ -2,8 +2,8 @@ package lne.client.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import lne.config.TweaksConfig;
-import lne.hud_text.EntityHudTextStyle;
-import lne.network.EntityHudTextPayload;
+import lne.internal.hud_text.EntityHudTextStyle;
+import lne.internal.network.EntityHudTextPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

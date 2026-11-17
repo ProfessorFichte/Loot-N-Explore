@@ -3,7 +3,7 @@ package lne.entity.frozen_depths.goal;
 import com.mrpg_lib.entity.ISpellCasterEntity;
 import lne.LneMod;
 import lne.compat.spell_engine.LneMobSpellGoalFactory;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.registry.Registries;

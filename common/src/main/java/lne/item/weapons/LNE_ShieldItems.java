@@ -1,6 +1,6 @@
 package lne.item.weapons;
 
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 
 
 import lne.item.Group;

@@ -3,7 +3,7 @@ package lne.entity.frozen_depths.mob.monarchs_guard;
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;

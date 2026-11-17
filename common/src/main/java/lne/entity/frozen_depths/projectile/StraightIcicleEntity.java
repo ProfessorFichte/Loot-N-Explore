@@ -6,7 +6,7 @@ import lne.particle.Particles;
 import lne.util.damage.FrostDamageProfiles;
 import com.mrpg_lib.util.damage.SpellDamage;
 
-import lne.ability.AbilityDamage;
+import lne.internal.ability.AbilityDamage;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

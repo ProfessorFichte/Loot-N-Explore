@@ -1,7 +1,7 @@
 package lne.entity.frozen_depths.mob.frozen_ranger;
 
 import lne.compat.items.RWA_Effects;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;

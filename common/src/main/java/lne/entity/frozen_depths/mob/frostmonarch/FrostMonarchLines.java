@@ -1,8 +1,8 @@
 package lne.entity.frozen_depths.mob.frostmonarch;
 
-import lne.hud_text.EntityHudText;
-import lne.hud_text.EntityHudTextStyle;
-import lne.network.EntityHudTextPayload;
+import lne.internal.hud_text.EntityHudText;
+import lne.internal.hud_text.EntityHudTextStyle;
+import lne.internal.network.EntityHudTextPayload;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public final class FrostMonarchLines {
             "entity.loot_n_explore.frost_monarch.barrier_summon_4");
 
     private static final double RANGE = 64.0;
-    private static final Identifier INTRO_ICON = Identifier.of(MOD_ID, "textures/gui/frostmonarch_spawn_overlay.png");
+    private static final Identifier INTRO_ICON = Identifier.of(MOD_ID, "textures/gui/frozen_depths/frostmonarch_spawn_overlay.png");
     private static final int INTRO_TYPE_TICKS = 55;
     private static final int FAKE_DEATH_TYPE_TICKS = 20;
     private static final int FAKE_DEATH_HOLD_TICKS = 30;

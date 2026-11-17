@@ -1,5 +1,5 @@
 package lne.compat.trinkets;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 
 public class TrinketsCompat {

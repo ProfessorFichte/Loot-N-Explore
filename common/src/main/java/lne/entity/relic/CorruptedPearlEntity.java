@@ -1,6 +1,6 @@
 package lne.entity.relic;
 
-import lne.ability.impl.CorruptedPearlAbility;
+import lne.internal.ability.impl.CorruptedPearlAbility;
 import lne.entity.ModEntities;
 import lne.item.relics.LNE_RelicItems;
 import net.minecraft.entity.EntityType;

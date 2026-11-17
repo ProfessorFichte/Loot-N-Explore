@@ -1,13 +1,13 @@
 package lne.item.relics;
 
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import org.jetbrains.annotations.Nullable;
-import lne.ability.RelicAbility;
-import lne.ability.RelicText;
-import lne.ability.RelicTriggers;
-import lne.ability.TriggerType;
-import lne.ability.impl.DragonToothAbility;
-import lne.ability.impl.StackBuffAbility;
+import lne.internal.ability.RelicAbility;
+import lne.internal.ability.RelicText;
+import lne.internal.ability.RelicTriggers;
+import lne.internal.ability.TriggerType;
+import lne.internal.ability.impl.DragonToothAbility;
+import lne.internal.ability.impl.StackBuffAbility;
 import lne.config.TweaksConfig;
 import lne.effects.Effects;
 import net.minecraft.component.DataComponentTypes;

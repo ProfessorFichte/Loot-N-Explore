@@ -1,6 +1,6 @@
 package lne.entity.relic;
 
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;

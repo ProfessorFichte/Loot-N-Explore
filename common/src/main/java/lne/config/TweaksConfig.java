@@ -2,7 +2,7 @@ package lne.config;
 
 import com.mrpg_lib.compat.player_animator.api.MobAnimations;
 import lne.LneMod;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 public class TweaksConfig {
     public boolean disable_relic_attributes = false;

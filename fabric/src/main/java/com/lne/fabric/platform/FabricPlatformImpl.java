@@ -1,7 +1,7 @@
 package com.lne.fabric.platform;
 
 import com.lne.fabric.compat.TrinketsAccess;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;

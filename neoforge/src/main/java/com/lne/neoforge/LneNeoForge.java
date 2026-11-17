@@ -1,7 +1,7 @@
 package com.lne.neoforge;
 
-import lne.command.FrostsiegeCommand;
-import lne.command.RelicCommand;
+import lne.internal.command.FrostsiegeCommand;
+import lne.internal.command.RelicCommand;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import com.lne.neoforge.client.LNEClientPackets;
 import com.lne.neoforge.compat.CompatFeatures;
@@ -11,12 +11,12 @@ import com.lne.neoforge.platform.NeoForgePlatformImpl;
 import lne.LneMod;
 import lne.entity.ModEntities;
 import lne.item.ModPotions;
-import lne.network.EntityHudTextPayload;
-import lne.network.StructureMusicPayload;
-import lne.network.RelicStacksPayload;
-import lne.network.WeaponCooldownPayload;
-import lne.platform.LNEEvents;
-import lne.platform.LNEPlatform;
+import lne.internal.network.EntityHudTextPayload;
+import lne.internal.network.StructureMusicPayload;
+import lne.internal.network.RelicStacksPayload;
+import lne.internal.network.WeaponCooldownPayload;
+import lne.internal.platform.LNEEvents;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.registry.RegistryKeys;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;

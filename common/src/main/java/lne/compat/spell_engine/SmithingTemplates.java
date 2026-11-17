@@ -1,7 +1,7 @@
 package lne.compat.spell_engine;
 
-import lne.platform.LNEEvents;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEEvents;
+import lne.internal.platform.LNEPlatform;
 
 import lne.item.Group;
 import net.minecraft.item.Item;
@@ -59,47 +59,47 @@ public class SmithingTemplates {
                 identifiers.add(Identifier.of("item/empty_slot_axe"));
                 identifiers.add(Identifier.of("item/empty_slot_sword"));
                 if(LNEPlatform.isModLoaded("lne_archers")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_bow"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_crossbow"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_spear"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/bow"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/crossbow"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/spear"));
                 }
                 if(LNEPlatform.isModLoaded("lne_paladins")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_hammer"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_holy"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_mace"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/hammer"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/holy"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/mace"));
                 }
                 if(LNEPlatform.isModLoaded("lne_rogues")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_dagger"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_sickle"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_glaive"));
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_double_axe"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/dagger"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/sickle"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/glaive"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/double_axe"));
                 }
                 if(LNEPlatform.isModLoaded("lne_wizards")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wand"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/wand"));
                 }
                 if(LNEPlatform.isModLoaded("forcemaster")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_knuckle"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/knuckle"));
                 }
                 if(LNEPlatform.isModLoaded("berserker_axe")){
-                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_berserker_axe"));
+                    identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/berserker_axe"));
                 }
 
             });
     public static final List<Identifier> INGREDIENT_ITEMS_DRAGON= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_ender_dragon_scales"));
+                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/ender_dragon_scales"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_WITHER= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_wither_spine"));
+                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/wither_spine"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_GUARDIAN = Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_elder_guardian_eye"));
+                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/elder_guardian_eye"));
             });
     public static final List<Identifier> INGREDIENT_ITEMS_FROSTMONARCH= Util.make(new ArrayList<>(),
             identifiers -> {
-                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot_frozen_soul"));
+                identifiers.add(Identifier.of(MOD_ID,"item/template/empty_slot/frozen_soul"));
             });
 
     static {

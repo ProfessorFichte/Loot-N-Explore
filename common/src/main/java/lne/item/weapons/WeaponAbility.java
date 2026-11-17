@@ -1,11 +1,11 @@
 package lne.item.weapons;
 
-import lne.ability.AbilityTheme;
+import lne.internal.ability.AbilityTheme;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.LivingEntity;
-import lne.ability.AbilityDamage;
-import lne.ability.RelicText;
-import lne.ability.TriggerType;
+import lne.internal.ability.AbilityDamage;
+import lne.internal.ability.RelicText;
+import lne.internal.ability.TriggerType;
 import lne.item.relics.RelicTooltips;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.random.Random;

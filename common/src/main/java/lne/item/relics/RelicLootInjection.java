@@ -1,7 +1,7 @@
 package lne.item.relics;
 
 import lne.LneMod;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.BinomialLootNumberProvider;

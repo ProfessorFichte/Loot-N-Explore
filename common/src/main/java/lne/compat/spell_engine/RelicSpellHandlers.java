@@ -1,11 +1,11 @@
 package lne.compat.spell_engine;
 
-import lne.ability.RelicAbilities;
-import lne.ability.RelicTriggers;
-import lne.ability.impl.AmphoraWardAbility;
-import lne.ability.impl.CoralShieldAbility;
-import lne.ability.impl.FrostHauntedSummonAbility;
-import lne.ability.impl.SkeletonSummonAbility;
+import lne.internal.ability.RelicAbilities;
+import lne.internal.ability.RelicTriggers;
+import lne.internal.ability.impl.AmphoraWardAbility;
+import lne.internal.ability.impl.CoralShieldAbility;
+import lne.internal.ability.impl.FrostHauntedSummonAbility;
+import lne.internal.ability.impl.SkeletonSummonAbility;
 import lne.entity.relic.CorruptedPearlEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

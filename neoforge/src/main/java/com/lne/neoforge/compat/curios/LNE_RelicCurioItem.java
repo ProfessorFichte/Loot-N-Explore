@@ -2,9 +2,9 @@ package com.lne.neoforge.compat.curios;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import lne.ability.RelicTriggers;
+import lne.internal.ability.RelicTriggers;
 import lne.item.relics.RelicTooltips;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;

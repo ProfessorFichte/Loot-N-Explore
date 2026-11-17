@@ -1,8 +1,8 @@
 package lne;
 
-import lne.fx.LNEFx;
-import lne.platform.LNEPlatform;
-import lne.ability.RelicAbilities;
+import lne.internal.fx.LNEFx;
+import lne.internal.platform.LNEPlatform;
+import lne.internal.ability.RelicAbilities;
 import lne.item.relics.LNE_RelicItems;
 
 import lne.blocks.ModBlocks;

@@ -1,6 +1,6 @@
 package com.lne.fabric.platform;
 
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;

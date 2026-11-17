@@ -2,11 +2,11 @@ package lne.server;
 
 import lne.server.frostsiege.Frostsiege;
 import lne.blocks.frozen_depths.FrozenBonesAmbush;
-import lne.ability.RelicTriggers;
-import lne.ability.RelicZones;
+import lne.internal.ability.RelicTriggers;
+import lne.internal.ability.RelicZones;
 import lne.mixin.SinglePoolElementAccessor;
-import lne.network.StructureMusicPayload;
-import lne.platform.LNEEvents;
+import lne.internal.network.StructureMusicPayload;
+import lne.internal.platform.LNEEvents;
 import lne.sounds.StructureMusicTrack;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.StructureTags;

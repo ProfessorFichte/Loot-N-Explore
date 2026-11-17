@@ -1,5 +1,5 @@
 package lne;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import lne.compat.spell_engine.LNE_AbilityDatagen;
 import lne.datagen.*;
@@ -28,6 +28,7 @@ public class LneDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModEntityLootTableProvider::new);
 		pack.addProvider(ModSpawnerLootTableProvider::new);
 		pack.addProvider(ModFrozenDepthsLootTableProvider::new);
+		pack.addProvider(ModInnLootTableProvider::new);
 		pack.addProvider(ModArchaeologyLootTableProvider::new);
 		pack.addProvider(ModStructureBlockModifierProvider::new);
 		pack.addProvider(ModModelProvider::new);

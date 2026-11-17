@@ -1,5 +1,6 @@
 package lne.datagen;
 
+import lne.blocks.FrozenDepthsBlocks;
 import lne.entity.ModEntities;
 import lne.item.CommonItems;
 import lne.util.LneLootTables;
@@ -48,6 +49,8 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
         add(exporter, ModEntities.GENERAL_MONARCHS_SOLDIER, cryoEssence(lookup, 1, 3));
         add(exporter, ModEntities.MONARCHS_GUARD, cryoEssence(lookup, 1, 2).pool(weaponTrophy(lance)));
         add(exporter, ModEntities.GENERAL_MONARCHS_GUARD, cryoEssence(lookup, 1, 3).pool(weaponTrophy(lance)));
+        add(exporter, ModEntities.GLAZE, playerKillDrop(CommonItems.GLAZE_ROD.item()));
+        add(exporter, ModEntities.FROST_MONARCH, playerKillDrop(FrozenDepthsBlocks.MONARCHS_CROWN.item()));
         add(exporter, ModEntities.FROST_HAUNTED, LootTable.builder()
                 .pool(LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
@@ -62,6 +65,13 @@ public class ModEntityLootTableProvider extends SimpleFabricLootTableProvider {
 
     private static void add(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter, EntityType<?> type, LootTable.Builder table) {
         exporter.accept(LneLootTables.frozenDepthsEntity(type), table);
+    }
+
+    private static LootTable.Builder playerKillDrop(Item item) {
+        return LootTable.builder().pool(LootPool.builder()
+                .rolls(ConstantLootNumberProvider.create(1))
+                .conditionally(KilledByPlayerLootCondition.builder())
+                .with(ItemEntry.builder(item)));
     }
 
     private static LootTable.Builder cryoEssence(RegistryWrapper.WrapperLookup lookup, int min, int max) {

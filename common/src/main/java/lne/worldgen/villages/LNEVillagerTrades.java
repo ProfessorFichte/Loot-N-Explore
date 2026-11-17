@@ -1,7 +1,7 @@
 package lne.worldgen.villages;
 
 import lne.blocks.ModBlocks;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 
 import lne.worldgen.map.ModMapDecorations;
 import lne.util.LneItemTags;

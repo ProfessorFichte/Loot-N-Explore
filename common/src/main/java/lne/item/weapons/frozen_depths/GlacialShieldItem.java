@@ -3,7 +3,7 @@ package lne.item.weapons.frozen_depths;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import lne.item.weapons.LNE_ShieldItems;
-import lne.ability.TriggerType;
+import lne.internal.ability.TriggerType;
 import lne.item.weapons.LNE_WeaponItems;
 import lne.item.weapons.WeaponAbility;
 import lne.item.weapons.WeaponProcs;

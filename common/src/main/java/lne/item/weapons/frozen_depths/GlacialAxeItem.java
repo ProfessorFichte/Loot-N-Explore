@@ -1,6 +1,6 @@
 package lne.item.weapons.frozen_depths;
 
-import lne.ability.TriggerType;
+import lne.internal.ability.TriggerType;
 import lne.item.weapons.LNE_WeaponItems;
 import lne.item.weapons.WeaponAbility;
 import lne.item.weapons.WeaponProcs;

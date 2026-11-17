@@ -1,6 +1,6 @@
 package lne.item.relics;
 
-import lne.network.RelicStacksPayload;
+import lne.internal.network.RelicStacksPayload;
 
 import java.util.HashMap;
 import java.util.List;

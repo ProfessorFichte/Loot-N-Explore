@@ -1,7 +1,7 @@
 package com.lne.neoforge.compat.curios;
 
 import lne.LneMod;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.resource.ResourcePackSource;
 import net.minecraft.resource.ResourceType;

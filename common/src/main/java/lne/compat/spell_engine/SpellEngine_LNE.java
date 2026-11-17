@@ -2,8 +2,8 @@ package lne.compat.spell_engine;
 
 import lne.config.TweaksConfig;
 import com.mrpg_lib.compat.spell_engine.MrpgLibSpells;
-import lne.platform.LNEEvents;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEEvents;
+import lne.internal.platform.LNEPlatform;
 
 import lne.item.CommonItems;
 import lne.item.StaffItem;

@@ -10,7 +10,7 @@ import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.AllyHelper;
 import lne.entity.ModEntities;
 import lne.entity.frozen_depths.mob.frostmonarch.FrostMonarchEntity;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import lne.util.damage.LneDamageTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

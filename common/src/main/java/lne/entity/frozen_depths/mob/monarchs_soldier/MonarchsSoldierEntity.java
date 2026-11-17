@@ -9,7 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import lne.entity.frozen_depths.goal.MobFacing;
 import com.mrpg_lib.util.AllyHelper;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import lne.LneMod;

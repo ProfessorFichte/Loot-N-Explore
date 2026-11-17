@@ -2,7 +2,7 @@ package lne.entity.frozen_depths.conjured;
 
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

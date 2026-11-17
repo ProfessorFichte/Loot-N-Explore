@@ -29,7 +29,7 @@ public class ModMapDecorations {
     }
 
     private static RegistryEntry<MapDecorationType> register(RegistryKey<MapDecorationType> key) {
-        MapDecorationType decorationType = new MapDecorationType(key.getValue(), true, -1, false, true);
+        MapDecorationType decorationType = new MapDecorationType(key.getValue().withPrefixedPath("frozen_depths/"), true, -1, false, true);
         return Registry.registerReference(Registries.MAP_DECORATION_TYPE, key, decorationType);
     }
 }

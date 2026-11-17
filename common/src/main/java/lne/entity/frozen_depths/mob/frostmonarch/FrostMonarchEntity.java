@@ -3,12 +3,12 @@ package lne.entity.frozen_depths.mob.frostmonarch;
 import net.minecraft.loot.LootTable;
 import net.minecraft.registry.RegistryKey;
 import lne.util.LneLootTables;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEPlatform;
 import lne.LneMod;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import lne.effects.Effects;

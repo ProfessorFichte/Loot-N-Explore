@@ -3,7 +3,7 @@ package lne.item;
 import lne.blocks.ModBlocks;
 import lne.item.weapons.frozen_depths.FreezingWeapons;
 import lne.blocks.FrozenDepthsBlocks;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 
 import lne.effects.Effects;
 import lne.item.consumables.InnkeeperBowlItem;
@@ -133,7 +133,7 @@ public class CommonItems {
             "Music Disc", new ItemModelType.Generated("item/misc/frozen_depths/"));
     public static final Entry JOLLY_TIME_DISC = entry("jolly_time_disc",
             musicDisc("jolly_time", Rarity.RARE),
-            "Music Disc", new ItemModelType.Generated("item/misc/"));
+            "Music Disc", new ItemModelType.Generated("item/misc/generic/"));
 
     public static final Entry FROST_HAUNTS_AXE = entry("frost_haunt_axe",
             new FreezingWeapons.Axe(ToolMaterials.STONE, new Item.Settings()

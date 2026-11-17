@@ -1,6 +1,6 @@
 package lne.item;
 
-import lne.ability.RelicTriggers;
+import lne.internal.ability.RelicTriggers;
 import lne.item.relics.RelicTooltips;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

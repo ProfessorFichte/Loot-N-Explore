@@ -1,6 +1,6 @@
 package lne.mixin;
 
-import lne.ability.RelicTriggers;
+import lne.internal.ability.RelicTriggers;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;

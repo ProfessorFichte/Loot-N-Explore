@@ -4,7 +4,7 @@ import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.AllyHelper;
 import lne.entity.ModEntities;
-import lne.fx.LNEFx;
+import lne.internal.fx.LNEFx;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

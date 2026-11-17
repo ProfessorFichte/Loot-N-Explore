@@ -3,7 +3,7 @@ package lne.compat.items;
 import lne.effects.CustomStatusEffect;
 import lne.effects.SpecialStatusEffect;
 import lne.item.CommonItems;
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.DataComponentTypes;

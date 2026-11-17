@@ -6,10 +6,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.gen.structure.Structure;
 
 public interface StructureTags {
-    TagKey<Structure> SMALL_TREASURE= register("small_treasure");
-    TagKey<Structure> ZOMBIE_QUEST = register("zombie_quest");
-    TagKey<Structure> SPIDER_QUEST = register("spider_quest");
-    TagKey<Structure> PILLAGER_QUEST = register("pillager_quest");
     TagKey<Structure> MONARCHS_TEMPLE_LOCATED = register("frozen_depths/monarchs_temple");
     TagKey<Structure> MONARCHS_CASTLE_LOCATED = register("frozen_depths/monarchs_castle");
     TagKey<Structure> GLACIAL_TOMB_LOCATED = register("frozen_depths/glacial_tomb");

@@ -1,6 +1,6 @@
 package lne.item;
 
-import lne.platform.LNEEvents;
+import lne.internal.platform.LNEEvents;
 
 import lne.entity.ModEntities;
 import net.minecraft.item.Item;

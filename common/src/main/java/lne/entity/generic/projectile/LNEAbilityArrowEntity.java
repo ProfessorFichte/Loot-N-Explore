@@ -10,8 +10,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.hit.EntityHitResult;
 import lne.item.weapons.WeaponAbility;
 import lne.item.weapons.WeaponProcs;
-import lne.network.WeaponCooldownPayload;
-import lne.platform.LNEEvents;
+import lne.internal.network.WeaponCooldownPayload;
+import lne.internal.platform.LNEEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 

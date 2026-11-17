@@ -3,7 +3,7 @@ package lne.item.weapons.generic;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import com.mrpg_lib.entity.attribute.MRPGCEntityAttributes;
 import lne.item.weapons.LNE_ShieldItems;
-import lne.ability.TriggerType;
+import lne.internal.ability.TriggerType;
 import lne.item.weapons.LNE_WeaponItems;
 import lne.item.weapons.WeaponAbility;
 import lne.item.weapons.WeaponProcs;

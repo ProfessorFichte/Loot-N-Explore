@@ -1,8 +1,8 @@
 package lne.item.weapons.frozen_depths;
 
-import lne.ability.AbilityTheme;
-import lne.ability.RelicText;
-import lne.ability.TriggerType;
+import lne.internal.ability.AbilityTheme;
+import lne.internal.ability.RelicText;
+import lne.internal.ability.TriggerType;
 import lne.entity.generic.projectile.LNEAbilityArrowEntity;
 import lne.item.relics.RelicTooltips;
 import lne.item.weapons.LNE_WeaponItems;

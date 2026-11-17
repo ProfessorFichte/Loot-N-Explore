@@ -1,8 +1,8 @@
 package lne.compat.items;
 
 import lne.blocks.ModBlocks;
-import lne.platform.LNEEvents;
-import lne.platform.LNEPlatform;
+import lne.internal.platform.LNEEvents;
+import lne.internal.platform.LNEPlatform;
 
 import lne.item.Group;
 import lne.item.ItemModelType;
