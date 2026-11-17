@@ -87,6 +87,8 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
         exporter.accept(key(CHESTS + "monarchs_castle/barrel"), barrel(3));
         exporter.accept(key(CHESTS + "frost_tower/hidden"), hidden(2));
         exporter.accept(key(CHESTS + "monarchs_temple/hidden"), hidden(3));
+        exporter.accept(key(CHESTS + "monarchs_castle/hidden"), hidden(2, 3));
+        exporter.accept(key(CHESTS + "glacial_tomb/hidden"), hidden(3));
         exporter.accept(key(POTS + "outpost"), single(pot(1)));
         exporter.accept(key(POTS + "frost_tower"), single(pot(2)));
         exporter.accept(key(POTS + "glacial_tomb"), single(pot(3)));
@@ -281,6 +283,16 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
     }
 
     private LootTable.Builder hidden(int tier) {
+        return hidden(tier, tier);
+    }
+
+    private LootTable.Builder hidden(int tier, int rareTier) {
+        LootPool.Builder rare = LootPool.builder()
+                .rolls(ConstantLootNumberProvider.create(1))
+                .with(LootTableEntry.builder(key(VAULTS + "t" + tier + "/rare")));
+        if (rareTier != tier) {
+            rare.with(LootTableEntry.builder(key(VAULTS + "t" + rareTier + "/rare")));
+        }
         return LootTable.builder()
                 .pool(LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(2, 4))
@@ -290,8 +302,6 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                         .with(item(Items.EMERALD, 3, 2, 5))
                         .with(item(Items.DIAMOND, tier, 1, 2))
                         .with(potion(Items.POTION, ModPotions.LONG_FROST_RESISTANCE_POTION.potion(), 2, 1, 1)))
-                .pool(LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .with(LootTableEntry.builder(key(VAULTS + "t" + tier + "/rare"))));
+                .pool(rare);
     }
 }
