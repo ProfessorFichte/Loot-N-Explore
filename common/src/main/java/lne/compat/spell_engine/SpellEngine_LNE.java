@@ -27,18 +27,18 @@ import static lne.LneMod.MOD_ID;
 public class SpellEngine_LNE {
 
     public static ConfigManager<LootConfig> lootEquipmentConfig = new ConfigManager<>
-            ("loot_equipment_v1", Default.itemLootConfig)
+            ("loot_equipment_v1", LootInjectionDefaults.itemLootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(value -> LootConfig.constrainValues(value, Default.itemLootConfig))
+            .constrain(value -> LootConfig.constrainValues(value, LootInjectionDefaults.itemLootConfig))
             .build();
     public static ConfigManager<LootConfig> lootScrollsConfig = new ConfigManager<>
-            ("loot_scrolls", Default.scrollLootConfig)
+            ("loot_scrolls", LootInjectionDefaults.scrollLootConfig)
             .builder()
             .setDirectory(MOD_ID)
             .sanitize(true)
-            .constrain(value -> LootConfig.constrainValues(value, Default.scrollLootConfig))
+            .constrain(value -> LootConfig.constrainValues(value, LootInjectionDefaults.scrollLootConfig))
             .build();
     public static ConfigManager<ConfigFile.Equipment> itemConfig = new ConfigManager<>
             ("equipment_v1", new ConfigFile.Equipment())

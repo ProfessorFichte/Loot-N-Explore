@@ -9,7 +9,7 @@ import lne.blocks.ModBlocks;
 import lne.particle.Particles;
 import lne.compat.CompatRegistry;
 import lne.compat.items.RWA_Effects;
-import lne.config.Default;
+import lne.config.StructurePoolAPIDefaults;
 import lne.config.EffectsConfig;
 import lne.effects.Effects;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;
@@ -57,7 +57,7 @@ public class LneMod {
 		frostsiegeConfig.save();
 		effectsConfig = new ConfigManager<EffectsConfig>("effects_v2", new EffectsConfig())
 				.builder().setDirectory(MOD_ID).sanitize(true).build();
-		villageConfig = new ConfigManager<>("villages", Default.villages)
+		villageConfig = new ConfigManager<>("villages", StructurePoolAPIDefaults.villages)
 				.builder().setDirectory(MOD_ID).sanitize(true).build();
 		entityAttributeConfig = new ConfigManager<>("entity_attributes_v1", seededEntityAttributeDefaults())
 				.builder().setDirectory(FROZEN_DEPTHS_CONFIGS).sanitize(true).build();
