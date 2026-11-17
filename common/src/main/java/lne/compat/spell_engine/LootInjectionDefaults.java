@@ -5,7 +5,7 @@ import net.spell_engine.rpg_series.tags.RPGSeriesItemTags;
 
 import java.util.List;
 
-public class Default {
+public class LootInjectionDefaults {
 
     public final static LootConfig itemLootConfig;
     public final static LootConfig scrollLootConfig;
@@ -64,6 +64,137 @@ public class Default {
         var scrolls = scrollLootConfig.injectors;
         var scrolls_regex = scrollLootConfig.regex_injectors;
 
+        // LnE - Generic
+        List.of("loot_n_explore:chests/inns/desert",
+                "loot_n_explore:chests/inns/plains",
+                "loot_n_explore:chests/villages/plains/small_inn",
+                "loot_n_explore:chests/villages/desert/small_inn",
+                "loot_n_explore:chests/villages/savanna/small_inn",
+                "loot_n_explore:chests/villages/snowy/small_inn",
+                "loot_n_explore:chests/villages/taiga/small_inn"
+        ).forEach(id -> items.put(id,  new LootConfig.Pool()
+                .rolls(0.5)
+                .add(B0)
+        ));
+        List.of("loot_n_explore:chests/inns/desert",
+                "loot_n_explore:chests/inns/plains"
+        ).forEach(id -> items.put(id,  new LootConfig.Pool()
+                .rolls(1)
+                .add(B1)
+        ));
+        // LnE - Frozen Depths
+        // Chests
+        items.put("loot_n_explore:chests/frozen_depths/outpost/supply",  new LootConfig.Pool()
+                .rolls(0.3)
+                .add(A1).enchant()
+                .add(W1).enchant()
+                .add(X1)
+        );
+        items.put("loot_n_explore:chests/frozen_depths/frost_tower/hidden",  new LootConfig.Pool()
+                .rolls(0.5)
+                .add(A2).enchant()
+                .add(W2).enchant()
+                .add(X1)
+                .scroll(2)
+        );
+        items.put("loot_n_explore:chests/frozen_depths/glacial_tomb/hidden",  new LootConfig.Pool()
+                .rolls(0.75)
+                .add(X2)
+                .add(R2)
+        );
+        items.put("loot_n_explore:chests/frozen_depths/monarchs_castle/hidden",  new LootConfig.Pool()
+                .rolls(0.75)
+                .add(A3)
+                .add(W3)
+                .scroll(3)
+        );
+        items.put("loot_n_explore:chests/frozen_depths/monarchs_temple/hidden",  new LootConfig.Pool()
+                .rolls(1)
+                .add(A3).enchant()
+                .add(A3).enchant()
+                .add(X3)
+                .add(R2)
+        );
+        // Trial Spawners
+        // Vaults
+        List.of("loot_n_explore:vaults/frozen_depths/outpost/reward"
+                )
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(0.5)
+                            .add(W1).weight(2)
+                            .add(A1).weight(2)
+                            .add(R1)
+                    );
+                    scrolls.put(id, new LootConfig.Pool()
+                            .rolls(0.25)
+                            .scroll(2)
+                    );
+                });
+        List.of("loot_n_explore:vaults/frozen_depths/glacial_tomb/reward",
+                        "loot_n_explore:vaults/frozen_depths/frost_tower/reward",
+                        "loot_n_explore:vaults/frozen_depths/monarchs_castle/reward"
+                )
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(0.5)
+                            .add(W2).weight(2).enchant()
+                            .add(W2).weight(2).enchant()
+                            .add(R2)
+                            .add(X2)
+                    );
+                    scrolls.put(id, new LootConfig.Pool()
+                            .rolls(0.4)
+                            .scroll(3)
+                    );
+                });
+        List.of("loot_n_explore:vaults/frozen_depths/frost_tower/reward_ominous",
+                        "loot_n_explore:vaults/frozen_depths/monarchs_castle/reward_ominous"
+                )
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(2)
+                            .add(W3).enchant()
+                            .add(X3)
+                            .add(R2)
+                            .scroll(3)
+                    );
+                });
+        List.of("loot_n_explore:vaults/frozen_depths/glacial_tomb/reward_ominous"
+                )
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(2)
+                            .add(W4).enchant()
+                            .add(X4)
+                            .add(R3)
+                    );
+                });
+        // Entities
+        List.of("loot_n_explore:entities/frozen_depths/general_frozen_magician",
+                        "loot_n_explore:entities/frozen_depths/general_frozen_ranger",
+                        "loot_n_explore:entities/frozen_depths/general_monarchs_guard",
+                        "loot_n_explore:entities/frozen_depths/general_monarchs_soldier"
+                        )
+                .forEach(id -> {
+                    items.put(id, new LootConfig.Pool()
+                            .rolls(0.75)
+                            .add(R1)
+                            .add(A2, true)
+                            .add(W2)
+                            .add(W3)
+                    );
+                });
+        items.put("loot_n_explore:entities/frozen_depths/frost_monarch",  new LootConfig.Pool()
+                .rolls(2)
+                .add(W3).enchant().weight(4)
+                .add(A3).enchant().weight(4)
+                .add(X3)
+                .add(R3)
+                .add(W5)
+                .add(A5)
+        );
+        /// Minecraft Structures
         List.of("minecraft:chests/abandoned_mineshaft",
                         "minecraft:chests/igloo_chest",
                         "minecraft:chests/shipwreck_supply",
@@ -106,82 +237,8 @@ public class Default {
                     );
                 });
 
-        List.of("loot_n_explore:chests/inns/desert",
-                "loot_n_explore:chests/inns/plains",
-                "loot_n_explore:chests/villages/plains/small_inn",
-                "loot_n_explore:chests/villages/desert/small_inn",
-                "loot_n_explore:chests/villages/savanna/small_inn",
-                "loot_n_explore:chests/villages/snowy/small_inn",
-                "loot_n_explore:chests/villages/taiga/small_inn"
-                ).forEach(id -> items.put(id,  new LootConfig.Pool()
-                        .rolls(0.5)
-                        .add(W0)
-                        .add(X0)
-                        .add(A1)
-                        .add(R1)
-                        .add(B0)
-                ));
-        List.of("loot_n_explore:chests/inns/desert",
-                "loot_n_explore:chests/inns/plains",
-                "loot_n_explore:chests/villages/plains/small_inn",
-                "loot_n_explore:chests/villages/desert/small_inn",
-                "loot_n_explore:chests/villages/savanna/small_inn",
-                "loot_n_explore:chests/villages/snowy/small_inn",
-                "loot_n_explore:chests/villages/taiga/small_inn"
-        ).forEach(id -> items.put(id,  new LootConfig.Pool()
-                .rolls(0.5)
-                .add(B0)
-                .add(B1)
-        ));
-        List.of("loot_n_explore:chests/dungeons/reward_glacial_tomb",
-                "loot_n_explore:spawners/frozen/normal/reward",
-                "loot_n_explore:spawners/frozen/ominous/reward"
-                )                .forEach(id -> {
-            items.put(id, new LootConfig.Pool()
-                    .rolls(0.75)
-                    .add(W2)
-                    .add(X2));
-            scrolls.put(id, new LootConfig.Pool()
-                    .rolls(0.2)
-                    .scroll(2, 3));
-        });
 
-        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_common",
-                        "loot_n_explore:chests/trials/frozen/trial_chambers/reward_common")
-                .forEach(id -> {
-                    items.put(id, new LootConfig.Pool()
-                            .rolls(0.5)
-                            .add(W1).weight(2)
-                            .add(A1).weight(2)
-                            .add(R1)
-                    );
-                    scrolls.put(id, new LootConfig.Pool()
-                            .rolls(0.25)
-                            .scroll(2, 3)
-                    );
-                });
-        List.of("loot_n_explore:chests/trials/frozen/reward_ominous_unique",
-                        "loot_n_explore:chests/trials/frozen/reward_unique")
-                .forEach(id -> {
-                    items.put(id, new LootConfig.Pool()
-                            .rolls(1)
-                            .add(W3, true).weight(2)
-                            .add(X4).weight(2)
-                            .add(R3)
-                            .add(A4, true)
-                            .add(B3)
-                    );
-                });
-
-        items.put("loot_n_explore:entities/frost_monarch",  new LootConfig.Pool()
-                .rolls(2)
-                .add(W3).enchant().weight(4)
-                .add(A3).enchant().weight(4)
-                .add(X3)
-                .add(R3)
-                .add(W5)
-                .add(A5)
-        );
+        /// Modded Structures
         items.put("village_taverns:chests/tavern",  new LootConfig.Pool()
                 .rolls(0.5)
                 .add(B0)

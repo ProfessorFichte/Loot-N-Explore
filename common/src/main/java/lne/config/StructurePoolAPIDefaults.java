@@ -7,7 +7,7 @@ import java.util.List;
 
 import static lne.LneMod.MOD_ID;
 
-public class Default {
+public class StructurePoolAPIDefaults {
     public static final StructurePoolConfig villages;
 
     static{
