@@ -11,11 +11,6 @@
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/trial_chambers/reward_rare",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:loot_table",
           "value": "loot_n_explore:vaults/frozen_depths/t1/common",
           "weight": 2
         }

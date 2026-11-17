@@ -32,6 +32,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
@@ -84,7 +85,7 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
         exporter.accept(key(CHESTS + "outpost/barrel"), barrel(1));
         exporter.accept(key(CHESTS + "frost_tower/barrel"), barrel(2));
         exporter.accept(key(CHESTS + "glacial_tomb/barrel"), barrel(3));
-        exporter.accept(key(CHESTS + "monarchs_castle/barrel"), barrel(3));
+        exporter.accept(key(CHESTS + "monarchs_castle/barrel"), barrel(2));
         exporter.accept(key(CHESTS + "frost_tower/hidden"), hidden(2));
         exporter.accept(key(CHESTS + "monarchs_temple/hidden"), hidden(3));
         exporter.accept(key(CHESTS + "monarchs_castle/hidden"), hidden(2, 3));
@@ -93,21 +94,24 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
         exporter.accept(key(POTS + "frost_tower"), single(pot(2)));
         exporter.accept(key(POTS + "glacial_tomb"), single(pot(3)));
         exporter.accept(key(POTS + "monarchs_temple"), single(pot(3)));
-        exporter.accept(key(POTS + "monarchs_castle"), single(pot(3)));
+        exporter.accept(key(POTS + "monarchs_castle"), single(pot(2)));
     }
 
     private void vault(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter, String structure, int tier, boolean ominous, Item disc) {
         String prefix = ominous ? "ominous_" : "";
         String tierPath = VAULTS + "t" + tier + "/" + prefix;
         RegistryKey<LootTable> unique = key(VAULTS + structure + "/" + prefix + "unique");
-        exporter.accept(unique, single(unique(tier, ominous, disc)));
+        exporter.accept(unique, unique(tier, ominous, disc));
         RegistryKey<LootTable> vanillaRare = ominous ? LootTables.TRIAL_CHAMBERS_REWARD_OMINOUS_RARE_CHEST : LootTables.TRIAL_CHAMBERS_REWARD_RARE_CHEST;
+        LootPool.Builder main = LootPool.builder()
+                .rolls(ConstantLootNumberProvider.create(1))
+                .with(LootTableEntry.builder(key(tierPath + "rare")).weight(6))
+                .with(LootTableEntry.builder(key(tierPath + "common")).weight(2));
+        if (tier >= 2) {
+            main.with(LootTableEntry.builder(vanillaRare).weight(2));
+        }
         exporter.accept(key(VAULTS + structure + "/" + (ominous ? "reward_ominous" : "reward")), LootTable.builder()
-                .pool(LootPool.builder()
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .with(LootTableEntry.builder(key(tierPath + "rare")).weight(6))
-                        .with(LootTableEntry.builder(vanillaRare).weight(2))
-                        .with(LootTableEntry.builder(key(tierPath + "common")).weight(2)))
+                .pool(main)
                 .pool(LootPool.builder()
                         .rolls(UniformLootNumberProvider.create(1, 3))
                         .with(LootTableEntry.builder(key(tierPath + "common"))))
@@ -124,8 +128,10 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                 .with(item(Items.IRON_NUGGET, 5, 3, 9))
                 .with(item(CommonItems.FROSTBALL.item(), 4, 2, 4))
                 .with(item(CommonItems.CRYO_ESSENCE.item(), 3 + tier, 1, 1 + tier))
-                .with(item(Items.EMERALD, 2 + tier, 1, 2 + tier))
-                .with(item(Items.DIAMOND, tier, 1, 1));
+                .with(item(Items.EMERALD, 2 + tier, 1, 2 + tier));
+        if (tier >= 3) {
+            pool.with(item(Items.DIAMOND, tier, 1, 1));
+        }
         if (tier >= 2) {
             pool.with(item(Items.GOLD_NUGGET, 3, 2, 6));
         }
@@ -205,24 +211,46 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                 .with(potion(Items.POTION, frostResistance, 3, 1, 1));
     }
 
-    private LootPool.Builder unique(int tier, boolean ominous, Item disc) {
-        int minLevels = ominous ? 10 : 5;
-        int maxLevels = ominous ? 20 : 10;
-        var pool = one()
-                .with(enchanted(Items.DIAMOND_HELMET, 1, minLevels, maxLevels))
-                .with(enchanted(Items.DIAMOND_CHESTPLATE, 1, minLevels, maxLevels))
-                .with(enchanted(Items.DIAMOND_LEGGINGS, 1, minLevels, maxLevels))
-                .with(enchanted(Items.DIAMOND_BOOTS, 1, minLevels, maxLevels))
-                .with(enchanted(Items.DIAMOND_SWORD, 1, minLevels, maxLevels))
-                .with(item(Items.DIAMOND, 3, tier, tier + 2))
-                .with(potion(Items.POTION, ModPotions.LONG_FROST_RESISTANCE_POTION.potion(), 3, 1, 2))
-                .with(item(Items.GOLDEN_APPLE, 3, 1, 2));
+    private LootTable.Builder unique(int tier, boolean ominous, Item disc) {
+        var extras = one()
+                .with(potion(Items.POTION, ModPotions.LONG_FROST_RESISTANCE_POTION.potion(), 3, 1, 2));
+        if (tier >= 2) {
+            extras.with(item(Items.DIAMOND, 3, tier, tier + 2))
+                    .with(item(Items.GOLDEN_APPLE, 3, 1, 2));
+        } else {
+            extras.with(item(Items.EMERALD, 3, 2, 4));
+        }
         if (ominous) {
-            pool.with(item(Items.ENCHANTED_GOLDEN_APPLE, 2, 1, 1))
-                    .with(item(Items.HEAVY_CORE, 1, 1, 1));
+            extras.with(item(Items.HEAVY_CORE, 1, 1, 1));
+            if (tier >= 3) {
+                extras.with(item(Items.ENCHANTED_GOLDEN_APPLE, 2, 1, 1));
+            }
         }
         if (disc != null) {
-            pool.with(item(disc, ominous ? 3 : 2, 1, 1));
+            extras.with(item(disc, ominous ? 3 : 2, 1, 1));
+        }
+        if (tier >= 3) {
+            return LootTable.builder()
+                    .pool(gear(one(), DIAMOND_GEAR, 1, ominous ? 10 : 5, ominous ? 20 : 10))
+                    .pool(extras);
+        }
+        if (tier == 2) {
+            gear(extras, IRON_GEAR, 2, ominous ? 20 : 15, ominous ? 30 : 25);
+            gear(extras, DIAMOND_GEAR, 1, 0, ominous ? 10 : 0);
+        } else {
+            gear(extras, LEATHER_GEAR, 2, 5, 10);
+            gear(extras, IRON_GEAR, 1, 0, 0);
+        }
+        return LootTable.builder().pool(extras);
+    }
+
+    private static final List<Item> LEATHER_GEAR = List.of(Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS);
+    private static final List<Item> IRON_GEAR = List.of(Items.IRON_HELMET, Items.IRON_CHESTPLATE, Items.IRON_LEGGINGS, Items.IRON_BOOTS, Items.IRON_SWORD);
+    private static final List<Item> DIAMOND_GEAR = List.of(Items.DIAMOND_HELMET, Items.DIAMOND_CHESTPLATE, Items.DIAMOND_LEGGINGS, Items.DIAMOND_BOOTS, Items.DIAMOND_SWORD);
+
+    private LootPool.Builder gear(LootPool.Builder pool, List<Item> items, int weight, int minLevels, int maxLevels) {
+        for (Item gearItem : items) {
+            pool.with(maxLevels > 0 ? enchanted(gearItem, weight, minLevels, maxLevels) : item(gearItem, weight, 1, 1));
         }
         return pool;
     }
@@ -233,8 +261,10 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                 .with(item(Items.BAKED_POTATO, 3, ominous ? 2 : 1, ominous ? 4 : 3))
                 .with(item(Items.BREAD, 3, 1, 3))
                 .with(item(CommonItems.FROSTBALL.item(), 2, 2, ominous ? 6 : 2 + tier))
-                .with(potion(Items.POTION, ModPotions.FROST_RESISTANCE_POTION.potion(), 1, 1, 1))
                 .with(potion(Items.POTION, Potions.REGENERATION, 1, 1, 1));
+        if (ominous || tier >= 2) {
+            pool.with(potion(Items.POTION, ModPotions.FROST_RESISTANCE_POTION.potion(), 1, 1, 1));
+        }
         if (ominous || tier >= 2) {
             pool.with(item(Items.GOLDEN_CARROT, ominous ? 2 : tier - 1, 1, ominous ? 2 : 1));
         }
@@ -244,7 +274,7 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
         return pool;
     }
 
-    private static LootTable.Builder supply() {
+    private LootTable.Builder supply() {
         return LootTable.builder().pool(LootPool.builder()
                 .rolls(UniformLootNumberProvider.create(3, 5))
                 .with(item(Items.ARROW, 2, 4, 12))
@@ -258,7 +288,8 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                 .with(item(Items.LEATHER, 1, 1, 3))
                 .with(item(CommonItems.CRYO_ESSENCE.item(), 1, 1, 2))
                 .with(item(Items.STONE_PICKAXE, 1, 1, 1))
-                .with(potion(Items.POTION, ModPotions.FROST_RESISTANCE_POTION.potion(), 1, 1, 1)));
+                .with(potion(Items.POTION, ModPotions.FROST_RESISTANCE_POTION.potion(), 1, 1, 1)))
+                .pool(gear(one().conditionally(RandomChanceLootCondition.builder(0.1F)), LEATHER_GEAR, 1, 0, 0));
     }
 
     private static LootTable.Builder barrel(int tier) {
@@ -301,7 +332,7 @@ public class ModFrozenDepthsLootTableProvider extends SimpleFabricLootTableProvi
                         .with(item(Items.GOLD_INGOT, 2, 1, 3))
                         .with(item(Items.EMERALD, 3, 2, 5))
                         .with(item(Items.DIAMOND, tier, 1, 2))
-                        .with(potion(Items.POTION, ModPotions.LONG_FROST_RESISTANCE_POTION.potion(), 2, 1, 1)))
+                        .with(potion(Items.POTION, (tier >= 3 ? ModPotions.LONG_FROST_RESISTANCE_POTION : ModPotions.FROST_RESISTANCE_POTION).potion(), 2, 1, 1)))
                 .pool(rare);
     }
 }

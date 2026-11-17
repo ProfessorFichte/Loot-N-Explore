@@ -11,12 +11,12 @@
         },
         {
           "type": "minecraft:loot_table",
-          "value": "minecraft:chests/trial_chambers/reward_ominous_rare",
+          "value": "loot_n_explore:vaults/frozen_depths/t3/ominous_common",
           "weight": 2
         },
         {
           "type": "minecraft:loot_table",
-          "value": "loot_n_explore:vaults/frozen_depths/t3/ominous_common",
+          "value": "minecraft:chests/trial_chambers/reward_ominous_rare",
           "weight": 2
         }
       ],

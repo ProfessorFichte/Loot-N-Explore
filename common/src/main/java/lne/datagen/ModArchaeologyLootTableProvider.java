@@ -105,7 +105,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(CommonItems.FROSTBALL.item(), 2, 1, 2))
                 .with(counted(FrozenDepthsBlocks.FROZEN_CHAIN.block(), 2, 1, 1))
                 .with(counted(Items.EMERALD, 2, 1, 2))
-                .with(monarchsCastleMap())));
+                .with(monarchsCastleMap())
+                .with(spellScroll(1, 3))));
         exporter.accept(frozenDepths("glacial_tomb"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(Items.BONE, 4, 1, 3))
@@ -114,7 +115,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(FrozenDepthsBlocks.FROZEN_TORCH.block(), 2, 1, 2))
                 .with(counted(Items.EMERALD, 2, 1, 3))
                 .with(counted(Items.DIAMOND, 1, 1, 1))
-                .with(monarchsCastleMap())));
+                .with(monarchsCastleMap())
+                .with(spellScroll(1, 3, 4))));
         exporter.accept(frozenDepths("outpost"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(Items.PAPER, 4, 1, 3))
@@ -124,7 +126,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(CommonItems.FROSTBALL.item(), 2, 1, 2))
                 .with(counted(Items.EMERALD, 1, 1, 1))
                 .with(explorerMap(StructureTags.ON_FROST_TOWER_MAPS, "frost_tower", 1,
-                        MapDecorationTypes.RED_X, FROZEN_DEPTHS_MAP_SEARCH_RADIUS))));
+                        MapDecorationTypes.RED_X, FROZEN_DEPTHS_MAP_SEARCH_RADIUS))
+                .with(spellScroll(1, 2))));
         exporter.accept(frozenDepths("monarchs_castle"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(CommonItems.CRYO_ESSENCE.item(), 3, 1, 3))
@@ -133,7 +136,8 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
                 .with(counted(Items.IRON_INGOT, 2, 1, 2))
                 .with(counted(FrozenDepthsBlocks.FROZEN_CHAIN.block(), 2, 1, 1))
                 .with(counted(Items.GOLDEN_APPLE, 1, 1, 1))
-                .with(counted(Items.DIAMOND, 1, 1, 1))));
+                .with(counted(Items.DIAMOND, 1, 1, 1))
+                .with(spellScroll(1, 3))));
         exporter.accept(frozenDepths("monarchs_temple"), LootTable.builder().pool(LootPool.builder()
                 .rolls(ConstantLootNumberProvider.create(1))
                 .with(counted(CommonItems.CRYO_ESSENCE.item(), 4, 1, 3))
@@ -187,10 +191,14 @@ public class ModArchaeologyLootTableProvider extends SimpleFabricLootTableProvid
     }
 
     private static LeafEntry.Builder<?> spellScroll(int weight, int tier) {
+        return spellScroll(weight, tier, tier);
+    }
+
+    private static LeafEntry.Builder<?> spellScroll(int weight, int minTier, int maxTier) {
         return ConditionalItemEntry.builder(Identifier.of("spell_engine", "spell_scroll"), Optional.empty()).weight(weight)
-                .conditionally(SpellsAvailableLootCondition.builder(List.of(), tier, tier))
-                .apply(SpecificSpellScrollPoolLootFunction.builder(List.of(), ConstantLootNumberProvider.create(tier),
-                        ConstantLootNumberProvider.create(tier), ConstantLootNumberProvider.create(1), List.of()));
+                .conditionally(SpellsAvailableLootCondition.builder(List.of(), minTier, maxTier))
+                .apply(SpecificSpellScrollPoolLootFunction.builder(List.of(), ConstantLootNumberProvider.create(minTier),
+                        ConstantLootNumberProvider.create(maxTier), ConstantLootNumberProvider.create(1), List.of()));
     }
 
     private static RegistryKey<LootTable> frozenDepths(String structure) {

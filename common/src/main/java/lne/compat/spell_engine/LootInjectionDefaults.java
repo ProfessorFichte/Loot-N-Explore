@@ -99,8 +99,11 @@ public class LootInjectionDefaults {
         );
         items.put("loot_n_explore:chests/frozen_depths/glacial_tomb/hidden",  new LootConfig.Pool()
                 .rolls(0.75)
+                .add(A3).enchant()
+                .add(W3).enchant()
                 .add(X2)
                 .add(R2)
+                .scroll(3)
         );
         items.put("loot_n_explore:chests/frozen_depths/monarchs_castle/hidden",  new LootConfig.Pool()
                 .rolls(0.75)
@@ -111,7 +114,7 @@ public class LootInjectionDefaults {
         items.put("loot_n_explore:chests/frozen_depths/monarchs_temple/hidden",  new LootConfig.Pool()
                 .rolls(1)
                 .add(A3).enchant()
-                .add(A3).enchant()
+                .add(W3).enchant()
                 .add(X3)
                 .add(R2)
         );
@@ -131,15 +134,14 @@ public class LootInjectionDefaults {
                             .scroll(2)
                     );
                 });
-        List.of("loot_n_explore:vaults/frozen_depths/glacial_tomb/reward",
-                        "loot_n_explore:vaults/frozen_depths/frost_tower/reward",
+        List.of("loot_n_explore:vaults/frozen_depths/frost_tower/reward",
                         "loot_n_explore:vaults/frozen_depths/monarchs_castle/reward"
                 )
                 .forEach(id -> {
                     items.put(id, new LootConfig.Pool()
                             .rolls(0.5)
                             .add(W2).weight(2).enchant()
-                            .add(W2).weight(2).enchant()
+                            .add(A2).weight(2).enchant()
                             .add(R2)
                             .add(X2)
                     );
@@ -148,6 +150,18 @@ public class LootInjectionDefaults {
                             .scroll(3)
                     );
                 });
+        items.put("loot_n_explore:vaults/frozen_depths/glacial_tomb/reward", new LootConfig.Pool()
+                .rolls(0.75)
+                .add(W2).weight(2).enchant()
+                .add(A2).weight(2).enchant()
+                .add(W3).enchant()
+                .add(R2)
+                .add(X2)
+        );
+        scrolls.put("loot_n_explore:vaults/frozen_depths/glacial_tomb/reward", new LootConfig.Pool()
+                .rolls(0.5)
+                .scroll(3)
+        );
         List.of("loot_n_explore:vaults/frozen_depths/frost_tower/reward_ominous",
                         "loot_n_explore:vaults/frozen_depths/monarchs_castle/reward_ominous"
                 )

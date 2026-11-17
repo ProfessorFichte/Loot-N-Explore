@@ -99,10 +99,6 @@
           ],
           "name": "minecraft:emerald",
           "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond"
         }
       ],
       "rolls": 1.0

@@ -73,16 +73,6 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "loot_n_explore:frost_resistance_potion"
-            }
-          ],
-          "name": "minecraft:potion"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
               "id": "minecraft:regeneration"
             }
           ],
