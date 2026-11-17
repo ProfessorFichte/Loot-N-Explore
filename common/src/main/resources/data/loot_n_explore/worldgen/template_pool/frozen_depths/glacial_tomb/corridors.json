@@ -1,0 +1,42 @@
+{
+  "name": "loot_n_explore:frozen_depths/glacial_tomb/corridors",
+  "fallback": "loot_n_explore:frozen_depths/glacial_tomb/door_cap",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/corridors/straight_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/corridors/corner_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/corridors/t_junction_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/corridors/cross_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

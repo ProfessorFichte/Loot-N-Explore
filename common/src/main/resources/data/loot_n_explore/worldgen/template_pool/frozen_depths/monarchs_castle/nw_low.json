@@ -1,0 +1,16 @@
+{
+  "name": "loot_n_explore:frozen_depths/monarchs_castle/nw_low",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/monarchs_castle/nw_low",
+        "processors": "loot_n_explore:frozen_depths/monarchs_castle",
+        "projection": "rigid",
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 2
+      }
+    }
+  ]
+}

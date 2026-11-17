@@ -1,0 +1,15 @@
+{
+  "name": "loot_n_explore:frozen_depths/glacial_tomb/loot_room",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/loot_room_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -11,6 +11,8 @@ public interface StructureTags {
     TagKey<Structure> SPIDER_QUEST = register("spider_quest");
     TagKey<Structure> PILLAGER_QUEST = register("pillager_quest");
     TagKey<Structure> MONARCHS_TEMPLE_LOCATED = register("frozen_depths/monarchs_temple");
+    TagKey<Structure> MONARCHS_CASTLE_LOCATED = register("frozen_depths/monarchs_castle");
+    TagKey<Structure> GLACIAL_TOMB_LOCATED = register("frozen_depths/glacial_tomb");
     TagKey<Structure> ON_FROST_TOWER_MAPS = register("on_frost_tower_maps");
     TagKey<Structure> ON_DESERT_PYRAMID_MAPS = register("on_desert_pyramid_maps");
     TagKey<Structure> ON_PILLAGER_OUTPOST_MAPS = register("on_pillager_outpost_maps");

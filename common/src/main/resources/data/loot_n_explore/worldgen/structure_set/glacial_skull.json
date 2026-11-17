@@ -1,0 +1,18 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:frozen_depths/glacial_skull",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "chunk_count": 5,
+      "other_set": "loot_n_explore:frozen_depths"
+    },
+    "type": "minecraft:random_spread",
+    "separation": 12,
+    "spacing": 28,
+    "salt": 825186845
+  }
+}

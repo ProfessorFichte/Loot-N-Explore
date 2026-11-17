@@ -1,0 +1,16 @@
+{
+  "name": "loot_n_explore:frozen_depths/glacial_tomb/entrance",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/skull_entrance_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 2
+      }
+    }
+  ]
+}

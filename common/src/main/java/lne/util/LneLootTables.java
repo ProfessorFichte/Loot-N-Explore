@@ -1,6 +1,8 @@
 package lne.util;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.loot.LootTable;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -30,4 +32,8 @@ public class LneLootTables {
             RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "archaeology/village/desert"));
     public static final RegistryKey<LootTable> ARCHAEOLOGY_PLAINS_SAVANNA_TAIGA_VILLAGE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "archaeology/village/plains_savanna_taiga"));
+
+    public static RegistryKey<LootTable> frozenDepthsEntity(EntityType<?> type) {
+        return RegistryKey.of(RegistryKeys.LOOT_TABLE, Registries.ENTITY_TYPE.getId(type).withPrefixedPath("entities/frozen_depths/"));
+    }
 }

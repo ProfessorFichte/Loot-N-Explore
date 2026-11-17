@@ -8,7 +8,8 @@
         "location": "loot_n_explore:frozen_depths/frost_tower/e0",
         "processors": "loot_n_explore:frozen_depths/frost_tower",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 5
       }
     }
   ]

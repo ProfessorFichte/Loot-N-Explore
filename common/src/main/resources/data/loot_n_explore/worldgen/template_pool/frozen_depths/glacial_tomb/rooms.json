@@ -1,0 +1,51 @@
+{
+  "name": "loot_n_explore:frozen_depths/glacial_tomb/rooms",
+  "fallback": "loot_n_explore:frozen_depths/glacial_tomb/door_cap",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/rooms/coffin_labyrinth_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/rooms/coffin_straight_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/rooms/combat_room_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/rooms/frostfire_shrine_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "loot_n_explore:frozen_depths/glacial_tomb/structures/rooms/pillar_hall_a",
+        "processors": "loot_n_explore:frozen_depths/glacial_tomb",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

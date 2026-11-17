@@ -1,18 +1,18 @@
 {
   "structures": [
     {
-      "structure": "loot_n_explore:glacial_tomb",
+      "structure": "loot_n_explore:frozen_depths/glacial_tomb",
       "weight": 1
     }
   ],
   "placement": {
     "exclusion_zone": {
-      "chunk_count": 10,
-      "other_set": "minecraft:ancient_cities"
+      "chunk_count": 5,
+      "other_set": "loot_n_explore:frozen_depths"
     },
     "type": "minecraft:random_spread",
-    "separation": 8,
-    "spacing": 18,
+    "separation": 12,
+    "spacing": 28,
     "salt": 825186845
   }
 }

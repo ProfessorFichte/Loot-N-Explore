@@ -88,6 +88,25 @@
           ],
           "name": "minecraft:emerald",
           "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "decoration": "loot_n_explore:monarchs_castle",
+              "destination": "loot_n_explore:frozen_depths/monarchs_castle",
+              "function": "minecraft:exploration_map",
+              "search_radius": 25
+            },
+            {
+              "function": "minecraft:set_name",
+              "name": {
+                "translate": "filled_map.loot_n_explore.monarchs_castle"
+              },
+              "target": "item_name"
+            }
+          ],
+          "name": "minecraft:map"
         }
       ],
       "rolls": 1.0

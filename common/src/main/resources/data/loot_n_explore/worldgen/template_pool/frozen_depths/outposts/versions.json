@@ -8,7 +8,8 @@
         "location": "loot_n_explore:frozen_depths/outposts/v0",
         "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 5
       }
     },
     {
@@ -17,7 +18,8 @@
         "location": "loot_n_explore:frozen_depths/outposts/v1",
         "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 5
       }
     },
     {
@@ -26,7 +28,8 @@
         "location": "loot_n_explore:frozen_depths/outposts/v2",
         "processors": "loot_n_explore:frozen_depths/outpost",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "element_type": "loot_n_explore:grounded_single_pool_element",
+        "ground_level_delta": 5
       }
     }
   ]

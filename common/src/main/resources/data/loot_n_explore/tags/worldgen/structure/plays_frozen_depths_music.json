@@ -1,6 +1,8 @@
 {
   "values": [
-    "loot_n_explore:glacial_tomb",
-    "loot_n_explore:frozen_depths/frost_tower"
+    "loot_n_explore:frozen_depths/glacial_tomb",
+    "loot_n_explore:frozen_depths/frost_tower",
+    "loot_n_explore:frozen_depths/monarchs_castle",
+    "loot_n_explore:frozen_depths/glacial_skull"
   ]
 }

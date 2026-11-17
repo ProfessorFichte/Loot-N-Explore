@@ -1,0 +1,30 @@
+{
+  "structures": [
+    {
+      "structure": "loot_n_explore:frozen_depths/outpost",
+      "weight": 4
+    },
+    {
+      "structure": "loot_n_explore:frozen_depths/frost_tower",
+      "weight": 3
+    },
+    {
+      "structure": "loot_n_explore:frozen_depths/monarchs_castle",
+      "weight": 2
+    },
+    {
+      "structure": "loot_n_explore:frozen_depths/monarchs_temple",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "exclusion_zone": {
+      "chunk_count": 12,
+      "other_set": "minecraft:villages"
+    },
+    "type": "minecraft:random_spread",
+    "separation": 12,
+    "spacing": 26,
+    "salt": 589234006
+  }
+}
