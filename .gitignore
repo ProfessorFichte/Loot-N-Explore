@@ -41,9 +41,8 @@ replay_*.log
 
 .architectury-transformer
 /.architectury-transformer
+/common/src/main/generated/.cache/
+.cache/
 
 # local dev workspace switches
 /workspace.properties
-
-.wiki/
-.wiki
