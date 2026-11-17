@@ -27,6 +27,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
+        getOrCreateTagBuilder(LneItemTags.INNKEEPER_FOOD_AND_DRINKS)
+                .addTag(LneItemTags.INNKEEPER_BUFFS_0)
+                .addTag(LneItemTags.INNKEEPER_BUFFS_1)
+                .addTag(LneItemTags.INNKEEPER_BUFFS_2)
+                .addTag(LneItemTags.INNKEEPER_BUFFS_3);
+
         for (var entry : LNE_RelicItems.entries) {
             getOrCreateTagBuilder(LneItemTags.RELICS)
                     .addOptional(entry.id());

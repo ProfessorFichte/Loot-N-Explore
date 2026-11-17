@@ -1,0 +1,48 @@
+{
+  "parent": "loot_n_explore:frozen_depths/too_cold_to_handle",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "loot_n_explore:frozen_vault",
+                "state": {
+                  "ominous": "true"
+                }
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "loot_n_explore:monarchs_key"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.monarchs_treasure.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:monarchs_key"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.monarchs_treasure.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

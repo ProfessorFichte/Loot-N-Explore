@@ -1,30 +1,55 @@
 package lne.datagen;
 
+import lne.blocks.FrozenDepthsBlocks;
 import lne.util.LneItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.*;
+import net.minecraft.advancement.criterion.ConsumeItemCriterion;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.criterion.ItemCriterion;
 import net.minecraft.advancement.criterion.OnKilledCriterion;
+import net.minecraft.advancement.criterion.PlayerInteractedWithEntityCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.block.VaultBlock;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.predicate.BlockPredicate;
+import net.minecraft.predicate.NbtPredicate;
+import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.EntityTypePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryOwner;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModAdvancementProvider extends FabricAdvancementProvider {
+
+    @FunctionalInterface
+    public interface Criteria {
+        Map<String, AdvancementCriterion<?>> resolve(RegistryWrapper.WrapperLookup lookup);
+    }
 
     public record Entry(
         Identifier id,
@@ -37,7 +62,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         boolean announceToChat,
         boolean hidden,
         @Nullable String background,
-        AdvancementCriterion<?> criterion,
+        Criteria criteria,
         @Nullable Integer experienceReward
     ) {
         public String titleKey() {
@@ -51,6 +76,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     public static final List<Entry> equipmentEntries = new ArrayList<>();
     public static final List<Entry> explorationEntries = new ArrayList<>();
+    public static final List<Entry> frozenDepthsEntries = new ArrayList<>();
 
     private static Entry addEquipment(Entry entry) {
         equipmentEntries.add(entry);
@@ -62,49 +88,93 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         return entry;
     }
 
+    private static Entry addFrozenDepths(Entry entry) {
+        frozenDepthsEntries.add(entry);
+        return entry;
+    }
+
     private static Identifier id(String path) {
         return Identifier.of("loot_n_explore", path);
     }
 
-    private static AdvancementCriterion<?> hasItem(String itemName) {
+    private static Criteria single(AdvancementCriterion<?> criterion) {
+        return lookup -> Map.of("criterion", criterion);
+    }
+
+    private static Item item(String itemName) {
         String fullName = itemName.contains(":") ? itemName : "loot_n_explore:" + itemName;
         var itemId = Identifier.tryParse(fullName);
         var item = itemId != null ? Registries.ITEM.get(itemId) : Items.AIR;
         if (item == Items.AIR) {
             throw new IllegalStateException("Item not found for criterion: " + fullName);
         }
-
-        return InventoryChangedCriterion.Conditions.items(item);
+        return item;
     }
 
-    private static AdvancementCriterion<?> hasItemTag(TagKey<Item> tag) {
-        return InventoryChangedCriterion.Conditions.items(
+    private static Criteria hasItem(String itemName) {
+        return single(InventoryChangedCriterion.Conditions.items(item(itemName)));
+    }
+
+    private static Criteria hasItemTag(TagKey<Item> tag) {
+        return single(InventoryChangedCriterion.Conditions.items(
             ItemPredicate.Builder.create().tag(tag).build()
-        );
+        ));
     }
 
-    // structures are a dynamic registry, so the entry list can't be resolved in a static initializer
-    // (left as an unfiltered location criterion)
-    private static AdvancementCriterion<?> atStructures(String... structureIds) {
-        var locationBuilder = LocationPredicate.Builder.create();
-
-        return TickCriterion.Conditions.createLocation(locationBuilder);
+    private static Criteria atStructures(String... structurePaths) {
+        return lookup -> {
+            var structures = lookup.getWrapperOrThrow(RegistryKeys.STRUCTURE);
+            RegistryEntryOwner<Structure> owner = lookup.getOps(JsonOps.INSTANCE).getOwner(RegistryKeys.STRUCTURE).orElse(structures);
+            Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
+            for (String path : structurePaths) {
+                RegistryKey<Structure> key = RegistryKey.of(RegistryKeys.STRUCTURE, id(path));
+                // The datagen registry only holds code-registered structures; ours are datapack JSON, so encode the bare id.
+                RegistryEntry<Structure> structure = structures.getOptional(key)
+                        .<RegistryEntry<Structure>>map(entry -> entry)
+                        .orElseGet(() -> RegistryEntry.Reference.standAlone(owner, key));
+                criteria.put(path.substring(path.lastIndexOf('/') + 1),
+                        TickCriterion.Conditions.createLocation(LocationPredicate.Builder.createStructure(structure)));
+            }
+            return criteria;
+        };
     }
 
-    private static AdvancementCriterion<?> killedEntity(String entityType) {
-        String fullName = entityType.contains(":") ? entityType : "loot_n_explore:" + entityType;
-        var entityId = Identifier.tryParse(fullName);
-        var type = entityId != null ? Registries.ENTITY_TYPE.get(entityId) : null;
-
-        var predicateBuilder = EntityPredicate.Builder.create();
-        if (type != null) {
-            predicateBuilder.type(type);
+    private static Criteria killedAny(String... entityTypes) {
+        Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
+        for (String entityType : entityTypes) {
+            var type = Registries.ENTITY_TYPE.getOrEmpty(id(entityType))
+                    .orElseThrow(() -> new IllegalStateException("Entity not found for criterion: " + entityType));
+            criteria.put(entityType, OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                    EntityPredicate.Builder.create().type(EntityTypePredicate.create(type))));
         }
-        return OnKilledCriterion.Conditions.createPlayerKilledEntity(predicateBuilder);
+        return lookup -> criteria;
     }
 
-    private static AdvancementCriterion<?> tick() {
-        return TickCriterion.Conditions.createTick();
+    private static Criteria interactedWithVillager(String profession) {
+        NbtCompound villagerData = new NbtCompound();
+        villagerData.putString("profession", profession);
+        NbtCompound nbt = new NbtCompound();
+        nbt.put("VillagerData", villagerData);
+        return single(PlayerInteractedWithEntityCriterion.Conditions.create(ItemPredicate.Builder.create(),
+                Optional.of(EntityPredicate.contextPredicateFromEntityPredicate(EntityPredicate.Builder.create()
+                        .type(EntityTypePredicate.create(EntityType.VILLAGER))
+                        .nbt(new NbtPredicate(nbt))))));
+    }
+
+    private static Criteria consumedItemTag(TagKey<Item> tag) {
+        return single(ConsumeItemCriterion.Conditions.predicate(ItemPredicate.Builder.create().tag(tag)));
+    }
+
+    private static Criteria usedKeyOnFrozenVault(String keyItem, boolean ominous) {
+        return single(ItemCriterion.Conditions.createItemUsedOnBlock(
+                LocationPredicate.Builder.create().block(BlockPredicate.Builder.create()
+                        .blocks(FrozenDepthsBlocks.FROZEN_VAULT.block())
+                        .state(StatePredicate.Builder.create().exactMatch(VaultBlock.OMINOUS, ominous))),
+                ItemPredicate.Builder.create().items(item(keyItem))));
+    }
+
+    private static Criteria tick() {
+        return single(TickCriterion.Conditions.createTick());
     }
 
     static {
@@ -414,10 +484,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             "Explore new Structures!",
             "Start your journey and explore the world!",
             null,
-            "minecraft:filled_map",
+            "empty_beer_mug",
             AdvancementFrame.TASK,
             false, false, false,
-            "minecraft:textures/block/mossy_stone_bricks.png",
+            "minecraft:textures/block/stripped_spruce_log.png",
             tick(),
             null
         ));
@@ -429,68 +499,177 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             id("exploration/root"),
             "malt_extract",
             AdvancementFrame.TASK,
-            false, false, false, null,
-            atStructures("desert_inn", "plains_inn", "badlands_inn"),
+            true, true, false, null,
+            atStructures("overworld_inns/desert", "overworld_inns/plains", "overworld_inns/badlands"),
             20
         ));
 
         addExploration(new Entry(
-            id("exploration/glaze"),
-            "The freezing Glaze!",
-            "Kill the Glaze in the Glaze Tower, beware it will hail frost balls.",
-            id("exploration/root"),
+            id("exploration/innkeeper"),
+            "The Innkeeper",
+            "Meet your first Innkeeper and fill up your supplies!",
+            id("exploration/find_inn"),
+            "innkeeper_shelf",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            interactedWithVillager("loot_n_explore:innkeeper"),
+            null
+        ));
+
+        addExploration(new Entry(
+            id("exploration/nutritious_provisions"),
+            "Nutritious Provisions",
+            "Sample the various drinks and dishes that the innkeeper sells.",
+            id("exploration/innkeeper"),
+            "potato_soup",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            consumedItemTag(LneItemTags.INNKEEPER_FOOD_AND_DRINKS),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/root"),
+            "Frozen Depths",
+            "Will you survive the structures & entities cursed by the eternal winter?",
+            null,
+            "monarchs_crown",
+            AdvancementFrame.TASK,
+            false, false, false,
+            "loot_n_explore:textures/block/frozen_depths/cryotic_block.png",
+            tick(),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/haunted_by_the_eternal_winter"),
+            "Haunted by the eternal Winter",
+            "Kill the Frost Haunted servants, that got cursed by the Monarchs greed.",
+            id("frozen_depths/root"),
+            "cryo_essence",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            killedAny("frost_haunted", "monarchs_soldier", "monarchs_guard", "frozen_ranger", "frozen_magician", "frost_hound"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/the_freezing_glaze"),
+            "The Freezing Glaze",
+            "Kill the Glaze, beware it will hail frost balls!",
+            id("frozen_depths/root"),
             "frostball",
             AdvancementFrame.TASK,
             true, true, false, null,
-            killedEntity("glaze"),
+            killedAny("glaze"),
             null
         ));
 
-        addExploration(new Entry(
-            id("exploration/glacial_tomb"),
-            "Cold depths",
-            "Find and explore the glacial tomb",
-            id("exploration/glaze"),
-            "frozen_key",
-            AdvancementFrame.TASK,
-            false, false, false, null,
-            atStructures("glacial_tomb"),
-            null
-        ));
-
-        addExploration(new Entry(
-            id("exploration/frozen_key"),
+        addFrozenDepths(new Entry(
+            id("frozen_depths/too_cold_to_handle"),
             "Too cold to handle",
-            "Unlock a Frozen Vault with an Frozen Key",
-            id("exploration/glacial_tomb"),
+            "Unlock any Frozen Vault with a Frozen Key",
+            id("frozen_depths/haunted_by_the_eternal_winter"),
             "frozen_key",
             AdvancementFrame.TASK,
             true, true, false, null,
-            hasItem("frozen_key"),
+            usedKeyOnFrozenVault("frozen_key", false),
             null
         ));
 
-        addExploration(new Entry(
-            id("exploration/monarchs_key"),
-            "Freezing trial",
-            "Unlock a Ominous Frozen Vault with an Monarchs Key",
-            id("exploration/frozen_key"),
+        addFrozenDepths(new Entry(
+            id("frozen_depths/monarchs_treasure"),
+            "Monarch's Treasure",
+            "Unlock a Ominous Frozen Vault with the Monarchs Key",
+            id("frozen_depths/too_cold_to_handle"),
             "monarchs_key",
-            AdvancementFrame.TASK,
+            AdvancementFrame.GOAL,
             true, true, false, null,
-            hasItem("monarchs_key"),
+            usedKeyOnFrozenVault("monarchs_key", true),
             null
         ));
 
-        addExploration(new Entry(
-            id("exploration/frost_monarch"),
-            "Winter is coming",
-            "Kill the Frost Monarch in his temple. Summon him by placing his crown on the frozensouls block.",
-            id("exploration/monarchs_key"),
+        addFrozenDepths(new Entry(
+            id("frozen_depths/cursed_generals"),
+            "Cursed Generals",
+            "Kill one of the generals of the Frost Monarch",
+            id("frozen_depths/haunted_by_the_eternal_winter"),
+            "frozen_soul",
+            AdvancementFrame.GOAL,
+            true, true, false, null,
+            killedAny("general_frozen_magician", "general_frozen_ranger", "general_monarchs_soldier", "general_monarchs_guard"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/the_king_cursed_by_winter"),
+            "The king cursed by winter",
+            "Be victorious against the Frost Monarch!",
+            id("frozen_depths/cursed_generals"),
             "monarchs_crown",
             AdvancementFrame.CHALLENGE,
-            false, true, false, null,
-            killedEntity("frost_monarch"),
+            true, true, false, null,
+            killedAny("frost_monarch"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/abandoned_outpost"),
+            "Abandoned outpost",
+            "Visit a frozen outpost.",
+            id("frozen_depths/root"),
+            "blue_ice_bricks",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            atStructures("frozen_depths/outpost"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/high_peak"),
+            "High peak",
+            "Find the frost tower",
+            id("frozen_depths/abandoned_outpost"),
+            "snowy_blue_ice_bricks",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            atStructures("frozen_depths/frost_tower"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/the_castle_covered_in_ice"),
+            "The castle covered in ice",
+            "Visit the Monarchs Castle",
+            id("frozen_depths/high_peak"),
+            "frozen_kingdom_flag",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            atStructures("frozen_depths/monarchs_castle"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/icy_mass_grave"),
+            "Icy Mass Grave",
+            "Explore, survive and master the glacial tomb!",
+            id("frozen_depths/the_castle_covered_in_ice"),
+            "frozen_trial_spawner",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            atStructures("frozen_depths/glacial_tomb"),
+            null
+        ));
+
+        addFrozenDepths(new Entry(
+            id("frozen_depths/sealed_temple"),
+            "Sealed Temple",
+            "Find the Monarchs Temple",
+            id("frozen_depths/the_castle_covered_in_ice"),
+            "frozen_soul_block",
+            AdvancementFrame.TASK,
+            true, true, false, null,
+            atStructures("frozen_depths/monarchs_temple"),
             null
         ));
     }
@@ -502,16 +681,12 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
-        for (Entry entry : equipmentEntries) {
-            generateAdvancementEntry(entry, consumer);
-        }
-
-        for (Entry entry : explorationEntries) {
-            generateAdvancementEntry(entry, consumer);
+        for (Entry entry : getAllEntries()) {
+            generateAdvancementEntry(entry, wrapperLookup, consumer);
         }
     }
 
-    private void generateAdvancementEntry(Entry entry, Consumer<AdvancementEntry> consumer) {
+    private void generateAdvancementEntry(Entry entry, RegistryWrapper.WrapperLookup lookup, Consumer<AdvancementEntry> consumer) {
         String fullItemName = entry.iconItemName().contains(":") ? entry.iconItemName() : "loot_n_explore:" + entry.iconItemName();
         var iconIdentifier = Identifier.tryParse(fullItemName);
         var iconItem = iconIdentifier != null ? Registries.ITEM.get(iconIdentifier) : Items.AIR;
@@ -529,14 +704,16 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                 entry.showToast(),
                 entry.announceToChat(),
                 entry.hidden()
-            )
-            .criterion("criterion", entry.criterion());
+            );
+
+        Map<String, AdvancementCriterion<?>> criteria = entry.criteria().resolve(lookup);
+        criteria.forEach(builder::criterion);
+        builder.requirements(AdvancementRequirements.anyOf(criteria.keySet()));
 
         if (entry.parent() != null) {
             @SuppressWarnings("deprecation")
             var builderWithParent = builder.parent(entry.parent());
             builder = builderWithParent;
-
         }
 
         if (entry.experienceReward() != null) {
@@ -550,6 +727,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         List<Entry> all = new ArrayList<>();
         all.addAll(equipmentEntries);
         all.addAll(explorationEntries);
+        all.addAll(frozenDepthsEntries);
         return all;
     }
 }

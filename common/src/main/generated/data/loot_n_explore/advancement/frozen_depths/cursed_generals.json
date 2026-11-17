@@ -1,0 +1,83 @@
+{
+  "parent": "loot_n_explore:frozen_depths/haunted_by_the_eternal_winter",
+  "criteria": {
+    "general_frozen_magician": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:general_frozen_magician"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "general_frozen_ranger": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:general_frozen_ranger"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "general_monarchs_guard": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:general_monarchs_guard"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "general_monarchs_soldier": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:general_monarchs_soldier"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.cursed_generals.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frozen_soul"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.cursed_generals.title"
+    }
+  },
+  "requirements": [
+    [
+      "general_frozen_magician",
+      "general_frozen_ranger",
+      "general_monarchs_soldier",
+      "general_monarchs_guard"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

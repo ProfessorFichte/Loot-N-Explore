@@ -1,0 +1,8 @@
+{
+  "values": [
+    "#loot_n_explore:innkeeper_items/tier_0_buffs",
+    "#loot_n_explore:innkeeper_items/tier_1_buffs",
+    "#loot_n_explore:innkeeper_items/tier_2_buffs",
+    "#loot_n_explore:innkeeper_items/tier_3_buffs"
+  ]
+}

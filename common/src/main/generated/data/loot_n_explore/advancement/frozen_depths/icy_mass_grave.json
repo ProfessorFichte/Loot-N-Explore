@@ -1,14 +1,16 @@
 {
-  "parent": "loot_n_explore:exploration/glaze",
+  "parent": "loot_n_explore:frozen_depths/the_castle_covered_in_ice",
   "criteria": {
-    "criterion": {
+    "glacial_tomb": {
       "conditions": {
         "player": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {}
+              "location": {
+                "structures": "loot_n_explore:frozen_depths/glacial_tomb"
+              }
             }
           }
         ]
@@ -17,22 +19,20 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
     "description": {
-      "translate": "advancements.loot_n_explore.exploration.glacial_tomb.description"
+      "translate": "advancements.loot_n_explore.frozen_depths.icy_mass_grave.description"
     },
     "icon": {
       "count": 1,
-      "id": "loot_n_explore:frozen_key"
+      "id": "loot_n_explore:frozen_trial_spawner"
     },
-    "show_toast": false,
     "title": {
-      "translate": "advancements.loot_n_explore.exploration.glacial_tomb.title"
+      "translate": "advancements.loot_n_explore.frozen_depths.icy_mass_grave.title"
     }
   },
   "requirements": [
     [
-      "criterion"
+      "glacial_tomb"
     ]
   ],
   "sends_telemetry_event": true

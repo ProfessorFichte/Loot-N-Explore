@@ -1,0 +1,39 @@
+{
+  "parent": "loot_n_explore:exploration/find_inn",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:villager",
+              "nbt": "{VillagerData:{profession:\"loot_n_explore:innkeeper\"}}"
+            }
+          }
+        ],
+        "item": {}
+      },
+      "trigger": "minecraft:player_interacted_with_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.innkeeper.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:innkeeper_shelf"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.innkeeper.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

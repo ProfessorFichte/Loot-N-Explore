@@ -1,14 +1,14 @@
 {
-  "parent": "loot_n_explore:exploration/root",
+  "parent": "loot_n_explore:frozen_depths/cursed_generals",
   "criteria": {
-    "criterion": {
+    "frost_monarch": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "loot_n_explore:glaze"
+              "type": "loot_n_explore:frost_monarch"
             }
           }
         ]
@@ -18,19 +18,20 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.loot_n_explore.exploration.glaze.description"
+      "translate": "advancements.loot_n_explore.frozen_depths.the_king_cursed_by_winter.description"
     },
+    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "loot_n_explore:frostball"
+      "id": "loot_n_explore:monarchs_crown"
     },
     "title": {
-      "translate": "advancements.loot_n_explore.exploration.glaze.title"
+      "translate": "advancements.loot_n_explore.frozen_depths.the_king_cursed_by_winter.title"
     }
   },
   "requirements": [
     [
-      "criterion"
+      "frost_monarch"
     ]
   ],
   "sends_telemetry_event": true

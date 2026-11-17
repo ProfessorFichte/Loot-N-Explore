@@ -1,0 +1,47 @@
+{
+  "parent": "loot_n_explore:frozen_depths/haunted_by_the_eternal_winter",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "loot_n_explore:frozen_vault",
+                "state": {
+                  "ominous": "false"
+                }
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "loot_n_explore:frozen_key"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.too_cold_to_handle.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frozen_key"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.too_cold_to_handle.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

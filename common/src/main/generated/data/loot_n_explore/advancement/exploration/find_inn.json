@@ -1,14 +1,48 @@
 {
   "parent": "loot_n_explore:exploration/root",
   "criteria": {
-    "criterion": {
+    "badlands": {
       "conditions": {
         "player": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "location": {}
+              "location": {
+                "structures": "loot_n_explore:overworld_inns/badlands"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "desert": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "loot_n_explore:overworld_inns/desert"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "plains": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "loot_n_explore:overworld_inns/plains"
+              }
             }
           }
         ]
@@ -17,7 +51,6 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
     "description": {
       "translate": "advancements.loot_n_explore.exploration.find_inn.description"
     },
@@ -25,14 +58,15 @@
       "count": 1,
       "id": "loot_n_explore:malt_extract"
     },
-    "show_toast": false,
     "title": {
       "translate": "advancements.loot_n_explore.exploration.find_inn.title"
     }
   },
   "requirements": [
     [
-      "criterion"
+      "desert",
+      "plains",
+      "badlands"
     ]
   ],
   "rewards": {

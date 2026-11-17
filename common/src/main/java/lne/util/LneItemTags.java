@@ -10,6 +10,7 @@ public class LneItemTags {
     public static final TagKey<Item> INNKEEPER_BUFFS_1 = register("innkeeper_items/tier_1_buffs");
     public static final TagKey<Item> INNKEEPER_BUFFS_2 = register("innkeeper_items/tier_2_buffs");
     public static final TagKey<Item> INNKEEPER_BUFFS_3 = register("innkeeper_items/tier_3_buffs");
+    public static final TagKey<Item> INNKEEPER_FOOD_AND_DRINKS = register("innkeeper_items/food_and_drinks");
 
     public static final TagKey<Item> RELICS = register("relics");
 

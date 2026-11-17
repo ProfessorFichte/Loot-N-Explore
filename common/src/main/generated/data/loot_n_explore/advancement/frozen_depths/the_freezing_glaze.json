@@ -1,14 +1,14 @@
 {
-  "parent": "loot_n_explore:exploration/monarchs_key",
+  "parent": "loot_n_explore:frozen_depths/root",
   "criteria": {
-    "criterion": {
+    "glaze": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "loot_n_explore:frost_monarch"
+              "type": "loot_n_explore:glaze"
             }
           }
         ]
@@ -18,21 +18,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.loot_n_explore.exploration.frost_monarch.description"
+      "translate": "advancements.loot_n_explore.frozen_depths.the_freezing_glaze.description"
     },
-    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "loot_n_explore:monarchs_crown"
+      "id": "loot_n_explore:frostball"
     },
-    "show_toast": false,
     "title": {
-      "translate": "advancements.loot_n_explore.exploration.frost_monarch.title"
+      "translate": "advancements.loot_n_explore.frozen_depths.the_freezing_glaze.title"
     }
   },
   "requirements": [
     [
-      "criterion"
+      "glaze"
     ]
   ],
   "sends_telemetry_event": true

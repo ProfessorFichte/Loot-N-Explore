@@ -1,0 +1,112 @@
+{
+  "parent": "loot_n_explore:frozen_depths/root",
+  "criteria": {
+    "frost_haunted": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:frost_haunted"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "frost_hound": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:frost_hound"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "frozen_magician": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:frozen_magician"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "frozen_ranger": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:frozen_ranger"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "monarchs_guard": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:monarchs_guard"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "monarchs_soldier": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "loot_n_explore:monarchs_soldier"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.haunted_by_the_eternal_winter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:cryo_essence"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.haunted_by_the_eternal_winter.title"
+    }
+  },
+  "requirements": [
+    [
+      "frost_haunted",
+      "monarchs_soldier",
+      "monarchs_guard",
+      "frozen_ranger",
+      "frozen_magician",
+      "frost_hound"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

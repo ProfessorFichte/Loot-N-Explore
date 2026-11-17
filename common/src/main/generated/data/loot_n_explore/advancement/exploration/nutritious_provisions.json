@@ -1,0 +1,31 @@
+{
+  "parent": "loot_n_explore:exploration/innkeeper",
+  "criteria": {
+    "criterion": {
+      "conditions": {
+        "item": {
+          "items": "#loot_n_explore:innkeeper_items/food_and_drinks"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.exploration.nutritious_provisions.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:potato_soup"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.exploration.nutritious_provisions.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

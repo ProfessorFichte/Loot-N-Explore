@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "criterion": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "loot_n_explore:textures/block/frozen_depths/cryotic_block.png",
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:monarchs_crown"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "criterion"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

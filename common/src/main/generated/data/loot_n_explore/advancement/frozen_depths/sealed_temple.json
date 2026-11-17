@@ -1,0 +1,39 @@
+{
+  "parent": "loot_n_explore:frozen_depths/the_castle_covered_in_ice",
+  "criteria": {
+    "monarchs_temple": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structures": "loot_n_explore:frozen_depths/monarchs_temple"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.loot_n_explore.frozen_depths.sealed_temple.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "loot_n_explore:frozen_soul_block"
+    },
+    "title": {
+      "translate": "advancements.loot_n_explore.frozen_depths.sealed_temple.title"
+    }
+  },
+  "requirements": [
+    [
+      "monarchs_temple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
