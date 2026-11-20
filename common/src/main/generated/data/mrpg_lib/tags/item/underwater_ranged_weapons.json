@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "loot_n_explore:elder_guardian_bow",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:elder_guardian_crossbow",
+      "required": false
+    }
+  ]
+}
