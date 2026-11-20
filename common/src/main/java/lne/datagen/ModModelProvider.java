@@ -88,8 +88,7 @@ public class ModModelProvider extends FabricModelProvider {
                 .with(fireVariants(sideModels, null))
                 .with(fireVariants(sideModels, VariantSettings.Rotation.R90))
                 .with(fireVariants(sideModels, VariantSettings.Rotation.R180))
-                .with(fireVariants(sideModels, VariantSettings.Rotation.R270))
-                .with(fireVariants(generator.getFireUpModels(block), null)));
+                .with(fireVariants(sideModels, VariantSettings.Rotation.R270)));
     }
 
     private static List<BlockStateVariant> fireVariants(List<Identifier> models, VariantSettings.Rotation rotation) {

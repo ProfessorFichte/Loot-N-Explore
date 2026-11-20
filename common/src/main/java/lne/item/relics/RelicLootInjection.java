@@ -16,7 +16,7 @@ public final class RelicLootInjection {
     private RelicLootInjection() {}
 
     public static void init() {
-        config = new ConfigManager<RelicLootConfig>("relic_loot", RelicLootConfig.defaults())
+        config = new ConfigManager<RelicLootConfig>("relic_loot_v1", RelicLootConfig.defaults())
                 .builder()
                 .setDirectory(LneMod.MOD_ID)
                 .sanitize(true)

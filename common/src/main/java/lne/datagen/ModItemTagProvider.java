@@ -8,6 +8,7 @@ import lne.item.consumables.InnkeeperBowlItem;
 import lne.item.consumables.InnkeeperDrinkItem;
 import lne.item.consumables.InnkeeperFoodItem;
 import lne.util.LneItemTags;
+import com.mrpg_lib.util.UnderwaterProjectiles;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.loader.api.FabricLoader;
@@ -29,6 +30,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
+        getOrCreateTagBuilder(UnderwaterProjectiles.WEAPONS)
+                .addOptional(LNE_WeaponItems.ELDER_GUARDIAN_BOW.id())
+                .addOptional(LNE_WeaponItems.ELDER_GUARDIAN_CROSSBOW.id());
         getOrCreateTagBuilder(LneItemTags.INNKEEPER_FOOD_AND_DRINKS)
                 .addTag(LneItemTags.INNKEEPER_BUFFS_0)
                 .addTag(LneItemTags.INNKEEPER_BUFFS_1)

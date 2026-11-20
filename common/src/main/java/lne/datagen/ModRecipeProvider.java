@@ -57,8 +57,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .pattern(" G ")
                 .pattern("G  ")
                 .input('G', glazeRod)
-                .input('F', frozenSoulItem)
-                .criterion(hasItem(frozenSoulItem), conditionsFromItem(frozenSoulItem))
+                .input('F', FrozenDepthsBlocks.MONARCHS_CROWN.item())
+                .criterion(hasItem(FrozenDepthsBlocks.MONARCHS_CROWN.item()), conditionsFromItem(FrozenDepthsBlocks.MONARCHS_CROWN.item()))
                 .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/monarchs_frost_staff"));
 
         Item dragonTemplate = getItem("loot_n_explore:dragon_upgrade_smithing_template");

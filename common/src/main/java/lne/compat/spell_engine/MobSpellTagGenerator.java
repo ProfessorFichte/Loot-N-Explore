@@ -18,6 +18,9 @@ public class MobSpellTagGenerator extends FabricTagProvider<Spell> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookup) {
+        var staff = getOrCreateTagBuilder(TagKey.of(SpellRegistry.KEY, LNE_Abilities.MONARCHS_STAFF_SPELLS));
+        staff.addOptional(Identifier.of("wizards", "frostbolt"));
+        staff.addOptional(LNE_Abilities.ICICLE_BARRAGE);
         tag("frost_monarch", "secondary", "wizards:frost_lance");
         tag("frozen_magician", "primary", "wizards:frost_shard");
         tag("frozen_magician", "secondary", "wizards:frost_nova", "wizards:frost_spikes");
