@@ -7,12 +7,12 @@
   ],
   "placement": {
     "exclusion_zone": {
-      "chunk_count": 5,
+      "chunk_count": 8,
       "other_set": "loot_n_explore:frozen_depths"
     },
     "type": "minecraft:random_spread",
-    "separation": 12,
-    "spacing": 28,
+    "separation": 18,
+    "spacing": 36,
     "salt": 825186845
   }
 }

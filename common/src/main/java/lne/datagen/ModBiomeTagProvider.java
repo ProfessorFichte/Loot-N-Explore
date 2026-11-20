@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
@@ -38,6 +39,8 @@ public class ModBiomeTagProvider extends FabricTagProvider<Biome> {
                 BiomeKeys.SNOWY_SLOPES, BiomeKeys.FROZEN_PEAKS, BiomeKeys.JAGGED_PEAKS, BiomeKeys.SNOWY_BEACH,
                 BiomeKeys.FROZEN_RIVER, BiomeKeys.FROZEN_OCEAN, BiomeKeys.DEEP_FROZEN_OCEAN);
         getOrCreateTagBuilder(LneTags.FROSTSIEGE_BIOMES).addTag(LneTags.ICY_BIOMES);
+        getOrCreateTagBuilder(LneTags.GLACIAL_TOMB_BLOCKED_UNDERGROUND).add(BiomeKeys.DEEP_DARK)
+                .addOptionalTag(BiomeTags.ANCIENT_CITY_HAS_STRUCTURE);
     }
 
     @SafeVarargs

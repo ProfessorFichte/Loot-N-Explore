@@ -5,7 +5,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureLiquidSettings;
 import net.minecraft.structure.StructurePiece;
@@ -50,6 +52,15 @@ public class AnchoredJigsawStructure extends Structure {
         ).apply(instance, Stairway::new));
     }
 
+    public record AvoidBiomes(TagKey<Biome> biomes, int radius, int minY, int maxY) {
+        public static final Codec<AvoidBiomes> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                TagKey.codec(RegistryKeys.BIOME).fieldOf("biomes").forGetter(AvoidBiomes::biomes),
+                Codec.intRange(0, 256).fieldOf("radius").forGetter(AvoidBiomes::radius),
+                Codec.INT.fieldOf("min_y").forGetter(AvoidBiomes::minY),
+                Codec.INT.fieldOf("max_y").forGetter(AvoidBiomes::maxY)
+        ).apply(instance, AvoidBiomes::new));
+    }
+
     public static final MapCodec<AnchoredJigsawStructure> CODEC = RecordCodecBuilder.<AnchoredJigsawStructure>mapCodec(instance ->
             instance.group(
                     configCodecBuilder(instance),
@@ -61,7 +72,8 @@ public class AnchoredJigsawStructure extends Structure {
                     Codec.intRange(1, 128).optionalFieldOf("max_distance_from_center", 80).forGetter(s -> s.maxDistanceFromCenter),
                     StructurePool.REGISTRY_CODEC.optionalFieldOf("required_pool").forGetter(s -> s.requiredPool),
                     Codec.intRange(1, 32).optionalFieldOf("attempts", 1).forGetter(s -> s.attempts),
-                    Stairway.CODEC.optionalFieldOf("stairway").forGetter(s -> s.stairway)
+                    Stairway.CODEC.optionalFieldOf("stairway").forGetter(s -> s.stairway),
+                    AvoidBiomes.CODEC.optionalFieldOf("avoid_biomes").forGetter(s -> s.avoidBiomes)
             ).apply(instance, AnchoredJigsawStructure::new)
     ).validate(AnchoredJigsawStructure::validate);
 
@@ -74,6 +86,7 @@ public class AnchoredJigsawStructure extends Structure {
     private final Optional<RegistryEntry<StructurePool>> requiredPool;
     private final int attempts;
     private final Optional<Stairway> stairway;
+    private final Optional<AvoidBiomes> avoidBiomes;
 
     public AnchoredJigsawStructure(
             Config config,
@@ -85,7 +98,8 @@ public class AnchoredJigsawStructure extends Structure {
             int maxDistanceFromCenter,
             Optional<RegistryEntry<StructurePool>> requiredPool,
             int attempts,
-            Optional<Stairway> stairway
+            Optional<Stairway> stairway,
+            Optional<AvoidBiomes> avoidBiomes
     ) {
         super(config);
         this.startPool = startPool;
@@ -97,6 +111,7 @@ public class AnchoredJigsawStructure extends Structure {
         this.requiredPool = requiredPool;
         this.attempts = attempts;
         this.stairway = stairway;
+        this.avoidBiomes = avoidBiomes;
     }
 
     private static DataResult<AnchoredJigsawStructure> validate(AnchoredJigsawStructure structure) {
@@ -120,7 +135,7 @@ public class AnchoredJigsawStructure extends Structure {
         BlockPos biomeCheckPos = new BlockPos(x, surfaceY, z);
         RegistryEntry<Biome> biome = context.biomeSource().getBiome(BiomeCoords.fromBlock(x), BiomeCoords.fromBlock(surfaceY),
                 BiomeCoords.fromBlock(z), context.noiseConfig().getMultiNoiseSampler());
-        if (!this.getValidBiomes().contains(biome)) {
+        if (!this.getValidBiomes().contains(biome) || this.avoidBiomes.filter(avoid -> isNearAvoidedBiome(context, x, z, avoid)).isPresent()) {
             return Optional.empty();
         }
         BlockRotation rotation = sharedRotation(context);
@@ -249,6 +264,24 @@ public class AnchoredJigsawStructure extends Structure {
         }
         return Optional.of(new PoolStructurePiece(manager, element, origin, element.getGroundLevelDelta(), rotation, box,
                 StructureLiquidSettings.IGNORE_WATERLOGGING));
+    }
+
+    // The skull uses the same check, so tomb and skull always spawn together or not at all.
+    private static boolean isNearAvoidedBiome(Context context, int x, int z, AvoidBiomes avoid) {
+        int step = 16;
+        int verticalStep = Math.max(1, (avoid.maxY() - avoid.minY()) / 2);
+        for (int dx = -avoid.radius(); dx <= avoid.radius(); dx += step) {
+            for (int dz = -avoid.radius(); dz <= avoid.radius(); dz += step) {
+                for (int y = avoid.minY(); y <= avoid.maxY(); y += verticalStep) {
+                    RegistryEntry<Biome> biome = context.biomeSource().getBiome(BiomeCoords.fromBlock(x + dx), BiomeCoords.fromBlock(y),
+                            BiomeCoords.fromBlock(z + dz), context.noiseConfig().getMultiNoiseSampler());
+                    if (biome.isIn(avoid.biomes())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static BlockRotation sharedRotation(Context context) {

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:deep_dark",
+    {
+      "id": "#minecraft:has_structure/ancient_city",
+      "required": false
+    }
+  ]
+}

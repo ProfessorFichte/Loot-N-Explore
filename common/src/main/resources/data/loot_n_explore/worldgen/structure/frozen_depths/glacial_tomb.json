@@ -27,21 +27,27 @@
     },
     "top_offset": -2
   },
+  "avoid_biomes": {
+    "biomes": "#loot_n_explore:frozen_depths/glacial_tomb_blocked_underground",
+    "radius": 128,
+    "min_y": -56,
+    "max_y": -16
+  },
   "spawn_overrides": {
     "monster": {
       "bounding_box": "piece",
       "spawns": [
         {
-          "type": "minecraft:stray",
-          "weight": 100,
+          "type": "loot_n_explore:frost_haunted",
+          "weight": 1,
           "minCount": 1,
-          "maxCount": 2
+          "maxCount": 1
         },
         {
-          "type": "loot_n_explore:frost_haunted",
-          "weight": 100,
+          "type": "loot_n_explore:monarchs_soldier",
+          "weight": 1,
           "minCount": 1,
-          "maxCount": 2
+          "maxCount": 1
         }
       ]
     }
