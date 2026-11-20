@@ -85,22 +85,6 @@
           "y": 270
         }
       ]
-    },
-    {
-      "apply": [
-        {
-          "model": "loot_n_explore:block/frostflame_up0"
-        },
-        {
-          "model": "loot_n_explore:block/frostflame_up1"
-        },
-        {
-          "model": "loot_n_explore:block/frostflame_up_alt0"
-        },
-        {
-          "model": "loot_n_explore:block/frostflame_up_alt1"
-        }
-      ]
     }
   ]
 }
