@@ -11,8 +11,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 5.0
+                "max": 15.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -26,8 +26,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 5.0
+                "max": 15.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -41,8 +41,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 5.0
+                "max": 15.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -56,8 +56,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 5.0
+                "max": 15.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -71,8 +71,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 5.0
+                "max": 15.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -140,6 +140,12 @@
         {
           "type": "minecraft:item",
           "name": "loot_n_explore:frozen_depths_disc",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_3_buffs",
           "weight": 2
         }
       ],

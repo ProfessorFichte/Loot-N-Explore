@@ -82,6 +82,12 @@
             }
           ],
           "name": "minecraft:diamond",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_2_buffs",
           "weight": 2
         },
         {
@@ -89,7 +95,7 @@
           "functions": [
             {
               "function": "minecraft:set_potion",
-              "id": "loot_n_explore:frost_resistance_potion"
+              "id": "loot_n_explore:long_frost_resistance_potion"
             }
           ],
           "name": "minecraft:potion",
@@ -105,10 +111,6 @@
     {
       "bonus_rolls": 0.0,
       "entries": [
-        {
-          "type": "minecraft:loot_table",
-          "value": "loot_n_explore:vaults/frozen_depths/t2/rare"
-        },
         {
           "type": "minecraft:loot_table",
           "value": "loot_n_explore:vaults/frozen_depths/t3/rare"

@@ -79,6 +79,12 @@
           "name": "minecraft:potion"
         },
         {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_1_buffs",
+          "weight": 2
+        },
+        {
           "type": "minecraft:item",
           "functions": [
             {

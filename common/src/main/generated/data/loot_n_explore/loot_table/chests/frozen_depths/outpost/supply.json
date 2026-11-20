@@ -169,6 +169,12 @@
           "name": "minecraft:stone_pickaxe"
         },
         {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_0_buffs",
+          "weight": 2
+        },
+        {
           "type": "minecraft:item",
           "functions": [
             {

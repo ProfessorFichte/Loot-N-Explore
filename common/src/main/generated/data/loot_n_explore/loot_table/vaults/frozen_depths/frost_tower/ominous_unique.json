@@ -72,13 +72,77 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 20.0
+                "max": 20.0,
+                "min": 10.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:iron_helmet",
+          "name": "minecraft:diamond_helmet",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_leggings",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_boots",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              },
+              "options": "#minecraft:on_random_loot"
+            }
+          ],
+          "name": "minecraft:diamond_sword",
           "weight": 2
         },
         {
@@ -89,13 +153,12 @@
               "levels": {
                 "type": "minecraft:uniform",
                 "max": 30.0,
-                "min": 20.0
+                "min": 25.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:iron_chestplate",
-          "weight": 2
+          "name": "minecraft:iron_helmet"
         },
         {
           "type": "minecraft:item",
@@ -105,13 +168,12 @@
               "levels": {
                 "type": "minecraft:uniform",
                 "max": 30.0,
-                "min": 20.0
+                "min": 25.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:iron_leggings",
-          "weight": 2
+          "name": "minecraft:iron_chestplate"
         },
         {
           "type": "minecraft:item",
@@ -121,13 +183,12 @@
               "levels": {
                 "type": "minecraft:uniform",
                 "max": 30.0,
-                "min": 20.0
+                "min": 25.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:iron_boots",
-          "weight": 2
+          "name": "minecraft:iron_leggings"
         },
         {
           "type": "minecraft:item",
@@ -137,13 +198,12 @@
               "levels": {
                 "type": "minecraft:uniform",
                 "max": 30.0,
-                "min": 20.0
+                "min": 25.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:iron_sword",
-          "weight": 2
+          "name": "minecraft:iron_boots"
         },
         {
           "type": "minecraft:item",
@@ -152,73 +212,13 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 0.0
+                "max": 30.0,
+                "min": 25.0
               },
               "options": "#minecraft:on_random_loot"
             }
           ],
-          "name": "minecraft:diamond_helmet"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 0.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "minecraft:diamond_chestplate"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 0.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "minecraft:diamond_leggings"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 0.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "minecraft:diamond_boots"
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10.0,
-                "min": 0.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "minecraft:diamond_sword"
+          "name": "minecraft:iron_sword"
         }
       ],
       "rolls": 1.0

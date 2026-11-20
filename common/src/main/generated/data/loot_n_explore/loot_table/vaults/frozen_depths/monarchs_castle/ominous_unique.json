@@ -150,6 +150,12 @@
           "type": "minecraft:item",
           "name": "loot_n_explore:the_king_cursed_by_winter_disc",
           "weight": 3
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_3_buffs",
+          "weight": 2
         }
       ],
       "rolls": 1.0

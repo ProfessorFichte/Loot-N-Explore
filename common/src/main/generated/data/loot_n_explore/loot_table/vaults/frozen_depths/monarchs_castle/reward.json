@@ -6,12 +6,12 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "loot_n_explore:vaults/frozen_depths/t2/rare",
+          "value": "loot_n_explore:vaults/frozen_depths/t3/rare",
           "weight": 6
         },
         {
           "type": "minecraft:loot_table",
-          "value": "loot_n_explore:vaults/frozen_depths/t2/common",
+          "value": "loot_n_explore:vaults/frozen_depths/t3/common",
           "weight": 2
         },
         {
@@ -27,7 +27,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "loot_n_explore:vaults/frozen_depths/t2/common"
+          "value": "loot_n_explore:vaults/frozen_depths/t3/common"
         }
       ],
       "rolls": {

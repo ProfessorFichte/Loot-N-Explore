@@ -11,8 +11,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 20.0,
-                "min": 10.0
+                "max": 25.0,
+                "min": 15.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -26,8 +26,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 20.0,
-                "min": 10.0
+                "max": 25.0,
+                "min": 15.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -41,8 +41,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 20.0,
-                "min": 10.0
+                "max": 25.0,
+                "min": 15.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -56,8 +56,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 20.0,
-                "min": 10.0
+                "max": 25.0,
+                "min": 15.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -71,8 +71,8 @@
               "function": "minecraft:enchant_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 20.0,
-                "min": 10.0
+                "max": 25.0,
+                "min": 15.0
               },
               "options": "#minecraft:on_random_loot"
             }
@@ -150,6 +150,12 @@
           "type": "minecraft:item",
           "name": "loot_n_explore:frozen_depths_disc",
           "weight": 3
+        },
+        {
+          "type": "minecraft:tag",
+          "expand": true,
+          "name": "loot_n_explore:innkeeper_items/tier_3_buffs",
+          "weight": 2
         }
       ],
       "rolls": 1.0
