@@ -48,6 +48,7 @@ public class LneNeoForgeClient {
         event.registerSpriteSet(Particles.FROZEN_SOUL_MOTE, FrozenSoulMoteParticle.Factory::new);
         event.registerSpriteSet(Particles.FROST_MIST, FrostMistParticle.Factory::new);
         event.registerSpriteSet(Particles.BOOK_DUST, BookDustParticle.Factory::new);
+        event.registerSpriteSet(Particles.BOOK_DUST_CLOUD, FrostMistParticle.Factory::bookDust);
         event.registerSpriteSet(Particles.FROZEN_SOUL, SoulParticle.Factory::new);
         event.registerSpriteSet(Particles.FROST_SCREECH, SonicBoomParticle.Factory::new);
         event.registerSpriteSet(Particles.FROZEN_FLAME, net.minecraft.client.particle.FlameParticle.Factory::new);

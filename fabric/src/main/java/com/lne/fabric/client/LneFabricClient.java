@@ -41,6 +41,7 @@ public final class LneFabricClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_SOUL_MOTE, FrozenSoulMoteParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROST_MIST, FrostMistParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.BOOK_DUST, BookDustParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(Particles.BOOK_DUST_CLOUD, FrostMistParticle.Factory::bookDust);
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_SOUL, SoulParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROST_SCREECH, SonicBoomParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(Particles.FROZEN_FLAME, net.minecraft.client.particle.FlameParticle.Factory::new);

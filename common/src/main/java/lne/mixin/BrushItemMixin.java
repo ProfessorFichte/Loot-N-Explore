@@ -35,6 +35,15 @@ public abstract class BrushItemMixin {
                     side.getOffsetY() * speed + random.nextDouble() * 0.01,
                     side.getOffsetZ() * speed + (random.nextDouble() - 0.5) * 0.02);
         }
+        int clouds = random.nextFloat() < 0.3F ? 2 : 1;
+        for (int i = 0; i < clouds; i++) {
+            double speed = 0.01 + random.nextDouble() * 0.015;
+            world.addParticle(Particles.BOOK_DUST_CLOUD,
+                    pos.x + side.getOffsetX() * 0.1 + (random.nextDouble() - 0.5) * 0.25,
+                    pos.y + (random.nextDouble() - 0.5) * 0.25,
+                    pos.z + side.getOffsetZ() * 0.1 + (random.nextDouble() - 0.5) * 0.25,
+                    side.getOffsetX() * speed, side.getOffsetY() * speed + 0.005, side.getOffsetZ() * speed);
+        }
         ci.cancel();
     }
 }

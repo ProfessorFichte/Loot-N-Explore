@@ -3,6 +3,9 @@ package lne.client;
 import com.mrpg_lib.compat.player_animator.api.MobAnimations;
 import lne.compat.player_animator.LneMobAnimationCompat;
 import net.minecraft.client.MinecraftClient;
+import lne.LneMod;
+import lne.config.ClientConfig;
+import net.tiny_config.ConfigManager;
 import lne.blocks.FrozenDepthsBlocks;
 import lne.blocks.ModBlocks;
 import lne.client.entity.renderers.ModMobRenderers;
@@ -52,7 +55,12 @@ public class LneClient {
         <T extends Entity> void register(EntityType<? extends T> type, EntityRendererFactory<T> factory);
     }
 
+    public static ConfigManager<ClientConfig> clientConfig = new ConfigManager<>("client_v1", new ClientConfig())
+            .builder().setDirectory(LneMod.MOD_ID).sanitize(true).build();
+
     public static void init() {
+        clientConfig.refresh();
+        clientConfig.save();
         RelicTooltips.setViewer(() -> MinecraftClient.getInstance().player);
         if (MobAnimations.isAvailable()) {
             LneMobAnimationCompat.register();

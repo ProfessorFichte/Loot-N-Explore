@@ -16,6 +16,7 @@ public class Particles {
     public static final SimpleParticleType FROST_MIST = simple();
     public static final SimpleParticleType FROZEN_SOUL = simple();
     public static final SimpleParticleType BOOK_DUST = simple();
+    public static final SimpleParticleType BOOK_DUST_CLOUD = simple();
     public static final SimpleParticleType FROST_SCREECH = new SimpleParticleType(true) {};
 
     private static SimpleParticleType simple() {
@@ -32,6 +33,7 @@ public class Particles {
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(LneMod.MOD_ID, "frost_mist"), FROST_MIST);
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(LneMod.MOD_ID, "frozen_soul"), FROZEN_SOUL);
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(LneMod.MOD_ID, "book_dust"), BOOK_DUST);
+        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(LneMod.MOD_ID, "book_dust_cloud"), BOOK_DUST_CLOUD);
         Registry.register(Registries.PARTICLE_TYPE, Identifier.of(LneMod.MOD_ID, "frost_screech"), FROST_SCREECH);
     }
 }
