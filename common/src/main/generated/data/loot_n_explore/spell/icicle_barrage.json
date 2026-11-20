@@ -1,0 +1,75 @@
+{
+  "school": "spell_power:frost",
+  "range": 22.0,
+  "tier": 1,
+  "learn": {},
+  "active": {
+    "cast": {
+      "duration": 1.8,
+      "animation": {
+        "id": "spell_engine:one_handed_projectile_charge"
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_casting"
+      }
+    }
+  },
+  "release": {
+    "animation": {
+      "id": "spell_engine:one_handed_projectile_release"
+    },
+    "sound": {
+      "id": "minecraft:block.amethyst_block.resonate",
+      "volume": 0.6
+    }
+  },
+  "deliver": {
+    "type": "CUSTOM",
+    "custom": {
+      "handler": "loot_n_explore:icicle_barrage"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.3
+        }
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_impact",
+        "volume": 0.6
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:freezing",
+          "duration": 3.0,
+          "amplifier": 1,
+          "amplifier_cap": 3,
+          "refresh_duration": false,
+          "apply_mode": "ADD",
+          "show_particles": true
+        }
+      }
+    }
+  ],
+  "cost": {
+    "item": {
+      "id": "runes:frost_stone"
+    }
+  }
+}

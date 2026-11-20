@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "wizards:frostbolt",
+      "required": false
+    },
+    {
+      "id": "loot_n_explore:icicle_barrage",
+      "required": false
+    }
+  ]
+}

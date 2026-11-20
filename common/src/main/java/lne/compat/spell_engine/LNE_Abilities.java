@@ -14,6 +14,7 @@ import net.spell_engine.api.spell.ExternalSpellSchools;
 import lne.effects.Effects;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.fx.Fx;
+import net.spell_engine.api.spell.fx.Easing;
 import net.spell_engine.api.spell.fx.ModelEffect;
 import net.spell_engine.api.spell.fx.ModelEffectBuilder;
 import net.spell_engine.api.spell.fx.ParticleGroup;
@@ -307,12 +308,20 @@ public class LNE_Abilities {
 
     private static final int ERUPTION_APEX_TICK = 5;
 
+    private static final float ERUPTION_RISE = 2.0F;
+    private static final int ERUPTION_RISE_TICKS = 8;
+    private static final int ERUPTION_HOLD_TICKS = 4;
+    private static final int ERUPTION_SINK_TICKS = 10;
+
     private static List<ModelEffect> eruptionIcicle() {
-        return List.of(ModelEffectBuilder.Preset.spike(
-                        ModelEffectBuilder.create("loot_n_explore:spell_effect/icicle_straight")
-                                .light(LightEmission.GLOW_TRANSLUCENT)
-                                .initialTranslateY(0.5F),
-                        20, 0, true, 2.0F)
+        int sinkStart = ERUPTION_RISE_TICKS + ERUPTION_HOLD_TICKS;
+        int end = sinkStart + ERUPTION_SINK_TICKS;
+        return List.of(ModelEffectBuilder.create("loot_n_explore:spell_effect/icicle_straight")
+                .light(LightEmission.GLOW_TRANSLUCENT)
+                .duration(end)
+                .initialTranslateY(0.5F - ERUPTION_RISE)
+                .translate(0.0F, ERUPTION_RISE, 0.0F, 0, ERUPTION_RISE_TICKS, Easing.EASE_OUT_QUAD)
+                .translate(0.0F, -ERUPTION_RISE, 0.0F, sinkStart, end, Easing.EASE_IN_QUAD)
                 .build());
     }
 

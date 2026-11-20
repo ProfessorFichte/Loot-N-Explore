@@ -1,0 +1,1307 @@
+{
+  "school": "spell_power:frost",
+  "range": 32.0,
+  "tier": 7,
+  "tooltip": {
+    "show_header": false,
+    "description": {
+      "color": "dark_green",
+      "show_in_compact": false
+    }
+  },
+  "type": "PASSIVE",
+  "passive": {
+    "triggers": [
+      {
+        "type": "SPELL_IMPACT_SPECIFIC",
+        "chance": 0.2,
+        "chance_batching": true,
+        "spell": {
+          "type": "ACTIVE"
+        },
+        "impact": {
+          "impact_type": "DAMAGE"
+        }
+      }
+    ]
+  },
+  "target": {
+    "type": "FROM_TRIGGER"
+  },
+  "deliver": {
+    "type": "CLOUD",
+    "clouds": [
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "placement": {
+          "location_offset_x": 3.535534,
+          "location_offset_z": 3.535534
+        },
+        "spawn": {
+          "sound": {
+            "id": "mrpg_lib:glacial_spikes",
+            "volume": 0.4
+          },
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "placement": {
+          "location_offset_x": 3.535534,
+          "location_offset_z": -3.535534
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "placement": {
+          "location_offset_x": -3.535534,
+          "location_offset_z": 3.535534
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "placement": {
+          "location_offset_x": -3.535534,
+          "location_offset_z": -3.535534
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 3,
+        "placement": {
+          "location_offset_x": 2.5455844,
+          "location_offset_z": 2.5455844
+        },
+        "spawn": {
+          "sound": {
+            "id": "mrpg_lib:glacial_spikes",
+            "volume": 0.4
+          },
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 3,
+        "placement": {
+          "location_offset_x": 2.5455844,
+          "location_offset_z": -2.5455844
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 3,
+        "placement": {
+          "location_offset_x": -2.5455844,
+          "location_offset_z": 2.5455844
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 3,
+        "placement": {
+          "location_offset_x": -2.5455844,
+          "location_offset_z": -2.5455844
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 6,
+        "placement": {
+          "location_offset_x": 1.555635,
+          "location_offset_z": 1.555635
+        },
+        "spawn": {
+          "sound": {
+            "id": "mrpg_lib:glacial_spikes",
+            "volume": 0.4
+          },
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 6,
+        "placement": {
+          "location_offset_x": 1.555635,
+          "location_offset_z": -1.555635
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 6,
+        "placement": {
+          "location_offset_x": -1.555635,
+          "location_offset_z": 1.555635
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 6,
+        "placement": {
+          "location_offset_x": -1.555635,
+          "location_offset_z": -1.555635
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 9,
+        "placement": {
+          "location_offset_x": 0.56568545,
+          "location_offset_z": 0.56568545
+        },
+        "spawn": {
+          "sound": {
+            "id": "mrpg_lib:glacial_spikes",
+            "volume": 0.4
+          },
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 9,
+        "placement": {
+          "location_offset_x": 0.56568545,
+          "location_offset_z": -0.56568545
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 9,
+        "placement": {
+          "location_offset_x": -0.56568545,
+          "location_offset_z": 0.56568545
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "volume": {
+          "radius": 0.9
+        },
+        "time_to_live_seconds": 0.45,
+        "delay_ticks": 9,
+        "placement": {
+          "location_offset_x": -0.56568545,
+          "location_offset_z": -0.56568545
+        },
+        "spawn": {
+          "visuals": {
+            "particles": [
+              {
+                "id": "spell_engine:frost_shard",
+                "appearance": {},
+                "batch": {
+                  "count": 8.0,
+                  "shape": "PILLAR",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.3,
+                  "max_speed": 0.6
+                }
+              },
+              {
+                "id": "spell_engine:snowflake",
+                "appearance": {},
+                "batch": {
+                  "count": 5.0,
+                  "shape": "CIRCLE",
+                  "anchor": "ENTITY",
+                  "vertical_origin": 0.1,
+                  "min_speed": 0.1,
+                  "max_speed": 0.3
+                }
+              }
+            ],
+            "models": [
+              {
+                "model_id": "loot_n_explore:spell_effect/icicle_straight",
+                "light_emission": "GLOW_TRANSLUCENT",
+                "duration": 22,
+                "initial": [
+                  {
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -1.5,
+                    "z": 0.0
+                  }
+                ],
+                "animations": [
+                  {
+                    "start": 0,
+                    "end": 8,
+                    "easing": "EASE_OUT_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": 2.0,
+                    "z": 0.0
+                  },
+                  {
+                    "start": 12,
+                    "end": 22,
+                    "easing": "EASE_IN_QUAD",
+                    "operation": "translate",
+                    "x": 0.0,
+                    "y": -2.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4
+        }
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_impact",
+        "volume": 0.6
+      }
+    },
+    {
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "execute": "DENY"
+        }
+      ],
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "loot_n_explore:freezing",
+          "duration": 3.0,
+          "amplifier": 1,
+          "amplifier_cap": 3,
+          "refresh_duration": false,
+          "apply_mode": "ADD",
+          "show_particles": true
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 15.0
+    }
+  }
+}
