@@ -12,13 +12,20 @@ import lne.internal.hud_text.EntityHudTextStyle;
 import lne.internal.network.EntityHudTextPayload;
 import lne.internal.platform.LNEEvents;
 import lne.util.LneTags;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +39,8 @@ public final class Frostsiege {
     private static final int WARNING_TYPE_TICKS = 40;
     private static final int WARNING_HOLD_TICKS = 80;
     private static final int CLEAR_WEATHER_TICKS = 12000;
+    private static final double RITUAL_OWNER_RANGE = 32.0;
+    private static final double RITUAL_PLAYER_RANGE = 16.0;
     private static final Map<ServerWorld, List<Siege>> ACTIVE = new WeakHashMap<>();
 
     private Frostsiege() {
@@ -134,6 +143,55 @@ public final class Frostsiege {
             siege.startedSnow = true;
         }
         return true;
+    }
+
+    // Throwing Cryo Essence into a fire in a snowy biome always calls a siege and puts the fire out.
+    // It skips the Crown and the cooldown, but the player still needs open sky like a normal siege.
+    public static void tryCryoRitual(ItemEntity item) {
+        if (!(item.getWorld() instanceof ServerWorld world) || world.getRegistryKey() != World.OVERWORLD) {
+            return;
+        }
+        BlockPos firePos = findFire(world, item);
+        if (firePos == null || !world.getBiome(firePos).isIn(LneTags.FROSTSIEGE_BIOMES)) {
+            return;
+        }
+        ServerPlayerEntity player = ritualPlayer(world, item);
+        if (player == null || !start(player)) {
+            return;
+        }
+        BlockState fire = world.getBlockState(firePos);
+        if (fire.getBlock() instanceof CampfireBlock) {
+            CampfireBlock.extinguish(item, world, firePos, fire);
+            world.setBlockState(firePos, fire.with(CampfireBlock.LIT, false));
+        } else {
+            world.removeBlock(firePos, false);
+        }
+        world.playSound(null, firePos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.7F);
+        MrpgFx.play(world, LNEFx.ETERNAL_WINTER_PORTAL_FADE, FxParams.at(firePos.toCenterPos()));
+        item.getStack().decrement(1);
+        if (item.getStack().isEmpty()) {
+            item.discard();
+        }
+    }
+
+    @Nullable
+    private static BlockPos findFire(ServerWorld world, ItemEntity item) {
+        for (BlockPos pos : BlockPos.iterate(BlockPos.ofFloored(item.getX(), item.getY() - 0.1, item.getZ()), item.getBlockPos())) {
+            BlockState state = world.getBlockState(pos);
+            if (state.isIn(BlockTags.FIRE) || state.getBlock() instanceof CampfireBlock && state.get(CampfireBlock.LIT)) {
+                return pos.toImmutable();
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    private static ServerPlayerEntity ritualPlayer(ServerWorld world, ItemEntity item) {
+        if (item.getOwner() instanceof ServerPlayerEntity owner && owner.getWorld() == world
+                && owner.squaredDistanceTo(item) <= RITUAL_OWNER_RANGE * RITUAL_OWNER_RANGE) {
+            return owner;
+        }
+        return world.getClosestPlayer(item, RITUAL_PLAYER_RANGE) instanceof ServerPlayerEntity nearest ? nearest : null;
     }
 
     public static boolean stop(ServerPlayerEntity player) {

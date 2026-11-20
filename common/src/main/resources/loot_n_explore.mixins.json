@@ -16,7 +16,8 @@
     "SpellBindingBlockMixin",
     "SimpleRegistryMixin",
     "SinglePoolElementAccessor",
-    "VaultServerDataAccessor"
+    "VaultServerDataAccessor",
+    "ItemEntityMixin"
   ],
   "client": [
     "BuiltinModelItemRendererMixin",

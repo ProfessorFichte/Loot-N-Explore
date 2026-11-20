@@ -26,6 +26,10 @@ public class FrostsiegeConfig {
     public int portal_shield_ticks = 400;
     public int portal_spawn_interval_ticks = 220;
     public int wave_pause_ticks = 100;
+    public int portal_open_stagger_ticks = 80;
+    public float flank_portal_chance = 0.35F;
+    public double target_range = 40.0;
+    public int reward_experience_per_wave = 10;
     public float ominous_spawn_interval_multiplier = 0.75F;
     public float ominous_strength_bonus = 0.25F;
     public boolean change_weather = true;
