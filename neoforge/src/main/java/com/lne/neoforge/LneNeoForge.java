@@ -25,6 +25,13 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import lne.entity.StructureSpawnRules;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnLocation;
+import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.world.Heightmap;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -44,11 +51,22 @@ public final class LneNeoForge {
         modBus.addListener(BuildCreativeModeTabContentsEvent.class, NeoForgeEventsImpl::dispatchItemGroup);
         modBus.addListener(EntityAttributeCreationEvent.class,
                 event -> ModEntities.registerAttributes((type, builder) -> event.put(type, builder.build())));
+        modBus.addListener(RegisterSpawnPlacementsEvent.class, LneNeoForge::registerSpawnPlacements);
         NeoForge.EVENT_BUS.addListener(RegisterBrewingRecipesEvent.class,
                 event -> ModPotions.registerRecipes(event.getBuilder()::registerPotionRecipe));
         NeoForge.EVENT_BUS.addListener(VillagerTradesEvent.class, NeoForgeEventsImpl::dispatchVillagerTrades);
         NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> RelicCommand.register(event.getDispatcher()));
         NeoForge.EVENT_BUS.addListener(RegisterCommandsEvent.class, event -> FrostsiegeCommand.register(event.getDispatcher()));
+    }
+
+    private static void registerSpawnPlacements(RegisterSpawnPlacementsEvent event) {
+        StructureSpawnRules.register(new StructureSpawnRules.Sink() {
+            @Override
+            public <T extends MobEntity> void register(EntityType<T> type, SpawnLocation location, Heightmap.Type heightmap,
+                                                       SpawnRestriction.SpawnPredicate<T> predicate) {
+                event.register(type, location, heightmap, predicate, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+            }
+        });
     }
 
     private static void registerPayloads(RegisterPayloadHandlersEvent event) {

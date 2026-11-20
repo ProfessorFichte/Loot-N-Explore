@@ -92,8 +92,7 @@ public class IceBarrierGoal extends Goal {
             openPortals();
 
             sound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, 1.5F, 0.5F);
-            sound(SoundEvents.BLOCK_BEACON_ACTIVATE, 0.8F, 1.6F);
-            sound(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 0.6F, 1.0F);
+            sound(MRPGLibSounds.FROZEN_WALL.soundEvent(), 1.2F, 1.0F);
         }
     }
 
@@ -182,7 +181,7 @@ public class IceBarrierGoal extends Goal {
             return;
         }
         EntityType<?> type = PortalPlacement.resolveType(tuning.getString(FrozenDepthsTuning.barrierPortalEntity(phase), ""), DEFAULT_PORTAL_TYPES[phase]);
-        double radius = tuning.getDouble(FrozenDepthsTuning.PORTAL_SPAWN_RADIUS, 25.0);
+        double radius = tuning.getDouble(FrozenDepthsTuning.PORTAL_SPAWN_RADIUS, 14.0);
         int lifetime = Math.max(20, tuning.getInt(FrozenDepthsTuning.PORTAL_LIFETIME, EternalWinterPortalEntity.DEFAULT_LIFETIME));
         int firstDelay = tuning.getInt(FrozenDepthsTuning.PORTAL_FIRST_SPAWN_DELAY, EternalWinterPortalEntity.DEFAULT_FIRST_SPAWN_DELAY);
         int interval = tuning.getInt(FrozenDepthsTuning.PORTAL_SPAWN_INTERVAL, EternalWinterPortalEntity.DEFAULT_SPAWN_INTERVAL);

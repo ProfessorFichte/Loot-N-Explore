@@ -118,9 +118,11 @@ def changelog_last_section() {
         return "No changelog available"
     }
     def content = changelogFile.text
-    def sections = content.split(/(?m)(?=^# )/)
-    def recentSection = sections.find { it.trim().startsWith('#') }
-    return recentSection ?: "No changelog available"
+    def releases = content.split(/(?m)(?=^## \[)/).findAll { it.startsWith('## [') && !it.startsWith('## [Unreleased]') }
+    if (releases) {
+        return releases.first().replaceAll(/(?m)^\[[^\]]+\]: .*$/, '').trim()
+    }
+    return "No changelog available"
 }
 
 def release_type = project.hasProperty('release_type') ? project.property('release_type') : 'release'

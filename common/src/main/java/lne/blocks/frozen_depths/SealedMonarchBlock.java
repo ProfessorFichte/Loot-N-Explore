@@ -3,6 +3,7 @@ package lne.blocks.frozen_depths;
 import lne.blocks.FrozenDepthsBlocks;
 import lne.entity.frozen_depths.conjured.PortalPlacement;
 import lne.internal.fx.LNEFx;
+import lne.particle.Particles;
 import lne.util.LneTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,6 +25,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.Difficulty;
@@ -38,6 +40,8 @@ public class SealedMonarchBlock extends Block {
     private static final double GENERAL_SPAWN_RADIUS = 8.0;
     private static final int PORTAL_LIFETIME = 80;
     private static final int GENERAL_SPAWN_DELAY = 50;
+    private static final double BODY_HEIGHT = 0.9;
+    private static final double SNOWFLAKE_PULL = 0.045;
 
     public SealedMonarchBlock(Settings settings) {
         super(settings);
@@ -78,6 +82,26 @@ public class SealedMonarchBlock extends Block {
         List<Vec3d> spots = PortalPlacement.findSpots(world, center, world.getRandom(), 1, GENERAL_SPAWN_RADIUS, null, false, false);
         Vec3d spot = spots.isEmpty() ? center : spots.getFirst();
         PortalPlacement.openAt(world, null, spot, general, PORTAL_LIFETIME, GENERAL_SPAWN_DELAY, PORTAL_LIFETIME, false);
+    }
+
+    @Override
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        double centerX = pos.getX() + 0.5;
+        double centerZ = pos.getZ() + 0.5;
+        double bodyY = pos.getY() + BODY_HEIGHT;
+        if (random.nextInt(3) == 0) {
+            double angle = random.nextDouble() * Math.PI * 2.0;
+            double distance = 1.2 + random.nextDouble() * 0.6;
+            double dx = Math.cos(angle) * distance;
+            double dz = Math.sin(angle) * distance;
+            double y = pos.getY() + 0.3 + random.nextDouble() * 1.2;
+            world.addParticle(Particles.FREEZING_SNOWFLAKE, centerX + dx, y, centerZ + dz,
+                    -dx * SNOWFLAKE_PULL, (bodyY - y) * SNOWFLAKE_PULL, -dz * SNOWFLAKE_PULL);
+        }
+        if (random.nextInt(14) == 0) {
+            world.addParticle(Particles.FROZEN_SOUL, centerX + (random.nextDouble() - 0.5) * 0.5, pos.getY() + 1.1 + random.nextDouble() * 0.3,
+                    centerZ + (random.nextDouble() - 0.5) * 0.5, 0.0, 0.02 + random.nextDouble() * 0.02, 0.0);
+        }
     }
 
     @Override

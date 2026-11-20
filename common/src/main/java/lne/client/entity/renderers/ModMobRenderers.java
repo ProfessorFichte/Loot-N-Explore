@@ -9,6 +9,7 @@ import lne.client.entity.renderers.frozen_depths.frost_hound.FrostHoundRenderer;
 import lne.client.entity.renderers.frozen_depths.frozen_magician.FrozenMagicianRenderer;
 import lne.client.entity.renderers.frozen_depths.frozen_ranger.FrozenRangerRenderer;
 import lne.client.entity.renderers.frozen_depths.glaze.GlazeEntityRenderer;
+import lne.client.entity.renderers.frozen_depths.misc.GlowingFlyingItemRenderer;
 import lne.client.entity.renderers.frozen_depths.monarchs_guard.MonarchsGuardRenderer;
 import lne.client.entity.renderers.frozen_depths.monarchs_soldier.MonarchsSoldierRenderer;
 import lne.entity.ModEntities;
@@ -31,7 +32,7 @@ public class ModMobRenderers {
         sink.register(ModEntities.FROST_HAUNTED, FrostHauntedEntityRenderer::new);
         sink.register(ModEntities.FROST_MONARCH, FrostmonarchEntityRenderer::new);
         sink.register(ModEntities.GLAZE, GlazeEntityRenderer::new);
-        sink.register(ModEntities.FROSTBALL, FlyingItemEntityRenderer::new);
+        sink.register(ModEntities.FROSTBALL, GlowingFlyingItemRenderer::new);
         sink.register(ModEntities.FROSTBALL_LOCATOR, FlyingItemEntityRenderer::new);
 
         sink.register(ModEntities.FROZEN_MAGICIAN,

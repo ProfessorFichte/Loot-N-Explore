@@ -7,7 +7,7 @@ architectury {
     minecraft = project.minecraft_version
 }
 
-ext.runtimeWorkspaceFlags = ["workspace_spell_engine", "workspace_trinkets", "workspace_curios", "workspace_thermoo"]
+ext.runtimeWorkspaceFlags = ["workspace_spell_engine", "workspace_trinkets", "workspace_curios", "workspace_thermoo", "workspace_lne_addons"]
 ext.runtimeWorkspace = {
     def local = rootProject.file("workspace.properties")
     def props = new Properties()

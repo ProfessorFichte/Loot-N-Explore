@@ -106,6 +106,9 @@ public class LNE_Abilities {
     }
 
     public static final Identifier VOID_RIFT = Identifier.of(MOD_ID, "void_rift");
+    public static final Identifier ICICLE_BARRAGE = Identifier.of(MOD_ID, "icicle_barrage");
+    public static final Identifier MONARCHS_STAFF_SPELLS = Identifier.of(MOD_ID, "weapon/monarchs_frost_staff");
+    public static final int ICICLE_BARRAGE_COUNT = 3;
     public static final Identifier SUMMON_SKELETON = Identifier.of(MOD_ID, "summon_skeleton");
     public static final Identifier SUMMON_FROST_HAUNTED = Identifier.of(MOD_ID, "summon_frost_haunted");
     public static final Identifier RAINBOW_CORAL = Identifier.of(MOD_ID, "rainbow_coral");
@@ -135,15 +138,19 @@ public class LNE_Abilities {
     private static List<Spell.Trigger> damageDealt(float chance) {
         var triggers = new ArrayList<>(SpellBuilder.Triggers.meleeImpact());
         triggers.add(SpellBuilder.Triggers.arrowHit());
+        triggers.add(spellDamageDealt());
+        triggers.forEach(trigger -> withChance(trigger, chance));
+        return triggers;
+    }
+
+    private static Spell.Trigger spellDamageDealt() {
         var spellHit = new Spell.Trigger();
         spellHit.type = Spell.Trigger.Type.SPELL_IMPACT_SPECIFIC;
         spellHit.spell = new Spell.Trigger.SpellCondition();
         spellHit.spell.type = Spell.Type.ACTIVE;
         spellHit.impact = new Spell.Trigger.ImpactCondition();
         spellHit.impact.impact_type = Spell.Impact.Action.Type.DAMAGE.toString();
-        triggers.add(spellHit);
-        triggers.forEach(trigger -> withChance(trigger, chance));
-        return triggers;
+        return spellHit;
     }
 
     private static List<Spell.Trigger> kills(float chance) {
@@ -344,7 +351,7 @@ public class LNE_Abilities {
                 cloud.placement.location_offset_z = direction[1] * axisStep * step;
                 cloud.spawn = new Spell.Delivery.Cloud.Spawn();
                 if (ringSound) {
-                    cloud.spawn.sound = Sound.withVolume(Identifier.of("block.glass.break"), 0.6F);
+                    cloud.spawn.sound = Sound.withVolume(Identifier.of("mrpg_lib", "glacial_spikes"), 0.6F);
                 }
                 cloud.spawn.visuals = Fx.Visuals.of(
                         ParticleGroupBuilder.of(SpellEngineParticles.frost_shard)
@@ -368,6 +375,63 @@ public class LNE_Abilities {
 
         var damage = SpellBuilder.Impacts.damage(0.6F);
         damage.sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));
+        spell.impacts = List.of(damage, freezing(3.0F));
+        return new Entry(id, spell, title, description, null);
+    }
+
+    private static final int GLACIAL_CURSE_STEPS = 4;
+    private static final float GLACIAL_CURSE_DISTANCE = 5.0F;
+    private static final float GLACIAL_CURSE_CLOSEST = 0.8F;
+    private static final int GLACIAL_CURSE_STEP_TICKS = 3;
+
+    public static Entry glacial_curse = add(glacial_curse());
+    private static Entry glacial_curse() {
+        var id = Identifier.of(MOD_ID, "glacial_curse");
+        var title = "Glacial Curse";
+        var description = "Spell hits: {trigger_chance} chance for icicles to close in on the target from 4 sides, dealing {damage} damage and Freezing.";
+
+        var spell = relicPassive(SpellSchools.FROST);
+        spell.tooltip.name = new Spell.Tooltip.LineOptions(true, true);
+        spell.tooltip.description.show_in_compact = false;
+        SpellBuilder.Cost.cooldown(spell, 15.0F);
+        spell.passive.triggers = List.of(withChance(spellDamageDealt(), 0.20F));
+        spell.range = 32.0F;
+        spell.deliver.type = Spell.Delivery.Type.CLOUD;
+        var clouds = new ArrayList<Spell.Delivery.Cloud>();
+        int[][] directions = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+        for (int step = 0; step < GLACIAL_CURSE_STEPS; step++) {
+            float distance = GLACIAL_CURSE_CLOSEST + (GLACIAL_CURSE_DISTANCE - GLACIAL_CURSE_CLOSEST) * (GLACIAL_CURSE_STEPS - 1 - step) / (GLACIAL_CURSE_STEPS - 1);
+            float axis = distance / (float) Math.sqrt(2);
+            for (var direction : directions) {
+                var cloud = new Spell.Delivery.Cloud();
+                cloud.volume.radius = 0.9F;
+                cloud.time_to_live_seconds = (ERUPTION_APEX_TICK * 2 - 1) / 20F;
+                cloud.impact_tick_interval = ERUPTION_APEX_TICK;
+                cloud.delay_ticks = step * GLACIAL_CURSE_STEP_TICKS;
+                cloud.placement = new Spell.EntityPlacement();
+                cloud.placement.force_onto_ground = true;
+                cloud.placement.location_offset_x = direction[0] * axis;
+                cloud.placement.location_offset_z = direction[1] * axis;
+                cloud.spawn = new Spell.Delivery.Cloud.Spawn();
+                if (direction == directions[0]) {
+                    cloud.spawn.sound = Sound.withVolume(Identifier.of("mrpg_lib", "glacial_spikes"), 0.4F);
+                }
+                cloud.spawn.visuals = Fx.Visuals.of(
+                        ParticleGroupBuilder.of(SpellEngineParticles.frost_shard)
+                                .batch(b -> b.shape(ParticleGroup.Shape.PILLAR)
+                                        .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
+                                        .count(8).speed(0.3F, 0.6F)),
+                        ParticleGroupBuilder.of(SpellEngineParticles.snowflake)
+                                .batch(b -> b.shape(ParticleGroup.Shape.CIRCLE)
+                                        .verticalOrigin(ParticleGroupBuilder.Batches.FEET)
+                                        .count(5).speed(0.1F, 0.3F))).models(eruptionIcicle());
+                clouds.add(cloud);
+            }
+        }
+        spell.deliver.clouds = clouds;
+
+        var damage = SpellBuilder.Impacts.damage(0.4F);
+        damage.sound = Sound.withVolume(Identifier.of("spell_engine", "generic_frost_impact"), 0.6F);
         spell.impacts = List.of(damage, freezing(3.0F));
         return new Entry(id, spell, title, description, null);
     }
@@ -406,6 +470,34 @@ public class LNE_Abilities {
         var weakness = SpellBuilder.Impacts.effectSet("weakness", 3.0F, 0);
         spell.impacts = List.of(damage, weakness);
         return new Entry(id, spell, title, description, null);
+    }
+
+    public static Entry icicle_barrage = add(icicle_barrage());
+    private static Entry icicle_barrage() {
+        var title = "Icicle Barrage";
+        var description = "Conjure " + ICICLE_BARRAGE_COUNT + " icicles behind you. One after another they fly at the nearest enemy, each dealing {damage} damage and inflicting Freezing.";
+
+        var spell = activeRelicSpell(SpellSchools.FROST, 0.0F);
+        spell.cost.item = new Spell.Cost.Item();
+        spell.cost.item.id = "runes:frost_stone";
+        spell.cost.item.amount = 1;
+        spell.range = 22.0F;
+        spell.active.cast = new Spell.Active.Cast();
+        spell.active.cast.duration = 1.8F;
+        spell.active.cast.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_charge");
+        spell.active.cast.sound = new Sound(Identifier.of("spell_engine", "generic_frost_casting"));
+        spell.release.animation = PlayerAnimation.of("spell_engine:one_handed_projectile_release");
+        spell.release.sound = Sound.withVolume(Identifier.of("block.amethyst_block.resonate"), 0.6F);
+        spell.target.type = Spell.Target.Type.CASTER;
+
+        spell.deliver.type = Spell.Delivery.Type.CUSTOM;
+        spell.deliver.custom = new Spell.Delivery.Custom();
+        spell.deliver.custom.handler = ICICLE_BARRAGE.toString();
+
+        var damage = SpellBuilder.Impacts.damage(0.3F);
+        damage.sound = Sound.withVolume(Identifier.of("spell_engine", "generic_frost_impact"), 0.6F);
+        spell.impacts = List.of(damage, freezing(3.0F));
+        return new Entry(ICICLE_BARRAGE, spell, title, description, null);
     }
 
     public static Entry corrupted_ender_pearl = add(corrupted_ender_pearl());

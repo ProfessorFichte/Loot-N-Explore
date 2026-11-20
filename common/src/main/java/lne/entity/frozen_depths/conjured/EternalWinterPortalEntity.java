@@ -3,6 +3,7 @@ package lne.entity.frozen_depths.conjured;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityDimensions;
 import java.util.List;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import lne.LneMod;
 import com.mrpg_lib.fx.FxParams;
@@ -44,6 +45,7 @@ public class EternalWinterPortalEntity extends HostileEntity {
     private static final TrackedData<Integer> SPAWN_INTERVAL = DataTracker.registerData(EternalWinterPortalEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> FIRST_SPAWN_DELAY = DataTracker.registerData(EternalWinterPortalEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> LARGE = DataTracker.registerData(EternalWinterPortalEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Boolean> SHIELDED = DataTracker.registerData(EternalWinterPortalEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final float LARGE_SCALE = 2.0F;
     private static final int LARGE_PARTICLE_BOOST = 3;
     public static final int DEFAULT_LIFETIME = 400;
@@ -90,7 +92,12 @@ public class EternalWinterPortalEntity extends HostileEntity {
     }
 
     private boolean isShielded() {
-        return this.age < shieldTicks;
+        return this.getWorld().isClient ? this.dataTracker.get(SHIELDED) : this.age < shieldTicks;
+    }
+
+    @Override
+    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+        return false;
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -106,6 +113,7 @@ public class EternalWinterPortalEntity extends HostileEntity {
         builder.add(FIRST_SPAWN_DELAY, DEFAULT_FIRST_SPAWN_DELAY);
         builder.add(SPAWN_INTERVAL, DEFAULT_SPAWN_INTERVAL);
         builder.add(LARGE, false);
+        builder.add(SHIELDED, false);
     }
 
     public EternalWinterPortalEntity large() {
@@ -176,13 +184,16 @@ public class EternalWinterPortalEntity extends HostileEntity {
             if (this.age % (charging ? 1 : 2) == 0) {
                 int bursts = this.dataTracker.get(LARGE) ? LARGE_PARTICLE_BOOST : 1;
                 for (int i = 0; i < bursts; i++) {
-                    MrpgFx.playLocal(LNEFx.ETERNAL_WINTER_PORTAL, FxParams.on(this).scale(fxScale()));
+                    MrpgFx.playLocal(isShielded() ? LNEFx.ETERNAL_WINTER_PORTAL : LNEFx.ETERNAL_WINTER_PORTAL_VULNERABLE, FxParams.on(this).scale(fxScale()));
                 }
             }
             return;
         }
         if (hitSoundCooldown > 0) {
             hitSoundCooldown--;
+        }
+        if (this.dataTracker.get(SHIELDED) != isShielded()) {
+            this.dataTracker.set(SHIELDED, isShielded());
         }
         if (ownerGone()) {
             close(false);
@@ -228,6 +239,9 @@ public class EternalWinterPortalEntity extends HostileEntity {
                 mob.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
                 mob.initialize(serverWorld, serverWorld.getLocalDifficulty(mob.getBlockPos()), SpawnReason.MOB_SUMMONED, null);
                 empower(mob);
+                if (ownerUuid != null) {
+                    OwnedSummons.mark(mob, ownerUuid);
+                }
                 LivingEntity target = summonTarget(serverWorld);
                 if (target != null) {
                     mob.setTarget(target);
@@ -262,6 +276,10 @@ public class EternalWinterPortalEntity extends HostileEntity {
         PlayerEntity player = world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), TARGET_SEARCH_RANGE,
                 candidate -> candidate instanceof PlayerEntity p && !p.isSpectator() && !p.isCreative());
         return player;
+    }
+
+    public boolean isOwnedBy(UUID id) {
+        return id.equals(ownerUuid);
     }
 
     public void close(boolean byFire) {

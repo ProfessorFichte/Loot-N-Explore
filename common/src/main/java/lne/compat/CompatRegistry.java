@@ -43,6 +43,7 @@ public class CompatRegistry {
 
         LNE_RelicItems.register();
         RelicLootInjection.init();
+        CompatPotionLoot.init();
 
         if (!LNEPlatform.isModLoaded("lne_archers")) {
             LNE_WeaponItems.registerRanged();

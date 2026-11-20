@@ -35,6 +35,7 @@ public class RelicSpellHandlers {
 
     public static void register() {
         SpellHandlers.registerCustomDelivery(LNE_Abilities.VOID_RIFT, RelicSpellHandlers::voidRift);
+        SpellHandlers.registerCustomDelivery(LNE_Abilities.ICICLE_BARRAGE, IcicleBarrageDelivery::deliver);
         SpellHandlers.registerCustomImpact(LNE_Abilities.SUMMON_SKELETON, (entry, power, caster, target, context) -> {
             if (!(caster instanceof ServerPlayerEntity player)) return new SpellHandlers.ImpactResult(false, false);
             double value = power.nonCriticalValue();

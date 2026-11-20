@@ -143,6 +143,12 @@ public final class LNEFx {
             .addSound(FxSound.of(SoundEvents.BLOCK_CONDUIT_ACTIVATE, 0.7F, 1.4F))
             .addSound(FxSound.of(SoundEvents.ENTITY_GENERIC_SPLASH, 0.5F, 1.2F).delay(10).repeat(20))));
 
+    public static final FxEffect GLAZE_STORM = register("mob/glaze/storm", FxPresets.STORM.tweak(t -> t
+            .radius(1.2F).height(2.2F).turns(2.5F).duration(20).count(0.1F)
+            .secondaryVanillaParticle(ParticleTypes.CLOUD)
+            .color(ICE, 0xFFFFFF)
+            .silent()));
+
     public static final FxEffect FROZEN_TEMPEST = register("weapon/frozen_tempest", FxPresets.STORM.tweak(t -> t
             .radius(3.0F).duration(100)
             .secondaryVanillaParticle(ParticleTypes.CLOUD)
@@ -371,6 +377,9 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.4F).count(16).velocity(FxVelocity.OUTWARD).speed(0.05F, 0.12F).particle(Particles.FROZEN_FLAME))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.6F).count(30).velocity(FxVelocity.OUTWARD).speed(0.08F, 0.2F).particle(Particles.FREEZING_SNOWFLAKE))
             .sound(SoundEvents.PARTICLE_SOUL_ESCAPE.value(), 1.0F, 0.7F)
+            .sound(FxSound.of(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.5F, 1.4F))
+            .sound(FxSound.of(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 0.5F))
+            .sound(FxSound.of(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK, 1.2F, 0.6F))
             .build());
 
     public static final FxEffect MONARCH_BARRIER_RAISE = register("boss/frost_monarch/barrier_raise", FxPresets.PILLAR.tweak(t -> t
@@ -395,9 +404,15 @@ public final class LNEFx {
             .sound(SoundEvents.ENTITY_EVOKER_CAST_SPELL, 1.5F, 0.6F)
             .addSound(FxSound.of(MRPGLibSounds.FROST_CRACKLE_LONG.soundEvent(), 1.0F, 1.0F))));
 
+    public static final FxEffect ETERNAL_WINTER_PORTAL_VULNERABLE = register("boss/frost_monarch/eternal_winter_portal_vulnerable", FxEffect.builder()
+            .layer(FxLayer.of(FxShape.SHELL).radius(1.0F).anchor(FxAnchor.ENTITY).count(16).motion(FxMotion.STATIC).particle(ParticleTypes.SNOWFLAKE))
+            .layer(FxLayer.of(FxShape.SHELL).radius(0.95F).anchor(FxAnchor.ENTITY).count(5).motion(FxMotion.STATIC).colored(ColoredParticles.SNOWFLAKE, ICE))
+            .layer(FxLayer.of(FxShape.SPHERE).radius(0.5F).anchor(FxAnchor.ENTITY).count(3).motion(FxMotion.FLOAT).colored(ColoredParticles.SNOWFLAKE, ICE_DEEP))
+            .build());
+
     public static final FxEffect ETERNAL_WINTER_PORTAL = register("boss/frost_monarch/eternal_winter_portal", FxEffect.builder()
-            .layer(FxLayer.of(FxShape.SHELL).radius(1.0F).anchor(FxAnchor.ENTITY).count(22).motion(FxMotion.STATIC).particle(Particles.FREEZING_SNOWFLAKE))
-            .layer(FxLayer.of(FxShape.SHELL).radius(0.95F).anchor(FxAnchor.ENTITY).count(6).motion(FxMotion.STATIC).colored(ColoredParticles.SNOWFLAKE, ICE))
+            .layer(FxLayer.of(FxShape.SHELL).radius(1.0F).anchor(FxAnchor.ENTITY).count(16).motion(FxMotion.STATIC).particle(Particles.FREEZING_SNOWFLAKE))
+            .layer(FxLayer.of(FxShape.SHELL).radius(0.95F).anchor(FxAnchor.ENTITY).count(5).motion(FxMotion.STATIC).colored(ColoredParticles.SNOWFLAKE, ICE))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.5F).anchor(FxAnchor.ENTITY).count(3).motion(FxMotion.FLOAT).colored(ColoredParticles.SNOWFLAKE, ICE_DEEP))
             .build());
 
@@ -424,8 +439,8 @@ public final class LNEFx {
     public static final FxEffect ETERNAL_WINTER_PORTAL_RELEASE = register("boss/frost_monarch/eternal_winter_portal_release", FxEffect.builder()
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.8F).count(40).velocity(FxVelocity.OUTWARD).speed(0.15F, 0.35F).particle(Particles.FREEZING_SNOWFLAKE))
             .layer(FxLayer.of(FxShape.RING).radius(1.0F).yOffset(-0.9F).count(20).velocity(FxVelocity.OUTWARD).speed(0.05F, 0.1F).colored(ColoredParticles.CLOUD, ICE))
+            .sound(MRPGLibSounds.FROST_TELEPORT.soundEvent(), 1.0F, 0.8F)
             .sound(SoundEvents.ENTITY_STRAY_AMBIENT, 1.0F, 0.7F)
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 0.6F, 0.5F)
             .build());
 
     public static final FxEffect PORTAL_MARKER = register("event/frostsiege/portal_marker", FxPresets.PILLAR.tweak(t -> t
@@ -458,7 +473,7 @@ public final class LNEFx {
                     .particle(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.BLUE_ICE.getDefaultState())))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.8F).count(18).velocity(FxVelocity.RANDOM).speed(0.02F, 0.06F).colored(ColoredParticles.SNOWFLAKE, ICE))
             .layer(FxLayer.of(FxShape.RING).radius(0.9F).anchor(FxAnchor.GROUND).count(14).velocity(FxVelocity.OUTWARD).speed(0.03F, 0.07F).colored(ColoredParticles.CLOUD, ICE_DEEP))
-            .sound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 0.7F, 1.5F)
+            .sound(MRPGLibSounds.FROST_TELEPORT.soundEvent(), 0.8F, 1.0F)
             .sound(SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, 1.0F, 1.3F)
             .build());
 

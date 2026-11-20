@@ -1,6 +1,8 @@
 package lne.mixin;
 
 import lne.effects.Effects;
+import lne.entity.frozen_depths.conjured.OwnedSummons;
+import net.minecraft.server.world.ServerWorld;
 import lne.item.weapons.ShieldBlockAbility;
 import lne.util.LneTags;
 import net.minecraft.entity.Entity;
@@ -25,6 +27,13 @@ public abstract class LivingEntityMixin {
 
     @Unique
     LivingEntity livingEntity = (LivingEntity) (Object) (this);
+    @Inject(method = "drop(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;)V", at = @At("HEAD"), cancellable = true)
+    private void lne$noLootForDismissedSummons(ServerWorld world, DamageSource source, CallbackInfo ci) {
+        if (livingEntity.getCommandTags().contains(OwnedSummons.NO_LOOT_TAG)) {
+            ci.cancel();
+        }
+    }
+
     @Inject(at = @At("HEAD"), method = "damage", cancellable = true)
     public void frostResistanceDamageMixin(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (livingEntity.hasStatusEffect(Effects.FROST_RESISTANCE.registryEntry) && source.isIn(DamageTypeTags.IS_FREEZING)) {

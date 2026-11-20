@@ -61,7 +61,7 @@
         },
         "spawn": {
           "sound": {
-            "id": "minecraft:block.glass.break",
+            "id": "mrpg_lib:glacial_spikes",
             "volume": 0.6
           },
           "visuals": {
@@ -529,7 +529,7 @@
         },
         "spawn": {
           "sound": {
-            "id": "minecraft:block.glass.break",
+            "id": "mrpg_lib:glacial_spikes",
             "volume": 0.6
           },
           "visuals": {
@@ -997,7 +997,7 @@
         },
         "spawn": {
           "sound": {
-            "id": "minecraft:block.glass.break",
+            "id": "mrpg_lib:glacial_spikes",
             "volume": 0.6
           },
           "visuals": {
@@ -1465,7 +1465,7 @@
         },
         "spawn": {
           "sound": {
-            "id": "minecraft:block.glass.break",
+            "id": "mrpg_lib:glacial_spikes",
             "volume": 0.6
           },
           "visuals": {
@@ -1933,7 +1933,7 @@
         },
         "spawn": {
           "sound": {
-            "id": "minecraft:block.glass.break",
+            "id": "mrpg_lib:glacial_spikes",
             "volume": 0.6
           },
           "visuals": {

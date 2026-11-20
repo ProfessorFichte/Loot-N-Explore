@@ -157,7 +157,7 @@ public class StraightIcicleEntity extends Entity implements Ownable {
                     this.getWorld().sendEntityStatus(this, (byte)4);
                     this.startedAttack = true;
                     if (this.eruptSound) {
-                        playWorldSound(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 0.8F, 0.9F + this.random.nextFloat() * 0.2F);
+                        playWorldSound(MRPGLibSounds.GLACIAL_SPIKES.soundEvent(), 0.8F, 0.9F + this.random.nextFloat() * 0.2F);
                     }
                 }
 

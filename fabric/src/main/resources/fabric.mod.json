@@ -33,7 +33,7 @@
     "java": ">=21",
     "fabric-api": "*",
     "structure_pool_api": "*",
-    "mrpg_lib": "*"
+    "mrpg_lib": ">=${more_rpg_library_version}"
   },
   "suggests": {
     "spell_engine": "*",

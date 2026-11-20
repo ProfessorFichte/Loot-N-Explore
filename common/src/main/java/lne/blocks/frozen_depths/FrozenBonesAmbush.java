@@ -60,6 +60,7 @@ public final class FrozenBonesAmbush {
         if (victim != null && victim.isAlive() && !victim.isCreative() && !victim.isSpectator()) {
             haunted.setTarget(victim);
         }
+        haunted.startEmergingFromGround();
         world.spawnEntityAndPassengers(haunted);
     }
 }

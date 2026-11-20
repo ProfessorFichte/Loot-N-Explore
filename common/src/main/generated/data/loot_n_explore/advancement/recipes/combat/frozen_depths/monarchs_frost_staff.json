@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_frozen_soul": {
+    "has_monarchs_crown": {
       "conditions": {
         "items": [
           {
-            "items": "loot_n_explore:frozen_soul"
+            "items": "loot_n_explore:monarchs_crown"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_frozen_soul"
+      "has_monarchs_crown"
     ]
   ],
   "rewards": {

@@ -153,7 +153,7 @@ public final class FrozenDepthsTuning {
                 .setCustom(ICE_WALL_DETECTION_RANGE, 32.0)
                 .setCustom(BARRIER_ENABLED, 1)
                 .setCustom(BARRIER_USES, 3)
-                .setCustom(PORTAL_SPAWN_RADIUS, 25.0)
+                .setCustom(PORTAL_SPAWN_RADIUS, 14.0)
                 .setCustom(PORTAL_LIFETIME, 400)
                 .setCustom(PORTAL_FIRST_SPAWN_DELAY, 20)
                 .setCustom(PORTAL_SPAWN_INTERVAL, 100)

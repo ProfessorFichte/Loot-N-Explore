@@ -13,6 +13,7 @@ import lne.item.weapons.LNE_WeaponItems;
 import net.minecraft.util.Identifier;
 import net.spell_engine.rpg_series.config.ConfigFile;
 import net.spell_engine.api.spell.SpellDataComponents;
+import net.spell_engine.api.spell.container.SpellChoice;
 import net.spell_engine.api.spell.container.SpellContainer;
 import net.spell_engine.api.spell.container.SpellContainers;
 import net.spell_engine.rpg_series.datagen.WeaponSkills;
@@ -132,8 +133,12 @@ public class SpellEngine_LNE {
             setRanged(context, LNE_WeaponItems.ELDER_GUARDIAN_CROSSBOW, MrpgLibSpells.reef_arrows.id());
 
             if (StaffItem.hasSpellEngineSpell()) {
-                context.modify(CommonItems.MONARCHS_FROST_STAFF.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
-                        SpellContainers.forMagicWeapon().withSpellId(Identifier.of("wizards", "frostbolt"))));
+                context.modify(CommonItems.MONARCHS_FROST_STAFF.item(), builder -> {
+                    builder.add(SpellDataComponents.SPELL_CONTAINER, SpellContainers.forMagicWeapon()
+                            .withBindingPool(LNE_Abilities.MONARCHS_STAFF_SPELLS)
+                            .withAdditionalSpell(List.of(LNE_Abilities.glacial_curse.id().toString())));
+                    builder.add(SpellDataComponents.SPELL_CHOICE, SpellChoice.of(LNE_Abilities.MONARCHS_STAFF_SPELLS.toString()));
+                });
             }
             context.modify(CommonItems.GUARDS_FROST_LANCE.item(), builder -> builder.add(SpellDataComponents.SPELL_CONTAINER,
                     SpellContainers.forMeleeWeapon().withSpellId(WeaponSkills.IMPALE.id())

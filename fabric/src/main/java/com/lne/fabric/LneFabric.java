@@ -24,6 +24,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.Text;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import lne.entity.StructureSpawnRules;
+import net.minecraft.entity.SpawnRestriction;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 
@@ -41,6 +43,7 @@ public final class LneFabric implements ModInitializer {
         LneMod.registerBlocks();
         LneMod.registerEntities();
         ModEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
+        StructureSpawnRules.register(SpawnRestriction::register);
         LneMod.registerItems();
         LneMod.registerSounds();
         LneMod.registerItemGroups();

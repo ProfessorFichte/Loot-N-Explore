@@ -33,6 +33,11 @@ public class LneLootTables {
     public static final RegistryKey<LootTable> ARCHAEOLOGY_PLAINS_SAVANNA_TAIGA_VILLAGE =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "archaeology/village/plains_savanna_taiga"));
 
+    public static final RegistryKey<LootTable> FROSTSIEGE_REWARD =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "gameplay/frostsiege/reward"));
+    public static final RegistryKey<LootTable> FROSTSIEGE_REWARD_OMINOUS =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "gameplay/frostsiege/reward_ominous"));
+
     public static RegistryKey<LootTable> frozenDepthsEntity(EntityType<?> type) {
         return RegistryKey.of(RegistryKeys.LOOT_TABLE, Registries.ENTITY_TYPE.getId(type).withPrefixedPath("entities/frozen_depths/"));
     }

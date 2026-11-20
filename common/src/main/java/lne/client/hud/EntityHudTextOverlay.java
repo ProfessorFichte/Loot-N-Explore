@@ -14,6 +14,7 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import lne.client.LneClient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public final class EntityHudTextOverlay {
     private static final int REFERENCE_HEIGHT = 240;
+    private static final int MIN_ICON_SIZE = 16;
     private static final float GLYPH_FADE_IN_TICKS = 3.0F;
     private static final float GLYPH_DROP_IN = 2.0F;
     private static final int ICON_SIZE = 64;
@@ -59,7 +61,7 @@ public final class EntityHudTextOverlay {
             LINES.clear();
             linesWorld = client.world;
         }
-        LINES.removeIf(line -> line.spec().style() == payload.style());
+        LINES.clear();
         LINES.add(layout(client.textRenderer, payload, client.world.getTime()));
     }
 
@@ -100,8 +102,8 @@ public final class EntityHudTextOverlay {
             }
             switch (line.spec().style()) {
                 case BANNER -> renderBanner(context, client.textRenderer, line, Math.max(0, elapsed));
-                case TYPEWRITER -> renderCentered(context, client.textRenderer, line, Math.max(0, elapsed), 0.3F, 1.5F, 1.0F, 3.0F);
-                case TYPEWRITER_ICICLE_FALL -> renderCentered(context, client.textRenderer, line, Math.max(0, elapsed), 0.38F, 2.5F, 1.5F, 4.0F);
+                case TYPEWRITER -> renderCentered(context, client.textRenderer, line, Math.max(0, elapsed), 1.5F, 1.0F, 3.0F);
+                case TYPEWRITER_ICICLE_FALL -> renderCentered(context, client.textRenderer, line, Math.max(0, elapsed), 2.5F, 1.5F, 4.0F);
             }
         }
     }
@@ -120,38 +122,48 @@ public final class EntityHudTextOverlay {
         return MathHelper.clamp((line.totalTicks() - elapsed) / fade, 0.0F, 1.0F);
     }
 
+    private static float textTop(DrawContext context, TextRenderer textRenderer, float scale) {
+        float height = MathHelper.clamp(LneClient.clientConfig.value.hud_text_height, 0.05F, 0.95F);
+        return context.getScaledWindowHeight() * height - textRenderer.fontHeight * scale / 2.0F;
+    }
+
     private static void renderBanner(DrawContext context, TextRenderer textRenderer, Line line, float elapsed) {
         float scale = fitScale(context, line, 2.0F, 1.5F, 4.0F);
         float alpha = fadeOut(line, elapsed);
-        Identifier icon = line.spec().icon().orElse(null);
-        float iconBlock = icon != null ? ICON_SIZE + ICON_SPACING : 0;
-        float totalHeight = (iconBlock + textRenderer.fontHeight) * scale;
-        float startY = (context.getScaledWindowHeight() - totalHeight) / 2.0F;
+        float top = textTop(context, textRenderer, scale);
         double shakeX = (Math.random() - 0.5) * BANNER_SHAKE;
         double shakeY = (Math.random() - 0.5) * BANNER_SHAKE;
+        double centerX = context.getScaledWindowWidth() / 2.0 + shakeX;
 
-        context.getMatrices().push();
-        context.getMatrices().translate(context.getScaledWindowWidth() / 2.0 + shakeX, startY + shakeY, OVERLAY_Z);
-        context.getMatrices().scale(scale, scale, 1.0F);
-        if (icon != null) {
+        Identifier icon = line.spec().icon().orElse(null);
+        float spacing = ICON_SPACING * scale;
+        float iconSize = Math.min(ICON_SIZE * scale, top - spacing - 2.0F);
+        if (icon != null && iconSize >= MIN_ICON_SIZE) {
             float iconAlpha = alpha * MathHelper.clamp(elapsed / ICON_FADE_IN_TICKS, 0.0F, 1.0F);
+            context.getMatrices().push();
+            context.getMatrices().translate(centerX, top - spacing - iconSize + shakeY, OVERLAY_Z);
+            context.getMatrices().scale(iconSize / ICON_SIZE, iconSize / ICON_SIZE, 1.0F);
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             context.setShaderColor(1.0F, 1.0F, 1.0F, iconAlpha);
             context.drawTexture(icon, -ICON_SIZE / 2, 0, 0, 0, ICON_SIZE, ICON_SIZE, ICON_SIZE, ICON_SIZE);
             context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             RenderSystem.disableBlend();
+            context.getMatrices().pop();
         }
-        drawGlyphs(context, textRenderer, line, elapsed, -line.width() / 2.0F, iconBlock, alpha);
+
+        context.getMatrices().push();
+        context.getMatrices().translate(centerX, top + shakeY, OVERLAY_Z);
+        context.getMatrices().scale(scale, scale, 1.0F);
+        drawGlyphs(context, textRenderer, line, elapsed, -line.width() / 2.0F, 0, alpha);
         context.getMatrices().pop();
     }
 
     private static void renderCentered(DrawContext context, TextRenderer textRenderer, Line line, float elapsed,
-                                       float heightFraction, float base, float min, float max) {
+                                       float base, float min, float max) {
         float scale = fitScale(context, line, base, min, max);
-        float centerY = context.getScaledWindowHeight() * heightFraction;
         context.getMatrices().push();
-        context.getMatrices().translate(context.getScaledWindowWidth() / 2.0, centerY - textRenderer.fontHeight * scale / 2.0F, OVERLAY_Z);
+        context.getMatrices().translate(context.getScaledWindowWidth() / 2.0, textTop(context, textRenderer, scale), OVERLAY_Z);
         context.getMatrices().scale(scale, scale, 1.0F);
         drawGlyphs(context, textRenderer, line, elapsed, -line.width() / 2.0F, 0, fadeOut(line, elapsed));
         context.getMatrices().pop();
