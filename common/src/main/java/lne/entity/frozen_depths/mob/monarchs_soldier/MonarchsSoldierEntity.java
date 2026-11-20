@@ -4,6 +4,7 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.registry.RegistryKey;
 import lne.util.LneLootTables;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -252,11 +253,9 @@ public class MonarchsSoldierEntity extends SkeletonEntity implements ISpellCaste
         if (isBlocking() && !source.isIn(DamageTypeTags.BYPASSES_SHIELD)) {
             Entity origin = source.getSource() != null ? source.getSource() : source.getAttacker();
             if (origin != null) {
-                Vec3d attackDir = origin.getPos().subtract(this.getPos()).normalize();
-                Vec3d facing = Vec3d.fromPolar(0, this.getYaw());
-                boolean fromBehind = attackDir.dotProduct(facing) < -0.3;
-                boolean isProjectile = source.isIn(DamageTypeTags.IS_PROJECTILE);
-                if (!(fromBehind && isProjectile)) {
+                Vec3d attackDir = origin.getPos().subtract(this.getPos()).multiply(1.0, 0.0, 1.0).normalize();
+                Vec3d facing = Vec3d.fromPolar(0, this.getBodyYaw());
+                if (attackDir.dotProduct(facing) > 0.0) {
                     if (!this.getWorld().isClient) {
                         this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
                     }

@@ -12,6 +12,7 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import static lne.LneMod.MOD_ID;
 
@@ -21,12 +22,22 @@ public abstract class AbstractIcicleModelRenderer<T extends Entity> extends Enti
 
     // spike model spans y=-16 to y=28 (2.75 blocks)
     private static final float MODEL_HEIGHT = 2.75F;
+    protected static final int ICICLE_GLOW = 10;
 
     protected AbstractIcicleModelRenderer(EntityRendererFactory.Context context) {
         super(context);
     }
 
     protected abstract float getEmergeProgress(T entity, float tickDelta);
+
+    protected int getMinBlockLight() {
+        return 0;
+    }
+
+    @Override
+    protected int getBlockLight(T entity, BlockPos pos) {
+        return Math.max(super.getBlockLight(entity, pos), getMinBlockLight());
+    }
 
     protected float getEmergeThreshold() {
         return 0.0F;

@@ -33,6 +33,11 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.SkeletonEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -51,6 +56,8 @@ public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEn
     }
 
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(FrostHauntedEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> GROUND_EMERGE_LEFT = DataTracker.registerData(FrostHauntedEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final int GROUND_EMERGE_TICKS = 50;
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState attackAnimationState2 = new AnimationState();
@@ -120,6 +127,55 @@ public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEn
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SPELL_CASTING, false);
+        builder.add(GROUND_EMERGE_LEFT, 0);
+    }
+
+    public void startEmergingFromGround() {
+        this.dataTracker.set(GROUND_EMERGE_LEFT, GROUND_EMERGE_TICKS);
+    }
+
+    public boolean isEmergingFromGround() {
+        return this.dataTracker.get(GROUND_EMERGE_LEFT) > 0;
+    }
+
+    public float groundEmergeProgress(float tickDelta) {
+        float left = this.dataTracker.get(GROUND_EMERGE_LEFT) - tickDelta;
+        return MathHelper.clamp(1.0F - left / GROUND_EMERGE_TICKS, 0.0F, 1.0F);
+    }
+
+    @Override
+    public boolean isAiDisabled() {
+        return super.isAiDisabled() || isEmergingFromGround();
+    }
+
+    @Override
+    public boolean isInvulnerableTo(DamageSource source) {
+        return isEmergingFromGround() && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY) || super.isInvulnerableTo(source);
+    }
+
+    private void tickGroundEmerge() {
+        int left = this.dataTracker.get(GROUND_EMERGE_LEFT);
+        if (left <= 0) {
+            return;
+        }
+        this.setVelocity(0.0, Math.min(0.0, this.getVelocity().y), 0.0);
+        BlockState ground = this.getWorld().getBlockState(this.getBlockPos().down());
+        if (this.getWorld().isClient) {
+            if (!ground.isAir() && this.age % 2 == 0) {
+                var effect = new BlockStateParticleEffect(ParticleTypes.BLOCK, ground);
+                for (int i = 0; i < 3; i++) {
+                    this.getWorld().addParticle(effect,
+                            this.getX() + (this.random.nextDouble() - 0.5) * 0.8, this.getY() + 0.05,
+                            this.getZ() + (this.random.nextDouble() - 0.5) * 0.8,
+                            (this.random.nextDouble() - 0.5) * 0.1, 0.15, (this.random.nextDouble() - 0.5) * 0.1);
+                }
+            }
+            return;
+        }
+        if (left == GROUND_EMERGE_TICKS && !ground.isAir()) {
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), ground.getSoundGroup().getBreakSound(), SoundCategory.HOSTILE, 1.0F, 0.6F);
+        }
+        this.dataTracker.set(GROUND_EMERGE_LEFT, left - 1);
     }
 
     @Override
@@ -240,6 +296,7 @@ public class FrostHauntedEntity extends SkeletonEntity implements ISpellCasterEn
     @Override
     public void tick() {
         super.tick();
+        tickGroundEmerge();
         this.castingBodyLock.tick();
 
         if (this.getWorld().isClient) {

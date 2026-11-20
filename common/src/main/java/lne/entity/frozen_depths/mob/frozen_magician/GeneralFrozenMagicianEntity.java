@@ -7,6 +7,8 @@ import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.util.damage.SpellDamage;
 import com.mrpg_lib.util.damage.SpellDamageProfile;
 import lne.entity.frozen_depths.conjured.FrostDecoyEntity;
+import lne.entity.frozen_depths.conjured.OwnedSummons;
+import net.minecraft.entity.damage.DamageSource;
 import lne.internal.fx.LNEFx;
 import lne.util.damage.FrostDamageProfiles;
 import net.minecraft.server.world.ServerWorld;
@@ -28,6 +30,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
+import lne.entity.frozen_depths.goal.KiteSpots;
 import net.spell_power.api.SpellSchools;
 
 public class GeneralFrozenMagicianEntity extends FrozenMagicianEntity {
@@ -108,18 +111,35 @@ public class GeneralFrozenMagicianEntity extends FrozenMagicianEntity {
             away = new Vec3d(this.random.nextDouble() - 0.5, 0.0, this.random.nextDouble() - 0.5);
         }
         Vec3d direction = away.normalize();
+        Vec3d best = null;
+        double bestScore = Double.NEGATIVE_INFINITY;
         for (double distance : BLINK_DISTANCES) {
             for (float turn : BLINK_TURNS) {
                 Vec3d column = this.getPos().add(direction.rotateY(turn).multiply(distance));
                 for (int dy : BLINK_HEIGHTS) {
                     Vec3d spot = standingSpot(column, this.getBlockY() + dy);
-                    if (spot != null && spot.squaredDistanceTo(threat.getPos()) >= BLINK_MIN_TARGET_DISTANCE * BLINK_MIN_TARGET_DISTANCE) {
-                        return spot;
+                    if (spot == null || spot.squaredDistanceTo(threat.getPos()) < BLINK_MIN_TARGET_DISTANCE * BLINK_MIN_TARGET_DISTANCE) {
+                        continue;
                     }
+                    double score = blinkScore(spot, turn);
+                    if (score > bestScore) {
+                        best = spot;
+                        bestScore = score;
+                    }
+                    break;
                 }
             }
         }
-        return null;
+        return best;
+    }
+
+    private double blinkScore(Vec3d spot, float turn) {
+        BlockPos feet = BlockPos.ofFloored(spot);
+        double score = KiteSpots.openness(this.getWorld(), feet) * 10.0 - Math.abs(turn) * 2.0;
+        if (KiteSpots.nearDrop(this.getWorld(), feet)) {
+            score -= 20.0;
+        }
+        return score;
     }
 
     @Nullable
@@ -190,5 +210,11 @@ public class GeneralFrozenMagicianEntity extends FrozenMagicianEntity {
                     .set(ThermooAttributes.FROST_RESISTANCE.getIdAsString(), 10.0);
         }
         return FrozenDepthsTuning.generalFrozenMagician(fallback);
+    }
+
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        super.onDeath(damageSource);
+        OwnedSummons.dismiss(this);
     }
 }

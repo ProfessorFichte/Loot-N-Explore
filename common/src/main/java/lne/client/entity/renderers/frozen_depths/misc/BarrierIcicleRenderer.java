@@ -9,6 +9,11 @@ public class BarrierIcicleRenderer extends AbstractIcicleModelRenderer<BarrierIc
     }
 
     @Override
+    protected int getMinBlockLight() {
+        return ICICLE_GLOW;
+    }
+
+    @Override
     protected float getEmergeThreshold() {
         return 0.01F;
     }

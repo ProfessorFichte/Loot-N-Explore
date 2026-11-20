@@ -62,6 +62,8 @@ public class FrostHauntedEntityRenderer extends AnimatedHumanoidRenderer<FrostHa
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta, scale);
         if (entity instanceof EmergingMinion && EmergingMinion.isEmerging(entity)) {
             matrices.translate(0.0F, -(1.0F - EmergingMinion.progress(entity, tickDelta)) * 2.0F, 0.0F);
+        } else if (entity.isEmergingFromGround()) {
+            matrices.translate(0.0F, -(1.0F - entity.groundEmergeProgress(tickDelta)) * 2.0F, 0.0F);
         }
     }
 

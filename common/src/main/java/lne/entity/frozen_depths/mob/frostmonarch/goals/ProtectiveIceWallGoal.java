@@ -203,8 +203,7 @@ public class ProtectiveIceWallGoal extends Goal {
         z /= slots.size();
         slots.clear();
         monarch.playCastFx();
-        world.playSound(null, x, monarch.getY(), z, MRPGLibSounds.FROST_CRACKLE.soundEvent(), SoundCategory.HOSTILE, 1.2F, 0.9F);
-        world.playSound(null, x, monarch.getY(), z, SoundEvents.BLOCK_AMETHYST_BLOCK_PLACE, SoundCategory.HOSTILE, 1.0F, 0.6F);
+        world.playSound(null, x, monarch.getY(), z, MRPGLibSounds.FROZEN_WALL.soundEvent(), SoundCategory.HOSTILE, 1.2F, 1.0F);
     }
 
     @Nullable

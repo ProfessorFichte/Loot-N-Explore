@@ -13,6 +13,7 @@ import lne.entity.frozen_depths.FrozenDepthsTuning;
 import com.mrpg_lib.entity.ISpellCasterEntity;
 import lne.config.TweaksConfig;
 import lne.entity.frozen_depths.goal.CastingBodyLock;
+import lne.entity.frozen_depths.goal.KiteSpots;
 import lne.entity.frozen_depths.goal.MobSpellGoals;
 import net.minecraft.entity.mob.MobEntity;
 import lne.entity.frozen_depths.projectile.StraightIcicleEntity;
@@ -78,6 +79,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
     private boolean spellCasting;
     private final CastingBodyLock castingBodyLock = new CastingBodyLock(this, SPELL_CASTING);
     private int castHoldTicks = 0;
+    private int escapeTicks = 0;
     @Nullable
     private MobSpellGoals.Factory spellGoals;
 
@@ -89,6 +91,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
     private static final double STRAFE_SPEED_FACTOR = 0.25;
     private static final Identifier FLEE_BOOST_ID = Identifier.of("loot_n_explore", "mage_retreat_boost");
     private static final double FLEE_STEP = 10.0;
+    private static final int ESCAPE_COMMIT_TICKS = 30;
     private static final int MODE_HOLD = 0;
     private static final int MODE_RETREAT = 1;
     private static final int MODE_APPROACH = 2;
@@ -309,6 +312,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
             if (rangeCooldown > 0) rangeCooldown--;
             if (singleCooldown > 0) singleCooldown--;
             if (postActionCooldown > 0) postActionCooldown--;
+            if (escapeTicks > 0) escapeTicks--;
             if (castHoldTicks > 0 && --castHoldTicks == 0) setCasting(false);
         }
 
@@ -350,14 +354,23 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
         if (!this.isCasting() && this.squaredDistanceTo(threat) < RETREAT_DISTANCE * RETREAT_DISTANCE && this.tryEvade(threat)) {
             return;
         }
-        if (this.getVisibilityCache().canSee(threat)) {
+        boolean canSee = this.getVisibilityCache().canSee(threat);
+        if (canSee && escapeTicks <= 0 && KiteSpots.isOpenBehind(this, threat)) {
             this.faceTarget(threat);
             applyBackstepSpeed();
             this.getNavigation().stop();
             this.getMoveControl().strafeTo(-1.0F, 0.0F);
             this.retreatedThisTick = true;
-        } else if (this.getNavigation().isIdle() || this.age % 15 == 0) {
-            this.fleeFrom(threat, FLEE_SPEED);
+            return;
+        }
+        if (this.getNavigation().isIdle() || this.age % 20 == 0) {
+            if (!KiteSpots.startEscape(this, threat, FLEE_SPEED)) {
+                this.fleeFrom(threat, FLEE_SPEED);
+            }
+            escapeTicks = ESCAPE_COMMIT_TICKS;
+        }
+        if (canSee) {
+            this.getLookControl().lookAt(threat, 30.0F, 30.0F);
         }
     }
 

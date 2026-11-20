@@ -2,6 +2,8 @@ package lne.entity.frozen_depths.projectile;
 
 import net.minecraft.entity.damage.DamageSource;
 import com.mrpg_lib.util.AllyHelper;
+import com.mrpg_lib.sounds.MRPGLibSounds;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import com.mrpg_lib.util.damage.SpellDamage;
 import lne.internal.ability.AbilityDamage;
@@ -31,6 +33,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
+import java.util.function.Consumer;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
 
 import static lne.util.HelperMethods.applyStatusEffect;
 import static lne.util.HelperMethods.getFreezingEffect;
@@ -84,6 +89,9 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
     private Shot shot = Shot.SINGLE;
     private int ticksAlive = 0;
     private int hoverTicks = 0;
+    private int autoLaunchTicks = 0;
+    private double autoLaunchRange = 0.0;
+    @Nullable private Consumer<LivingEntity> hitHandler;
     private float damageScale = 1.0F;
     private int freezingTicks = 0;
     private float fixedDamage = -1.0F;
@@ -122,6 +130,28 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
         this.prevX = this.getX();
         this.prevY = this.getY();
         this.prevZ = this.getZ();
+    }
+
+    public TrackingIcicleEntity(World world, LivingEntity owner, float slotRight, float slotUp) {
+        this(ModEntities.TRACKING_ICICLE, world);
+        this.setOwner(owner);
+        this.shot = Shot.VOLLEY;
+        this.dataTracker.set(SLOT_RIGHT, slotRight);
+        this.dataTracker.set(SLOT_UP, slotUp);
+        this.dataTracker.set(HOVERING, true);
+        this.updateHover(owner);
+        this.prevX = this.getX();
+        this.prevY = this.getY();
+        this.prevZ = this.getZ();
+    }
+
+    public void autoLaunch(int delayTicks, double range) {
+        this.autoLaunchTicks = Math.max(1, delayTicks);
+        this.autoLaunchRange = range;
+    }
+
+    public void setHitHandler(@Nullable Consumer<LivingEntity> hitHandler) {
+        this.hitHandler = hitHandler;
     }
 
     public void configureStaffShot(float damageScale, int freezingTicks) {
@@ -354,8 +384,31 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
         return closest;
     }
 
+    @Nullable
+    private LivingEntity nearestEnemy(LivingEntity owner) {
+        LivingEntity best = null;
+        double bestDistance = autoLaunchRange * autoLaunchRange;
+        for (LivingEntity candidate : this.getWorld().getEntitiesByClass(LivingEntity.class, owner.getBoundingBox().expand(autoLaunchRange),
+                candidate -> candidate != owner && candidate.isAlive() && AllyHelper.canHurt(owner, candidate)
+                        && (candidate instanceof Monster || candidate instanceof MobEntity mob && mob.getTarget() == owner))) {
+            double distance = candidate.squaredDistanceTo(owner);
+            if (distance <= bestDistance && owner.canSee(candidate)) {
+                bestDistance = distance;
+                best = candidate;
+            }
+        }
+        return best;
+    }
+
     private void hit(@Nullable LivingEntity owner, LivingEntity target) {
         Vec3d hitPos = aimPoint(target);
+        if (hitHandler != null) {
+            hitHandler.accept(target);
+            shatter(hitPos);
+            return;
+        }
+        this.getWorld().playSound(null, hitPos.x, hitPos.y, hitPos.z, MRPGLibSounds.ICICLE_HIT.soundEvent(), SoundCategory.HOSTILE, 0.8F,
+                0.9F + this.random.nextFloat() * 0.2F);
         // Magic damage goes through shields, so a raised shield takes the hit as a thrown projectile instead.
         DamageSource blockable = this.getDamageSources().thrown(this, owner);
         if (target.blockedByShield(blockable)) {
@@ -402,6 +455,14 @@ public class TrackingIcicleEntity extends Entity implements Ownable {
             return;
         }
         updateHover(livingOwner);
+        if (!this.getWorld().isClient && autoLaunchTicks > 0 && --autoLaunchTicks == 0) {
+            LivingEntity enemy = nearestEnemy(livingOwner);
+            if (enemy != null) {
+                launch(enemy);
+            } else {
+                launch(livingOwner.getRotationVector());
+            }
+        }
     }
 
     private float calculateDamage(@Nullable LivingEntity owner) {

@@ -15,6 +15,8 @@ import com.mrpg_lib.entity.config.EntityAttributeConfig;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
 import lne.config.TweaksConfig;
 import lne.entity.frozen_depths.goal.CastingBodyLock;
+import lne.entity.frozen_depths.goal.KiteSpots;
+import lne.entity.frozen_depths.goal.MobFacing;
 import lne.entity.frozen_depths.goal.MobCompatGoals;
 import lne.entity.frozen_depths.goal.MobSpellGoals;
 import lne.compat.spell_engine.LneMobEvasion;
@@ -347,12 +349,22 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
         this.getWorld().spawnEntity(arrow);
     }
 
+    private static final double ESCAPE_START_DISTANCE = 6.0;
+    private static final double ESCAPE_STOP_DISTANCE = 11.0;
+    private static final double ESCAPE_SPEED = 1.3;
+    private static final int ESCAPE_MAX_TICKS = 60;
+    private static final int ESCAPE_COOLDOWN_TICKS = 40;
+
     private class NormalShotGoal extends Goal {
         private final FrozenRangerEntity ranger;
         private LivingEntity target;
         private int drawTimer = 0;
         private int shotCooldown = 0;
         private boolean released = false;
+        private boolean escaping = false;
+        private int escapeTicks = 0;
+        private int escapeRepath = 0;
+        private int escapeCooldown = 0;
 
         NormalShotGoal(FrozenRangerEntity ranger) {
             this.ranger = ranger;
@@ -382,6 +394,7 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
             drawTimer = 0;
             shotCooldown = 0;
             released = false;
+            escaping = false;
         }
 
         @Override
@@ -403,6 +416,22 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
             boolean canSee = ranger.getVisibilityCache().canSee(target);
 
             boolean drawing = ranger.isDrawingBow();
+
+            if (escapeCooldown > 0) {
+                escapeCooldown--;
+            }
+            if (!escaping && escapeCooldown <= 0 && distSq < ESCAPE_START_DISTANCE * ESCAPE_START_DISTANCE
+                    && !(drawing && drawTimer >= FrozenRangerAnimationTimes.ATTACK_PULL_START_TICK)) {
+                escaping = true;
+                escapeTicks = 0;
+                escapeRepath = 0;
+            }
+            if (escaping) {
+                if (escape(distSq, drawing)) {
+                    return;
+                }
+                drawing = ranger.isDrawingBow();
+            }
 
             if (!drawing && (distSq > 14.0 * 14.0 || !canSee)) {
                 ranger.getNavigation().startMovingTo(target, 1.0);
@@ -427,7 +456,11 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
                 return;
             }
 
-            ranger.faceTarget(target);
+            if (drawTimer >= FrozenRangerAnimationTimes.ATTACK_PULL_START_TICK) {
+                MobFacing.face(ranger, target);
+            } else {
+                ranger.faceTarget(target);
+            }
             if (drawTimer == FrozenRangerAnimationTimes.ATTACK_PULL_START_TICK) {
                 ranger.startBowPull();
             }
@@ -443,6 +476,33 @@ public class FrozenRangerEntity extends SkeletonEntity implements ISpellCasterEn
                 shotCooldown = ranger.tuning().getInt(FrozenDepthsTuning.SHOT_COOLDOWN, 20);
                 ranger.setDrawingBow(false);
             }
+        }
+
+        private boolean escape(double distSq, boolean drawing) {
+            if (distSq > ESCAPE_STOP_DISTANCE * ESCAPE_STOP_DISTANCE || ++escapeTicks > ESCAPE_MAX_TICKS) {
+                endEscape();
+                return false;
+            }
+            if (drawing) {
+                drawTimer = 0;
+                released = false;
+                ranger.setDrawingBow(false);
+                ranger.stopBowPull();
+            }
+            if (ranger.getNavigation().isIdle() || --escapeRepath <= 0) {
+                escapeRepath = 20;
+                if (!KiteSpots.startEscape(ranger, target, ESCAPE_SPEED)) {
+                    endEscape();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void endEscape() {
+            escaping = false;
+            escapeCooldown = ESCAPE_COOLDOWN_TICKS;
+            ranger.getNavigation().stop();
         }
     }
 

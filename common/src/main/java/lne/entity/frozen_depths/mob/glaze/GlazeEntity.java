@@ -12,6 +12,9 @@ import lne.entity.frozen_depths.FrozenDepthsTuning;
 import lne.effects.Effects;
 import lne.entity.frozen_depths.projectile.FrostballEntity;
 import lne.sounds.ModSounds;
+import lne.internal.fx.LNEFx;
+import com.mrpg_lib.fx.FxParams;
+import com.mrpg_lib.fx.MrpgFx;
 import com.mrpg_lib.entity.config.CustomValues;
 import com.mrpg_lib.entity.config.EntityAttributeApplier;
 import com.mrpg_lib.entity.config.EntityAttributeConfig;
@@ -38,6 +41,7 @@ import java.util.EnumSet;
 import static com.mrpg_lib.util.FreezeMethods.addFrozenTicksCapped;
 
 public class GlazeEntity extends HostileEntity {
+    private static final int STORM_FX_INTERVAL = 20;
 
     @Override
     protected RegistryKey<LootTable> getLootTableId() {
@@ -131,22 +135,8 @@ public class GlazeEntity extends HostileEntity {
                         ModSounds.ENTITY_GLAZE_FREEZE.soundEvent(), this.getSoundCategory(), 1F + this.random.nextFloat(), this.random.nextFloat() * 0.7F + 0.3F, false);
             }
 
-            net.minecraft.util.math.random.Random random = this.getWorld().random;
-
-            for (int i = 0; i < 10; i++) {
-                double offsetX = (random.nextDouble() - 0.5) * 3.0;
-                double offsetY = random.nextDouble() * 2.0;
-                double offsetZ = (random.nextDouble() - 0.5) * 3.0;
-
-                double windX = (random.nextDouble() - 0.5) * 0.2;
-                double windY = -0.05 - random.nextDouble() * 0.05;
-                double windZ = (random.nextDouble() - 0.5) * 0.2;
-
-                this.getWorld().addParticle(ParticleTypes.SNOWFLAKE,
-                        this.getX() + offsetX,
-                        this.getY() + offsetY,
-                        this.getZ() + offsetZ,
-                        windX, windY, windZ);
+            if (this.age % STORM_FX_INTERVAL == 0) {
+                MrpgFx.playLocal(LNEFx.GLAZE_STORM, FxParams.on(this));
             }
         }
 

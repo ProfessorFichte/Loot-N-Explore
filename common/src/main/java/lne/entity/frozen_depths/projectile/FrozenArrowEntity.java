@@ -36,8 +36,8 @@ public class FrozenArrowEntity extends ArrowEntity {
         if (!(hitResult.getEntity() instanceof LivingEntity target)) return;
 
         addFrozenTicksCapped(target, 20);
-        getWorld().playSound(null, target.getX(), target.getBodyY(0.5), target.getZ(), MRPGLibSounds.FROST_CRACKLE.soundEvent(),
-                this.getSoundCategory(), 0.4F, 1.0F);
+        getWorld().playSound(null, target.getX(), target.getBodyY(0.5), target.getZ(), MRPGLibSounds.ICICLE_HIT.soundEvent(),
+                this.getSoundCategory(), 0.6F, 1.0F);
 
         if (LNEPlatform.isModLoaded("mrpg_lib")) {
             target.addStatusEffect(new StatusEffectInstance(MRPGCEffects.FROSTED.entry, 60, 0, false, true, true));

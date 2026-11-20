@@ -9,6 +9,7 @@ import lne.entity.frozen_depths.FrozenDepthsTuning;
 
 import com.github.thedeathlycow.thermoo.api.ThermooAttributes;
 import lne.internal.fx.LNEFx;
+import lne.entity.frozen_depths.conjured.OwnedSummons;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import lne.effects.Effects;
@@ -635,7 +636,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
             this.setInvulTimer(i);
             if (i == DEFAULT_INVUL_TIMER - INTRO_HEALING_SOUND_DELAY) {
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
-                        ModSounds.FROSTMONARCH_HEALING.soundEvent(), SoundCategory.HOSTILE, 1.5F, 1.0F);
+                        ModSounds.FROSTMONARCH_HEALING.soundEvent(), SoundCategory.HOSTILE, 1.0F, 1.0F);
             }
             if (this.age % 10 == 0) {
                 float healAmount = this.getMaxHealth() / 22.0F;
@@ -843,6 +844,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
 
         this.setFakeDeath(true);
         this.setChanneling(false);
+        OwnedSummons.dismiss(this);
         this.fakeDeathTimer = DEATH_ANIMATION_DURATION;
 
         this.setHealth(0.5F);
@@ -932,6 +934,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
 
             if (!this.getWorld().isClient) {
                 this.fakeDeathTimer--;
+                playDeathSequence(DEATH_ANIMATION_DURATION - this.fakeDeathTimer);
 
                 if (this.fakeDeathTimer <= 0) {
                     if (this.getWorld() instanceof ServerWorld serverWorld) {
@@ -1147,6 +1150,25 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.ENTITY_STRAY_STEP, 0.6F, 0.6F);
         this.playSound(SoundEvents.BLOCK_GLASS_STEP, 0.3F, 0.7F);
+    }
+
+    // Stand-ins until the custom death sounds exist.
+    private void playDeathSequence(int tick) {
+        switch (tick) {
+            case 2 -> deathSound(SoundEvents.ENTITY_WITHER_SKELETON_DEATH, 1.5F, 0.5F);
+            case 15 -> deathSound(ModSounds.FROSTMONARCH_SPAWNED_LAUGH.soundEvent(), 2.0F, 0.7F);
+            case 20 -> {
+                deathSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), 1.5F, 0.6F);
+                deathSound(ModSounds.FROSTMONARCH_SPAWNED_STORM.soundEvent(), 1.0F, 0.7F);
+            }
+            case 120 -> deathSound(SoundEvents.BLOCK_BEACON_DEACTIVATE, 1.5F, 0.6F);
+            default -> {
+            }
+        }
+    }
+
+    private void deathSound(SoundEvent sound, float volume, float pitch) {
+        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), sound, SoundCategory.HOSTILE, volume, pitch);
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {

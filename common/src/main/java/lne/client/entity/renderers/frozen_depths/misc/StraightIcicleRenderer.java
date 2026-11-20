@@ -13,6 +13,11 @@ public class StraightIcicleRenderer extends AbstractIcicleModelRenderer<Straight
     }
 
     @Override
+    protected int getMinBlockLight() {
+        return ICICLE_GLOW;
+    }
+
+    @Override
     protected void applyExtraTransform(MatrixStack matrices, StraightIcicleEntity entity, float tickDelta) {
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-entity.getYaw()));
     }

@@ -18,6 +18,11 @@ public class TrackingIcicleRenderer extends AbstractIcicleModelRenderer<Tracking
     }
 
     @Override
+    protected int getMinBlockLight() {
+        return ICICLE_GLOW;
+    }
+
+    @Override
     protected Identifier getModelId() {
         return MODEL_ID;
     }
