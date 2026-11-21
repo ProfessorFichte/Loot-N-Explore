@@ -2,17 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
+    "C": {
+      "item": "loot_n_explore:cryotic_block"
+    },
     "F": {
-      "item": "loot_n_explore:monarchs_crown"
+      "item": "loot_n_explore:frozen_soul"
     },
     "G": {
       "item": "loot_n_explore:glaze_rod"
+    },
+    "M": {
+      "item": "loot_n_explore:monarchs_crown"
     }
   },
   "pattern": [
-    "  F",
-    " G ",
-    "G  "
+    " CM",
+    " GC",
+    "F  "
   ],
   "result": {
     "count": 1,

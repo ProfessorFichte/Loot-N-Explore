@@ -53,11 +53,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/frozen_soul_block"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, CommonItems.MONARCHS_FROST_STAFF.item())
-                .pattern("  F")
-                .pattern(" G ")
-                .pattern("G  ")
+                .pattern(" CM")
+                .pattern(" GC")
+                .pattern("F  ")
                 .input('G', glazeRod)
-                .input('F', FrozenDepthsBlocks.MONARCHS_CROWN.item())
+                .input('F', frozenSoulItem)
+                .input('C', FrozenDepthsBlocks.CRYOTIC_BLOCK.block())
+                .input('M', FrozenDepthsBlocks.MONARCHS_CROWN.item())
                 .criterion(hasItem(FrozenDepthsBlocks.MONARCHS_CROWN.item()), conditionsFromItem(FrozenDepthsBlocks.MONARCHS_CROWN.item()))
                 .offerTo(exporter, Identifier.of("loot_n_explore", "frozen_depths/monarchs_frost_staff"));
 
