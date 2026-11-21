@@ -79,6 +79,12 @@
       "loot_n_explore:frozen_depths/mob/frostmonarch/death_2"
     ]
   },
+  "frostmonarch.rattling_bones": {
+    "subtitle": "subtitles.loot_n_explore.frostmonarch.rattling_bones",
+    "sounds": [
+      "loot_n_explore:frozen_depths/mob/frostmonarch/rattling_bones"
+    ]
+  },
   "music.frost_monarch_battle": {
     "sounds": [
       {

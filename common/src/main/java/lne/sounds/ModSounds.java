@@ -73,6 +73,7 @@ public class ModSounds {
     public static final Entry FROSTMONARCH_HEALING = add(new Entry("frostmonarch.healing").subtitle("Frost Monarch gathers strength"));
     public static final Entry FROSTMONARCH_HURT = add(new Entry("frostmonarch.hurt").subtitle("Frost Monarch hurts"));
     public static final Entry FROSTMONARCH_DEATH = add(new Entry("frostmonarch.death").subtitle("Frost Monarch dies"));
+    public static final Entry FROSTMONARCH_RATTLING_BONES = add(new Entry("frostmonarch.rattling_bones").subtitle("Frost Monarch falls apart"));
     public static final Entry MUSIC_FROST_MONARCH_BATTLE = add(new Entry("music.frost_monarch_battle"));
     public static final Entry MUSIC_FROZEN_DEPTHS = add(new Entry("music.frozen_depths"));
     public static final Entry MUSIC_INN = add(new Entry("music.inn"));
