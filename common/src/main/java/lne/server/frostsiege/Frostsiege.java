@@ -1,5 +1,6 @@
 package lne.server.frostsiege;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import lne.LneMod;
@@ -167,6 +168,7 @@ public final class Frostsiege {
             world.removeBlock(firePos, false);
         }
         world.playSound(null, firePos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, 0.7F);
+        world.playSound(null, firePos, MRPGLibSounds.FROST_CRACKLE_LONG.soundEvent(), SoundCategory.BLOCKS, 1.0F, 1.0F);
         MrpgFx.play(world, LNEFx.ETERNAL_WINTER_PORTAL_FADE, FxParams.at(firePos.toCenterPos()));
         item.getStack().decrement(1);
         if (item.getStack().isEmpty()) {
