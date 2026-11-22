@@ -53,7 +53,7 @@ import static lne.blocks.ModBlocks.entry;
 public class FrozenDepthsBlocks {
     private static Entry monarchsCrownEntry() {
         MonarchsCrownBlock block = new MonarchsCrownBlock(AbstractBlock.Settings.copy(Blocks.BLUE_ICE));
-        return entry("monarchs_crown", block, new MonarchsCrownItem(block, new Item.Settings()), "Monarch's Crown", new ModelType.Custom());
+        return entry("monarchs_crown", block, new MonarchsCrownItem(block, new Item.Settings()), "Monarch's Crown", new ModelType.HorizontalFacing("frozen_depths/", "blocks/frozen_depths/"));
     }
 
     private static Entry frozenAdventurerEntry() {
@@ -100,7 +100,7 @@ public class FrozenDepthsBlocks {
                     .instrument(NoteBlockInstrument.CHIME)
                     .strength(3.0F, 6.0F)
                     .requiresTool()
-                    .sounds(BlockSoundGroup.GLASS)), "Cryotic Block");
+                    .sounds(BlockSoundGroup.AMETHYST_BLOCK)), "Cryotic Block");
     public static final Block FROSTFLAME = new FrostflameBlock(
             AbstractBlock.Settings.copy(Blocks.SOUL_FIRE).mapColor(MapColor.LIGHT_BLUE));
     public static final Entry FROZEN_SOULS = frozenSoulsEntry();
