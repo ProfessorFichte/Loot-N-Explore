@@ -73,8 +73,8 @@
         "extra_launch_count": 4,
         "extra_launch_delay": 0,
         "sound": {
-          "id": "minecraft:block.glass.break",
-          "volume": 0.5
+          "id": "mrpg_lib:frost_crackle",
+          "volume": 0.4
         }
       },
       "projectile": {
