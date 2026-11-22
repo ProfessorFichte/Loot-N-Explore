@@ -1,15 +1,32 @@
 package lne.client.entity.models.frozen_depths.frozen_magician;
 
 import com.mrpg_lib.client.animation.AnimationBlender;
+import lne.entity.frozen_depths.mob.frozen_magician.FrozenMagicianAnimationTimes;
 import lne.entity.frozen_depths.mob.frozen_magician.FrozenMagicianEntity;
 import lne.client.entity.models.HumanoidBoneModel;
 import lne.client.entity.models.HumanoidBones;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.render.entity.animation.Animation;
+import net.minecraft.client.render.entity.animation.Keyframe;
+import net.minecraft.client.render.entity.animation.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.util.math.MathHelper;
+import org.joml.Vector3f;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FrozenMagicianModel<T extends FrozenMagicianEntity> extends SinglePartEntityModel<T> implements HumanoidBoneModel {
+    private static final float HOLD_START = 0.625F;
+    private static final float SPIN_START = 0.25F;
+    private static final String SPIN_BONE = "ice_orb";
+    private static final AnimationState STOPPED = new AnimationState();
+    private static final Map<Integer, Animation> LONG_CASTS = new HashMap<>();
     private final AnimationBlender blender = new AnimationBlender();
     private final ModelPart Main;
     private final ModelPart waist;
@@ -94,9 +111,74 @@ public class FrozenMagicianModel<T extends FrozenMagicianEntity> extends SingleP
         this.bones.track(entity);
 
         AnimationBlender.Session session = blender.begin(entity, ageInTicks);
-        session.action(entity.castAnimationState, FrozenMagicianAnimations.cast);
+        Animation cast = castAnimation(entity.getCastTicks());
+        session.action(cast == FrozenMagicianAnimations.cast ? entity.castAnimationState : STOPPED, FrozenMagicianAnimations.cast);
+        LONG_CASTS.values().forEach(animation -> session.action(animation == cast ? entity.castAnimationState : STOPPED, animation));
         float actionWeight = session.apply(this, FrozenMagicianAnimations.idle);
         AnimationBlender.movement(this, FrozenMagicianAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f, 1.0F - actionWeight);
+    }
+
+    private static Animation castAnimation(int castTicks) {
+        int extraTicks = castTicks - FrozenMagicianAnimationTimes.CAST_RELEASE_TICK;
+        if (extraTicks <= 0) {
+            return FrozenMagicianAnimations.cast;
+        }
+        return LONG_CASTS.computeIfAbsent(extraTicks, ticks -> extend(FrozenMagicianAnimations.cast, ticks / 20.0F));
+    }
+
+    private static Animation extend(Animation animation, float extra) {
+        Map<String, List<Transformation>> bones = new HashMap<>();
+        animation.boneAnimations().forEach((bone, transformations) -> bones.put(bone, transformations.stream()
+                .map(transformation -> new Transformation(transformation.target(),
+                        bone.equals(SPIN_BONE) && transformation.target() == Transformation.Targets.ROTATE
+                                ? spin(transformation.keyframes(), extra)
+                                : hold(transformation.keyframes(), extra)))
+                .toList()));
+        return new Animation(animation.lengthInSeconds() + extra, false, bones);
+    }
+
+    private static Keyframe[] hold(Keyframe[] keyframes, float extra) {
+        List<Keyframe> result = new ArrayList<>();
+        boolean hasHoldKey = false;
+        for (Keyframe keyframe : keyframes) {
+            if (keyframe.timestamp() <= HOLD_START) {
+                result.add(keyframe);
+                hasHoldKey |= keyframe.timestamp() == HOLD_START;
+            }
+        }
+        Vector3f pose = sample(keyframes, HOLD_START);
+        if (!hasHoldKey) {
+            result.add(new Keyframe(HOLD_START, pose, Transformation.Interpolations.CUBIC));
+        }
+        result.add(new Keyframe(HOLD_START + extra, pose, Transformation.Interpolations.LINEAR));
+        for (Keyframe keyframe : keyframes) {
+            if (keyframe.timestamp() > HOLD_START) {
+                result.add(new Keyframe(keyframe.timestamp() + extra, keyframe.target(), keyframe.interpolation()));
+            }
+        }
+        return result.toArray(Keyframe[]::new);
+    }
+
+    private static Keyframe[] spin(Keyframe[] keyframes, float extra) {
+        float spinLength = keyframes[keyframes.length - 1].timestamp() - SPIN_START;
+        float turns = Math.max(1, Math.round((spinLength + extra) / spinLength));
+        Keyframe[] result = new Keyframe[keyframes.length];
+        for (int i = 0; i < keyframes.length; i++) {
+            Keyframe keyframe = keyframes[i];
+            result[i] = keyframe.timestamp() > SPIN_START
+                    ? new Keyframe(keyframe.timestamp() + extra, new Vector3f(keyframe.target()).mul(turns), keyframe.interpolation())
+                    : keyframe;
+        }
+        return result;
+    }
+
+    private static Vector3f sample(Keyframe[] keyframes, float seconds) {
+        int start = Math.max(0, MathHelper.binarySearch(0, keyframes.length, index -> seconds <= keyframes[index].timestamp()) - 1);
+        int end = Math.min(keyframes.length - 1, start + 1);
+        Keyframe from = keyframes[start];
+        Keyframe to = keyframes[end];
+        float delta = end != start ? MathHelper.clamp((seconds - from.timestamp()) / (to.timestamp() - from.timestamp()), 0.0F, 1.0F) : 0.0F;
+        return to.interpolation().apply(new Vector3f(), delta, keyframes, start, end, 1.0F);
     }
 
     @Override

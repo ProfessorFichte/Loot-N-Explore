@@ -124,6 +124,8 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
     public final AnimationState summonAnimationState = new AnimationState();
     public final AnimationState quickCastAnimationState = new AnimationState();
     public final AnimationState wallCastAnimationState = new AnimationState();
+    public final AnimationState barrierCastAnimationState = new AnimationState();
+    public final AnimationState introHoverAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
     public final AnimationState spawnAnimationState = new AnimationState();
     public final AnimationState attackAnimationState1 = new AnimationState();
@@ -636,7 +638,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
             this.setInvulTimer(i);
             if (i == DEFAULT_INVUL_TIMER - INTRO_HEALING_SOUND_DELAY) {
                 this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(),
-                        ModSounds.FROSTMONARCH_HEALING.soundEvent(), SoundCategory.HOSTILE, 1.0F, 1.0F);
+                        ModSounds.FROSTMONARCH_HEALING.soundEvent(), SoundCategory.HOSTILE, 2.5F, 1.0F);
             }
             if (this.age % 10 == 0) {
                 float healAmount = this.getMaxHealth() / 22.0F;
@@ -853,7 +855,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
 
         this.deathTime = 0;
 
-        this.playSound(this.getDeathSound(), this.getSoundVolume(), this.getSoundPitch());
+        this.playSound(this.getDeathSound(), 3.0F, this.getSoundPitch());
         FrostMonarchLines.fakeDeath(this);
 
         this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
@@ -1003,6 +1005,8 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
             this.summonAnimationState.stop();
             this.quickCastAnimationState.stop();
             this.wallCastAnimationState.stop();
+            this.barrierCastAnimationState.stop();
+            this.introHoverAnimationState.stop();
             this.spawnAnimationState.stop();
             this.idleAnimationState.stop();
             this.attackAnimationState1.stop();
@@ -1028,11 +1032,9 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
             this.attackAnimationState3.stop();
         }
 
-        if (getInvulnerableTimer() > 0 && !hasSpawned()) {
-            this.spawnAnimationState.startIfNotRunning(this.age);
-        } else {
-            this.spawnAnimationState.stop();
-        }
+        boolean intro = getInvulnerableTimer() > 0 && !hasSpawned();
+        toggle(this.spawnAnimationState, intro && getInvulnerableTimer() > FrostMonarchAnimationTimes.INTRO_HOVER_LENGTH_TICKS);
+        toggle(this.introHoverAnimationState, intro && getInvulnerableTimer() <= FrostMonarchAnimationTimes.INTRO_HOVER_LENGTH_TICKS);
 
         if (isScreeching()) {
             this.screechAnimationState.startIfNotRunning(this.age);
@@ -1044,6 +1046,7 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
         toggle(this.summonAnimationState, cast == FrostMonarchAnimationTimes.Cast.SUMMON);
         toggle(this.quickCastAnimationState, cast == FrostMonarchAnimationTimes.Cast.QUICK);
         toggle(this.wallCastAnimationState, cast == FrostMonarchAnimationTimes.Cast.WALL);
+        toggle(this.barrierCastAnimationState, cast == FrostMonarchAnimationTimes.Cast.BARRIER);
 
         if (!isScreeching() && cast == FrostMonarchAnimationTimes.Cast.NONE && (getInvulnerableTimer() <= 0 || hasSpawned())) {
             if (this.idleAnimationTimeout <= 0) {
@@ -1156,12 +1159,13 @@ public class FrostMonarchEntity extends SkeletonEntity implements ISpellCasterEn
     private void playDeathSequence(int tick) {
         switch (tick) {
             case 2 -> deathSound(SoundEvents.ENTITY_WITHER_SKELETON_DEATH, 1.5F, 0.5F);
-            case 15 -> deathSound(ModSounds.FROSTMONARCH_SPAWNED_LAUGH.soundEvent(), 2.0F, 0.7F);
+            case 15 -> deathSound(ModSounds.FROSTMONARCH_SCREECH.soundEvent(), 1.5F, 0.55F);
             case 20 -> {
                 deathSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), 1.5F, 0.6F);
                 deathSound(ModSounds.FROSTMONARCH_SPAWNED_STORM.soundEvent(), 1.0F, 0.7F);
             }
             case 120 -> deathSound(SoundEvents.BLOCK_BEACON_DEACTIVATE, 1.5F, 0.6F);
+            case 132 -> deathSound(ModSounds.FROSTMONARCH_RATTLING_BONES.soundEvent(), 2.5F, 1.0F);
             default -> {
             }
         }

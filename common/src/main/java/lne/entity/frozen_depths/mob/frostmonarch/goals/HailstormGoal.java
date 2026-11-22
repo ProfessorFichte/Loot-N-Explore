@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.frostmonarch.goals;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import lne.entity.frozen_depths.mob.frostmonarch.FrostMonarchAnimationTimes;
 import com.mrpg_lib.entity.config.CustomValues;
 import lne.entity.frozen_depths.FrozenDepthsTuning;
@@ -126,6 +127,8 @@ public class HailstormGoal extends Goal {
         if (!monarch.getWorld().isClient()) {
             monarch.getWorld().playSound(null, monarch.getX(), monarch.getY(), monarch.getZ(),
                     SoundEvents.ITEM_ELYTRA_FLYING, SoundCategory.HOSTILE, 0.8F, 0.6F);
+            monarch.getWorld().playSound(null, monarch.getX(), monarch.getY(), monarch.getZ(),
+                    MRPGLibSounds.FROST_CRACKLE_LONG.soundEvent(), SoundCategory.HOSTILE, 1.2F, 0.8F);
             List<Entity> entities = monarch.getWorld().getOtherEntities(
                 monarch,
                 monarch.getBoundingBox().expand(HAILSTORM_RADIUS)

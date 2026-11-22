@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 
 public class WeaponAbilityConfig {
     public boolean ready_particles = true;
+    public boolean ready_sound = true;
     public LinkedHashMap<String, Entry> abilities = new LinkedHashMap<>();
     public StaffIcicle monarchs_frost_staff = new StaffIcicle();
     public FrozenWeapons frozen_weapons = new FrozenWeapons();

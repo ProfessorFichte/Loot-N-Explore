@@ -1,5 +1,7 @@
 package lne.client.hud;
 
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.SoundCategory;
 import com.mrpg_lib.client.particle.ColoredParticleEffect;
 import com.mrpg_lib.client.particle.ColoredParticles;
 import lne.item.weapons.LNE_WeaponItems;
@@ -22,6 +24,8 @@ public final class WeaponReadyCue {
     private static final float PARTICLE_SCALE = 0.6F;
     private static final long[] RANGED_END = new long[WeaponAbility.values().length];
     private static final int[] RANGED_DURATION = new int[WeaponAbility.values().length];
+    private static final Item[] LAST_ITEM = new Item[Hand.values().length];
+    private static final boolean[] LAST_READY = new boolean[Hand.values().length];
 
     private WeaponReadyCue() {
     }
@@ -50,14 +54,24 @@ public final class WeaponReadyCue {
     }
 
     public static void tick(ClientPlayerEntity player) {
-        if (player.age % PARTICLE_INTERVAL != 0 || player.isInvisible() || player.isSpectator()
-                || !WeaponAbilities.config.value.ready_particles || !LNE_WeaponItems.vanillaAbilitiesActive()) {
+        if (player.isSpectator() || !LNE_WeaponItems.vanillaAbilitiesActive()) {
             return;
         }
+        var config = WeaponAbilities.config.value;
+        boolean particles = config.ready_particles && player.age % PARTICLE_INTERVAL == 0 && !player.isInvisible();
         for (Hand hand : Hand.values()) {
             ItemStack stack = player.getStackInHand(hand);
-            var ability = WeaponAbility.ofItem(stack.getItem());
-            if (ability != null && isReady(player, stack.getItem(), ability)) {
+            Item item = stack.getItem();
+            var ability = WeaponAbility.ofItem(item);
+            boolean ready = ability != null && isReady(player, item, ability);
+            int i = hand.ordinal();
+            if (ready && config.ready_sound && !LAST_READY[i] && LAST_ITEM[i] == item) {
+                player.getWorld().playSound(player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME,
+                        SoundCategory.PLAYERS, 0.6F, 1.6F, false);
+            }
+            LAST_ITEM[i] = item;
+            LAST_READY[i] = ready;
+            if (ready && particles) {
                 spawnParticle(player, hand, ability);
             }
         }

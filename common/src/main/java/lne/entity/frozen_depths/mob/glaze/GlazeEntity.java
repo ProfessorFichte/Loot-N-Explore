@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.glaze;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import net.minecraft.loot.LootTable;
 import net.minecraft.registry.RegistryKey;
 import lne.util.LneLootTables;
@@ -286,6 +287,7 @@ public class GlazeEntity extends HostileEntity {
                             this.frostStormCooldown = this.glaze.tuning().getInt(FrozenDepthsTuning.FROST_STORM_COOLDOWN, 600);
                             this.glaze.playSound(SoundEvents.ITEM_ELYTRA_FLYING, 0.6F, 1.6F);
                             this.glaze.playSound(SoundEvents.BLOCK_POWDER_SNOW_BREAK, 1.0F, 0.6F);
+                            this.glaze.playSound(MRPGLibSounds.FROST_CRACKLE.soundEvent(), 0.9F, 1.0F);
                         }
                     }
                 }

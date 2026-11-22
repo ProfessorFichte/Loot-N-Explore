@@ -27,9 +27,9 @@ public class IceBarrierGoal extends Goal {
     private int channelTicks;
     private boolean isCasting;
 
-    private static final int BARRIER_DURATION = 50;
+    private static final int BARRIER_DURATION = FrostMonarchAnimationTimes.BARRIER_CAST_LENGTH_TICKS;
     private static final int WALL_FX_INTERVAL = 10;
-    private static final int BARRIER_GAME_TICKS = 100;
+    private static final int BARRIER_GAME_TICKS = FrostMonarchAnimationTimes.BARRIER_CAST_LENGTH_TICKS;
     private static final float[] HEALTH_THRESHOLDS = {0.75F, 0.5F, 0.25F};
     private static final int[] DEFAULT_PORTAL_COUNTS = {1, 2, 2};
     private static final EntityType<?>[] DEFAULT_PORTAL_TYPES = {ModEntities.FROST_HAUNTED, ModEntities.MONARCHS_SOLDIER, ModEntities.MONARCHS_GUARD};
@@ -79,7 +79,7 @@ public class IceBarrierGoal extends Goal {
         this.channelTicks = BARRIER_DURATION;
         monarch.setCasting(true);
         monarch.setChanneling(true);
-        monarch.playCastAnimation(FrostMonarchAnimationTimes.Cast.SUMMON);
+        monarch.playCastAnimation(FrostMonarchAnimationTimes.Cast.BARRIER);
         monarch.consumeBarrierUse();
 
         if (!monarch.getWorld().isClient) {
@@ -108,7 +108,7 @@ public class IceBarrierGoal extends Goal {
             float healPerTick = (monarch.getMaxHealth() * totalHealPercent * difficultyMultiplier) / BARRIER_DURATION;
             monarch.heal(healPerTick);
 
-            monarch.setBarrierTimer(channelTicks * 2);
+            monarch.setBarrierTimer(channelTicks);
 
             spawnBarrierParticles();
         }
@@ -161,7 +161,7 @@ public class IceBarrierGoal extends Goal {
 
         if (monarch.getWorld() instanceof ServerWorld serverWorld) {
             MrpgFx.play(serverWorld, LNEFx.MONARCH_ICE_BURST, FxParams.at(monarch.getPos().add(0, 1.5, 0)));
-            sound(SoundEvents.BLOCK_GLASS_BREAK, 0.8F, 1.5F);
+            sound(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 1.2F, 0.9F);
             sound(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK, 1.0F, 0.8F);
             sound(SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, 0.6F, 0.7F);
         }

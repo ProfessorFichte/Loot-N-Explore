@@ -2,6 +2,7 @@ package lne.entity.frozen_depths.projectile;
 
 import lne.util.damage.FrostDamageProfiles;
 import com.mrpg_lib.util.damage.SpellDamage;
+import com.mrpg_lib.sounds.MRPGLibSounds;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -11,6 +12,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -92,6 +94,8 @@ public class BarrierIcicleEntity extends Entity implements Ownable {
             if (this.age >= retractStartAge && !isRetracting) {
                 isRetracting = true;
                 this.getWorld().sendEntityStatus(this, (byte)5);
+                this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), MRPGLibSounds.GLACIAL_SPIKES.soundEvent(),
+                        SoundCategory.HOSTILE, 0.35F, 0.7F + this.random.nextFloat() * 0.15F);
             }
 
             if (this.age == RISE_DURATION && !hasSpawnedCloud) {

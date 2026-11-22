@@ -1,5 +1,7 @@
 package lne.entity.generic.projectile;
 
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.sound.SoundCategory;
 import com.mrpg_lib.fx.FxParams;
 import com.mrpg_lib.fx.MrpgFx;
 import lne.internal.fx.LNEFx;
@@ -20,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class OrbitingWitherSkullEntity extends WitherSkullEntity {
+    private static final int HUM_INTERVAL = 40;
     private static final TrackedData<Float> BASE_ANGLE = DataTracker.registerData(OrbitingWitherSkullEntity.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Float> ORBIT_RADIUS = DataTracker.registerData(OrbitingWitherSkullEntity.class, TrackedDataHandlerRegistry.FLOAT);
     private static final float ANGULAR_SPEED = 0.16F;
@@ -80,6 +83,10 @@ public class OrbitingWitherSkullEntity extends WitherSkullEntity {
                 this.getWorld().addParticle(ParticleTypes.SMOKE, next.x, next.y, next.z, 0.0, 0.0, 0.0);
             }
             return;
+        }
+        if (this.age % HUM_INTERVAL == 0) {
+            world.playSound(null, next.x, next.y, next.z, SoundEvents.BLOCK_BEACON_AMBIENT, SoundCategory.PLAYERS,
+                    0.35F, 0.5F + this.random.nextFloat() * 0.1F);
         }
         if (this.age > lifetimeTicks) {
             LNEFx.play(world, LNEFx.SOUL_HIT, next);

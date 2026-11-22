@@ -132,7 +132,14 @@ public final class LneMobSpellGoalFactory implements MobSpellGoals.Factory {
     private record AnimatedCasting(int ticks, MobSpellGoals.CastAnimation animation) implements CustomCasting {
         @Override
         public int castTicks(MobEntity mob, Identifier spellId, int defaultTicks) {
-            return ticks > 0 ? ticks : defaultTicks;
+            if (ticks <= 0) return defaultTicks;
+            return hasCastTime(mob, spellId) ? Math.max(ticks, defaultTicks) : ticks;
+        }
+
+        private static boolean hasCastTime(MobEntity mob, Identifier spellId) {
+            return SpellRegistry.from(mob.getWorld()).getEntry(spellId)
+                    .map(entry -> entry.value().active != null && entry.value().active.cast != null && entry.value().active.cast.duration > 0)
+                    .orElse(false);
         }
 
         @Override

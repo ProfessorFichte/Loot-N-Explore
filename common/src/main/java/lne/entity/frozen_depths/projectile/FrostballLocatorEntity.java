@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.projectile;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import lne.particle.Particles;
 import lne.entity.ModEntities;
 import lne.item.CommonItems;
@@ -66,6 +67,7 @@ public class FrostballLocatorEntity extends Entity implements FlyingItemEntity {
             if (this.flightTicks >= FLIGHT_TICKS) {
                 serverWorld.spawnParticles(Particles.FREEZING_SNOWFLAKE, this.getX(), this.getY(), this.getZ(), 12, 0.2, 0.2, 0.2, 0.05);
                 serverWorld.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.NEUTRAL, 1.0F, 0.7F);
+                serverWorld.playSound(null, this.getX(), this.getY(), this.getZ(), MRPGLibSounds.FROST_TELEPORT.soundEvent(), SoundCategory.NEUTRAL, 0.8F, 1.2F);
                 serverWorld.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.NEUTRAL, 0.8F, 0.6F);
                 this.discard();
             }

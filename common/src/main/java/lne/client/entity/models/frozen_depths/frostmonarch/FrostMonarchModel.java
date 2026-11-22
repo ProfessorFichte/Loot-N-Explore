@@ -15,6 +15,10 @@ import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Arm;
 
+import net.minecraft.util.math.MathHelper;
+import org.joml.Vector3f;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +27,14 @@ import java.util.Map;
 public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity> implements ModelWithArms, HumanoidBoneModel {
     private static final Animation QUICK_CAST = cut(FrostMonarchAnimations.summon, FrostMonarchAnimationTimes.QUICK_CAST_LENGTH_TICKS, 1.21F);
     private static final Animation WALL_CAST = cut(FrostMonarchAnimations.summon, FrostMonarchAnimationTimes.WALL_CAST_LENGTH_TICKS, 0.38F);
+    private static final float LIFT_OFF = 0.3333F;
+    private static final float HOVER_START = 1.0833F;
+    private static final float HOVER_END = 2.5833F;
+    private static final float DESCENT_START = 2.875F;
+    private static final float LANDING_SECONDS = FrostMonarchAnimations.summon.lengthInSeconds() - DESCENT_START;
+    private static final Animation SPAWN = new Animation(FrostMonarchAnimationTimes.SPAWN_LENGTH_TICKS / 20.0F, false, FrostMonarchAnimations.spawn.boneAnimations());
+    private static final Animation BARRIER_CAST = hover(FrostMonarchAnimations.summon, 0.0F, FrostMonarchAnimationTimes.BARRIER_CAST_LENGTH_TICKS / 20.0F);
+    private static final Animation INTRO_HOVER = hover(FrostMonarchAnimations.summon, LIFT_OFF, FrostMonarchAnimationTimes.INTRO_HOVER_LENGTH_TICKS / 20.0F - LANDING_SECONDS);
     private final AnimationBlender blender = new AnimationBlender();
     private final ModelPart group;
     private final ModelPart frostmonarch;
@@ -123,7 +135,9 @@ public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity>
         session.action(entity.summonAnimationState, FrostMonarchAnimations.summon);
         session.action(entity.quickCastAnimationState, QUICK_CAST);
         session.action(entity.wallCastAnimationState, WALL_CAST);
-        session.action(entity.spawnAnimationState, FrostMonarchAnimations.spawn);
+        session.action(entity.barrierCastAnimationState, BARRIER_CAST);
+        session.action(entity.introHoverAnimationState, INTRO_HOVER);
+        session.action(entity.spawnAnimationState, SPAWN);
         session.hold(entity.deathAnimationState, FrostMonarchAnimations.death);
         session.apply(this, FrostMonarchAnimations.idle);
         this.animateMovement(FrostMonarchAnimations.walk, limbSwing, limbSwingAmount, 2f, 2.5f);
@@ -138,6 +152,78 @@ public class FrostMonarchModel extends SinglePartEntityModel<FrostMonarchEntity>
                 .map(transformation -> new Transformation(transformation.target(), keyframesUntil(transformation.keyframes(), holdFromSeconds)))
                 .toList()));
         return new Animation(lengthTicks / 20.0F, false, bones);
+    }
+
+    private static Animation hover(Animation animation, float skip, float descentSeconds) {
+        float hoverStart = HOVER_START - skip;
+        float span = HOVER_END - HOVER_START;
+        float extra = descentSeconds - (DESCENT_START - skip);
+        int repeats = extra > 0.0F ? Math.max(1, Math.round(extra / span)) : 0;
+        float loop = repeats > 0 ? extra / repeats : 0.0F;
+        float scale = loop / span;
+        Map<String, List<Transformation>> bones = new HashMap<>();
+        animation.boneAnimations().forEach((bone, transformations) -> bones.put(bone, transformations.stream()
+                .map(transformation -> new Transformation(transformation.target(),
+                        loopHover(skip(transformation.keyframes(), skip), hoverStart, hoverStart + span, repeats, loop, scale)))
+                .toList()));
+        return new Animation(animation.lengthInSeconds() - skip + Math.max(0.0F, extra), false, bones);
+    }
+
+    private static Keyframe[] skip(Keyframe[] keyframes, float seconds) {
+        if (seconds <= 0.0F) {
+            return keyframes;
+        }
+        List<Keyframe> result = new ArrayList<>();
+        result.add(new Keyframe(0.0F, sample(keyframes, seconds), Transformation.Interpolations.CUBIC));
+        for (Keyframe keyframe : keyframes) {
+            if (keyframe.timestamp() > seconds) {
+                result.add(new Keyframe(keyframe.timestamp() - seconds, keyframe.target(), keyframe.interpolation()));
+            }
+        }
+        return result.toArray(Keyframe[]::new);
+    }
+
+    private static Keyframe[] loopHover(Keyframe[] keyframes, float hoverStart, float hoverEnd, int repeats, float loop, float scale) {
+        if (repeats == 0) {
+            return keyframes;
+        }
+        Vector3f startPose = sample(keyframes, hoverStart);
+        List<Keyframe> result = new ArrayList<>();
+        boolean hasStartKey = false;
+        for (Keyframe keyframe : keyframes) {
+            if (keyframe.timestamp() <= hoverStart) {
+                result.add(keyframe);
+                hasStartKey |= keyframe.timestamp() == hoverStart;
+            }
+        }
+        if (!hasStartKey) {
+            result.add(new Keyframe(hoverStart, startPose, Transformation.Interpolations.CUBIC));
+        }
+        for (int i = 0; i < repeats; i++) {
+            float offset = hoverStart + i * loop;
+            for (Keyframe keyframe : keyframes) {
+                if (keyframe.timestamp() > hoverStart && keyframe.timestamp() < hoverEnd) {
+                    result.add(new Keyframe(offset + (keyframe.timestamp() - hoverStart) * scale, keyframe.target(), keyframe.interpolation()));
+                }
+            }
+            result.add(new Keyframe(offset + loop, startPose, Transformation.Interpolations.CUBIC));
+        }
+        float shift = repeats * loop;
+        for (Keyframe keyframe : keyframes) {
+            if (keyframe.timestamp() > hoverStart) {
+                result.add(new Keyframe(keyframe.timestamp() + shift, keyframe.target(), keyframe.interpolation()));
+            }
+        }
+        return result.toArray(Keyframe[]::new);
+    }
+
+    private static Vector3f sample(Keyframe[] keyframes, float seconds) {
+        int start = Math.max(0, MathHelper.binarySearch(0, keyframes.length, index -> seconds <= keyframes[index].timestamp()) - 1);
+        int end = Math.min(keyframes.length - 1, start + 1);
+        Keyframe from = keyframes[start];
+        Keyframe to = keyframes[end];
+        float delta = end != start ? MathHelper.clamp((seconds - from.timestamp()) / (to.timestamp() - from.timestamp()), 0.0F, 1.0F) : 0.0F;
+        return to.interpolation().apply(new Vector3f(), delta, keyframes, start, end, 1.0F);
     }
 
     private static Keyframe[] keyframesUntil(Keyframe[] keyframes, float seconds) {

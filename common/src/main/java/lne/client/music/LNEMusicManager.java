@@ -33,12 +33,17 @@ public class LNEMusicManager {
     public static void startBossMusic(FrostMonarchEntity entity) {
         if (!TweaksConfig.customMusic() || isActive(bossMusic)) return;
         MinecraftClient.getInstance().getMusicTracker().stop();
+        fadeAllAmbient();
         bossMusic = new FrostMonarchBattleMusic(entity);
         MinecraftClient.getInstance().getSoundManager().play(bossMusic);
     }
 
     public static void startAmbientMusic(StructureMusicTrack track) {
         if (!TweaksConfig.customMusic()) return;
+        if (isActive(bossMusic)) {
+            fadeAllAmbient();
+            return;
+        }
         AMBIENT_MUSIC.forEach((other, music) -> {
             if (other != track && !music.isDone()) {
                 music.startFade();
@@ -53,6 +58,14 @@ public class LNEMusicManager {
         StructureAmbientMusic music = new StructureAmbientMusic(track.sound().soundEvent());
         AMBIENT_MUSIC.put(track, music);
         MinecraftClient.getInstance().getSoundManager().play(music);
+    }
+
+    private static void fadeAllAmbient() {
+        AMBIENT_MUSIC.values().forEach(music -> {
+            if (!music.isDone()) {
+                music.startFade();
+            }
+        });
     }
 
     public static void stopAmbientMusic(StructureMusicTrack track) {

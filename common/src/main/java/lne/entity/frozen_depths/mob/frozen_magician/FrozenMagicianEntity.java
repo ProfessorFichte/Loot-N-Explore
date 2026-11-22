@@ -65,6 +65,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
 
     private static final TrackedData<Boolean> SPELL_CASTING = DataTracker.registerData(FrozenMagicianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CASTING = DataTracker.registerData(FrozenMagicianEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> CAST_TICKS = DataTracker.registerData(FrozenMagicianEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState castAnimationState = new AnimationState();
@@ -125,6 +126,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
         super.initDataTracker(builder);
         builder.add(SPELL_CASTING, false);
         builder.add(CASTING, false);
+        builder.add(CAST_TICKS, FrozenMagicianAnimationTimes.CAST_RELEASE_TICK);
     }
 
     @Override
@@ -212,6 +214,7 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
         public void start(int castTicks) {
             castHoldTicks = 0;
             setCasting(true);
+            dataTracker.set(CAST_TICKS, castTicks);
             getNavigation().stop();
         }
 
@@ -268,6 +271,13 @@ public class FrozenMagicianEntity extends SkeletonEntity implements ISpellCaster
 
     public void setCasting(boolean casting) {
         this.dataTracker.set(CASTING, casting);
+        if (casting) {
+            this.dataTracker.set(CAST_TICKS, FrozenMagicianAnimationTimes.CAST_RELEASE_TICK);
+        }
+    }
+
+    public int getCastTicks() {
+        return this.dataTracker.get(CAST_TICKS);
     }
 
     protected float voicePitch() {

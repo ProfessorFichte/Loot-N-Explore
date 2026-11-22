@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.projectile;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import com.mrpg_lib.util.AllyHelper;
 import lne.util.damage.FrostDamageProfiles;
 import com.mrpg_lib.util.damage.SpellDamage;
@@ -59,10 +60,10 @@ public class FrostballEntity extends ThrownItemEntity implements FlyingItemEntit
 
     private void playImpactSound() {
         if (this.hail) {
-            this.playSound(SoundEvents.BLOCK_GLASS_BREAK, this.impactVolume, 1.2F + this.random.nextFloat() * 0.4F);
+            this.playSound(MRPGLibSounds.ICICLE_HIT.soundEvent(), this.impactVolume, 1.1F + this.random.nextFloat() * 0.4F);
             return;
         }
-        this.playSound(SoundEvents.BLOCK_GLASS_BREAK, this.impactVolume, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
+        this.playSound(MRPGLibSounds.ICICLE_HIT.soundEvent(), this.impactVolume, 1.1F / (this.random.nextFloat() * 0.2F + 0.9F));
         this.playSound(SoundEvents.BLOCK_POWDER_SNOW_BREAK, this.impactVolume * 0.6F, 1.0F);
     }
 

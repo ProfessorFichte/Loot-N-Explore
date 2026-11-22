@@ -104,6 +104,7 @@ public class IcicleBlock extends Block implements LandingBlock {
     }
 
     private static final int LANDING_FREEZE_TICKS = 60;
+    private static final int CRACK_WARNING_TICKS = 15;
 
     @Override
     public void onDestroyedOnLanding(World world, BlockPos pos, FallingBlockEntity fallingBlockEntity) {
@@ -169,8 +170,11 @@ public class IcicleBlock extends Block implements LandingBlock {
                 pos.getX(), pos.getY() - MAX_FALL_SCAN, pos.getZ(),
                 pos.getX() + 1, pos.getY(), pos.getZ() + 1);
 
-        if (!world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), scanBox, p -> true).isEmpty()) {
-            spawnFallingIcicleChain(state, world, pos);
+        if (!world.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), scanBox, p -> true).isEmpty()
+                && !world.getBlockTickScheduler().isQueued(pos, this)) {
+            world.playSound(null, pos, MRPGLibSounds.FROST_CRACKLE.soundEvent(), SoundCategory.BLOCKS,
+                    0.8F, 1.3F + random.nextFloat() * 0.2F);
+            world.scheduleBlockTick(pos, this, CRACK_WARNING_TICKS);
         }
     }
 

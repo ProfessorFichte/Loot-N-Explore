@@ -1,5 +1,6 @@
 package lne.entity.frozen_depths.mob.frost_hound;
 
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import net.minecraft.loot.LootTable;
 import net.minecraft.registry.RegistryKey;
 import lne.util.LneLootTables;
@@ -96,6 +97,7 @@ public class FrostHoundEntity extends HostileEntity {
     private void onMeleeImpact(int variant, @Nullable LivingEntity target) {
         if (variant == 0) {
             this.playSound(SoundEvents.ENTITY_FOX_BITE, 1.0F, 0.6F);
+            this.playSound(MRPGLibSounds.FROST_CRACKLE.soundEvent(), 0.6F, 1.2F);
         } else {
             this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 0.6F, 1.3F);
         }

@@ -1,5 +1,6 @@
 package lne.item.weapons;
 
+import net.minecraft.sound.SoundEvents;
 import com.mrpg_lib.util.AllyHelper;
 import com.mrpg_lib.util.CloudMethods;
 import lne.internal.ability.AbilityDamage;
@@ -128,6 +129,9 @@ public final class WeaponProcs {
             }
         }
         MrpgFx.play(world, LNEFx.DRAGON_BURST, FxParams.at(center).radius((float) radius));
+        if (knockback > 0) {
+            LNEFx.sound(world, center, SoundEvents.ENTITY_ENDER_DRAGON_FLAP, 1.2F, 0.8F);
+        }
     }
 
     private static void witherBlast(ServerWorld world, LivingEntity user, LivingEntity target, WeaponAbility ability, Slot slot, float damage) {

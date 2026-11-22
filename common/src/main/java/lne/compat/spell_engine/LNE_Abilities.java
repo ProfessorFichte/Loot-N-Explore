@@ -660,7 +660,7 @@ public class LNE_Abilities {
         spell.deliver.projectile.launch_properties.velocity = 1.0F;
         spell.deliver.projectile.launch_properties.extra_launch_count = 4;
         spell.deliver.projectile.launch_properties.extra_launch_delay = 0;
-        spell.deliver.projectile.launch_properties.sound = Sound.withVolume(Identifier.of("block.glass.break"), 0.5F);
+        spell.deliver.projectile.launch_properties.sound = Sound.withVolume(Identifier.of("mrpg_lib", "frost_crackle"), 0.4F);
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(
