@@ -1,179 +1,67 @@
-# 1.21.1 Rewrite - What's New
-## NeoForge Support
-- Loot & Explore now also runs on **NeoForge**.
-- LNE-Relic trinkets use **Curios** on NeoForge and **Trinkets** on Fabric.
-## New Weapons
-- Every themed weapon set is now a full arsenal - **Sword, Axe, Mace, Shield, Bow and Crossbow**
-  - Ender Dragon, Elder Guardian (Deep Sea), Wither and Glacial (Monarch's) themes
-  - Maces & Shields are not added if LNE Paladins is installed, Bows & Crossbows are not added if LNE Archers is installed - those mods bring their own
-  - Shields give +6 max health plus a themed bonus like the LNE Paladins shields: Ender Dragon +5% attack speed, Wither +5% attack damage, Glacial +1 armor toughness, Elder Guardian +35% damage reflect
-- New Frozen Depths weapons, wielded by the Frozen Depths mobs: **Frost Haunt Axe**, **Frozen Bow**, **Guard's Frost Lance** and **Monarch's Frost Staff**
-- The **Monarch's Frost Staff** can be used with right click without Spell Engine: it shoots an icicle that flies like an arrow, damages the target and inflicts Freezing (5 second cooldown, shown as the item cooldown overlay). With Spell Engine and Wizards installed it carries the Frostbolt spell instead
-- The Monarch's Frost Staff is crafted from two Glaze Rods and a Frozen Soul, placed diagonally with the Frozen Soul on top
-- The **Frost Haunt Axe**, **Guard's Frost Lance** and **Frozen Bow** inflict Freezing for 3 seconds on every hit. With Spell Engine this is their new Frostbite spell (the axe also gets Cleave, the lance Impale)
-- Reworked abilities of the Ender Dragon, Wither, Glacial and Elder Guardian weapons (without Spell Engine, 20% chance). Damage is a flat amount plus a part of your highest damage attribute (attack damage, ranged damage or spell power)
-- With Spell Engine the themed weapons and shields use the More RPG Library spells, the same as LNE Paladins and LNE Archers
-- New `tweaks.json` config with `disable_relic_attributes`, `disable_spell_engine_abilities`, `disable_relic_abilities`, `disable_weapon_abilities`, `disable_custom_mod_music`, `disable_entity_hud_text`, `disable_mob_spell_casting`, `disable_mob_better_combat` and `disable_mob_combat_roll` (all off by default)
-  - Swords, axes and maces: Ender Dragon drains health from the target, Wither creates a withering aura, Glacial summons a freezing storm on the target, Elder Guardian conjures a rain storm
-  - Bows and crossbows: Ender Dragon causes a dragon breath explosion, Wither a withering explosion that stacks Wither, Glacial drops frostballs, Elder Guardian releases bubbles that burst one after another and slow enemies
-  - Shields: Ender Dragon releases a dragon breath explosion that knocks enemies back, Wither summons three wither skulls that circle around you and explode on enemies, Glacial raises a line of icicles from the ground, Elder Guardian summons a whirlpool that pushes enemies away
-  - Every ability has its own layered particle and sound effects, a name, and a tooltip that shows the real numbers for your current attributes
-- New weapon names: Frostsoul Blade, Dragon's Maw, Icicle Crusher, Sea Star, End-Crystal Bow, Dragon's Jaw, Soulstorm Bow, Witherbolt Arbalest, Glacial Shardbow, Glacier Bolt Crossbow, Nemo's Fury and Reefstriker. The Ender Dragon shield is now Dragon Bulwark and the Elder Guardian shield Coral Reef Guardian
-## The Frozen Depths
-- New enemies: **Frozen Magician**, **Frozen Ranger**, **Monarch's Soldier**, **Monarch's Guard** and the **Frost Hound**, each with its own model, animations and abilities
-- Huge thanks to AnolXD for all the amazing models, animations and textures <3
-- The Frozen Magician keeps its distance: it closes in when its target is far away and backs off when approached
-- The Frozen Magician's main attack is a single icicle shot straight at its target
-- The Frozen Magician's long-range spell conjures a formation of three floating icicles around it (five for the General) that launch one after another at the target. While the target is out of sight or more than 24 blocks away the icicles wait, and after 3 seconds (`icicle_formation_break_ticks`) they shatter
-- The Frozen Magician's ground icicles warn 5 ticks before they shoot up (`ground_icicle_telegraph_ticks`)
-- Monarch's Soldiers and General Haldrec carry an iron sword and a shield, and raise the shield when arrows or other projectiles fly at them
-- Flying icicles (Frozen Magician, Monarch's Frost Staff, Glacier Shard) fly smoothly tip first, hit along their whole length and shatter on blocks; the magician's icicles slightly home in on their target
-- A raised shield blocks flying icicles
-- Frost Hounds and Frost Haunted burn in daylight, but only outside icy biomes (biome tag `loot_n_explore:icy_biomes`). The other Frozen Depths mobs never burn in the sun
-- The Frozen Magician, Frozen Ranger, Monarch's Soldier and Monarch's Guard have a tougher "**General**" elite variant. The Generals were legendary human commanders and carry their own names: **General Ysmerith, the Rimebound Counsel** (Frozen Magician), **General Kaelthorn, the Wallwatch** (Frozen Ranger), **General Haldrec, the Shield of the Crown** (Monarch's Soldier) and **General Dunmarth, the Warden of the City** (Monarch's Guard). Every General has 100 health on Easy, 125 on Normal and 150 on Hard
-- Melee attacks of the Frozen Depths mobs wind up first and deal damage on the animation's impact frame - a target that steps away in time is missed
-- The Frosthaunt is now called **Frost Haunted** (`loot_n_explore:frost_haunted`); Frosthaunts, spawners and spawn eggs from older worlds are converted automatically
-- The **Frost Monarch** and **Frost Haunted** have been fully remodeled with new animations and reworked behavior
-  - New Frost Monarch abilities: Icicle attacks, Hailstorm, a quick icicle shot, a protective **Ice Wall** and a limited-use **Ice Barrier** (3 uses per fight, at 75 / 50 / 25% health)
-  - Every Frost Monarch ability has its own situation: ground icicle lines when you fight him up close, an icicle line under your feet at mid range, the Hailstorm when you keep far away, a quick icicle shot when his other spells are on cooldown, and the Frost Screech below 50% health when you are within 16 blocks of him (or up to 20 blocks away when you hide where he can't reach you, for example on a pillar). He stands still while he casts and takes a short breath between his abilities
-  - Ground icicles warn you first: snowflakes rise and the icicle tips break through the ground shortly before they shoot up
-  - **Ice Wall**: when a player (or a player's pet or summon) shoots arrows or spell projectiles at him, the Frost Monarch thrusts his arms forward and raises a wall of ice from the ground in front of him that shatters them. Nothing can walk through it
-  - **Eternal Winter Portals**: during the Ice Barrier the Frost Monarch opens floating snowflake portals at random spots up to 25 blocks around him (1 / 2 / 2 portals for the first / second / third barrier, 3 on Normal and Hard for the third). Each portal stays open for 20 seconds and releases one of his servants 1 second after it opens and then every 5 seconds (up to 4 per portal), unless you close it with fire: a Fire Aspect weapon, a Flame arrow, a fire spell or a fire lit underneath it. Stronger servants come out in later barriers and on higher difficulties. When the Frost Monarch falls, his portals close without releasing anything
-  - **General Ysmerith** blinks away in a burst of ice when you get too close (every 12-16 seconds) and leaves a **Frost Decoy** of himself behind: an ice statue that bursts into a 3-block blast of snowflakes after 2 seconds, or at once when an enemy touches or hits it, dealing frost damage and inflicting Freezing
-  - **General Ysmerith** opens an Eternal Winter Portal too once he drops below 30% health (1 portal, once per minute), which works like the Frost Monarch's portals
-  - The Frost Monarch does not despawn when players leave, keeps its health and remaining Ice Barrier uses, and only one can be summoned at a time
-  - When the Frost Monarch awakens, every unlit Cryotic Block within 40 blocks bursts into Frostflame
-  - A spawn overlay announces the Frost Monarch's awakening: "You fools have freed me!" is written out letter by letter in frosty ice blue
-  - The Frost Monarch speaks: when it falls into its fake death it says "I have lost, again?" and the letters then drop one after another like falling icicles, and when it opens its portals during the Ice Barrier it calls out one of four random lines
-  - All texts are translatable, and `disable_entity_hud_text` in `tweaks.json` hides them (for every speaking mob)
-  - New effects: a heavy ice storm and snowflake explosion when it awakens, a freezing snowflake aura that turns into glowing ice sparks while it channels the Ice Barrier or Hailstorm, snow falling over its death and a frozen soul burst when it finally dies, and its own frost screech instead of the Warden's sonic boom
-  - Map makers can start the same awakening (overlay, sounds, healing up while invulnerable) with `/summon loot_n_explore:frost_monarch ~ ~ ~ {IntroAnimation:1b}`. Without it, `/summon` spawns it right away
-- **Glacial Tomb** generation reworked - larger, adapts to the terrain and is decorated with icicles
-- Outposts, Frost Towers, Glacial Tombs and the Monarch's Temple each have their own structure placement: Outposts and Glacial Tombs are the most common, Frost Towers rarer and the Monarch's Temple the rarest. All of them keep their distance from villages, the Glacial Tomb from ancient cities. Outposts and Frost Towers spawn in snowy plains, snowy taigas, groves and ice spikes, Glacial Tombs also on snowy slopes and frozen peaks, and the Monarch's Temple in snowy plains, snowy taigas and ice spikes. They also spawn in icy biomes from other mods (Outposts, Frost Towers and Glacial Tombs in snowy ones as well)
-- Buy a **Frost Monarch Temple map** from an Expert Cartographer villager
-- New music discs **Frozen Depths** and **The King Cursed by Winter**, plus ambient music that plays while you are inside the Glacial Tomb or a Frost Tower, and dedicated Frost Monarch battle music (`disable_custom_mod_music` in `tweaks.json` turns the structure and boss music off; it follows the Music volume slider, the discs the Jukebox slider). The discs show "KaktusDoesMusic - <title>" in their tooltip and in the "Now Playing" text. The Frozen Depths disc can be found in Frost Tower and Glacial Tomb vaults, The King Cursed by Winter in the Monarch's Castle vaults
-- Frozen Depths sound pass: the skeleton army speaks with frozen Stray voices (deeper and louder for the Generals), the Frost Hound growls like a wolf, every attack and spell wind-up has a sound, blocked hits are audible (Monarch's Soldier shield, Frost Monarch while invulnerable), Icicles crack before they fall and shatter on landing, and all custom sounds have subtitles
-- Frozen Depths mobs are immune to freezing and can walk on powder snow
-- Frozen Depths structures get random details when they generate (needs More RPG Library):
-  - Bookshelves and Deepslate Bookshelves can become Suspicious (10% each, at most 2 of each per structure piece) with loot from the structure's own archaeology table (Outposts, Frost Towers, Glacial Tombs and the Monarch's Temple, which has its own frost and royal themed table)
-  - 20% of the Deepslate Bookshelves become Icy Deepslate Bookshelves
-  - Decorated Pots and Frozen Decorated Pots have a 25% chance to hold one item or a small stack from the structure's own pot loot table (snowballs, bones, iron and gold nuggets, Frostballs, Cryo Essence, emeralds and rarely a diamond)
-## Eternal Frostsiege
-- A new raid event. While you carry the **Monarch's Crown** through icy biomes (biome tag `loot_n_explore:frostsiege_biomes`) under open sky in the Overworld, there is a small chance every minute that an Eternal Frostsiege starts: 1% on Easy, 2% on Normal, 3% on Hard. Every use of the Crown's ability adds 5% until the next siege
-- It announces itself: "You feel a frightening shivering cold aura..." is written on your screen, frozen souls rise around you, it starts to snow (also in biomes where it would rain or stay dry), the Frozen Depths music plays and a raid bar fills up
-- Then Eternal Winter Portals open around you in waves, twice as big as the Frost Monarch's (4 blocks wide). Snowflake pillars mark the spots shortly before the portals open
-  - Wave 1 Frost Hounds, wave 2 Frost Haunted, wave 3 Frozen Rangers and Monarch's Soldiers
-  - Normal adds wave 4 with Frozen Magicians and Monarch's Soldiers
-  - Hard adds wave 5: a single portal that releases one random General
-  - 2 / 3 / 4 portals per wave on Easy / Normal / Hard, and one more for every other player nearby (up to 4 more)
-- Siege portals stay for 40 seconds and can't be closed with fire in their first 20 seconds
-- With Bad Omen, Raid Omen or Trial Omen the portals release mobs faster and the mobs have 25% more health and attack damage
-- After a siege that player has an hour of rest before the next one can start
-- `/loot_n_explore frostsiege start [player]` and `stop [player]` start and end a siege by hand
-## Inns
-- New inn music **Jolly Time** by KaktusDoesMusic plays while you are inside a Loot & Explore inn - the standalone inns and the small inns in villages - and fades in and out like the Frozen Depths music (`disable_custom_mod_music` turns it off)
-- New music disc **Jolly Time**, found with a 5% chance in Loot & Explore inn chests
-- Bookshelves in the standalone inns have a small chance (8% each, at most 1 per inn) to be Suspicious Bookshelves with books, paper, book and quills and Pillager Outpost maps (needs More RPG Library)
-- Improved some textures for some consumables
-- New **Empty Beer Mug**: Beet Rootbeer, Malt Extract, Waldmeister, Enchanted Ale and Rivian Kriek now leave one behind instead of a glass bottle. Innkeepers buy them for emeralds on their first level, and you can place them as decoration with the handle facing you
-## New Blocks
-- Decorative frozen set: **Frozen Torch**, **Frozen Bones**, **Frozen Adventurer**, **Pointed Icicles**, **Icicle Bars** and **Fragile Ice**
-- Walking over **Frozen Bones** has a 10% chance to break them, and 3 seconds later a Frost Haunted rises from that spot and hunts you
-- **Sealed Monarch** - the frozen king on his throne. Right click it or mine it with an iron pickaxe (or better) and it drops the Monarch's Crown. Frozen souls burst out and an Eternal Winter Portal opens nearby that releases one random General
-- In creative, Shift + Right Click with an empty hand changes the variant of the Deepslate Bookshelf, Frozen Decorated Pot and Frozen Adventurer; their tooltip says so while you are in creative
-- Pointed Icicles fall as a chain when disturbed
-- **Suspicious Bookshelf** and **Suspicious Deepslate Bookshelf** - brush them like suspicious sand; the item always comes out of the side, also when you brush the top. Brushing them puffs out light grey dust that slowly fades away
-- Stronghold libraries can contain Suspicious Bookshelves (3% per bookshelf, up to 4 per library part) with their own loot: a Mending book (rare), a level 30 enchanted book, a spell scroll with a tier 3 or 4 spell (only with Spell Engine and spells installed) or a book. Needs More RPG Library
-- Libraries in villages and woodland mansions can contain Suspicious Bookshelves too (needs More RPG Library):
-  - Woodland Mansions (5% per bookshelf, up to 2 per room): a Totem of Undying (rare), an enchanted book, a spell scroll with a tier 3 spell (only with Spell Engine and spells installed) or a book
-  - Snowy, desert, plains, savanna and taiga villages (15% per bookshelf, up to 3 per building): a low level enchanted book, an explorer map, a spell scroll with a tier 2 spell (only with Spell Engine and spells installed) or a book. The map leads to a Frost Tower from snowy villages, to a Desert Pyramid from desert villages and to a Pillager Outpost from all others
-- **Deepslate Bookshelf** and **Icy Deepslate Bookshelf** - work like a bookshelf (enchanting and Spell Binding Table power), mined with a pickaxe; each placed Deepslate Bookshelf gets one of 5 looks. The Deepslate Bookshelf is crafted like a bookshelf with Polished Deepslate and drops 3 books without Silk Touch. The Icy Deepslate Bookshelf can't be crafted and turns into a Deepslate Bookshelf when mined without Silk Touch. A brushed Suspicious Deepslate Bookshelf turns into a normal Deepslate Bookshelf
-- **Frozen Decorated Pot** - works like the vanilla decorated pot; each placed pot gets one of 5 frozen patterns (plain, crown, frost haunted, glaze, or mixed, where the four sides show the other four patterns in a random order). Sherds still replace the pattern on their side
-- **Frozen Kingdom Flag** - placed on the ground or on a wall
-- **Frostflame** gives off a cold, see-through ice mist instead of smoke
-- **Hanging Inn Signs** in oak, spruce, acacia, birch, jungle, dark oak, mangrove and cherry
-- **Monarch's Crown** and **Frozen Soul Block** - lore blocks for the Frost Monarch questline (Shift + Right Click the Crown to listen to the souls); the Frozen Soul Block is crafted from the Frozen Soul relic surrounded by 8 Cryotic Blocks
-- **Cryo Essence** - dropped by the Frozen Depths mobs (all except the Frost Monarch and Glaze) when killed by a player
-- Frost Haunted, Monarch's Guards and Frozen Rangers have a 5% chance to drop their Frost Haunt Axe, Guard's Frost Lance or Frozen Bow when killed by a player
-- Crafting recipes for the frozen blocks: Cryotic Block (9 Cryo Essence), Frozen Torch, Soulfrost Lantern, Frozen Chain, Icicle Bars, Blue Ice Bricks with slab, stairs and wall (also in the stonecutter), Cracked Blue Ice Bricks (smelting), Snowy Blue Ice Bricks, Polished Ice and Polished Ice Bricks (stonecutter)
-- Fragile Ice drops itself when mined with Silk Touch
-- **Cryotic Block** and **Frostflame**: light a Flint and Steel (or a dispenser) on a Cryotic Block to make a bright blue flame that freezes instead of burning
-  - Frostflame deals freeze damage and builds up frozen ticks like powder snow, Frost Resistance protects from it and rain puts it out
-- **Frost Resistance** now also keeps freezing effects away: Freezing, Frosted and Frozen Solid (More RPG Library) can't be applied while it is active and are removed when you get it. The list is the effect tag `loot_n_explore:blocked_by_frost_resistance`
-  - Standing in Frostflame shows an icy blue flame overlay
-- The Frozen Vault and Frozen Trial Spawner now give off ice blue flame, detection and connection particles and drifting snowflakes instead of orange flames and black smoke
-- An ominous Frozen Trial Spawner launches Frostballs, Slowness arrows and lingering Frosted potions (freezing clouds) instead of the usual trial chamber items
-## New Consumables
-- **Critical Strike** mod support - Blackpepper Bread, Inferno Chilli Oil, Grilled Eel Sushi and the Phantomstrike Tonic
-- **Mossflower Tea** - boosts Nature Spell Power (More RPG Library)
-## Relics Overhaul
-- Relics are always available and no longer need Spell Engine
-- Relic attribute bonuses work from your **main hand, off hand or a relic slot** (the Spell Engine relic slot if it is installed, otherwise the Trinkets necklace slot on Fabric / the Curios charm slot on NeoForge). Passive abilities only work from the relic slot when Trinkets or Curios is installed, otherwise only from the off hand. Right click abilities work from the main hand. Wearing the same relic twice does not stack its ability
-- New Tier 2 and Tier 3 abilities that work without Spell Engine (with Spell Engine they use their own spells instead, see below):
-  - **Ender Dragon Tooth** - melee hits can stack +1% attack damage (up to 20 times)
-  - **Charged Amethyst** - every 5th time you deal damage (melee, arrows or spells) causes a magic explosion
-  - **Corrupted Ender Pearl** - right click to throw a pearl, you teleport to where it lands and it explodes there
-  - **Unknown Remains** - after 25 kills a friendly skeleton with soul-blue glowing eyes rises from the ground for 20 seconds (60 second cooldown), it is invulnerable while it digs out and grows stronger with your highest damage attribute
-  - **Lost Soul** - every 10th kill gives +1 max health (up to 5 times)
-  - **Withered Obsidian Shard** - every 10th time you take damage, a withering aura hits nearby enemies, its Wither level grows with your highest damage attribute
-  - **Eternal Snowflake** - taking damage can summon a 7 second freezing storm around you (15 second cooldown)
-  - **Rainbow Coral** - being healed can give you the new Rainbow Coral effect: absorption hearts worth 20% of your max health that are removed when the effect ends (5% chance rolled at most once per second, 30 second cooldown)
-  - **Poseidon's Amphora** - below 10% health you are healed to 50% health and take no damage for 5 seconds; the damage is stored and half of it is dealt as magic damage when the ward ends (60 second cooldown)
-  - **Glacier Shard** - every 10th time you deal damage (melee, arrows or spells) shoots 5 icicles outward in a circle
-  - **Frozen Rib** - taking damage can raise three friendly Frost Haunted from the ground for 20 seconds (60 second cooldown), they grow stronger with your highest damage attribute
-  - **Amphitrite's Diadem** - every 10th time you deal damage (melee, arrows or spells) creates a soothing water area that heals you and your allies
-- **Ender Dragon Tooth** and **Lost Soul** show their current stacks in the tooltip, relics that count kills or hits show their progress (for example "Kills: 12/25")
-- Every relic and weapon ability has a name, and the tooltip shows the real damage and healing for your current attributes instead of scaling percentages
-- Poseidon's Amphora shows a closing ring while the ward lasts, blue when the stored damage won't kill you and red when it will
-- `/loot_n_explore relics reset_cooldowns [players]` resets all relic cooldowns and `/loot_n_explore relics trigger <relic> [target]` fires a relic ability for testing (both need operator rights and creative mode)
-- Summoned skeletons and Frost Haunted look ghostly (see-through with a faint glow and optional full-bright glow textures), show their owner's name and vanish in a burst of souls
-- **Elder Guardian Eye** has the More RPG Library damage reflect attribute
-- Without Spell Engine the tier 4 relics are right click abilities in the main hand and passive abilities in the relic slot (or the off hand without Trinkets / Curios) (they fire when you deal damage and the cooldown is ready)
-- Ability names in tooltips are colored by their theme
-- Without Spell Engine the tier 4 relics get their own right click ability (Ender Dragon Scales: healing dragon breath cloud, Wither Spine: wither skull volley, Frozen Soul: icicle X pattern with 20 icicles, Elder Guardian Eye: channeled guardian beam that looks like the Elder Guardian's and deals 2 damage + 15% of your highest damage attribute every half second)
-- With Spell Engine **every relic** has its own Spell Engine spell, triggered by chance instead of by counting hits or kills (Ender Dragon Tooth: Rending Fang, a stacking attack damage frenzy; Lost Soul: Soul Siphon, heals you for a share of the killed target's max health; passive relic cooldowns ignore haste): the tier 4 relics and the Corrupted Ender Pearl are active spells on the spell hotbar (new Dragon's Breath, Skull Barrage, Frozen Eruption and Guardian's Gaze spells, and Void Rift), all other relics are passive spells. The damage spells (Dragon's Breath, Skull Barrage, Frozen Eruption, Guardian's Gaze, Void Rift, Resonant Discharge, Glacial Shards and Eternal Blizzard) use the new More RPG Library dynamic spell school, so they scale with your strongest damage stat (attack damage, ranged damage or any spell power) on every class
-- Stacking bonuses and kill counters are reset on death. Abilities only affect hostile enemies, never villagers, pets or allies
-- Relic attribute bonuses are balanced per relic and include bonuses for Spell Power, Critical Strike, Ranged Weapon API and Spell Engine when those mods are installed
-- Relic ability cooldowns show the vanilla item cooldown overlay on the relic
-- Bows and crossbows with an ability show the ability cooldown on the hotbar like an item cooldown, without blocking the bow
-- Weapons and shields with an ability give off small glowing sparks in the ability color while the ability is ready (`ready_particles` in `weapon_abilities_v2.json`)
-- New relic tooltips show the bonuses, the trigger, the description and the cooldown, all using your configured values
-- Weapon ability tooltips (shields, swords, axes, maces, bows, crossbows, Monarch's Frost Staff) use the same layout as relic tooltips, and chance, cooldown and damage of the Ender Dragon, Wither, Glacial and Elder Guardian weapon abilities are now configurable in `weapon_abilities_v2.json`
-- Abilities come with their own particle and sound effects
-- With Spell Engine installed relics can only be worn in its relic slot, never in the necklace / charm slot
-## Creative Menu
-- Loot & Explore content is now organised into the mod's own tabs
-- The old "LNE Items & Blocks" tab is split in two:
-  - **LNE - Generic Items & Blocks** - the Innkeeper Shelf, Hanging Inn Signs and the Jolly Time music disc
-  - **LNE-Frozen Depths** - all the frozen blocks, keys, spawn eggs, the music disc and the Frozen Depths weapons
-- **LNE Equipment** and **LNE Drinks & Food** are unchanged
-## Config
-- Weapon abilities have their own **`config/loot_n_explore/weapon_abilities_v2.json`** with chance, cooldown, damage and radius per theme and weapon type, the Monarch's Frost Staff icicle (cooldown, damage multiplier, freezing duration) and the Freezing time of the Frozen Depths weapons
-- Relic drops are now fully data-driven in **`config/loot_n_explore/relic_loot.json`**
-  - Every entry is a loot table with its own drop chance (`rolls`) and item list, so you can retune drop rates, point relics at different loot tables, add your own drops, or disable them completely
-  - This replaces the relic drop-chance values that used to live in `tweaks_v1.json` (that file is no longer used - defaults are generated on first launch)
-- Frozen Depths mobs can be rebalanced in **`config/loot_n_explore/frozen_depths/entity_attributes_v1.json`**
-  - `attributes`: health, damage, armor, spell power and more, with separate Normal / Hard multipliers
-  - `custom`: ability values such as cooldowns (in ticks), arrow / icicle / hailstone counts, ranges, damage multipliers, the Frost Monarch's Ice Barrier uses, Ice Wall size and duration, and the number of Eternal Winter Portals and the mobs that come out of them (per barrier and difficulty)
-  - Every ability of every Frozen Depths mob can be turned off with its `..._enabled` value (1 = on, 0 = off), for example `screech_enabled`, `ice_wall_enabled` or `melee_enabled`
-  - `equipment`: the items each mob spawns with (main hand, off hand, helmet, chestplate, leggings, boots), as an item or a random pick from an item tag, with spawn, enchant and drop chances
-  - Changes apply to newly spawned mobs (ability values also to mobs already in the world). Keys that are missing from an older file use the built-in defaults - delete the file to regenerate it with every key
-- The ominous Frozen Trial Spawner projectiles can be turned off in **`config/loot_n_explore/frozen_depths/frozen_depths_v1.json`** (`frozen_trial_spawner_ominous_projectiles`)
-- The Eternal Frostsiege has its own **`config/loot_n_explore/frozen_depths/frostsiege.json`**: on / off, chances, cooldown, waves and portals per difficulty, the mobs of every wave, portal times and the ominous bonus
-- Relic bonuses can be changed in **`config/loot_n_explore/relics_v2.json`** (attribute, amount and operation per relic - attributes of mods that are not installed are simply skipped)
-- Relic ability numbers (chances, radius, durations, cooldowns in ticks and channel time) can be changed in **`config/loot_n_explore/relic_abilities_v2.json`**
-- Weapon and relic ability effects are played through More RPG Library's particle effect system: one packet per effect instead of one per particle, and every player sets the particle amount with `fx_density` in `config/mrpg_lib/client_fx_v1.json`
-## Compatibility
-- Relics also work as standalone items without Spell Engine / More RPG Library, with identical loot injection
-- Frozen Depths mobs are tagged for **Frostiful** (benefits from cold)
-- Frozen Depths mobs fight with **Spell Engine**, **Better Combat** and **Combat Roll** when those mods (and playerAnimator) are installed, playing the player animations of these mods on their own models:
-  - The Frost Haunted you summon with relics fight this way too (Better Combat attacks and the Cleave of their axe) and only hit what you could hit
-  - The Frost Monarch casts the spell of his Monarch's Frost Staff (Frostbolt with Wizards) instead of his quick icicle shot, and between his main abilities casts spells from the spell tag `loot_n_explore:mob/frost_monarch/secondary` (Frost Lance by default). His own abilities always come first and he faces his target while casting
-  - The Frozen Magician and General Ysmerith cast spells from their own spell tags with their own orb cast animation and cast time: `loot_n_explore:mob/frozen_magician/secondary` (Frost Nova, Frost Spikes) and `.../primary` (Frost Shard), `loot_n_explore:mob/general_frozen_magician/secondary` (Frost Nova, Frost Spikes, Frost Shield) and `.../primary` (Frostbolt). Their own icicle abilities come first, and when the primary spell is available it replaces their single icicle shot
-  - Monarch's Soldiers (`rogues:charge`), General Haldrec (Charge, Shout, Mortal Strike), General Dunmarth (Charge, Throw Net), Frozen Rangers (`archers_expansion:arctic_volley`) and General Kaelthorn (Arctic Volley, Enchanted Crystal Arrow, Rain of Arrows) cast spells from `loot_n_explore:mob/<mob>/secondary` with the spell's own player animation and cast time when Rogues & Warriors, Archers and Archers Expansion are installed
-  - Frozen Rangers and General Kaelthorn have a 5% dodge chance with Spell Engine (`dodge_chance`, `dodge_enabled`)
-  - Monarch's Soldiers, Frost Haunted and Monarch's Guards (and their Generals) use the weapon skills of the weapon they hold, for example Swift Strikes with a sword, Cleave with the Frost Haunt Axe and Impale with the Guard's Frost Lance
-  - With Better Combat the Frost Monarch, Monarch's Soldiers, Frost Haunted and Monarch's Guards attack with the Better Combat combo of the weapon they hold (staff, sword, axe, spear) instead of their own melee attack. The weapon is read on every swing, so a different weapon from the entity config gives its own attacks
-  - With Combat Roll Frozen Rangers and Monarch's Guards (and their Generals) roll: Rangers roll away when hurt and close to their target, Guards also roll towards their target, and both sidestep projectiles
-  - Each of these can be turned off for all mobs in `tweaks.json` (`disable_mob_spell_casting`, `disable_mob_better_combat`, `disable_mob_combat_roll`, Spell Engine casting also with `disable_spell_engine_abilities`) and per mob in `entity_attributes_v1.json` (`primary_spell_enabled`, `spell_casting_enabled`, `weapon_skills_enabled`, `better_combat_enabled`, `combat_roll_enabled`, plus `spell_casting_cooldown_ticks` / `primary_spell_cooldown_ticks`)
-- The Frost Haunt Axe and the Frozen Bow have Better Combat attributes (axe and bow)
+# Changelog
+
+All notable changes to Loot & Explore are documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [1.1.0+1.21.1]
+
+The 1.21.1 rewrite: NeoForge support, a much bigger Frozen Depths, the Eternal Frostsiege raid and a complete relic overhaul.
+Huge thanks to AnolXD for the new models, animations and textures, and to KaktusDoesMusic for the music.
+
+### Added
+
+- **NeoForge support** - relics use Curios on NeoForge and Trinkets on Fabric
+- **Full themed arsenals** - the Ender Dragon, Wither, Glacial and Elder Guardian sets now each have a Sword, Axe, Mace, Shield, Bow and Crossbow with their own ability
+  - Maces and Shields are skipped when LNE Paladins is installed, Bows and Crossbows when LNE Archers is installed
+  - The Elder Guardian Bow and Crossbow shoot normally underwater (needs More RPG Library 2.8.3)
+  - Small particles and a chime show when a weapon's ability is ready again (both can be turned off in the config)
+- **Frozen Depths weapons** - Frost Haunt Axe, Frozen Bow, Guard's Frost Lance and the Monarch's Frost Staff, which shoots icicles and is crafted with the Monarch's Crown
+  - With Spell Engine and Wizards you choose the staff's spell: Frostbolt or Icicle Barrage (icicles hover behind you and fly at the nearest enemies, more with projectile bonuses). It also has the Glacial Curse passive: spell hits can make icicles close in on the target from 4 sides
+- **New Frozen Depths enemies** - Frozen Magician, Frozen Ranger, Monarch's Soldier, Monarch's Guard and Frost Hound
+  - Four of them have a named **General** elite variant with extra abilities, for example General Ysmerith's Frost Blink and Frost Decoy
+  - Magicians and Rangers kite you and look for open ground, Soldiers block with their shield
+- **Monarch's Castle** - a new Frozen Depths structure with its own vaults and loot
+- **Eternal Frostsiege** - a new raid in icy biomes
+  - It starts by chance while you carry the Monarch's Crown, or right away when you throw Cryo Essence into a fire
+  - Waves of Frozen Depths mobs pour out of Eternal Winter Portals that open around you. Higher difficulties add more waves and a General
+  - Everyone who survives gets loot and experience
+- **Music** by KaktusDoesMusic - the discs Frozen Depths, The King Cursed by Winter and Jolly Time, ambient music in the Glacial Tomb, Frost Towers and inns, and Frost Monarch battle music
+- **New blocks**
+  - Frozen decoration: Frozen Torch, Frozen Bones (a Frost Haunted can rise from them), Frozen Adventurer, Pointed Icicles, Icicle Bars, Fragile Ice and the Frozen Kingdom Flag
+  - Crafting recipes for the frozen building blocks, like Blue Ice Bricks, Polished Ice, Frozen Chain and the Soulfrost Lantern
+  - Sealed Monarch, Monarch's Crown and Frozen Soul Block for the Frost Monarch story
+  - Cryotic Block, which lights into a freezing blue Frostflame
+  - Deepslate and Icy Deepslate Bookshelves, Frozen Decorated Pots and Hanging Inn Signs in every wood type
+  - Suspicious Bookshelves to brush, found in Frozen Depths structures, inns, strongholds, woodland mansions and village libraries
+- **Empty Beer Mug** - left behind by the inn drinks, sold to Innkeepers and placeable as decoration
+- **Cryo Essence** - dropped by Frozen Depths mobs, crafts into Cryotic Blocks
+- **New consumables** - Mossflower Tea and Critical Strike support for Blackpepper Bread, Inferno Chilli Oil, Grilled Eel Sushi and the Phantomstrike Tonic
+- **Frost Monarch Temple map** - sold by Expert Cartographers
+- **New relic abilities** for every relic, with or without Spell Engine (for example Glacier Shard icicle bursts, Frozen Rib Frost Haunted allies and Poseidon's Amphora's last-stand ward)
+- **Mod support** - Frozen Depths mobs cast Spell Engine spells, attack with Better Combat and roll with Combat Roll when those mods are installed, and are tagged for Frostiful
+- **Config files** for weapon abilities, relic drops, relic bonuses and abilities, Frozen Depths mob stats and abilities, and the Frostsiege
+
+### Changed
+
+- **Frost Monarch** - fully remodeled with new abilities: ground icicles, Hailstorm, Ice Wall, Ice Barrier with Eternal Winter Portals and the Frost Screech
+  - He now speaks, has a new awakening and death sequence and doesn't despawn mid-fight
+  - His sounds, and the Glaze and Frozen Soul Block sounds, now come from their position and get quieter with distance
+- **Icicles and frostballs** glow slightly in the dark, and the **Glaze** is surrounded by a small frost storm instead of a snowflake cloud
+- **Ice sounds** - frostballs, ice walls, the Ice Barrier, portals and other ice effects use new ice sounds instead of breaking glass
+- **Frost Haunted** (previously Frosthaunt) - remodeled with new animations and behavior. Existing Frosthaunts in old worlds are converted
+- **Glacial Tomb** - larger, follows the terrain and is decorated with icicles
+- **Frozen Depths structures** - each has its own placement and they spread out further. They stay away from villages, and the Glacial Tomb also from Ancient Cities
+  - Every structure now has its own small set of naturally spawning Frozen Depths mobs
+  - Bookshelves and pots inside them can hold extra loot
+- **Frozen Vault and Frozen Trial Spawner** - ice themed particles. Ominous spawners now fire Frostballs, Slowness arrows and freezing clouds
+- **Frost Resistance** - now also protects against Freezing and the other freezing effects
+- **Relics**
+  - No longer need Spell Engine
+  - Work from the main hand, off hand or a relic slot
+  - Tooltips show the real numbers for your current stats, and cooldowns show on the item
+- **Creative menu** - the old tab is split into Generic Items & Blocks and Frozen Depths
+- **On-screen texts** (boss lines, siege waves, relic zones) sit lower, closer to the hotbar. The height can be changed with `hud_text_height` in `config/loot_n_explore/client_v1.json`
+
+### Removed
+
+- `tweaks_v1.json` - relic drop chances now live in `relic_loot_v1.json`

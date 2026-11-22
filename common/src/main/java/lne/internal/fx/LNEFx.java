@@ -34,7 +34,6 @@ public final class LNEFx {
     public static final int ICE = 0xC8F0FF;
     public static final int ICE_DEEP = 0x7FD0FF;
     public static final int GUARDIAN = 0x4DE6CC;
-    public static final int GUARDIAN_DEEP = 0x1A738C;
     public static final int AMETHYST = 0xC890FF;
     public static final int AMETHYST_DARK = 0x7A4AC0;
     public static final int PEARL = 0x8A3AD0;
@@ -120,7 +119,7 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.LINE).lengthFromParams(1.0F).anchor(FxAnchor.GROUND).count(28).jitter(0.2F)
                     .velocity(FxVelocity.UP).speed(0.02F, 0.06F).colored(ColoredParticles.SNOWFLAKE, ICE))
             .layer(FxLayer.of(FxShape.POINT).count(12).velocity(FxVelocity.OUTWARD).speed(0.04F, 0.1F).colored(ColoredParticles.CLOUD, ICE))
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 0.9F, 0.6F)
+            .sound(FxSound.of(MRPGLibSounds.GLACIAL_SPIKES.soundEvent(), 0.9F, 1.0F).pitchVariance(0.1F))
             .build());
 
     public static final FxEffect GUARDIAN_SPLASH = register("weapon/guardian_splash", FxEffect.builder().radius(1.2F)
@@ -176,14 +175,14 @@ public final class LNEFx {
             .radius(0.8F)
             .color(ICE, ICE_DEEP)
             .vanillaParticle(ParticleTypes.SNOWFLAKE)
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 0.7F, 1.5F)
+            .sound(FxSound.of(MRPGLibSounds.ICICLE_HIT.soundEvent(), 0.8F, 1.1F).pitchVariance(0.1F))
             .addSound(FxSound.of(MRPGLibSounds.FROST_CRACKLE.soundEvent(), 0.6F, 1.0F))));
 
     public static final FxEffect ICICLE_SHATTER = register("icicle/shatter", FxEffect.builder()
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.2F).count(14).velocity(FxVelocity.OUTWARD).speed(0.08F, 0.18F)
                     .particle(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.ICE.getDefaultState())))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.2F).count(6).velocity(FxVelocity.RANDOM).speed(0.01F, 0.04F).particle(ParticleTypes.SNOWFLAKE))
-            .sound(FxSound.of(SoundEvents.BLOCK_GLASS_BREAK, 0.5F, 1.55F).pitchVariance(0.15F))
+            .sound(FxSound.of(MRPGLibSounds.ICICLE_HIT.soundEvent(), 0.5F, 1.3F).pitchVariance(0.15F))
             .build());
 
     public static final FxEffect TOOTH_STACK = register("relic/tooth_stack", FxEffect.builder()
@@ -307,6 +306,7 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.5F).count(8).velocity(FxVelocity.OUTWARD).speed(0.02F, 0.05F).colored(ColoredParticles.CLOUD, ICE))
             .sound(SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, 1.0F, 0.6F)
             .sound(MRPGLibSounds.FROST_CRACKLE.soundEvent(), 0.8F, 1.3F)
+            .sound(FxSound.of(MRPGLibSounds.GLACIAL_SPIKES.soundEvent(), 0.7F, 1.1F).pitchVariance(0.1F))
             .build());
 
     public static final FxEffect DRAGON_CLOUD = register("relic/dragon_cloud", FxEffect.builder().radius(5.0F).duration(120).interval(2)
@@ -378,7 +378,7 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.6F).count(30).velocity(FxVelocity.OUTWARD).speed(0.08F, 0.2F).particle(Particles.FREEZING_SNOWFLAKE))
             .sound(SoundEvents.PARTICLE_SOUL_ESCAPE.value(), 1.0F, 0.7F)
             .sound(FxSound.of(SoundEvents.ENTITY_GENERIC_EXPLODE.value(), 1.5F, 1.4F))
-            .sound(FxSound.of(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 0.5F))
+            .sound(FxSound.of(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 1.4F, 0.6F))
             .sound(FxSound.of(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK, 1.2F, 0.6F))
             .build());
 
@@ -421,6 +421,7 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.RING).radius(1.2F).yOffset(-0.9F).count(16).colored(ColoredParticles.CLOUD, ICE))
             .sound(SoundEvents.BLOCK_BEACON_ACTIVATE, 1.0F, 0.7F)
             .sound(FxSound.of(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, 1.0F, 0.6F))
+            .sound(FxSound.of(MRPGLibSounds.FROST_CRACKLE_LONG.soundEvent(), 1.0F, 0.9F))
             .build());
 
     public static final FxEffect ETERNAL_WINTER_PORTAL_CLOSE = register("boss/frost_monarch/eternal_winter_portal_close", FxEffect.builder()
@@ -428,7 +429,7 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.6F).count(20).velocity(FxVelocity.OUTWARD).speed(0.1F, 0.25F).particle(Particles.FREEZING_SNOWFLAKE))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.5F).count(10).velocity(FxVelocity.RANDOM).speed(0.02F, 0.06F).particle(ParticleTypes.FLAME))
             .sound(SoundEvents.BLOCK_FIRE_EXTINGUISH, 1.0F, 0.8F)
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 0.9F, 0.7F)
+            .sound(MRPGLibSounds.FROST_TELEPORT.soundEvent(), 0.9F, 0.7F)
             .build());
 
     public static final FxEffect ETERNAL_WINTER_PORTAL_FADE = register("boss/frost_monarch/eternal_winter_portal_fade", FxEffect.builder()
@@ -459,13 +460,13 @@ public final class LNEFx {
             .layer(FxLayer.of(FxShape.COLUMN).radius(0.5F).height(1.6F).count(20).velocity(FxVelocity.UP).speed(0.02F, 0.08F).particle(Particles.FROZEN_SOUL_MOTE))
             .layer(FxLayer.of(FxShape.SPHERE).radius(0.7F).yOffset(0.8F).count(30).velocity(FxVelocity.OUTWARD).speed(0.08F, 0.2F).particle(Particles.FREEZING_SNOWFLAKE))
             .sound(SoundEvents.PARTICLE_SOUL_ESCAPE.value(), 1.5F, 0.6F)
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 1.0F, 0.6F)
+            .sound(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 1.2F, 0.7F)
             .build());
 
     public static final FxEffect ICE_WALL_SHATTER = register("boss/frost_monarch/ice_wall_shatter", FxEffect.builder()
             .layer(FxLayer.of(FxShape.COLUMN).radius(0.7F).height(2.4F).yOffset(-1.2F).count(20).velocity(FxVelocity.OUTWARD).speed(0.05F, 0.15F)
                     .particle(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.PACKED_ICE.getDefaultState())))
-            .sound(FxSound.of(SoundEvents.BLOCK_GLASS_BREAK, 0.6F, 0.8F).pitchVariance(0.15F))
+            .sound(FxSound.of(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 0.6F, 0.9F).pitchVariance(0.15F))
             .build());
 
     public static final FxEffect FROST_BLINK = register("mob/frozen_magician/frost_blink", FxEffect.builder()
@@ -487,7 +488,7 @@ public final class LNEFx {
                     .colored(ColoredParticles.SNOWFLAKE, ICE_DEEP))
             .layer(FxLayer.of(FxShape.RING).radiusFromParams(0.6F).anchor(FxAnchor.GROUND).count(40).velocity(FxVelocity.OUTWARD).speed(0.06F, 0.14F)
                     .particle(Particles.FREEZING_SNOWFLAKE))
-            .sound(SoundEvents.BLOCK_GLASS_BREAK, 1.2F, 0.6F)
+            .sound(MRPGLibSounds.ICICLE_CRASH.soundEvent(), 1.2F, 0.7F)
             .sound(FxSound.of(MRPGLibSounds.FROST_CRACKLE_LONG.soundEvent(), 1.0F, 0.8F))
             .sound(SoundEvents.BLOCK_AMETHYST_CLUSTER_BREAK, 1.0F, 0.7F)
             .build());
