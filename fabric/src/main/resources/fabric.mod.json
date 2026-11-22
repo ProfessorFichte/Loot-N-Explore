@@ -2,13 +2,15 @@
   "schemaVersion": 1,
   "id": "loot_n_explore",
   "version": "${version}",
-  "name": "Loot N Explore",
+  "name": "Loot & Explore",
   "description": "RPG-Structures, Mob Entities, Building Blocks and more.",
   "authors": [
     "Fichte"
   ],
   "contact": {
-    "sources": "https://github.com/ProfessorFichte/Loot-N-Explore"
+    "homepage": "https://modrinth.com/mod/loot-n-explore",
+    "sources": "https://github.com/ProfessorFichte/Loot-N-Explore",
+    "issues": "https://github.com/ProfessorFichte/Loot-N-Explore/issues"
   },
   "license": "ARR",
   "icon": "assets/loot_n_explore/icon.png",
@@ -48,7 +50,10 @@
     "modmenu": {
       "modId": "loot_n_explore",
       "links": {
-        "modmenu.discord": "https://discord.gg/AShKd5XrTu"
+        "modmenu.discord": "https://discord.gg/AShKd5XrTu",
+        "modmenu.kofi": "https://ko-fi.com/fichteee",
+        "modmenu.modrinth": "https://modrinth.com/mod/loot-n-explore",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/loot-n-explore"
       }
     }
   }

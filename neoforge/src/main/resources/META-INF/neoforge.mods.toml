@@ -1,11 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
+issueTrackerURL = "https://github.com/ProfessorFichte/Loot-N-Explore/issues"
 license = "ARR"
 
 [[mods]]
 modId = "loot_n_explore"
 version = "${version}"
-displayName = "Loot N Explore"
+displayName = "Loot & Explore"
+displayURL = "https://modrinth.com/mod/loot-n-explore"
 authors = "Fichte"
 description = '''
 RPG-Structures, Mob Entities, Building Blocks and more.
