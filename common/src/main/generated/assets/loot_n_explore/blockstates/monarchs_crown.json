@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "loot_n_explore:block/frozen_depths/monarchs_crown",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "loot_n_explore:block/frozen_depths/monarchs_crown"
+    },
+    "facing=south": {
+      "model": "loot_n_explore:block/frozen_depths/monarchs_crown",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "loot_n_explore:block/frozen_depths/monarchs_crown",
+      "y": 270
+    }
+  }
+}

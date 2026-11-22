@@ -25,6 +25,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
@@ -114,8 +115,11 @@ public class MonarchsCrownBlock extends Block{
                     if (frostMonarchEntity != null) {
                         CarvedPumpkinBlock.breakPatternBlocks(world, result);
                         BlockPos blockPos = result.translate(0, 2, 0).getBlockPos();
-                        frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, blockPos.getY() + 1.0 , (double)blockPos.getZ() + 0.5, result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F, 0.0F);
-                        frostMonarchEntity.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
+                        float yaw = placer != null ? MathHelper.wrapDegrees(placer.getYaw() + 180.0F) : state.get(FACING).asRotation();
+                        frostMonarchEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5, blockPos.getY() + 1.0 , (double)blockPos.getZ() + 0.5, yaw, 0.0F);
+                        frostMonarchEntity.bodyYaw = yaw;
+                        frostMonarchEntity.prevBodyYaw = yaw;
+                        frostMonarchEntity.setHeadYaw(yaw);
                         frostMonarchEntity.onSummoned();
                         for (ServerPlayerEntity serverPlayerEntity : world.getNonSpectatingEntities(ServerPlayerEntity.class, frostMonarchEntity.getBoundingBox().expand(50.0))) {
                             Criteria.SUMMONED_ENTITY.trigger(serverPlayerEntity, frostMonarchEntity);
