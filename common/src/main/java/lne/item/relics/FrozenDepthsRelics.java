@@ -29,7 +29,7 @@ public class FrozenDepthsRelics {
             .bonuses(percent(ATTACK_SPEED, 0.05), percent(SPELL_FROST, 0.07), percent(SPELL_HASTE, 0.05));
     public static final Entry FROZEN_SOUL = new Entry(4, "frozen_soul")
             .title("Frozen Soul")
-            .lore("Take the Frozen Soul from the Frostmonarch to craft a powerful weapon!")
+            .lore("Take the Frozen Soul from the Frost Monarch to craft a powerful weapon!")
             .bonuses(flat(MAX_HEALTH, 4), percent(SPELL_FROST, 0.10), percent(SPELL_SOUL, 0.10))
             .spell("frozen_soul");
 

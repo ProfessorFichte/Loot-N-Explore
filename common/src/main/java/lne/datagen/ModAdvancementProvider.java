@@ -445,7 +445,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
         addEquipment(new Entry(
             id("equipment/craft_frostmonarch_upgrade_smithing_template"),
-            "Frostmonarch Upgrade",
+            "Frost Monarch Upgrade",
             "Craft the Smithing Template with the 3 relic items listed before.",
             id("equipment/find_frozen_rib"),
             "frostmonarch_upgrade_smithing_template",
@@ -458,7 +458,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
         addEquipment(new Entry(
             id("equipment/find_frozen_soul"),
             "Cursed frozen Soul",
-            "Take the Frozen Soul from the Frostmonarch to craft a powerful weapon!",
+            "Take the Frozen Soul from the Frost Monarch to craft a powerful weapon!",
             id("equipment/craft_frostmonarch_upgrade_smithing_template"),
             "frozen_soul",
             AdvancementFrame.CHALLENGE,
