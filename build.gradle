@@ -15,7 +15,7 @@ ext.runtimeWorkspace = {
     def flags = [:]
     for (name in runtimeWorkspaceFlags) {
         def cli = providers.gradleProperty(name).orNull
-        flags[name] = (cli != null ? cli : props.getProperty(name, "true")).toBoolean()
+        flags[name] = (cli != null ? cli : props.getProperty(name, "false")).toBoolean()
     }
     return flags
 }()

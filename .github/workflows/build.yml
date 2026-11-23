@@ -11,10 +11,7 @@ jobs:
     strategy:
       matrix:
         # Use these Java versions
-        java: [
-          17,    # Current Java LTS & minimum supported by Minecraft
-          21,    # Current Java LTS
-        ]
+        java: [ 21 ]
     runs-on: ubuntu-22.04
     steps:
       - name: checkout repository
