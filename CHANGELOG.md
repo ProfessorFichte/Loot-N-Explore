@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 The 1.21.1 rewrite: NeoForge support, a much bigger Frozen Depths, the Eternal Frostsiege raid and a complete relic overhaul.
 Huge thanks to AnolXD for the new models, animations and textures, and to KaktusDoesMusic for the music.
 
+![Frozen Depths monsters](.media/images/frozen_depths/frozen_depths_monster.png)
+![Monarch's Castle](.media/images/frozen_depths/castle_structure_preview.png)
+![Suspicious Bookshelves](.media/images/generic/sus_bookshelf_showcase.png)
+![Food and drinks](.media/images/generic/consumables_showcase.png)
+
 ### Added
 
 - **NeoForge support** - relics use Curios on NeoForge and Trinkets on Fabric
@@ -36,10 +41,10 @@ Huge thanks to AnolXD for the new models, animations and textures, and to Kaktus
 - **Empty Beer Mug** - left behind by the inn drinks, sold to Innkeepers and placeable as decoration
 - **Cryo Essence** - dropped by Frozen Depths mobs, crafts into Cryotic Blocks
 - **New consumables** - Mossflower Tea and Critical Strike support for Blackpepper Bread, Inferno Chilli Oil, Grilled Eel Sushi and the Phantomstrike Tonic
-- **Frost Monarch Temple map** - sold by Expert Cartographers
+- **Explorer maps** - Expert Cartographers sell maps to the Monarch's Castle and the Glacial Tomb. Suspicious Bookshelves can hold maps to a Frost Tower (snowy villages, Outposts) or a Monarch's Castle (Frost Towers, Glacial Tombs)
 - **New relic abilities** for every relic, with or without Spell Engine (for example Glacier Shard icicle bursts, Frozen Rib Frost Haunted allies and Poseidon's Amphora's last-stand ward)
 - **Mod support** - Frozen Depths mobs cast Spell Engine spells, attack with Better Combat and roll with Combat Roll when those mods are installed, and are tagged for Frostiful
-- **Config files** for weapon abilities, relic drops, relic bonuses and abilities, Frozen Depths mob stats and abilities, and the Frostsiege
+- **Config files** for weapon abilities, relic drops, relic bonuses and abilities, Frozen Depths mob stats and abilities, and the Frostsiege, plus `tweaks.json` to turn off relic bonuses, relic or weapon abilities, Spell Engine abilities, mob mod support, custom music and on-screen texts
 
 ### Changed
 
@@ -57,7 +62,7 @@ Huge thanks to AnolXD for the new models, animations and textures, and to Kaktus
 - **Frost Resistance** - now also protects against Freezing and the other freezing effects
 - **Relics**
   - No longer need Spell Engine
-  - Work from the main hand, off hand or a relic slot
+  - Work without a relic slot mod: bonuses apply in either hand, passive abilities work from the off hand (or the relic slot when Trinkets or Curios is installed), active abilities are used from the main hand
   - Tooltips show the real numbers for your current stats, and cooldowns show on the item
 - **Creative menu** - the old tab is split into Generic Items & Blocks and Frozen Depths
 - **On-screen texts** (boss lines, siege waves, relic zones) sit lower, closer to the hotbar. The height can be changed with `hud_text_height` in `config/loot_n_explore/client_v1.json`
