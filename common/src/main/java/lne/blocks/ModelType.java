@@ -52,10 +52,10 @@ public sealed interface ModelType {
 
     }
 
-    record FlowerPot(Block pottedBlock, BlockStateModelGenerator.TintType tintType) implements ModelType {
+    record FlowerPot(Block pottedBlock) implements ModelType {
         @Override
         public void generate(BlockStateModelGenerator generator, Block block) {
-            generator.registerFlowerPotPlant(block, pottedBlock, tintType);
+            generator.registerFlowerPotPlant(block, pottedBlock, BlockStateModelGenerator.TintType.NOT_TINTED);
         }
     }
 

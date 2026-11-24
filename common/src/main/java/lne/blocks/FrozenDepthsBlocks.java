@@ -39,7 +39,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.BlockItem;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
-import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -124,7 +123,7 @@ public class FrozenDepthsBlocks {
     public static final Block POTTED_FROST_BLOOM = Registry.register(Registries.BLOCK, Identifier.of(MOD_ID, "potted_frostbloom"),
             new FlowerPotBlock(FROST_BLOOM_BLOCK, AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque()));
     public static final Entry FROST_BLOOM = entry("frostbloom", FROST_BLOOM_BLOCK, "Frostbloom",
-            new ModelType.FlowerPot(POTTED_FROST_BLOOM, BlockStateModelGenerator.TintType.NOT_TINTED));
+            new ModelType.FlowerPot(POTTED_FROST_BLOOM));
 
     public static final Entry FROZEN_TRIAL_SPAWNER = entry("frozen_trial_spawner", new ThemedTrialSpawnerBlock(
             AbstractBlock.Settings.copy(Blocks.TRIAL_SPAWNER).nonOpaque(), ParticleThemes.FROZEN), "Frozen Trial Spawner", new ModelType.Custom());
