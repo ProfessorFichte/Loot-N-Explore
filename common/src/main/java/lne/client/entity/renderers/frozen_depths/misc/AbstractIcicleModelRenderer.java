@@ -47,7 +47,7 @@ public abstract class AbstractIcicleModelRenderer<T extends Entity> extends Enti
         return MODEL_HEIGHT;
     }
 
-    protected Identifier getModelId() {
+    protected Identifier getModelId(T entity) {
         return SPIKE_MODEL_ID;
     }
 
@@ -73,7 +73,7 @@ public abstract class AbstractIcicleModelRenderer<T extends Entity> extends Enti
         float yOffset = -getModelHeight() + (getModelHeight() * emergeProgress);
         matrices.translate(0.0, yOffset, 0.0);
 
-        BakedModel model = LNEClientModels.lookup.apply(getModelId());
+        BakedModel model = LNEClientModels.lookup.apply(getModelId(entity));
         if (model != null) {
             applyModelTransform(matrices);
 

@@ -18,7 +18,7 @@ public class IceWallRenderer extends AbstractIcicleModelRenderer<IceWallEntity> 
     }
 
     @Override
-    protected Identifier getModelId() {
+    protected Identifier getModelId(IceWallEntity entity) {
         return MODEL_ID;
     }
 

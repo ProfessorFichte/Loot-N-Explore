@@ -664,7 +664,7 @@ public class LNE_Abilities {
         var projectile = new Spell.ProjectileData();
         projectile.client_data = new Spell.ProjectileData.Client();
         projectile.client_data.composite_model = SpellBuilder.ProjectileModels.composite(
-                SpellBuilder.ProjectileModels.model("mrpg_lib:spell_projectile/glacial_arrow", 1.0F));
+                SpellBuilder.ProjectileModels.model("loot_n_explore:spell_projectile/icicle_small", 1.5F));
         spell.deliver.projectile.projectile = projectile;
         var damage = SpellBuilder.Impacts.damage(0.4F);
         damage.sound = new Sound(Identifier.of("spell_engine", "generic_frost_impact"));

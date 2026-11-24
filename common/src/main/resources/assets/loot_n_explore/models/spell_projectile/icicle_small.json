@@ -1,0 +1,166 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "loot_n_explore:spell_projectile/frozen_depths/icicle_small",
+		"particle": "loot_n_explore:spell_projectile/frozen_depths/icicle_small"
+	},
+	"elements": [
+		{
+			"name": "Point",
+			"from": [7.9527, 7.9681, -0.01],
+			"to": [8.0473, 8.0319, 3.48236],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 1.73618]},
+			"faces": {
+				"north": {"uv": [1.1554, 13.8952, 0.8446, 14.1048], "texture": "#0"},
+				"east": {"uv": [11.97368, 1.76191, 0.5, 1.5523], "texture": "#0"},
+				"south": {"uv": [2.8446, 13.8952, 3.1554, 14.1048], "texture": "#0"},
+				"west": {"uv": [0.5, 1.9477, 11.97368, 1.73809], "texture": "#0"},
+				"up": {"uv": [0.5, 1.63801, 11.97368, 1.94881], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [11.97368, 1.67619, 0.5, 1.98699], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Shaft",
+			"from": [7.7979, 7.8637, 3.48236],
+			"to": [8.2021, 8.1363, 4.5557],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 4.01903]},
+			"faces": {
+				"north": {"uv": [3.66397, 13.5522, 2.33603, 14.4478], "texture": "#0"},
+				"east": {"uv": [15.5, 1.90882, 11.97368, 1.01323], "texture": "#0"},
+				"south": {"uv": [4.33603, 13.5522, 5.66397, 14.4478], "texture": "#0"},
+				"west": {"uv": [11.97368, 2.48677, 15.5, 1.59118], "texture": "#0"},
+				"up": {"uv": [11.97368, 1.14651, 15.5, 2.47446], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 1.15054, 11.97368, 2.47849], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Body",
+			"from": [7.64912, 7.76336, 4.5557],
+			"to": [8.35088, 8.23664, 11.1239],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 7.8398]},
+			"faces": {
+				"north": {"uv": [5.80132, 13.45958, 4.19868, 14.54042], "texture": "#0"},
+				"east": {"uv": [15.5, 5.61411, 0.5, 4.53326], "texture": "#0"},
+				"south": {"uv": [6.19868, 13.45958, 7.80132, 14.54042], "texture": "#0"},
+				"west": {"uv": [0.5, 6.96674, 15.5, 5.88589], "texture": "#0"},
+				"up": {"uv": [0.5, 5.17253, 15.5, 6.77517], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 4.97483, 0.5, 6.57747], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Tail",
+			"from": [7.7119, 7.8057, 11.1239],
+			"to": [8.2881, 8.1943, 13.62302],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 12.37346]},
+			"faces": {
+				"north": {"uv": [7.8625, 13.41831, 6.1375, 14.58169], "texture": "#0"},
+				"east": {"uv": [8.17213, 10.21204, 0.5, 9.01906], "texture": "#0"},
+				"south": {"uv": [8.1375, 13.41831, 9.8625, 14.58169], "texture": "#0"},
+				"west": {"uv": [0.5, 11.48094, 8.17213, 10.28796], "texture": "#0"},
+				"up": {"uv": [0.5, 9.61263, 8.17213, 11.38152], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [8.17213, 9.36848, 0.5, 11.13737], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Tail point",
+			"from": [7.95012, 7.96636, 13.62302],
+			"to": [8.04988, 8.03364, 16.01],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 8, 14.81651]},
+			"faces": {
+				"north": {"uv": [9.15313, 13.89673, 8.84687, 14.10327], "texture": "#0"},
+				"east": {"uv": [15.5, 10.26264, 8.17213, 10.0561], "texture": "#0"},
+				"south": {"uv": [10.84687, 13.89673, 11.15313, 14.10327], "texture": "#0"},
+				"west": {"uv": [8.17213, 10.4439, 15.5, 10.23736], "texture": "#0"},
+				"up": {"uv": [8.17213, 10.13965, 15.5, 10.44591], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 10.1791, 8.17213, 10.48535], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Leading bevel",
+			"from": [7.46734, 8, -0.01],
+			"to": [8.38048, 8.1, 4.5557],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 8, 2.27285]},
+			"faces": {
+				"up": {"uv": [0.5, 0.5, 15.5, 3.5], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 0.5, 0.5, 3.5], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Shaft bevel",
+			"from": [7.23371, 8, 4.5557],
+			"to": [8.76629, 8.1, 11.1239],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 8, 7.8398]},
+			"faces": {
+				"up": {"uv": [0.5, 4, 15.5, 7.5], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 4, 0.5, 7.5], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "Trailing bevel",
+			"from": [7.26709, 8, 11.1239],
+			"to": [8.73292, 8.1, 16.01],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [8, 8, 13.56695]},
+			"faces": {
+				"up": {"uv": [0.5, 8, 15.5, 12.5], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [15.5, 8, 0.5, 12.5], "rotation": 90, "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-113.43497, -5.45526, 101.81794],
+			"translation": [0, 2, 1],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-113.43497, 5.45526, -101.81794],
+			"translation": [0, 2, 1],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"firstperson_righthand": {
+			"rotation": [-104.31242, -12.40764, 122.99248],
+			"translation": [0.5, 1.5, 0.5],
+			"scale": [0.67, 0.67, 0.67]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-104.31242, 12.40764, -122.99248],
+			"translation": [-0.5, 1.5, 0.5],
+			"scale": [0.67, 0.67, 0.67]
+		},
+		"ground": {
+			"rotation": [-86.88324, 25.72835, -171.11285],
+			"translation": [0, 2.75, 0],
+			"scale": [0.42, 0.42, 0.42]
+		},
+		"gui": {
+			"rotation": [-58.74435, 39.22282, 151.08215]
+		},
+		"head": {
+			"rotation": [-90, 20, -180],
+			"translation": [0, 13, 0],
+			"scale": [0.6, 0.6, 0.6]
+		},
+		"fixed": {
+			"scale": [0.72, 0.72, 0.72]
+		}
+	},
+	"groups": [
+		{
+			"name": "Spine",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2, 3, 4]
+		},
+		{
+			"name": "Facets",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [5, 6, 7]
+		}
+	]
+}

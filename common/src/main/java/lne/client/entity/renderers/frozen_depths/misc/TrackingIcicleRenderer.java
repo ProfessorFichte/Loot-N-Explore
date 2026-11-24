@@ -10,8 +10,10 @@ import net.minecraft.util.math.RotationAxis;
 import static lne.LneMod.MOD_ID;
 
 public class TrackingIcicleRenderer extends AbstractIcicleModelRenderer<TrackingIcicleEntity> {
-    private static final Identifier MODEL_ID = Identifier.of(MOD_ID, "entity/frozen_depths/icicle_projectile");
+    private static final Identifier SMALL_MODEL_ID = Identifier.of(MOD_ID, "entity/frozen_depths/icicle_small");
+    private static final Identifier LARGE_MODEL_ID = Identifier.of(MOD_ID, "entity/frozen_depths/icicle_large");
     private static final float MODEL_YAW_OFFSET = 180.0F;
+    private static final float MODEL_SCALE = 1.5F;
 
     public TrackingIcicleRenderer(EntityRendererFactory.Context context) {
         super(context);
@@ -23,8 +25,8 @@ public class TrackingIcicleRenderer extends AbstractIcicleModelRenderer<Tracking
     }
 
     @Override
-    protected Identifier getModelId() {
-        return MODEL_ID;
+    protected Identifier getModelId(TrackingIcicleEntity entity) {
+        return (entity.getUuid().getLeastSignificantBits() & 1L) == 0L ? SMALL_MODEL_ID : LARGE_MODEL_ID;
     }
 
     @Override
@@ -35,7 +37,8 @@ public class TrackingIcicleRenderer extends AbstractIcicleModelRenderer<Tracking
 
     @Override
     protected void applyModelTransform(MatrixStack matrices) {
-        matrices.translate(-0.4375, -0.4375, -0.5);
+        matrices.scale(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
+        matrices.translate(-0.5, -0.5, -0.5);
     }
 
     @Override

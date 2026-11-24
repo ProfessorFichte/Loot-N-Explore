@@ -172,7 +172,8 @@ public class LneClient {
         CustomModelHelper.registerModelIds(List.of(
                 Identifier.of(MOD_ID, "block/frozen_depths/icicle_straight"),
                 Identifier.of(MOD_ID, "block/frozen_depths/ice_wall"),
-                Identifier.of(MOD_ID, "entity/frozen_depths/icicle_projectile")
+                Identifier.of(MOD_ID, "entity/frozen_depths/icicle_small"),
+                Identifier.of(MOD_ID, "entity/frozen_depths/icicle_large")
         ));
     }
 }
