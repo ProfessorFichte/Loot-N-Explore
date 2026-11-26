@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -29,10 +30,18 @@ public class ModSpawnerLootTableProvider extends SimpleFabricLootTableProvider {
 
     @Override
     public void accept(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> exporter) {
-        exporter.accept(LneLootTables.FROZEN_OMINOUS_ITEMS, LootTable.builder().pool(frostballs()).pool(slownessArrows()).pool(freezingClouds()));
+        exporter.accept(LneLootTables.FROZEN_KEY, LootTable.builder().pool(single(CommonItems.FROZEN_KEY.item())));
+        exporter.accept(LneLootTables.FROZEN_OMINOUS_KEY, LootTable.builder().pool(single(CommonItems.MONARCHS_KEY.item())));
+        exporter.accept(LneLootTables.FROZEN_TRAPS_ALL, LootTable.builder().pool(frostballs()).pool(slownessArrows()).pool(freezingClouds()));
         exporter.accept(LneLootTables.FROZEN_TRAPS_FROSTBALLS, LootTable.builder().pool(frostballs()));
         exporter.accept(LneLootTables.FROZEN_TRAPS_FROSTBALLS_ARROWS, LootTable.builder().pool(frostballs()).pool(slownessArrows()));
         exporter.accept(LneLootTables.FROZEN_TRAPS_FREEZING_CLOUDS, LootTable.builder().pool(freezingClouds()));
+    }
+
+    private static LootPool.Builder single(Item item) {
+        return LootPool.builder()
+                .rolls(ConstantLootNumberProvider.create(1))
+                .with(ItemEntry.builder(item));
     }
 
     private static LootPool.Builder frostballs() {

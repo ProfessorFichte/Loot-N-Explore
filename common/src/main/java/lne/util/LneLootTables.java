@@ -10,8 +10,12 @@ import net.minecraft.util.Identifier;
 import static lne.LneMod.MOD_ID;
 
 public class LneLootTables {
-    public static final RegistryKey<LootTable> FROZEN_OMINOUS_ITEMS =
-            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "spawners/frozen/ominous/items_to_drop"));
+    public static final RegistryKey<LootTable> FROZEN_KEY =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "spawners/frozen_depths/key"));
+    public static final RegistryKey<LootTable> FROZEN_OMINOUS_KEY =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "spawners/frozen_depths/ominous/key"));
+    public static final RegistryKey<LootTable> FROZEN_TRAPS_ALL =
+            RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "spawners/frozen_depths/traps/all"));
     public static final RegistryKey<LootTable> FROZEN_TRAPS_FROSTBALLS =
             RegistryKey.of(RegistryKeys.LOOT_TABLE, Identifier.of(MOD_ID, "spawners/frozen_depths/traps/frostballs"));
     public static final RegistryKey<LootTable> FROZEN_TRAPS_FROSTBALLS_ARROWS =
