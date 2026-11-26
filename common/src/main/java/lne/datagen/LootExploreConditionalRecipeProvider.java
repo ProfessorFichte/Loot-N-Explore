@@ -62,6 +62,11 @@ public class LootExploreConditionalRecipeProvider implements DataProvider {
         unlessModLoaded("generic/elder_guardian_mace", guardianTemplate, Items.MACE, guardianEye, getItem("loot_n_explore:elder_guardian_mace"), "lne_paladins");
         unlessModLoaded("generic/wither_mace", witherTemplate, Items.MACE, witherSpine, getItem("loot_n_explore:wither_mace"), "lne_paladins");
         unlessModLoaded("frozen_depths/glacial_mace", frostTemplate, Items.MACE, frozenSoul, getItem("loot_n_explore:glacial_mace"), "lne_paladins");
+
+        unlessModLoaded("generic/ender_dragon_shield", dragonTemplate, Items.SHIELD, dragonScales, getItem("loot_n_explore:ender_dragon_shield"), "lne_paladins");
+        unlessModLoaded("generic/elder_guardian_shield", guardianTemplate, Items.SHIELD, guardianEye, getItem("loot_n_explore:elder_guardian_shield"), "lne_paladins");
+        unlessModLoaded("generic/wither_shield", witherTemplate, Items.SHIELD, witherSpine, getItem("loot_n_explore:wither_shield"), "lne_paladins");
+        unlessModLoaded("frozen_depths/glacial_shield", frostTemplate, Items.SHIELD, frozenSoul, getItem("loot_n_explore:glacial_shield"), "lne_paladins");
     }
 
     private void unlessModLoaded(String recipeName, Item template, Item base, Item addition, Item result, String excludedMod) {
