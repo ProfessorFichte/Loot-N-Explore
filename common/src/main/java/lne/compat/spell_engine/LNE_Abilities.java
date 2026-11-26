@@ -2,6 +2,7 @@ package lne.compat.spell_engine;
 
 import net.spell_engine.internals.target.SpellTarget;
 import net.spell_power.api.SpellSchool;
+import com.mrpg_lib.sounds.MRPGLibSounds;
 import com.mrpg_lib.compat.spell_power.DynamicSpellSchool;
 import com.mrpg_lib.compat.spell_power.MoreSpellSchools;
 import net.minecraft.entity.EquipmentSlot;
@@ -360,7 +361,7 @@ public class LNE_Abilities {
                 cloud.placement.location_offset_z = direction[1] * axisStep * step;
                 cloud.spawn = new Spell.Delivery.Cloud.Spawn();
                 if (ringSound) {
-                    cloud.spawn.sound = Sound.withVolume(Identifier.of("mrpg_lib", "glacial_spikes"), 0.6F);
+                    cloud.spawn.sound = Sound.withVolume(MRPGLibSounds.GLACIAL_SPIKES.id(), 0.6F);
                 }
                 cloud.spawn.visuals = Fx.Visuals.of(
                         ParticleGroupBuilder.of(SpellEngineParticles.frost_shard)
@@ -423,7 +424,7 @@ public class LNE_Abilities {
                 cloud.placement.location_offset_z = direction[1] * axis;
                 cloud.spawn = new Spell.Delivery.Cloud.Spawn();
                 if (direction == directions[0]) {
-                    cloud.spawn.sound = Sound.withVolume(Identifier.of("mrpg_lib", "glacial_spikes"), 0.4F);
+                    cloud.spawn.sound = Sound.withVolume(MRPGLibSounds.GLACIAL_SPIKES.id(), 0.4F);
                 }
                 cloud.spawn.visuals = Fx.Visuals.of(
                         ParticleGroupBuilder.of(SpellEngineParticles.frost_shard)

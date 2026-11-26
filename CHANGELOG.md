@@ -3,6 +3,23 @@
 All notable changes to Loot & Explore are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.1+1.21.1]
+
+### Added
+
+- Smithing recipes for the four themed Shields (shield + upgrade template + boss material), turned off when LNE Paladins is installed like the Maces
+
+### Changed
+
+- Frozen trial spawner loot tables moved to `spawners/frozen_depths/` like all other Frozen Depths tables: `spawners/frozen_depths/key`, `spawners/frozen_depths/ominous/key` and `spawners/frozen_depths/traps/all`
+
+### Fixed
+
+- Frozen Trial Spawners drop Frozen Keys and Monarch's Keys again, so the Frozen Vaults can be opened
+- The Glacial Tomb uses its own loot: its ominous vault rolls `glacial_tomb/reward_ominous` and its hidden chests `glacial_tomb/hidden` instead of the Frost Tower and Castle tables
+- The chest in the desert village inn is no longer empty
+- Fixed compatibility issue with Serene Seasons: the Eternal Frostsiege snow no longer stops Serene Seasons from changing the weather rendering (GH Issue #17)
+
 ## [1.1.0+1.21.1]
 
 The 1.21.1 rewrite: NeoForge support, a much bigger Frozen Depths, the Eternal Frostsiege raid and a complete relic overhaul.

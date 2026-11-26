@@ -18,7 +18,7 @@ public class ParticleThemes {
             () -> ParticleTypes.TRIAL_SPAWNER_DETECTION_OMINOUS,
             null,
             ParticleThemes::frozenSnowflake,
-            LneLootTables.FROZEN_OMINOUS_ITEMS,
+            LneLootTables.FROZEN_TRAPS_ALL,
             () -> LneMod.frozenDepthsConfig != null && LneMod.frozenDepthsConfig.value.frozen_trial_spawner_ominous_projectiles
     );
 
